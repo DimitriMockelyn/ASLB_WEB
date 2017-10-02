@@ -1,0 +1,63 @@
+@import "variables";
+
+[data-mode='edit'] {
+    [data-focus='panel'] {
+        border: $border-size solid $primary-color-light;
+        [data-focus='panel-title'] {
+            margin: calc((#{$panel-padding} * 2) - #{$border-size}) 0;
+            padding: 0;
+            h1,h2,h3,h4 {
+                border-left-width: $border-size!important;
+            }
+            .actions {
+                padding-right: calc(#{$panel-padding} - #{$border-size});
+            }
+        }
+        [data-focus='panel-content'] {
+            padding: 0 calc(#{$panel-padding} - #{$border-size}) $panel-padding calc(#{$panel-padding} - #{$border-size});
+        }
+    }
+}
+[data-focus='panel'] {
+    width: calc(100% - (2 * #{$content-margin}))!important;
+    background-color: $white;
+    border: 0;
+    margin-left: $content-margin;
+    margin-right: $content-margin;
+    margin-bottom: $panel-separation;
+    [data-focus='panel-title'] {
+        border: none;
+        margin: calc(#{$panel-padding} * 2) 0;
+        padding: 0;
+        display: flex;
+        justify-content: space-between;
+        h1,h2,h3,h4 {
+            border-left: calc(#{$border-size} * 2) solid $primary-color!important;
+            padding-left: $panel-padding;
+            color: $color-text;
+            @include text-title();
+        }
+        .actions {
+            padding-right: $panel-padding;
+            [data-focus="button-action"] {
+                @include button-detail();
+            }
+        }
+    }
+    [data-focus="panel-content"] {
+        position: relative;
+        padding: $panel-padding;
+        padding-top: 0;
+    }
+    [data-focus="panel-actions"] {
+        display: flex;
+        justify-content: space-around;
+        margin-top: calc(2 * #{$panel-padding});
+        button {
+            @include button-detail();
+        }
+    }
+    .actions {
+        display: block;
+    }
+}

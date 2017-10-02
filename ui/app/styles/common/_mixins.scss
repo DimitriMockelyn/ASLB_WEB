@@ -1,0 +1,206 @@
+// Texts
+
+$color-text: $deep-grey;
+$color-white-text: $light-grey;
+$default-text-size: 15px;
+$title-text-size: 20px;
+
+@mixin text-app-family {
+    font-size: 17px!important;
+    line-height: 20px!important;
+    font-family: "AppFamily";
+}
+
+@mixin text-app-name {
+    font-size: 17px!important;
+    line-height: 20px!important;
+    font-family: "AppName";
+}
+
+@mixin text-title {
+    font-size: $title-text-size!important;
+    line-height: 23px!important;
+    font-family: "Title";
+}
+
+@mixin text-highlight {
+    font-size: $default-text-size!important;
+    line-height: 18px!important;
+    font-family: "Highlight";
+}
+
+@mixin text-text {
+    font-size: $default-text-size!important;
+    line-height: 18px!important;
+    font-family: "Text";
+}
+
+@mixin text-button {
+    font-size: 14px!important;
+    line-height: 1!important;
+    font-family: "Button";
+}
+
+@mixin text-detail {
+    font-size: 13px!important;
+    line-height: 16px!important;
+    font-family: "TextDetail";
+}
+
+// Mixins pour les boutons
+
+@mixin button-general {
+    @include text-button();
+    padding: $button-top-bottom $button-left-right;
+    height: calc((#{$button-top-bottom} * 2) + #{$button-inner-height});
+    border: 0;
+    background-color: transparent;
+    color: $dark-grey;
+    border-radius: 2px;
+    &:hover, &:focus {
+        background-color: $grey;
+    }
+    &:active {
+        background-color: $middle-grey;
+    }
+    &[disabled] {
+        color: $middle-grey;
+        background-color: transparent;
+    }
+    i {
+        margin: 0;
+        margin-right: $button-icon-text-separation;
+        margin-bottom: 2px;// FIXME
+        padding: 0;
+        @include text-button();
+        font-family: "Material Icons";
+    }
+    span {
+        margin: 0;
+        padding: 0;
+    }
+}
+
+@mixin button-connexion {
+    @include button-general();
+    color: $button-connexion-color;
+    &:hover, &:focus {
+        color: $white;
+        background-color: $button-connexion-color;
+    }
+    &:active {
+        color: $white;
+        background-color: $button-connexion-dark;
+    }
+}
+
+@mixin button-account {
+    @include button-general();
+    color: $button-account-color;
+    &:hover, &:focus {
+        color: $white;
+        background-color: $button-account-color;
+    }
+    &:active {
+        color: $white;
+        background-color: $button-account-dark;
+    }
+}
+
+@mixin button-colored {
+    @include button-general();
+    background-color: $primary-color;
+    color: $white;
+    &:hover, &:focus {
+        background-color: $primary-color;
+        color: $white;
+    }
+    &:active {
+        background-color: $primary-color-dark;
+        color: $white;
+    }
+    &[disabled] {
+        background-color: $primary-color;
+        color: $white;
+        opacity: 0.5;
+    }
+}
+
+@mixin button-detail {
+    @include button-general();
+    color: $primary-color;
+    &:hover, &:focus {
+        color: $white;
+        background-color: $primary-color;
+    }
+    &:active {
+        color: $white;
+        background-color: $primary-color-dark;
+    }
+}
+
+@mixin button-detail-colored {
+    @include button-general();
+    background-color: $primary-color-darker;
+    color: $white;
+    &:hover, &:focus {
+        background-color: $white;
+        color: $primary-color;
+    }
+    &:active {
+        background-color: $white;
+        color: $primary-color-dark;
+    }
+    &[disabled] {
+        background-color: $primary-color-darker;
+        color: $white;
+        opacity: 0.5;
+    }
+}
+
+// Fields
+
+@mixin field-element {
+    margin: $field-margin;
+    width: $field-width;
+}
+
+@mixin field-element-large {
+    margin: $field-margin;
+    width: $field-width-large;
+}
+
+@mixin field {
+    [data-focus="field-label-container"] {
+        @include field-element();
+        text-align: right;
+    }
+    [data-focus="field-value-container"] {
+        @include field-element-large();
+        text-align: left;
+    }
+}
+
+@mixin field-reverse {
+    [data-focus="field-label-container"] {
+        @include field-element-large();
+        text-align: right;
+    }
+    [data-focus="field-value-container"] {
+        @include field-element();
+        text-align: left;
+    }
+}
+
+@mixin field-center {
+    [data-focus="field-label-container"] {
+        width: calc(50% - (2 * #{$field-margin}));
+        margin: $field-margin;
+        text-align: right;
+    }
+    [data-focus="field-value-container"] {
+        width: calc(50% - (2 * #{$field-margin}));
+        margin: $field-margin;
+        text-align: left;
+    }
+}

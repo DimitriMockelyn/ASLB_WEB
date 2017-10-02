@@ -1,0 +1,26 @@
+@import "variables";
+
+[data-focus="snackbar-message-center"] {
+    transform: translate(-50%, 100px);
+    &.mdl-snackbar--active {
+        transform: translate(-50%, 0);
+    }
+    .mdl-snackbar__text {
+        padding: 20px;
+    }
+    .mdl-snackbar__close {
+        padding: 20px;
+        i {
+            font-size: $title-text-size;
+        }
+    }
+}
+
+
+[aria-hidden="true"] {
+    visibility: visible;
+}
+
+[aria-hidden="false"] {
+    transform: translate(-50%,100%);
+}

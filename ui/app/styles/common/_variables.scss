@@ -1,0 +1,95 @@
+///////////////////////////////////////////////////////////
+/// variables
+/// //////////////////////////////////////////////////////
+
+// Couleurs communes
+$dark-grey:              #6D6D6D;
+$middle-grey:            #BDBDBD;
+$grey:                   #E0E0E0;
+$soft-grey:              #EEEEEE;
+$light-grey:             #FAFAFA;
+$white:                  #FFFFFF;
+$deep-grey:              #323232;
+$button-account-color:   #3F51B5;
+$button-connexion-color: #F44336;
+
+// Couleurs ECRCSA
+$primary-color-darker:   #17505c;
+
+$primary-color-dark: #18727c;
+$primary-color:          #209aa7;
+$primary-color-light:    #27c2d3;
+$primary-color-lighter:  #4ed0df;
+$primary-color-lightest: #79dce6;
+
+// Lengths
+$content-margin: 20px;
+$border-size: 3px;
+
+$mdl-icon-size: 32px;
+
+$menu-left-width-full: 250px;
+$menu-left-width: 60px;
+$menu-left-height: 100vh;
+$menu-item-height: 40px;
+
+$scrollspy-item-width: $menu-left-width-full;
+$scrollspy-item-padding-left-right: $menu-left-width / 2;
+$scrollspy-item-height: $menu-item-height;
+
+$search-facet-width: $scrollspy-item-width;
+$search-facet-width-hidden: $scrollspy-item-padding-left-right;
+$search-facet-item-height: $scrollspy-item-height;
+$search-facet-padding: 10px;
+$search-margin: 8px;
+$search-action-bar-height: $mdl-icon-size + 2 * $search-margin;
+$search-action-bar-action-width: 120px;
+
+$panel-title-height: $menu-item-height;
+$panel-separation: $content-margin;
+$panel-padding: $content-margin / 2;
+
+$logo-size: 40px;
+
+$button-left-right: 20px;
+$button-top-bottom: 14px;
+$button-inner-height: 14px;
+$button-icon-text-separation: 10px;
+
+$field-inner-height: 14px;
+$field-padding: 10px;
+$field-text-height: 25px;
+$field-file-border: 2px;
+$field-file-height: 200px;
+$field-margin: 8px;
+$field-width: calc(33.33333% - (2 * #{$field-margin}));
+$field-width-large: calc(66.66667% - (2 * #{$field-margin}));
+
+$search-bar-scope-width: 150px;
+
+$box-max-width: 200px;
+
+$box-shadow-cartridge: 0px 13px 10px -10px rgba(0, 0, 0, 0.2);
+$box-shadow-popin: 0 0 5px 5px rgba(0, 0, 0, 0.33), 0 1px 10px 0 rgba(0, 0, 0, 0.25), 0 2px 4px -1px rgba(0, 0, 0, 0.10);
+$box-shadow-scrollspy: 0 4px 5px 0 rgba(0, 0, 0, 0.14), 0 1px 10px 0 rgba(0, 0, 0, 0.12), 0 2px 4px -1px rgba(0, 0, 0, 0.2);
+$box-shadow-search: 0 4px 5px 0 rgba(0, 0, 0, 0.14), 0 1px 10px 0 rgba(0, 0, 0, 0.12), 0 2px 4px -1px rgba(0, 0, 0, 0.2);
+
+$table-padding: 8px;
+
+$header-height: 75px;
+$header-action-size: $mdl-icon-size;
+$header-action-bottom: 5px;
+$header-dropdown-padding: $field-padding;
+$header-app-title-padding: 10px;
+$header-app-name-width: 267px;
+$header-app-name-margin: 20px;
+$header-focus-profile-width: 305px;
+$header-limit-deploy: 60px;
+
+$cartridge-padding: 15px;
+
+$footer-height: 50px;
+$footer-padding: 10px;
+$footer-logo-width: 150px;
+
+@import "mixins";

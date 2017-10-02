@@ -1,0 +1,103 @@
+@import "variables";
+
+[data-focus="popin-without-overlay"] {
+    & > [data-focus="popin"][data-type='from-right'] {
+        & > [data-focus="popin-overlay"] {
+            width : 0px !important;
+            z-index : 4000 !important;
+            & > [data-focus="popin-window"] {
+                min-width: calc(50vw - 110px);
+            }
+        }
+    }
+}
+
+[data-focus="popin"] {
+    & > [data-focus="popin-overlay"] {
+        z-index: 3001!important;
+    }
+    & > [data-focus="popin-overlay"] {
+        [data-focus="popin-window"] {
+            box-shadow: $box-shadow-popin;
+            [data-focus="panel"] {
+                border: none;
+                box-shadow: none;
+                [data-focus="panel-title"] {
+                    border: none!important;
+                }
+            }
+        }
+    }
+
+
+}
+[data-focus='popin'][data-type='full'] > div > [data-focus='popin-window'] {
+    min-width: 24vw !important;
+    min-height:0 !important;
+    max-width: 34vw !important;
+    display: flex !important;
+    justify-content: center;
+    padding: 25px 25px !important;
+    margin: 0 !important;
+    & > div {
+        width: 100%;
+    }
+}
+
+[data-focus='popin'][data-type='full'] > [data-focus='popin-overlay'] {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+[data-focus='confirmation-popin'] [data-focus='button-stack'] {
+    position: relative;
+}
+
+[data-focus="popin-window"] div[data-focus="field"][data-mode="edit"] [data-focus="field-value-container"] select {
+    max-width: 85%;
+    overflow:hidden;
+    white-space:nowrap;
+    text-overflow:ellipsis;
+    & > option {
+        max-width: 100%;
+        width:100%;
+        text-overflow:ellipsis;
+        overflow:hidden;
+    }
+}
+
+[data-animation].fadeIn {
+    animation-name: none !important;
+    -webkit-animation-name: none !important;
+}
+
+[data-focus="color-error"] {
+    color: $primary-color;
+    font-size: 64px !important;
+    margin-right: 15px;
+}
+[data-focus="display-row"] {
+    display:flex;
+    flex-direction: row;
+}
+
+[data-focus="scrolling-popin"] [data-focus='popin'][data-type='full'][data-size='medium'] > div > [data-focus='popin-window'] {
+    overflow-y: scroll;
+    max-height: 88vh;
+    max-width: 66vw !important;
+    div {
+        display: block;
+        align-items: stretch;
+    }
+}
+
+[data-focus="mention-legales-text"] {
+    display: flex;
+    flex-direction: column;
+}
+
+[data-focus="message-container-error"] {
+
+    margin-left: 24px;
+}

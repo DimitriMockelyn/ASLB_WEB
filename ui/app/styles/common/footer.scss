@@ -1,0 +1,39 @@
+@import "variables";
+
+footer {
+    position: fixed;
+    height: $footer-height!important;
+    background-color: $white!important;
+    border-top: 1px solid $soft-grey!important;
+    margin: 0!important;
+    padding: $footer-padding!important;
+    width: calc(100% - (2 * #{$footer-padding}))!important;
+    [data-focus="footer"] {
+        height: $footer-height;
+        margin: 0!important;
+        padding: 0!important;
+        bottom: auto!important;
+        width: calc(100% - (2 * #{$footer-padding}))!important;
+        text-align: right!important;
+        [data-focus="logo"] {
+            background-image: url('../../assets/img/logo_rf.png');
+            background-size: auto $footer-height;
+            background-repeat: no-repeat;
+            height: $footer-height;
+            width: $footer-logo-width;
+            padding: 0;
+            display: inline-block;
+            margin-left: 20px;
+        }
+    }
+}
+
+
+div[data-focus="footer"] {
+    display:flex;
+    flex-direction: row;
+    & > div {
+        display: flex;
+        align-items: center;
+    }
+}
