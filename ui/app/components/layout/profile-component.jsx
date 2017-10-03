@@ -18,9 +18,12 @@ export default React.createClass({
         })
     },
     togglePopin() {
+
+        console.log('OPEN POPIN');
         this.setState({openPopin: true});
     },
     closePopin() {
+        console.log('CLOSE POPIN');
         this.setState({openPopin: false});
     },
     getInitialState() {
@@ -33,26 +36,25 @@ export default React.createClass({
     /** @inheritDoc */
     renderContent() {
         return (
-        <div data-scope='profile-top' onClick={this.togglePopin}>
-            <div data-scope='user-info' >
+        <div data-scope='profile-top' >
+            <div data-scope='user-info' onClick={this.togglePopin}>
             {userHelper.getLogin() && 
                 <label>{userHelper.getLogin().prenom + ' ' + userHelper.getLogin().nom}</label>}
             {!userHelper.getLogin() && 
-                <label>{i18n.t('user.connect')}</label>}
+                <label>{i18n.t('user.connect')}</label> }
+                <i className='material-icons'>person</i>
             </div>
-            {this.state.openPopin && <Popin type='from-right' ref='popin-user' open='true' onPopinClose={this.closePopin}>
-            {!userHelper.getLogin() && 
-                <div>
-                    <ConnectOrCreate hasLoad={false}/>
-                    
-                </div>
-            }
-            {userHelper.getLogin() && 
-                <div onClick={this.disconnect}>
-                    <label>{i18n.t('user.disconnect')}</label>
-                    
-                </div>
-            }
+            {this.state.openPopin && <Popin type='from-right' open={true} onPopinClose={this.closePopin}>
+                {!userHelper.getLogin() && 
+                    <div>
+                        <ConnectOrCreate hasLoad={false} />
+                        
+                    </div>
+                }
+                {userHelper.getLogin() && 
+                        <Button label='user.disconnect' type='button' handleOnClick={this.disconnect}/>
+                        
+                }
             </Popin>}
         </div>
         );

@@ -1,50 +1,61 @@
 // Texts
-
 $color-text: $deep-grey;
 $color-white-text: $light-grey;
 $default-text-size: 15px;
 $title-text-size: 20px;
+@import url('https://fonts.googleapis.com/css?family=Roboto+Slab|Titillium+Web:300,400,700');
 
 @mixin text-app-family {
     font-size: 17px!important;
     line-height: 20px!important;
-    font-family: "AppFamily";
+    font-family: 'Roboto Slab', serif;
+    font-weight: bold;
+    color: $deep-grey;
 }
 
 @mixin text-app-name {
     font-size: 17px!important;
     line-height: 20px!important;
-    font-family: "AppName";
+    font-family: 'Roboto Slab', serif;
+    color: $deep-grey;
 }
 
 @mixin text-title {
     font-size: $title-text-size!important;
     line-height: 23px!important;
-    font-family: "Title";
+    font-family: 'Roboto Slab', serif;
+    font-weight: bold;
+    color: $deep-grey;
 }
 
 @mixin text-highlight {
     font-size: $default-text-size!important;
     line-height: 18px!important;
-    font-family: "Highlight";
+    font-family: 'Roboto Slab', serif;
+    font-weight: bold;
+    color: $deep-grey;
 }
 
 @mixin text-text {
     font-size: $default-text-size!important;
     line-height: 18px!important;
-    font-family: "Text";
+    font-family: 'Roboto Slab', serif;
+    color: $deep-grey;
 }
 
 @mixin text-button {
     font-size: 14px!important;
     line-height: 1!important;
-    font-family: "Button";
+    font-family: 'Roboto Slab', serif;
+    color: $deep-grey;
 }
 
 @mixin text-detail {
     font-size: 13px!important;
     line-height: 16px!important;
-    font-family: "TextDetail";
+    font-family: 'Roboto Slab', serif;
+    font-style: italic;
+    color: $deep-grey;
 }
 
 // Mixins pour les boutons

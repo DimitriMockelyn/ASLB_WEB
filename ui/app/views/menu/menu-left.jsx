@@ -7,8 +7,8 @@ import {getConfig} from '../../config';
 
 function computeMenuItem() {
     return [
-        { icon: 'home', route: '' },
-        { icon: 'date_range', route: 'agenda'}
+        { icon: 'home', name: 'Accueil', route: '' },
+        { icon: 'date_range', name: 'Agenda', route: 'agenda'}
     ];
 }
 

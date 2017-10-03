@@ -30,6 +30,15 @@ export default React.createClass({
             userServices.create(this._getEntity()).then(() => {window.location.reload()}, err => { console.log(err); throw err;});
         }
     },
+    customValidation() {
+        if (!this.state.connect) {
+            if (this._getEntity().password !== this._getEntity().passwordAgain) {
+                this.refs['person.password'].setError(i18n.t('person.badPasswords'));
+                this.refs['person.passwordAgain'].setError(i18n.t('person.badPasswords'));
+            }
+        }
+        return true;
+    },
     /** @inheritDoc */
     renderContent() {
         return (

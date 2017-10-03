@@ -109,7 +109,16 @@ export default {
         connect : 'Se connecter',
         create: 'Créer un compte',
         connexion: 'Connexion',
-        creation: 'Créer son compte'
+        creation: 'Créer son compte',
+        disconnect: 'Se déconnecter'
+    },
+    person: {
+        email: 'Adresse e-mail',
+        password: 'Mot de passe',
+        passwordAgain: 'Confirmez le mot de passe',
+        prenom: 'Prénom',
+        nom: 'Nom',
+        badPasswords:'Les mots de passes sont différents'
     }
     
 };

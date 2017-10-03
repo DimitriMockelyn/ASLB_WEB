@@ -14,13 +14,13 @@ $button-account-color:   #3F51B5;
 $button-connexion-color: #F44336;
 
 // Couleurs ECRCSA
-$primary-color-darker:   #17505c;
+$primary-color-darker:   hsla(231, 67%, 36%, 1);
 
-$primary-color-dark: #18727c;
-$primary-color:          #209aa7;
-$primary-color-light:    #27c2d3;
-$primary-color-lighter:  #4ed0df;
-$primary-color-lightest: #79dce6;
+$primary-color-dark: hsla(231, 67%, 46%, 1);
+$primary-color:          hsla(231, 67%, 56%, 1);
+$primary-color-light:    hsla(231, 67%, 66%, 1);
+$primary-color-lighter:  hsla(231, 67%, 76%, 1);
+$primary-color-lightest: hsla(231, 67%, 86%, 1);
 
 // Lengths
 $content-margin: 20px;
