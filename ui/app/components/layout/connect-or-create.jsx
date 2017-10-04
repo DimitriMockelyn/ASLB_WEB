@@ -6,6 +6,8 @@ import moment from 'moment';
 import userHelper from 'focus-core/user';
 import userServices from '../../services/user';
 import {component as Popin} from 'focus-components/application/popin';
+import message from 'focus-core/message';
+
 export default React.createClass({
     displayName: 'HomeView',
     mixins: [formMixin],
@@ -27,7 +29,7 @@ export default React.createClass({
     },
     create() {
         if (this._validate()) {
-            userServices.create(this._getEntity()).then(() => {window.location.reload()}, err => { console.log(err); throw err;});
+            userServices.create(this._getEntity()).then(() => {message.addSuccessMessage(i18n.t('person.createdSuccess'))}, err => { console.log(err); throw err;});
         }
     },
     customValidation() {

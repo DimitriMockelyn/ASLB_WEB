@@ -13,9 +13,7 @@ exports.register = function(req, res) {
   newUser.hash_password = bcrypt.hashSync(req.body.password, 10);
   newUser.save(function(err, user) {
     if (err) {
-      return res.status(400).send({
-        message: err
-      });
+      return res.status(401).json({ message: 'Le compte n\'a pas pu être crée ou existe déjà' });
     } else {
       user.hash_password = undefined;
       return res.json(user);

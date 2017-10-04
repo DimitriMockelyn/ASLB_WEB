@@ -118,7 +118,8 @@ export default {
         passwordAgain: 'Confirmez le mot de passe',
         prenom: 'Prénom',
         nom: 'Nom',
-        badPasswords:'Les mots de passes sont différents'
+        badPasswords:'Les mots de passes sont différents',
+        createdSuccess: 'Le compte à été crée, vous pouvez désormais vous connecter'
     }
     
 };

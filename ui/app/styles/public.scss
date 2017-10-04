@@ -11,6 +11,11 @@ button.mdl-button:not(.mdl-button--icon) {
   color: $primary-color;
 }
 
+.rbc-btn-group button {
+  @include button-general();
+  color: $primary-color;
+}
+
 [data-focus='menu-left'] {
   z-index: 1000;
   background-color: $primary-color;
@@ -149,4 +154,23 @@ button.mdl-button:not(.mdl-button--icon) {
     position: inherit;
     margin-left: 25px;
   }
+}
+
+.rbc-time-header {
+  .rbc-row:nth-of-type(2) {
+    display: none;
+  }
+}
+
+[data-focus="popin"] [data-focus='panel'].mdl-card {
+  box-shadow: none;
+}
+
+[data-focus='popin'][data-type='full'] > [data-focus='popin-overlay'] > [data-focus='popin-window'] {
+  top: 27%;
+  margin: 0px;
+}
+
+.rbc-toolbar-label {
+  display: none;
 }

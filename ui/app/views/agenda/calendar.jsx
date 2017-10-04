@@ -85,11 +85,12 @@ export default React.createClass({
                 culture='fr-FR'
                 selectable={true}
                 onSelectSlot={this.createEvent}
+                messages={{next: 'Semaine suivante', today: 'Aujourd\'hui', previous: 'Semaine précédente'}}
                 />
-            {this.state.selectedEvent && <Popin open={true} onPopinClose={this.closePopin}>
+            {this.state.selectedEvent && <Popin open={true} size='small' onPopinClose={this.closePopin}>
                 <EventInfos event={this.state.selectedEvent} onPopinClose={this.closePopin} isEdit={false} hasLoad={false} hasForm={false}/>
             </Popin>}
-            {this.state.creerEvent && <Popin open={true} onPopinClose={this.closeCreerEvent}>
+            {this.state.creerEvent && <Popin open={true} size='small' onPopinClose={this.closeCreerEvent}>
                 <CreateEvent data={this.state.creerEvent} onPopinClose={this.closeCreerEvent} hasLoad={false} hasForm={false}/>
             </Popin>}
         </div>
