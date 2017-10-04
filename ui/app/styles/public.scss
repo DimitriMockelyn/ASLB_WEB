@@ -5,6 +5,7 @@ label {
   @include text-text();
 }
 
+//Fix des couleurs
 button.mdl-button:not(.mdl-button--icon) {
   @include button-general();
   color: $primary-color;
@@ -19,33 +20,35 @@ button.mdl-button:not(.mdl-button--icon) {
   background-color: $primary-color;
 }
 
-  [data-focus='block'] [data-focus='block-title'] h1, [data-focus='block'] [data-focus='block-title'] h2, [data-focus='block'] [data-focus='block-title'] h3, [data-focus='block'] [data-focus='block-title'] h4 {
-    color: $primary-color;
-  }
-
-
-  [data-focus='panel'] [data-focus='panel-title'] h1, [data-focus='panel'] [data-focus='panel-title'] h2, [data-focus='panel'] [data-focus='panel-title'] h3, [data-focus='panel'] [data-focus='panel-title'] h4 {
-    @include text-title();
-    color: $primary-color;
-  }
-
-  .mdl-card__title.mdl-card--border {
-    border-bottom: none;
-  }
-
-    [data-mode="edit"] [data-focus='panel'] {
-      border: 3px solid $primary-color; }
-
-      [data-focus="sticky-menu"] ul li[data-active="true"] {
-        border-color: $primary-color;
-        color: $primary-color;
-        font-size: 18px; }
-
-[data-focus="header-content"] {
-  padding: none;
+[data-focus='block'] [data-focus='block-title'] h1, [data-focus='block'] [data-focus='block-title'] h2, [data-focus='block'] [data-focus='block-title'] h3, [data-focus='block'] [data-focus='block-title'] h4 {
+  color: $primary-color;
 }
 
-[data-focus="header-top-row"] {
+
+[data-focus='panel'] [data-focus='panel-title'] h1, [data-focus='panel'] [data-focus='panel-title'] h2, [data-focus='panel'] [data-focus='panel-title'] h3, [data-focus='panel'] [data-focus='panel-title'] h4 {
+  @include text-title();
+  color: $primary-color;
+}
+
+.mdl-card__title.mdl-card--border {
+  border-bottom: none;
+}
+
+[data-mode="edit"] [data-focus='panel'] {
+  border: 3px solid $primary-color; }
+
+[data-focus="sticky-menu"] ul li[data-active="true"] {
+  border-color: $primary-color;
+  color: $primary-color;
+  font-size: 18px; }
+
+//Fin du fix des couleurs
+
+[data-focus="layout"] [data-focus="header-content"] {
+  padding: 0;
+}
+
+[data-deployed="false"] [data-focus="header-top-row"] {
   margin-left: 60px;
 }
 
@@ -60,6 +63,10 @@ button.mdl-button:not(.mdl-button--icon) {
 
 .rbc-header > a {
   pointer-events: none;
+}
+
+.rbc-calendar {
+  height: 75%;
 }
 
 [data-scope='profile-top'] {
@@ -108,4 +115,38 @@ button.mdl-button:not(.mdl-button--icon) {
 
 .rbc-current-time-indicator::before {
   background-color: $primary-color-light;
+}
+
+
+//Hover du menu
+[data-focus="menu-left"] [data-focus="menu-items"] li {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin: 0;
+  padding: 0px 0px;
+  overflow: hidden;
+  
+  button {
+    margin-left: 14px;
+  }
+  span {
+    display: none;
+  }
+}
+
+[data-focus="menu-left"] [data-focus="menu-items"] li:hover {
+  width: 200px;
+  background-color: $primary-color-dark;
+  background: linear-gradient(to right, $primary-color, $primary-color-darker);
+  transition: width 0.5s ease-out;
+  box-shadow: 0 0 0px 1px rgba(0, 0, 0, 0.33), 0 1px 5px 0 rgba(0, 0, 0, 0.25), 0 2px 4px -1px rgba(0, 0, 0, 0.1);
+  span {
+    @include text-button();
+    color: white;
+    display: block;
+    top: 0px;
+    position: inherit;
+    margin-left: 25px;
+  }
 }
