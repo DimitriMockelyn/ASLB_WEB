@@ -79,13 +79,13 @@ export default React.createClass({
                 events={this.state.events}
                 startAccessor='startDate'
                 endAccessor='endDate'
-                views={[views.WEEK]}
-                view={views.WEEK}
+                views={[views.WEEK, views.DAY]}
+                defaultView={views.WEEK}
                 onSelectEvent={this.onSelectEvent}
                 culture='fr-FR'
                 selectable={true}
                 onSelectSlot={this.createEvent}
-                messages={{next: 'Semaine suivante', today: 'Aujourd\'hui', previous: 'Semaine précédente'}}
+                messages={{next: 'Semaine suivante', today: 'Aujourd\'hui', previous: 'Semaine précédente', week: 'Vue semaine', day: 'Vue journée'}}
                 />
             {this.state.selectedEvent && <Popin open={true} size='small' onPopinClose={this.closePopin}>
                 <EventInfos event={this.state.selectedEvent} onPopinClose={this.closePopin} isEdit={false} hasLoad={false} hasForm={false}/>
