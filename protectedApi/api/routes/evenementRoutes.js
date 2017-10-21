@@ -7,7 +7,7 @@ module.exports = function(app) {
 	// todoList Routes
 	app.route('/evenements')
 		.get(todoList.list_all_evenements)
-		.post(userHandlers.loginRequired, userHandlers.isMembreActif, todoList.create_a_evenement);
+		.post(userHandlers.loginRequired, userHandlers.isMembreActif, userHandlers.canMembreCreerCours, todoList.create_a_evenement);
 
 	app.route('/evenements/:evenementId')
 		.get(todoList.read_a_evenement)

@@ -86,6 +86,15 @@ exports.create_a_evenement = function(req, res) {
     if (parseInt(new_evenement.limite,10) <= 0) {
       new_evenement.limite === null;
     }
+    //Vérification de la plage horaire
+    let date_debut = new Date(new_evenement.date_debut.getTime());
+    let heure_debut = date_debut.getHours();
+    let date_fin = new Date(date_debut.getTime() + new_evenement.duree*60000);
+    let heure_fin = date_fin.getHours();
+    if (heure_debut < 7 || heure_fin > 19) {
+      return res.status(401).json({ message: 'Les activités sportives doivent se dérouler entre 7h et 20h' });
+    }
+    //Enregistrement en base
     new_evenement.save(function(err, evenement) {
       if (err)
         res.send(err);

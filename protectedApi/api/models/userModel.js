@@ -40,6 +40,10 @@ var User = new Schema({
   isAdmin: {
     type: Boolean,
     default: false
+  },
+  canCreate: {
+    type: Boolean,
+    default: false
   }
 });
 

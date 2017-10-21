@@ -10,6 +10,8 @@ var mongoose = require('mongoose'),
 
 exports.register = function(req, res) {
   var newUser = new User(req.body);
+  newUser.nom = newUser.nom.toUpperCase();
+  newUser.prenom = newUser.prenom.toLowerCase().replace(/\b\w/g, l => l.toUpperCase());
   newUser.hash_password = bcrypt.hashSync(req.body.password, 10);
   newUser.save(function(err, user) {
     if (err) {
@@ -81,5 +83,24 @@ exports.isEvenementOwner = function(req, res, next) {
     }).populate('createur');
   } else {
     return res.status(401).json({ message: 'Vous n\'êtes pas le propriétaire de cet évenement' });
+  }
+};
+
+exports.canMembreCreerCours = function(req, res, next) {
+  if (req.user) {
+    User.findOne({
+      email: req.user.email
+    }, function(err, user) {
+      if (err) {
+        throw err;
+      }
+      if (user.canCreate || user.email === 'dimitri.mockelyn@gmail.com') { //TODO remove second condition
+        return next();
+      } else {
+        return res.status(401).json({ message: 'Vous ne pouvez pas créer de cours' });
+      }
+    })
+  } else {
+    return res.status(401).json({ message: 'Il faut être connecté pour réaliser cette action' });
   }
 };
