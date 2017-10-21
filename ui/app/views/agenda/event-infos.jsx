@@ -69,9 +69,18 @@ export default React.createClass({
                 {this.fieldFor('duree')}
                 {this.fieldFor('limite')}
                 {this.fieldFor('description', {value: this.state.description})}
+                {this.state.participants && this.state.participants.length > 0 && <div data-focus='participants-list'>
+                    <label>{i18n.t('event.participantsList')}</label>
+                    <div data-focus='list'>
+                        {this.state.participants && this.state.participants.length > 0 && this.state.participants.map(value => {
+                            return <div>{value.nom + ' ' + value.prenom}</div>
+                        })}
+                    </div>
+                </div>}
                 {userHelper.getLogin() && !this.isInEvent(userHelper.getLogin()._id) && <div>
                     <Button label='event.addSelf' type='button' handleOnClick={this.addSelf} />
                 </div>}
+
                 {userHelper.getLogin() && this.isInEvent(userHelper.getLogin()._id) && <div>
                     <Button label='event.removeSelf' type='button' handleOnClick={this.removeSelf} />
                 </div>}

@@ -221,3 +221,13 @@ button.mdl-button:not(.mdl-button--icon) {
   z-index: 3 !important;
   height: auto !important;
 }
+
+[data-focus='participants-list'] {
+  margin-top: 10px;
+  margin-bottom: 10px;
+  [data-focus='list'] {
+    margin-top: 10px;
+    max-height: 50px;
+    overflow: auto;
+  }
+}

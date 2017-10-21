@@ -103,7 +103,8 @@ export default {
         date_debut: 'Débute le',
         duree: 'Durée (minutes)',
         limite: 'Limite de places',
-        create: 'Créer l\'évenement'
+        create: 'Créer l\'évenement',
+        participantsList: 'Liste des participants'
     },
     user: {
         connect : 'Se connecter',
