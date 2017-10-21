@@ -1,5 +1,5 @@
 const DEFAULT_CONF = {
-    API_ROOT: 'http://localhost:3000/'
+    API_ROOT: window.location.origin+':3000/'
 };
 
 //Default config on port 9999

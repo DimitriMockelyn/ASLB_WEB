@@ -72,19 +72,31 @@ export default React.createClass({
     },
     /** @inheritDoc */
     render() {
+        let minTime = new Date();
+        let maxTime = new Date();
+        minTime.setMilliseconds(0);
+        minTime.setHours(7);
+        minTime.setMinutes(0);
+        minTime.setSeconds(0);
 
+        maxTime.setMilliseconds(0);
+        maxTime.setHours(20);
+        maxTime.setMinutes(0);
+        maxTime.setSeconds(0);
         return (
         <div>
             <BigCalendar
                 events={this.state.events}
                 startAccessor='startDate'
                 endAccessor='endDate'
-                views={[views.WEEK, views.DAY]}
+                views={[views.WEEK]}
                 defaultView={views.WEEK}
                 onSelectEvent={this.onSelectEvent}
                 culture='fr-FR'
                 selectable={true}
                 onSelectSlot={this.createEvent}
+                min={minTime}
+                max={maxTime}
                 messages={{next: 'Semaine suivante', today: 'Aujourd\'hui', previous: 'Semaine précédente', week: 'Vue semaine', day: 'Vue journée'}}
                 />
             {this.state.selectedEvent && <Popin open={true} size='small' onPopinClose={this.closePopin}>
