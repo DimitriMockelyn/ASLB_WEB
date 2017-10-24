@@ -6,12 +6,14 @@ var express = require('express'),
   mongoose = require('mongoose'),
   User = require('./api/models/userModel'),
   Evenement = require('./api/models/evenementModel'),
+  TypeEvenement = require('./api/models/typeEvenementModel'),
   bodyParser = require('body-parser'),
   jsonwebtoken = require("jsonwebtoken");
 
 mongoose.Promise = global.Promise;
 mongoose.connect('mongodb://localhost/ASLBDB');
 
+var evtController = require('./api/controllers/evenementController');
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
@@ -65,6 +67,6 @@ app.use(function(req, res) {
 
 app.listen(port);
 
-console.log('todo list RESTful API server started on: ' + port);
-
+console.log('RESTful API server started on: ' + port);
+evtController.initData();
 module.exports = app;

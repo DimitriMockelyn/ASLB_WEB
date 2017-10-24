@@ -24,4 +24,7 @@ export default {
     updateEvent(data){
         return fetch(agendaUrl.updateEvent({urlData: {eventId: data._id}, data: data}), utils.computeHeaders());        
     },
+    loadTypeEvenements() {
+        return fetch(agendaUrl.loadTypeEvenements(), utils.computeHeaders());  
+    }
 };

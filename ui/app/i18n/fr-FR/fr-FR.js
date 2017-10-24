@@ -104,7 +104,11 @@ export default {
         duree: 'Durée (minutes)',
         limite: 'Limite de places',
         create: 'Créer l\'évenement',
-        participantsList: 'Liste des participants'
+        participantsList: 'Liste des participants',
+        typeEvenement: 'Type'
+    },
+    select: {
+        unSelected: '-'
     },
     user: {
         connect : 'Se connecter',

@@ -2,9 +2,31 @@
 
 var mongoose = require('mongoose'),
   Evenement = mongoose.model('Evenement'),
+  TypeEvenement = mongoose.model('TypeEvenement'),
   User= mongoose.model("User");
 
+exports.initData = function() {
+  TypeEvenement.findOneAndUpdate({code: 'CROSS'}, {
+      name: 'Crossfit',
+      code:'CROSS'
+    }, {upsert: true, 'new': true}, function(err, model) {
+  });
 
+   TypeEvenement.findOneAndUpdate({code: 'PPG'}, {
+      name: 'Préparation Physique Générale',
+      code:'PPG'
+    }, {upsert: true, 'new': true}, function(err, model) {
+  });
+
+  TypeEvenement.findOneAndUpdate({code: 'DANSE'}, {
+    name: 'Danse',
+    code:'DANSE'
+  }, {upsert: true, 'new': true}, function(err, model) {
+  });
+    
+    
+
+}
 
 exports.list_all_evenements = function(req, res) {
   Evenement.find({}, function(err, evenements) {
@@ -96,11 +118,17 @@ exports.create_a_evenement = function(req, res) {
     }
     //Enregistrement en base
     check_evenement_conflit(new_evenement, res, () => {
-        new_evenement.save(function(err, evenement) {
-        if (err)
-          res.send(err);
-        res.json(evenement);
-      });
+      TypeEvenement.findOne({
+        _id: req.body.typeEvenement
+        }, function(err, typeEvt) {
+          
+          new_evenement.typeEvenement = typeEvt;
+          new_evenement.save(function(err, evenement) {
+          if (err)
+            res.send(err);
+          res.json(evenement);
+        });
+      })
     })
   })
 };
@@ -113,20 +141,35 @@ exports.read_a_evenement = function(req, res) {
   });
 };
 
+exports.list_all_type_evenements = function(req,res) {
+  TypeEvenement.find({}, function(err, types) {
+    if (err) {
+      res.send(err);
+    }
+    res.json(types);
+  });
+}
+
 exports.update_a_evenement = function(req, res) {
   var data = {
+    _id:req.params.evenementId,
     name: req.body.name,
     is_cours: req.body.is_cours,
-    date_debut: req.body.date_debut,
+    date_debut: new Date(req.body.date_debut),
     duree: req.body.duree,
     limite: req.body.limite,
     description: req.body.description
   }
   check_evenement_conflit(data, res, () => {
-    Evenement.findOneAndUpdate({_id:req.params.evenementId}, data, {new: true}, function(err, evenement) {
-      if (err)
-        res.send(err);
-      res.json(evenement);
+    TypeEvenement.findOne({
+      _id: req.body.typeEvenement
+      }, function(err, typeEvt) {
+        data.typeEvenement = typeEvt;
+        Evenement.findOneAndUpdate({_id:req.params.evenementId}, data, {new: true}, function(err, evenement) {
+        if (err)
+          res.send(err);
+        res.json(evenement);
+      });
     });
   })
 };
@@ -143,6 +186,10 @@ exports.delete_a_evenement = function(req, res) {
 };
 
 function check_evenement_conflit(event, res, cb) {
+  if (!event.date_debut) {
+    //Pas de date de debut précisé, donc c'est un update
+    return cb();
+  }
   let dateDebut = new Date(event.date_debut.getTime());
   let dateDebutJournee = new Date(event.date_debut.getTime());
   let dateFin = new Date(event.date_debut.getTime() + event.duree*60000);
@@ -160,10 +207,11 @@ function check_evenement_conflit(event, res, cb) {
       let existingEvent = events[index];
       let dateDebutEvent = new Date(existingEvent.date_debut.getTime());
       let dateFinEvent = new Date(existingEvent.date_debut.getTime() + existingEvent.duree*60000);
-      if (
+      if ( existingEvent._id.toString() !== event._id.toString() && (
         (dateDebutEvent <= dateDebut && dateFinEvent > dateDebut) || //Debut du nouvel evenement pendant un autre
         (dateDebutEvent < dateFin && dateFinEvent >= dateFin)  //Fin du nouvel evenement pendant un autre
-      ) {
+      )) {
+        console.log(existingEvent, event);
         return res.status(401).json({ message: 'Cette activité entre en conflit avec une autre' });
       }
     }

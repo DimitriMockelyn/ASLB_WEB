@@ -10,4 +10,5 @@ export default {
     deleteEvent: builder(url + 'evenements/${eventId}', 'DELETE'),
     createEvent: builder(url + 'evenements', 'POST'),
     updateEvent: builder(url + 'evenements/${eventId}', 'PUT'),
+    loadTypeEvenements: builder(url + 'typeEvenements', 'GET'),
 };

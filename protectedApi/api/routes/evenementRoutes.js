@@ -27,6 +27,7 @@ module.exports = function(app) {
 
 	app.route('/me')
 		.get(userHandlers.me);
-
+	app.route('/typeEvenements')
+		.get(todoList.list_all_type_evenements);
 		
 };

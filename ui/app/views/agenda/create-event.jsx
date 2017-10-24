@@ -11,6 +11,7 @@ export default React.createClass({
     displayName: 'HomeView',
     mixins: [formMixin],
     definitionPath: 'event',
+    referenceNames: ['typeEvenements'],
     componentWillMount() {
     },
     getInitialState() {
@@ -33,6 +34,7 @@ export default React.createClass({
                 {this.fieldFor('duree', {isEdit: true})}
                 {this.fieldFor('limite', {isEdit: true})}
                 {this.fieldFor('description', {isEdit: true})}
+                {this.fieldFor('typeEvenement', {isEdit: true, listName: 'typeEvenements', isRequired: true, valueKey: '_id', labelKey: 'name'})}
                 <div>
                     <Button label='event.create' type='button' handleOnClick={this.create} />
                 </div>

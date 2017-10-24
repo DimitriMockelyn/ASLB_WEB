@@ -12,6 +12,7 @@ export default React.createClass({
     displayName: 'HomeView',
     mixins: [formMixin],
     definitionPath: 'event',
+    referenceNames: ['typeEvenements'],
     componentWillMount() {
         this.setState({});
 
@@ -69,6 +70,7 @@ export default React.createClass({
                 {this.fieldFor('duree')}
                 {this.fieldFor('limite')}
                 {this.fieldFor('description', {value: this.state.description})}
+                {this.fieldFor('typeEvenement', {listName: 'typeEvenements', isRequired: true, valueKey: '_id', labelKey: 'name'})}
                 {this.state.participants && this.state.participants.length > 0 && <div data-focus='participants-list'>
                     <label>{i18n.t('event.participantsList')}</label>
                     <div data-focus='list'>
