@@ -3,6 +3,7 @@ import moment from 'moment';
 import React from 'react';
 import { navigate, views } from 'react-big-calendar/lib/utils/constants';
 import fetch from '../../utils/fetch';
+import {mixin as formMixin} from 'focus-components/common/form';
 import builder from 'focus-core/util/url/builder';
 BigCalendar.momentLocalizer(moment);
 import {component as Popin} from 'focus-components/application/popin';
@@ -13,6 +14,9 @@ import CreateEvent from './create-event';
 
 export default React.createClass({
     displayName: 'CalendarView',
+    mixins: [formMixin],
+    definitionPath: 'event',
+    referenceNames: ['typeEvenements'],
     getInitialState() {
         return {
             events : [],
@@ -70,8 +74,25 @@ export default React.createClass({
         this.setState({creerEvent: undefined});
         this.loadAllEvents();
     },
+    detectPropsEvent( event,
+    start,
+    end,
+    isSelected) {
+        var className = '';
+        if (this.state && this.state.reference && this.state.reference.typeEvenements) {
+            for (let index in this.state.reference.typeEvenements) {
+                let typeEvt = this.state.reference.typeEvenements[index];
+                if  (typeEvt._id.toString() === event.typeEvenement.toString()) {
+                    className = className + ' ' + typeEvt.code + ' ';
+                }
+            }
+        }
+        return {
+            className: className
+        }
+    },
     /** @inheritDoc */
-    render() {
+    renderContent() {
         let minTime = new Date();
         let maxTime = new Date();
         minTime.setMilliseconds(0);
@@ -97,6 +118,7 @@ export default React.createClass({
                 onSelectSlot={this.createEvent}
                 min={minTime}
                 max={maxTime}
+                eventPropGetter={this.detectPropsEvent}
                 messages={{next: 'Semaine suivante', today: 'Aujourd\'hui', previous: 'Semaine précédente', week: 'Vue semaine', day: 'Vue journée'}}
                 />
             {this.state.selectedEvent && <Popin open={true} size='small' onPopinClose={this.closePopin}>

@@ -12,7 +12,7 @@ export default React.createClass({
         <div>
             <div>
                 <label>{i18n.t('agenda.home')}</label>
-                <Calendar />
+                <Calendar hasLoad={false}/>
             </div>
         </div>
         );

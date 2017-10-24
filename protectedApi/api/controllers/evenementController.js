@@ -23,6 +23,12 @@ exports.initData = function() {
     code:'DANSE'
   }, {upsert: true, 'new': true}, function(err, model) {
   });
+
+  TypeEvenement.findOneAndUpdate({code: 'AUTRE'}, {
+    name: 'Autre',
+    code:'AUTRE'
+  }, {upsert: true, 'new': true}, function(err, model) {
+  });
     
     
 
