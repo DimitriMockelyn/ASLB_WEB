@@ -47,6 +47,26 @@ exports.list_all_evenements = function(req, res) {
   }).populate('createur', '_id prenom nom').populate('participants', '_id prenom nom');
 };
 
+exports.list_my_evenements = function(req,res) {
+  User.findOne({
+    email: req.user.email
+  }, function(err, user) {
+    if (err) {
+      res.send(err);
+    }
+    Evenement.find({participants: user}, function(err, evenements) {
+      if (err) {
+        res.send(err);
+      }
+      evenements.forEach(function(evenement) { 
+          evenement.createur = evenement.createur;
+          evenement.participants = evenement.participants;
+      });
+      res.json(evenements);
+    }).populate('createur', '_id prenom nom').populate('participants', '_id prenom nom');
+  })
+}
+
 exports.add_self_to_evenement = function(req, res) {
   Evenement.findById(req.params.evenementId, function(err, evenement) {
     if (err) {

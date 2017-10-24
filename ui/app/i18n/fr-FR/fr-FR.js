@@ -86,7 +86,9 @@ export default {
     },
     agenda: {
         home: 'Agenda des activités de l\'ASLB',
-        evenementDetail: 'Détail de l\'évènement'
+        evenementDetail: 'Détail de l\'évènement',
+        mine: 'Mon agenda',
+        all: 'Tous les évenements'
     },
     event: {
         created: 'Crée le',

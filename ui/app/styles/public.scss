@@ -232,3 +232,28 @@ button.mdl-button:not(.mdl-button--icon) {
     border: 1px solid rgb(241,200,142);
   }
 }
+
+.rbc-event.participant:after {
+  content: '\2713';
+  position: absolute;
+  right: 0;
+  top: 0;
+  z-index: 3;
+  background-color: inherit;
+}
+
+[data-focus='toggle-bar'] {
+  display:flex;
+  flex-direction: row;
+  label {
+    width: 100%;
+  }
+  label:first-child {
+    text-align: end;
+    margin-right: 10px;
+    font-size: 16px !important;
+    cursor: pointer;
+    margin-top: auto;
+    margin-bottom: auto;
+  }
+}

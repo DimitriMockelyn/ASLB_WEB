@@ -10,7 +10,8 @@ import {component as Popin} from 'focus-components/application/popin';
 import EventInfos from './event-infos';
 import agendaServices from '../../services/agenda';
 import CreateEvent from './create-event';
-
+import userHelper from 'focus-core/user';
+import Toggle from 'focus-components/components/input/toggle';
 
 export default React.createClass({
     displayName: 'CalendarView',
@@ -20,14 +21,22 @@ export default React.createClass({
     getInitialState() {
         return {
             events : [],
-            selectedEvent : undefined
+            selectedEvent : undefined,
+            serviceLoad: agendaServices.loadAll,
+            fullView: false
         }
+    },
+    onChangeView() {
+        this.setState({
+            serviceLoad: this.state.serviceLoad === agendaServices.loadAll ? agendaServices.loadMine :  agendaServices.loadAll,
+            fullView: !this.state.fullView
+        }, () => { this.loadAllEvents()})
     },
     componentWillMount() {
         this.loadAllEvents();
     },
     loadAllEvents() {
-        agendaServices.loadAll().then(res => {
+        this.state.serviceLoad().then(res => {
             const events = []
             
             res.map((event) => {
@@ -66,9 +75,9 @@ export default React.createClass({
         this.loadAllEvents();
     },
     createEvent(slotInfo) {
-        console.log(slotInfo);
-        this.setState({creerEvent: slotInfo});
-        //TODO creer evenement
+        if (userHelper.getLogin() && userHelper.getLogin().canCreate) {
+            this.setState({creerEvent: slotInfo});
+        }
     },
     closeCreerEvent() {
         this.setState({creerEvent: undefined});
@@ -78,7 +87,9 @@ export default React.createClass({
     start,
     end,
     isSelected) {
+        var myId = userHelper.getLogin() && userHelper.getLogin()._id ? userHelper.getLogin()._id.toString() : '';
         var className = '';
+        //Detection de la couleur pour le type d'evenement
         if (this.state && this.state.reference && this.state.reference.typeEvenements) {
             for (let index in this.state.reference.typeEvenements) {
                 let typeEvt = this.state.reference.typeEvenements[index];
@@ -87,10 +98,17 @@ export default React.createClass({
                 }
             }
         }
+        //Evenement auquel je participe
+        for (let index in event.participants) {
+            if (event.participants[index]._id.toString() === myId) {
+                className = className + ' participant ';
+            }
+        }
         return {
             className: className
         }
     },
+
     /** @inheritDoc */
     renderContent() {
         let minTime = new Date();
@@ -106,6 +124,10 @@ export default React.createClass({
         maxTime.setSeconds(0);
         return (
         <div>
+            <div data-focus='toggle-bar'>
+                <label onClick={this.onChangeView}>{i18n.t('agenda.all')}</label>
+                <Toggle value={this.state.fullView} label={i18n.t('agenda.mine')} onChange={this.onChangeView} />
+            </div>
             <BigCalendar
                 events={this.state.events}
                 startAccessor='startDate'

@@ -37,9 +37,16 @@ exports.sign_in = function(req, res) {
 
 exports.me = function(req, res) {
   if (req.user) {
-    return res.json(req.user);
+    User.findOne({
+      email: req.user.email
+    }, function(err, user) {
+        let data = user;
+        data['hash_password'] = undefined;
+        return res.json(data);
+    });
+  } else {
+    return res.json({});
   }
-  return res.json({});
 };
 
 exports.loginRequired = function(req, res, next) {

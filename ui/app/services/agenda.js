@@ -6,6 +6,9 @@ export default {
     loadAll() {
         return fetch(agendaUrl.loadAll());
     },
+    loadMine() {
+        return fetch(agendaUrl.loadMine(), utils.computeHeaders());
+    },
     loadAttendees(id) {
         return fetch(agendaUrl.loadAttendees({urlData: {eventId:id}}), utils.computeHeaders());
     },
