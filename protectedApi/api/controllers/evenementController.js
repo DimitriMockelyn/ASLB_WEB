@@ -95,11 +95,13 @@ exports.create_a_evenement = function(req, res) {
       return res.status(401).json({ message: 'Les activités sportives doivent se dérouler entre 7h et 20h' });
     }
     //Enregistrement en base
-    new_evenement.save(function(err, evenement) {
-      if (err)
-        res.send(err);
-      res.json(evenement);
-    });
+    check_evenement_conflit(new_evenement, res, () => {
+        new_evenement.save(function(err, evenement) {
+        if (err)
+          res.send(err);
+        res.json(evenement);
+      });
+    })
   })
 };
 
@@ -120,11 +122,13 @@ exports.update_a_evenement = function(req, res) {
     limite: req.body.limite,
     description: req.body.description
   }
-  Evenement.findOneAndUpdate({_id:req.params.evenementId}, data, {new: true}, function(err, evenement) {
-    if (err)
-      res.send(err);
-    res.json(evenement);
-  });
+  check_evenement_conflit(data, res, () => {
+    Evenement.findOneAndUpdate({_id:req.params.evenementId}, data, {new: true}, function(err, evenement) {
+      if (err)
+        res.send(err);
+      res.json(evenement);
+    });
+  })
 };
 // evenement.remove({}).exec(function(){});
 exports.delete_a_evenement = function(req, res) {
@@ -137,3 +141,33 @@ exports.delete_a_evenement = function(req, res) {
     res.json({ message: 'evenement successfully deleted' });
   });
 };
+
+function check_evenement_conflit(event, res, cb) {
+  let dateDebut = new Date(event.date_debut.getTime());
+  let dateDebutJournee = new Date(event.date_debut.getTime());
+  let dateFin = new Date(event.date_debut.getTime() + event.duree*60000);
+  let dateFinJournee = new Date(event.date_debut.getTime());
+  dateDebutJournee.setHours(0);
+  dateFinJournee.setHours(23);
+
+  Evenement.find({
+    date_debut: {
+        $gte: dateDebutJournee,
+        $lt:  dateFinJournee
+    }
+  }, function(err, events) {
+    for (let index in events) {
+      let existingEvent = events[index];
+      let dateDebutEvent = new Date(existingEvent.date_debut.getTime());
+      let dateFinEvent = new Date(existingEvent.date_debut.getTime() + existingEvent.duree*60000);
+      if (
+        (dateDebutEvent <= dateDebut && dateFinEvent > dateDebut) || //Debut du nouvel evenement pendant un autre
+        (dateDebutEvent < dateFin && dateFinEvent >= dateFin)  //Fin du nouvel evenement pendant un autre
+      ) {
+        return res.status(401).json({ message: 'Cette activité entre en conflit avec une autre' });
+      }
+    }
+    return cb();
+  })
+  
+}
