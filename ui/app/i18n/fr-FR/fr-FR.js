@@ -117,7 +117,9 @@ export default {
         create: 'Créer un compte',
         connexion: 'Connexion',
         creation: 'Créer son compte',
-        disconnect: 'Se déconnecter'
+        disconnect: 'Se déconnecter',
+        activated: 'Votre compte a bien été activé',
+        notActivated: 'Votre compte n\'a pas pu être activé. Veuillez vérifier votre code'
     },
     person: {
         email: 'Adresse e-mail',

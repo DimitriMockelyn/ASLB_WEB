@@ -30,6 +30,9 @@ module.exports = function(app) {
 	app.route('/typeEvenements')
 		.get(todoList.list_all_type_evenements);
 
+	app.route('/activate')
+		.post(userHandlers.activate);
+
 	app.route('/myEvenements')
 		.get(todoList.list_my_evenements);
 		

@@ -24,6 +24,8 @@ export default {
     },
     disconnect() {
         utils.deleteCookie('tokenJWT');
+    },
+    activate(id) {
+        return fetch(userUrl.activate({data: {code:id}}));
     }
-    
 };

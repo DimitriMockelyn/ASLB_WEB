@@ -7,4 +7,5 @@ export default {
     loadMe:  builder(url + 'me', 'GET'),
     create:  builder(url + 'auth/register', 'POST'),
     connect:  builder(url + 'auth/sign_in', 'POST'),
+    activate: builder(url + 'activate', 'POST'),
 };

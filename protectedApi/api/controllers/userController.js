@@ -46,6 +46,32 @@ exports.sign_in = function(req, res) {
   });
 };
 
+exports.activate = function(req, res) {
+  TokenUser.findOne({
+    code: req.body.code
+  }, function(err, token) {
+    if (err  || !token) {
+      return res.json({activated: false});
+    }
+    User.findById(token.user, function(err,user) {
+      if (err || !user) {
+        return res.json({activated: false});
+      }
+      if (user.actif) {
+        return res.json({activated: false});
+      } else {
+        User.findByIdAndUpdate(token.user, {actif: true}, function(err, userActif) {
+          if (err) {
+            return res.json({activated: false});
+          } else {
+            return res.json({activated: true});
+          }
+        })
+      }
+    });
+  });
+}
+
 exports.me = function(req, res) {
   if (req.user) {
     User.findOne({
