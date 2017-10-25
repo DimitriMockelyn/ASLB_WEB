@@ -12,7 +12,6 @@ import agendaServices from '../../services/agenda';
 import CreateEvent from './create-event';
 import userHelper from 'focus-core/user';
 import Toggle from 'focus-components/components/input/toggle';
-
 export default React.createClass({
     displayName: 'CalendarView',
     mixins: [formMixin],
@@ -116,6 +115,9 @@ export default React.createClass({
         return {
             className: className
         }
+    },
+    sendEmail() {
+        
     },
 
     /** @inheritDoc */
