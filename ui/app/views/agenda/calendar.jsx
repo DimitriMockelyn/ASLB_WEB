@@ -30,7 +30,16 @@ export default React.createClass({
         this.setState({
             serviceLoad: this.state.serviceLoad === agendaServices.loadAll ? agendaServices.loadMine :  agendaServices.loadAll,
             fullView: !this.state.fullView
-        }, () => { this.loadAllEvents()})
+        }, () => {this.loadAllEvents()})
+    },
+    onChangeViewFromLabel() {
+        var showIsChecked = !this.state.fullView;
+        this.onChangeView();
+        if (showIsChecked) {
+            this.refs['toggle'].refs['mdlHolder'].classList.add('is-checked');
+        } else {
+            this.refs['toggle'].refs['mdlHolder'].classList.remove('is-checked');
+        }
     },
     componentWillMount() {
         this.loadAllEvents();
@@ -124,10 +133,10 @@ export default React.createClass({
         maxTime.setSeconds(0);
         return (
         <div>
-            <div data-focus='toggle-bar'>
-                <label onClick={this.onChangeView}>{i18n.t('agenda.all')}</label>
-                <Toggle value={this.state.fullView} label={i18n.t('agenda.mine')} onChange={this.onChangeView} />
-            </div>
+            { userHelper.getLogin() && userHelper.getLogin()._id && <div data-focus='toggle-bar'>
+                <label onClick={this.onChangeViewFromLabel}>{i18n.t('agenda.all')}</label>
+                <Toggle ref='toggle' value={this.state.fullView} label={i18n.t('agenda.mine')} onChange={this.onChangeView} />
+            </div>}
             <BigCalendar
                 events={this.state.events}
                 startAccessor='startDate'
