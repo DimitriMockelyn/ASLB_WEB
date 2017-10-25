@@ -5,6 +5,9 @@ var mongoose = require('mongoose'),
   bcrypt = require('bcrypt'),
   User = mongoose.model('User'),
   Evenement = mongoose.model('Evenement'),
+  TokenUser = mongoose.model('TokenUser'),
+  mailer = require('../utils/mailer'),
+  uuidv4 = require('uuid/v4'),
   moment = require('moment');
 
 
@@ -18,7 +21,15 @@ exports.register = function(req, res) {
       return res.status(401).json({ message: 'Le compte n\'a pas pu être crée ou existe déjà' });
     } else {
       user.hash_password = undefined;
-      return res.json(user);
+      var token = new TokenUser({
+        code: uuidv4(),
+        isCreation: true,
+        user: user
+      });
+      token.save(function(err, tokenSaved) {
+          mailer.sendMail([user.email], 'Validation de votre compte ASLB', 'Bonjour. Vous avez demandé la création de votre compte ASLB. Pour le valider, veuillez cliquer sur ce lien: '+'http://localhost:8080/#activation/'+tokenSaved.code);
+          return res.json(user);
+      });
     }
   });
 };
@@ -28,8 +39,8 @@ exports.sign_in = function(req, res) {
     email: req.body.email
   }, function(err, user) {
     if (err) throw err;
-    if (!user || !user.comparePassword(req.body.password)) {
-      return res.status(401).json({ message: 'Mauvais compte / mot de passe' });
+    if (!user || !user.comparePassword(req.body.password) || !user.actif) {
+      return res.status(401).json({ message: 'Mauvais compte / mot de passe ou compte inactif' });
     }
     return res.json({ token: jwt.sign({ email: user.email, nom: user.nom, prenom: user.prenom, _id: user._id }, 'RESTFULAPIs', {expiresIn: 3600}) });
   });

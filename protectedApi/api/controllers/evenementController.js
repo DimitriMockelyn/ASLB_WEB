@@ -3,7 +3,8 @@
 var mongoose = require('mongoose'),
   Evenement = mongoose.model('Evenement'),
   TypeEvenement = mongoose.model('TypeEvenement'),
-  User= mongoose.model("User");
+  User= mongoose.model("User"),
+  mailer = require('../utils/mailer');
 
 exports.initData = function() {
   TypeEvenement.findOneAndUpdate({code: 'CROSS'}, {
