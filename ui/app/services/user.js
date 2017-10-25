@@ -27,5 +27,8 @@ export default {
     },
     activate(id) {
         return fetch(userUrl.activate({data: {code:id}}));
-    }
+    },
+    changePassword(data) {
+        return fetch(userUrl.changePassword({data}));
+    },
 };

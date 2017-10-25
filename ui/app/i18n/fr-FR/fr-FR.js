@@ -128,7 +128,9 @@ export default {
         prenom: 'Prénom',
         nom: 'Nom',
         badPasswords:'Les mots de passes sont différents',
-        createdSuccess: 'Le compte à été crée, veuillez le valider pour vous connecter'
+        createdSuccess: 'Le compte à été crée, veuillez le valider pour vous connecter',
+        confirmResetPassword: 'Veuillez entrer les nouvelles informations de mot de passe',
+        passwordReseted: 'Votre mot de passe a été réinitialisé'
     }
     
 };

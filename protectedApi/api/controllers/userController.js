@@ -50,7 +50,7 @@ exports.activate = function(req, res) {
   TokenUser.findOne({
     code: req.body.code
   }, function(err, token) {
-    if (err  || !token) {
+    if (err  || !token || !token.isCreation) {
       return res.json({activated: false});
     }
     User.findById(token.user, function(err,user) {
@@ -65,6 +65,32 @@ exports.activate = function(req, res) {
             return res.json({activated: false});
           } else {
             return res.json({activated: true});
+          }
+        })
+      }
+    });
+  });
+}
+
+exports.changePassword = function(req, res) {
+  TokenUser.findOne({
+    code: req.body.code
+  }, function(err, token) {
+    if (err  || !token || token.isCreation) {
+      return res.json({changed: false});
+    }
+    User.findById(token.user, function(err,user) {
+      if (err || !user) {
+        return res.json({changed: false});
+      }
+      if (!user.actif) {
+        return res.json({changed: false});
+      } else {
+        User.findByIdAndUpdate(token.user, {hash_password : bcrypt.hashSync(req.body.password, 10)}, function(err, userActif) {
+          if (err) {
+            return res.json({changed: false});
+          } else {
+            return res.json({changed: true});
           }
         })
       }

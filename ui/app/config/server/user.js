@@ -8,4 +8,5 @@ export default {
     create:  builder(url + 'auth/register', 'POST'),
     connect:  builder(url + 'auth/sign_in', 'POST'),
     activate: builder(url + 'activate', 'POST'),
+    changePassword: builder(url + 'changePassword', 'POST'),
 };

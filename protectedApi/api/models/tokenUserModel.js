@@ -17,6 +17,10 @@ var TokenUser = new Schema({
     type: mongoose.Schema.Types.ObjectId,
 		ref: 'User'
   },
+  date_creation: {
+    type: Date,
+    default: Date.now
+  },
 });
 
 
