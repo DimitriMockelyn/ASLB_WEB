@@ -10,6 +10,7 @@ var mongoose = require('mongoose'),
   uuidv4 = require('uuid/v4'),
   moment = require('moment');
 
+  var {getConfig} = require('../../config');
 
 exports.register = function(req, res) {
   var newUser = new User(req.body);
@@ -27,7 +28,7 @@ exports.register = function(req, res) {
         user: user
       });
       token.save(function(err, tokenSaved) {
-          mailer.sendMail([user.email], 'Validation de votre compte ASLB', 'Bonjour. Vous avez demandé la création de votre compte ASLB. Pour le valider, veuillez cliquer sur ce lien: '+'http://localhost:8080/#activation/'+tokenSaved.code);
+          mailer.sendMail([user.email], 'Validation de votre compte ASLB', 'Bonjour. Vous avez demandé la création de votre compte ASLB. Pour le valider, veuillez cliquer sur ce lien: '+ getConfig().url+'/#activation/'+tokenSaved.code);
           return res.json(user);
       });
     }
@@ -90,7 +91,7 @@ exports.sendMailReset = function(req, res) {
     });
     token.save(function(err, tokenSaved) {
         mailer.sendMail([user.email], 'Réinitialisation de votre mot de passe ASLB', 
-        'Bonjour. Vous avez demandé la réinitialisation de votre mot de passe ASLB. Pour valider ce changement, veuillez cliquer sur ce lien: '+'http://localhost:8080/#changePassword/'+tokenSaved.code);
+        'Bonjour. Vous avez demandé la réinitialisation de votre mot de passe ASLB. Pour valider ce changement, veuillez cliquer sur ce lien: '+getConfig().url+'/#changePassword/'+tokenSaved.code);
         return res.json({ mailSent: true});
     });
   });

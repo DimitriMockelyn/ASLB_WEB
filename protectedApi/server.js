@@ -15,6 +15,7 @@ mongoose.Promise = global.Promise;
 mongoose.connect('mongodb://localhost/ASLBDB');
 
 var evtController = require('./api/controllers/evenementController');
+var {getConfig} = require('./config');
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
@@ -34,7 +35,7 @@ app.use(allowCrossDomain);
 
 app.use(function(req, res, next) {
 	// Website you wish to allow to connect
-    res.setHeader('Access-Control-Allow-Origin', 'http://localhost:8080');
+    res.setHeader('Access-Control-Allow-Origin', getConfig().url);
 
     // Request methods you wish to allow
     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');

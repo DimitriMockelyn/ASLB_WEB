@@ -6,6 +6,8 @@ var mongoose = require('mongoose'),
   User= mongoose.model("User"),
   mailer = require('../utils/mailer');
 
+
+
 exports.initData = function() {
   TypeEvenement.findOneAndUpdate({code: 'CROSS'}, {
       name: 'Crossfit',
