@@ -42,13 +42,13 @@ export default React.createClass({
                 Bonjour, ceci est la page d'accueil
             </div>
             <div>
-                Cette page n'est pas encore construite car le site est en cours de création depuis dimanche :)
+                Cette page n'est pas encore construite car le site est en cours de création :) lol
             </div>
             <div>
-                Vous pouvez néanmoins soumettre vos remarques <a href="mailto:dimitri.mockelyn@gmail.com?subject=Il marche pô ton site lol"> ici </a>
+                L'ensemble du module Agenda est fonctionnel. 
             </div>
             <div>
-                En phase de test, les compte crées sont automatiquement considérés comme des membres actifs à date du jour.
+                Vous pouvez soumettre vos remarques <a href="mailto:dimitri.mockelyn@gmail.com?subject=Il marche pô ton site lol"> ici </a>
             </div>
         </div>
         );

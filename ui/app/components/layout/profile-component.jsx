@@ -18,12 +18,9 @@ export default React.createClass({
         })
     },
     togglePopin() {
-
-        console.log('OPEN POPIN');
         this.setState({openPopin: true});
     },
     closePopin() {
-        console.log('CLOSE POPIN');
         this.setState({openPopin: false});
     },
     getInitialState() {
