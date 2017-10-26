@@ -1,5 +1,5 @@
 const DEFAULT_CONF = {
-    API_ROOT: 'http://'+window.location.hostname+':3000/'
+    API_ROOT: 'http://'+window.location.hostname+':80/'
 };
 
 //Default config on port 9999

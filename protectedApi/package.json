@@ -5,8 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "set NODE_ENV=dev&& nodemon server.js",
-    "prod": "set NODE_ENV=prod&& nodemon server.js"
+    "start": "set NODE_ENV=dev&& set PORT=80&& nodemon server.js",
+    "prod": "set NODE_ENV=prod&& set PORT=80&& nodemon server.js"
   },
   "repository": {
     "type": "git",
