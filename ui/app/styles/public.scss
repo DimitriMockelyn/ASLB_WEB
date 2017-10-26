@@ -286,3 +286,11 @@ button.mdl-button:not(.mdl-button--icon) {
     cursor: pointer !important;
   }
 }
+
+[data-focus='contact'] {
+  display: flex;
+  flex-direction: column;
+  label {
+    margin-top: 5px;
+  }
+}

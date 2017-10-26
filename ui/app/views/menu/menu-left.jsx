@@ -9,7 +9,8 @@ function computeMenuItem() {
     return [
         { icon: 'home', name: 'Accueil', route: '' },
         { icon: 'date_range', name: 'Agenda', route: 'agenda'},
-        { icon: 'business', name: 'Partenaires', route: 'partenaires'}
+        { icon: 'business', name: 'Partenaires', route: 'partenaires'},
+        { icon: 'call', name: 'Contacts et informations', route: 'contact'}
     ];
 }
 
