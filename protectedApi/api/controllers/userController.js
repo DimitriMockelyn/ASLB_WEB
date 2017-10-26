@@ -60,14 +60,37 @@ exports.activate = function(req, res) {
       if (user.actif) {
         return res.json({activated: false});
       } else {
+
         User.findByIdAndUpdate(token.user, {actif: true}, function(err, userActif) {
           if (err) {
             return res.json({activated: false});
           } else {
             return res.json({activated: true});
           }
-        })
+        });
+        token.remove(function(err, tokenDel) {});
       }
+    });
+  });
+}
+
+exports.sendMailReset = function(req, res) {
+  User.findOne({
+    email: req.body.email
+  }, function(err, user) {
+    if (err) throw err;
+    if (!user) {
+      return res.status(401).json({ message: 'Ce compte n\'existe pas' });
+    }
+    var token = new TokenUser({
+      code: uuidv4(),
+      isCreation: false,
+      user: user
+    });
+    token.save(function(err, tokenSaved) {
+        mailer.sendMail([user.email], 'Réinitialisation de votre mot de passe ASLB', 
+        'Bonjour. Vous avez demandé la réinitialisation de votre mot de passe ASLB. Pour valider ce changement, veuillez cliquer sur ce lien: '+'http://localhost:8080/#changePassword/'+tokenSaved.code);
+        return res.json({ mailSent: true});
     });
   });
 }
@@ -92,7 +115,8 @@ exports.changePassword = function(req, res) {
           } else {
             return res.json({changed: true});
           }
-        })
+        });
+        token.remove(function(err, tokenDel) {});
       }
     });
   });

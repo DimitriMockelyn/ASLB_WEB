@@ -9,4 +9,5 @@ export default {
     connect:  builder(url + 'auth/sign_in', 'POST'),
     activate: builder(url + 'activate', 'POST'),
     changePassword: builder(url + 'changePassword', 'POST'),
+    sendMailReset: builder(url + 'sendMailReset', 'POST'),
 };

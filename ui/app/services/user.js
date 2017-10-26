@@ -31,4 +31,7 @@ export default {
     changePassword(data) {
         return fetch(userUrl.changePassword({data}));
     },
+    sendMailReset(data) {
+        return fetch(userUrl.sendMailReset({data}));
+    },
 };

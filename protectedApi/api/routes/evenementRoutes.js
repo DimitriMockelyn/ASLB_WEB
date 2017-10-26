@@ -35,6 +35,9 @@ module.exports = function(app) {
 	
 	app.route('/changePassword')
 		.post(userHandlers.changePassword);
+	
+	app.route('/sendMailReset')
+		.post(userHandlers.sendMailReset);
 
 	app.route('/myEvenements')
 		.get(todoList.list_my_evenements);

@@ -17,7 +17,7 @@ export default createRouter(Backbone).extend({
         this._pageContent(ActivationView, {props: {id:id}});
     },
     changePassword(code) {
-        this._pageContent(ChangePasswordView, {props: {code:code}});
+        this._pageContent(ChangePasswordView, {props: {code:code, hasLoad: false}});
     },
 });
 

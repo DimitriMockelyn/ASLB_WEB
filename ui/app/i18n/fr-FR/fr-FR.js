@@ -119,7 +119,12 @@ export default {
         creation: 'Créer son compte',
         disconnect: 'Se déconnecter',
         activated: 'Votre compte a bien été activé',
-        notActivated: 'Votre compte n\'a pas pu être activé. Veuillez vérifier votre code'
+        notActivated: 'Votre compte n\'a pas pu être activé. Veuillez vérifier votre code',
+        forgot: 'Mot de passe oublié ?',
+        reset: 'Envoyer un mail de réinitialisation',
+        performReset: 'Changer mon mot de passe',
+        notChanged: 'Ce token est invalide ou n\'est associé a aucun compte',
+        changed: 'Le mot de passe à été changé.'
     },
     person: {
         email: 'Adresse e-mail',
@@ -130,7 +135,8 @@ export default {
         badPasswords:'Les mots de passes sont différents',
         createdSuccess: 'Le compte à été crée, veuillez le valider pour vous connecter',
         confirmResetPassword: 'Veuillez entrer les nouvelles informations de mot de passe',
-        passwordReseted: 'Votre mot de passe a été réinitialisé'
+        passwordReseted: 'Votre mot de passe a été réinitialisé',
+        mailResetSent: 'Un mail vous a été envoyé pour réinitialiser votre mot de passe'
     }
     
 };

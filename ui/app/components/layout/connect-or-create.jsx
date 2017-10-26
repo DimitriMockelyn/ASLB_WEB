@@ -16,7 +16,7 @@ export default React.createClass({
         
     },
     getInitialState() {
-        return {connect: true};
+        return {tab: 0, password: '', passwordAgain: '', prenom: '', nom: ''};
     },
     connect() {
         if (this._validate()) {
@@ -32,11 +32,17 @@ export default React.createClass({
             userServices.create(this._getEntity()).then(() => {message.addSuccessMessage(i18n.t('person.createdSuccess'))}, err => { console.log(err); throw err;});
         }
     },
+    sendMailReset() {
+        if (this._validate()) {
+            userServices.sendMailReset(this._getEntity()).then(() => {message.addSuccessMessage(i18n.t('person.mailResetSent'))}, err => { console.log(err); throw err;});
+        }
+    },
     customValidation() {
-        if (!this.state.connect) {
+        if (this.state.tab === 1) {
             if (this._getEntity().password !== this._getEntity().passwordAgain) {
                 this.refs['person.password'].setError(i18n.t('person.badPasswords'));
                 this.refs['person.passwordAgain'].setError(i18n.t('person.badPasswords'));
+                return false;
             }
         }
         return true;
@@ -46,16 +52,18 @@ export default React.createClass({
         return (
         <div>
             <div data-scope='button-bar-compte'>
-            <Button label='user.connect' className={this.state.connect ? 'active' : ''} type='button' handleOnClick={() => {this.setState({connect: true})} } />
-            <Button label='user.create' className={this.state.connect ? '' : 'active'} type='button' handleOnClick={() => {this.setState({connect: false})} } />
+            <Button label='user.connect' className={this.state.tab === 0 ? 'active' : ''} type='button' handleOnClick={() => {this.setState({tab: 0})} } />
+            <Button label='user.create' className={this.state.tab === 1 ? '' : 'active'} type='button' handleOnClick={() => {this.setState({tab: 1})} } />
+            <Button label='user.forgot' className={this.state.tab === 2 ? '' : 'active'} type='button' handleOnClick={() => {this.setState({tab: 2})} } />
             </div>
             {this.fieldFor('email', {isEdit: true})}
-            {this.fieldFor('password', {isEdit: true})}
-            {!this.state.connect && this.fieldFor('passwordAgain', {isEdit: true})}
-            {!this.state.connect && this.fieldFor('prenom', {isEdit: true})}
-            {!this.state.connect && this.fieldFor('nom', {isEdit: true})}
-            {this.state.connect && <Button label='user.connexion' type='button' handleOnClick={this.connect} />}
-            {!this.state.connect && <Button label='user.creation' type='button' handleOnClick={this.create} />}
+            {this.state.tab !== 2 && this.fieldFor('password', {isEdit: true})}
+            {this.state.tab === 1 && this.fieldFor('passwordAgain', {isEdit: true})}
+            {this.state.tab === 1 && this.fieldFor('prenom', {isEdit: true})}
+            {this.state.tab === 1 && this.fieldFor('nom', {isEdit: true})}
+            {this.state.tab === 0 && <Button label='user.connexion' type='button' handleOnClick={this.connect} />}
+            {this.state.tab === 1 && <Button label='user.creation' type='button' handleOnClick={this.create} />}
+            {this.state.tab === 2 && <Button label='user.reset' type='button' handleOnClick={this.sendMailReset} />}
         </div>
         );
     }
