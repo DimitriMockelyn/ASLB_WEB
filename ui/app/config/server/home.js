@@ -1,7 +1,7 @@
 import builder from 'focus-core/util/url/builder';
+import {getConfig} from '../../config';
 
-const homeRoot = './home/';
-
+const url = getConfig().API_ROOT;
 export default {
-    loadTest:  builder(homeRoot + 'test', 'GET')
+    loadPartenaires:  builder(url + 'partenaires', 'GET')
 };

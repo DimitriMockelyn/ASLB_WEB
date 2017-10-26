@@ -257,3 +257,32 @@ button.mdl-button:not(.mdl-button--icon) {
     margin-bottom: auto;
   }
 }
+
+[data-focus="panel-partenaire"] {
+  margin: 20px;
+  [data-focus="panel-content"] {
+    display: flex;
+    flex-direction: row;
+    & > img {
+      background-color: transparent;
+      max-width: 250px;
+      display: block;
+      max-width: 250px;
+      max-height: 250px;
+      width: 250px;
+      height: auto;
+      object-fit: scale-down;
+    }
+    & > div {
+      margin: 15px;
+      width: 80%;
+    }
+  }
+}
+
+[data-focus='panel-partenaire'].clickable {
+  cursor: pointer;
+  label {
+    cursor: pointer !important;
+  }
+}

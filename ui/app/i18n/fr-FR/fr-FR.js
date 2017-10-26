@@ -137,6 +137,8 @@ export default {
         confirmResetPassword: 'Veuillez entrer les nouvelles informations de mot de passe',
         passwordReseted: 'Votre mot de passe a été réinitialisé',
         mailResetSent: 'Un mail vous a été envoyé pour réinitialiser votre mot de passe'
+    },
+    partenaires: {
+        description: 'Vous trouverez ci-dessous la liste des partenaires de l\'association'
     }
-    
 };

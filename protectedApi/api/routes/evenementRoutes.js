@@ -42,4 +42,6 @@ module.exports = function(app) {
 	app.route('/myEvenements')
 		.get(todoList.list_my_evenements);
 		
+		app.route('/partenaires')
+		.get(todoList.list_all_partenaires)
 };

@@ -8,6 +8,7 @@ var express = require('express'),
   Evenement = require('./api/models/evenementModel'),
   TypeEvenement = require('./api/models/typeEvenementModel'),
   TokenUser = require('./api/models/tokenUserModel'),
+  Partenaire = require('./api/models/partenaireModel'),
   bodyParser = require('body-parser'),
   jsonwebtoken = require("jsonwebtoken");
 

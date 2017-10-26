@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "set NODE_ENV=dev&& set PORT=80&& nodemon server.js",
-    "prod": "set NODE_ENV=prod&& set PORT=80&& nodemon server.js"
+    "prod": "set NODE_ENV=prod&& set PORT=8080&& nodemon server.js"
   },
   "repository": {
     "type": "git",
