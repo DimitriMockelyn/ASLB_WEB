@@ -34,8 +34,7 @@ var User = new Schema({
     default: Date.now
   },
   date_activation: {
-    type: Date,
-    default: Date.now //TODO remove
+    type: Date
   },
   date_creation: {
     type: Date,

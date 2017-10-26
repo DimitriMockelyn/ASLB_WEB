@@ -61,14 +61,15 @@ exports.activate = function(req, res) {
         return res.json({activated: false});
       } else {
 
-        User.findByIdAndUpdate(token.user, {actif: true}, function(err, userActif) {
+        User.findByIdAndUpdate(token.user, {actif: true, date_activation : Date.now()}, function(err, userActif) {
           if (err) {
             return res.json({activated: false});
           } else {
+            token.remove(function(err, tokenDel) {});
             return res.json({activated: true});
           }
         });
-        token.remove(function(err, tokenDel) {});
+        
       }
     });
   });
