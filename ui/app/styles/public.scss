@@ -327,3 +327,23 @@ div[data-focus="field"][data-mode="edit"][data-domain='DO_RTE'] [data-focus="fie
     @include text-text();
   }
 }
+
+[data-focus='home-container'] {
+  display: flex;
+  flex-direction: row;
+}
+
+[data-focus='list-home'] {
+  margin: 30px;
+  width: 40vw;
+  [data-focus='news-list'] {
+  max-height: 600px;
+  margin: 30px;
+  overflow: auto;
+  }
+}
+
+[data-focus='home-title'] {
+  @include text-title();
+  margin-left: 25px;
+}

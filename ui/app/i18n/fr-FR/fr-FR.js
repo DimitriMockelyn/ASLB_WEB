@@ -97,7 +97,8 @@ export default {
         content: 'Contenu',
         create: 'Créer',
         newsCreatedBy: 'Crée par',
-        newsCreatedAt: 'le'
+        newsCreatedAt: 'le',
+        derniereNews: 'Dernières news'
     },
     event: {
         created: 'Crée le',

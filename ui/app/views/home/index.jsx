@@ -8,6 +8,7 @@ import Panel from 'focus-components/components/panel';
 import {component as Popin} from 'focus-components/application/popin';
 import userHelper from 'focus-core/user';
 import homeServices from '../../services/home';
+import News from './news';
 export default React.createClass({
     displayName: 'HomeView',
     mixins: [cartridgeBehaviour],
@@ -38,20 +39,12 @@ export default React.createClass({
     render() {
         return (
         <div>
-            <div>
-                <label>
+            <div data-focus='home-title'>
                     Bienvenue sur l'interface web de l'ASLB
-                </label>
             </div>
-            <div>
-                <label>
-                    Ce site est en cours de construction. Les prochaines améliorations intégreront une interface d'administration et des news
-                </label>
-            </div>
-            <div>
-                <label>
-                    Vous pouvez néanmoins vous balader sur le site et commencer a vous inscrire a des activités :)
-                </label>
+            <div data-focus='home-container'>
+                <News hasLoad={false}/>
+                <News hasLoad={false}/>
             </div>
         </div>
         );
