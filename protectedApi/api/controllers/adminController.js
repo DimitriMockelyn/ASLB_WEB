@@ -98,7 +98,7 @@ exports.list_all_news = function(req, res) {
       res.send(err);
     }
     res.json(ptns);
-  }).populate('createur', '_id prenom nom');
+  }).populate('createur', '_id prenom nom').sort({date: -1});
 };
 
 exports.create_news = function(req, res) {
@@ -110,10 +110,22 @@ exports.create_news = function(req, res) {
     if (parseInt(new_news.limite,10) <= 0) {
       new_news.limite === null;
     }
-    new_news.save(function(err, evenement) {
+    new_news.save(function(err, news) {
       if (err)
         res.send(err);
-      res.json(evenement);
+      res.json({created: true});
     });
   })
+};
+
+exports.edit_news = function(req, res) {
+  var data = {
+    titre: req.body.titre,
+    content: req.body.content
+  }
+  News.findOneAndUpdate({_id:req.params.id}, data, {new: true}, function(err, news) {
+    if (err)
+      res.send(err);
+    res.json({updated: true});
+  });
 };

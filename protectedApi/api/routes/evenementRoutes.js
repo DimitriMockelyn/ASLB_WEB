@@ -49,4 +49,7 @@ module.exports = function(app) {
 	app.route('/news')
 		.get(adminHandler.list_all_news)
 		.put(userHandlers.loginRequired, userHandlers.isMembreActif, userHandlers.isAdmin, adminHandler.create_news)
+
+	app.route('/news/:id')
+		.post(userHandlers.loginRequired, userHandlers.isMembreActif, userHandlers.isAdmin, adminHandler.edit_news)
 };

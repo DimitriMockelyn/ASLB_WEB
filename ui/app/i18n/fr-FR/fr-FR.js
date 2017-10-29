@@ -90,6 +90,15 @@ export default {
         mine: 'Mon agenda',
         all: 'Tous les évenements'
     },
+    admin: {
+        addNews: 'Créer une news',
+        news: 'News',
+        titre: 'Titre',
+        content: 'Contenu',
+        create: 'Créer',
+        newsCreatedBy: 'Crée par',
+        newsCreatedAt: 'le'
+    },
     event: {
         created: 'Crée le',
         creator: 'Crée par',

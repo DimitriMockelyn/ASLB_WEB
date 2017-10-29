@@ -8,6 +8,7 @@ import Panel from 'focus-components/components/panel';
 import {component as Popin} from 'focus-components/application/popin';
 import userHelper from 'focus-core/user';
 import homeServices from '../../services/home';
+import News from './news';
 export default React.createClass({
     displayName: 'HomeView',
     mixins: [cartridgeBehaviour],
@@ -34,9 +35,7 @@ export default React.createClass({
         return (
         <div>
             <div>
-                <label>
-                    Administration
-                </label>
+                <News hasLoad={false} />
             </div>
         </div>
         );

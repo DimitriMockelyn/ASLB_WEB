@@ -76,7 +76,6 @@ export default React.createClass({
     },
     onSelectEvent(event) {
         this.setState({selectedEvent : event});
-        console.log('Evenement Selectionné :', event);
     },
     closePopin() {
         this.setState({selectedEvent : undefined});

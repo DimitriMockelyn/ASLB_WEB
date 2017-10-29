@@ -6,6 +6,16 @@
 import userHelper from 'focus-core/user';
 export default {
     home:{},
+    admin: {
+        titre:{
+            domain: 'DO_LABEL_LONG',
+            required: true
+        },
+        content: {
+            domain: 'DO_RTE',
+            required: true
+        },
+    },
     event: {
         created :{
             domain: 'DO_DATE',

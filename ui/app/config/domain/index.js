@@ -35,6 +35,7 @@ import DO_ETAT_WITH_NAME from './do-etat-with-name';
 import DO_NUMERO_ETABLISSEMENT from './do-numero-etablissement';
 import DO_NUMBER_DABPF from './do-number-dabpf';
 import DO_CODE_POSTAL_ETRANGER from './do-code-postal-etranger';
+import DO_RTE from './do-rte';
 export default {
     DO_CODE,
     DO_COMMENT,
@@ -72,5 +73,6 @@ export default {
     DO_ETAT_WITH_NAME,
     DO_NUMERO_ETABLISSEMENT,
     DO_NUMBER_DABPF,
-    DO_CODE_POSTAL_ETRANGER
+    DO_CODE_POSTAL_ETRANGER,
+    DO_RTE
 };

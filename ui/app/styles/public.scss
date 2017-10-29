@@ -294,3 +294,36 @@ button.mdl-button:not(.mdl-button--icon) {
     margin-top: 5px;
   }
 }
+
+[data-focus='panel'] .actions {
+  display: block;
+  margin-left: auto;
+}
+
+
+[data-focus='news-info'] {
+  @include text-detail();
+  margin-top: 20px;
+  font-size: 11px !important;
+}
+
+.news-content {
+  @include text-text();
+  min-height: 50px;
+  padding: 5px;
+  box-shadow: 0px 0px 3px 1px rgba(128,128,128,0.3);
+}
+
+div[data-focus="field"][data-mode="edit"][data-domain='DO_RTE'] [data-focus="field-value-container"] > div {
+  width: 100%;
+}
+
+[data-focus='panel-into-panel'] {
+  [data-focus='panel'] {
+    box-shadow: none;
+    border-top: 1px solid black;
+  }
+  [data-focus='panel'] [data-focus='panel-title'] h1, [data-focus='panel'] [data-focus='panel-title'] h2, [data-focus='panel'] [data-focus='panel-title'] h3, [data-focus='panel'] [data-focus='panel-title'] h4 {
+    @include text-text();
+  }
+}
