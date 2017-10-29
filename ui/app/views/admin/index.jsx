@@ -29,28 +29,13 @@ export default React.createClass({
         this._registerCartridge();
         this.setState({});
     },
-    alertHome() {
-        homeServices.loadTest().then(res => {
-            alert(res);
-        });
-    },
     /** @inheritDoc */
     render() {
         return (
         <div>
             <div>
                 <label>
-                    Bienvenue sur l'interface web de l'ASLB
-                </label>
-            </div>
-            <div>
-                <label>
-                    Ce site est en cours de construction. Les prochaines améliorations intégreront une interface d'administration et des news
-                </label>
-            </div>
-            <div>
-                <label>
-                    Vous pouvez néanmoins vous balader sur le site et commencer a vous inscrire a des activités :)
+                    Administration
                 </label>
             </div>
         </div>

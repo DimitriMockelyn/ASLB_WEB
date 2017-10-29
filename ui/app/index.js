@@ -8,11 +8,14 @@ import focusComponentsConf from 'focus-components/package.json';
 import beforeDomContentLoadedScript from './initializer/before';
 import afterDomContentLoadedScript from './initializer/after';
 beforeDomContentLoadedScript.initialize();
+import userInitializer from './initializer/user-initializer';
 
 // initializers after DOM CONTENT LOADED
 const onDOMContentLoaded = () => {
-    afterDomContentLoadedScript.initialize();
-    require('./application')();
+    userInitializer().then(() => {
+        afterDomContentLoadedScript.initialize();
+        require('./application')();
+    })
 };
 
 window.onDOMContentLoaded = onDOMContentLoaded;

@@ -7,6 +7,8 @@ import definitionInitializer from './definition-initializer';
 import translationInitializer from './translation-initializer';
 import numeralInitializer from './numeral-initializer';
 
+
+
 /**
  * Launch initializers that can to be executed before DOM content is loaded (asap)
  */

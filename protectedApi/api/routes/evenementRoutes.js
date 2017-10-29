@@ -1,23 +1,24 @@
 'use strict';
 
 module.exports = function(app) {
-	var todoList = require('../controllers/evenementController'),
-	userHandlers = require('../controllers/userController.js');
+	var eventHandler = require('../controllers/evenementController'),
+	userHandlers = require('../controllers/userController.js'),
+	adminHandler = require('../controllers/adminController');
 
 	// todoList Routes
 	app.route('/evenements')
-		.get(todoList.list_all_evenements)
-		.post(userHandlers.loginRequired, userHandlers.isMembreActif, userHandlers.canMembreCreerCours, todoList.create_a_evenement);
+		.get(eventHandler.list_all_evenements)
+		.post(userHandlers.loginRequired, userHandlers.isMembreActif, userHandlers.canMembreCreerCours, eventHandler.create_a_evenement);
 
 	app.route('/evenements/:evenementId')
-		.get(todoList.read_a_evenement)
-		.put(userHandlers.loginRequired, userHandlers.isMembreActif, userHandlers.isEvenementOwner, todoList.update_a_evenement)
-		.delete(userHandlers.loginRequired, userHandlers.isMembreActif, userHandlers.isEvenementOwner, todoList.delete_a_evenement);
+		.get(eventHandler.read_a_evenement)
+		.put(userHandlers.loginRequired, userHandlers.isMembreActif, userHandlers.isEvenementOwner, eventHandler.update_a_evenement)
+		.delete(userHandlers.loginRequired, userHandlers.isMembreActif, userHandlers.isEvenementOwner, eventHandler.delete_a_evenement);
 
 	app.route('/evenements/addSelf/:evenementId')
-		.post(userHandlers.loginRequired, userHandlers.isMembreActif, todoList.add_self_to_evenement);
+		.post(userHandlers.loginRequired, userHandlers.isMembreActif, eventHandler.add_self_to_evenement);
 	app.route('/evenements/removeSelf/:evenementId')
-		.post(userHandlers.loginRequired, todoList.remove_self_to_evenement);
+		.post(userHandlers.loginRequired, eventHandler.remove_self_to_evenement);
 
 	app.route('/auth/register')
 		.post(userHandlers.register);
@@ -28,7 +29,7 @@ module.exports = function(app) {
 	app.route('/me')
 		.get(userHandlers.me);
 	app.route('/typeEvenements')
-		.get(todoList.list_all_type_evenements);
+		.get(eventHandler.list_all_type_evenements);
 
 	app.route('/activate')
 		.post(userHandlers.activate);
@@ -40,8 +41,12 @@ module.exports = function(app) {
 		.post(userHandlers.sendMailReset);
 
 	app.route('/myEvenements')
-		.get(todoList.list_my_evenements);
+		.get(eventHandler.list_my_evenements);
 		
-		app.route('/partenaires')
-		.get(todoList.list_all_partenaires)
+	app.route('/partenaires')
+		.get(adminHandler.list_all_partenaires)
+
+	app.route('/news')
+		.get(adminHandler.list_all_news)
+		.put(userHandlers.loginRequired, userHandlers.isMembreActif, userHandlers.isAdmin, adminHandler.create_news)
 };

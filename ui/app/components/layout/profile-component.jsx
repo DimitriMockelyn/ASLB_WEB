@@ -13,7 +13,6 @@ export default React.createClass({
     definitionPath: 'person',
     componentWillMount() {
         userServices.loadMe().then( res => {
-            userHelper.setLogin(res);
             this.setState(res);
         })
     },

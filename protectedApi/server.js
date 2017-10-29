@@ -9,13 +9,14 @@ var express = require('express'),
   TypeEvenement = require('./api/models/typeEvenementModel'),
   TokenUser = require('./api/models/tokenUserModel'),
   Partenaire = require('./api/models/partenaireModel'),
+  News = require('./api/models/newsModel'),
   bodyParser = require('body-parser'),
   jsonwebtoken = require("jsonwebtoken");
 
 mongoose.Promise = global.Promise;
 mongoose.connect('mongodb://localhost/ASLBDB');
 
-var evtController = require('./api/controllers/evenementController');
+var adminController = require('./api/controllers/adminController');
 var {getConfig} = require('./config');
 
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -71,5 +72,5 @@ app.use(function(req, res) {
 app.listen(port);
 
 console.log('RESTful API server started on: ' + port);
-evtController.initData();
+adminController.initData();
 module.exports = app;

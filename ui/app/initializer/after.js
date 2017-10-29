@@ -4,7 +4,6 @@
 import React from 'react';
 import globalLinkInitializer from './global-link-initializer';
 import storesInitializer from './stores-initializer';
-import userInitializer from './user-initializer';
 import headerInitializer from './header-initializer';
 import routerInitializer from './router-initializer';
 import layoutInitializer from './layout-initializer';
@@ -17,7 +16,6 @@ export default {
         console.info('[INITIALIZER - AFTER CONTENT LOADED]');
         globalLinkInitializer();
         storesInitializer();
-        userInitializer();
         layoutInitializer();
         headerInitializer();
         routerInitializer();

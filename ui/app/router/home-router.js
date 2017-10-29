@@ -5,6 +5,7 @@ import userHelper from 'focus-core/user';
 import history from 'focus-core/history';
 import PartenaireView from '../views/partenaires';
 import ContactView from '../views/contact';
+import AdminView from '../views/admin';
 export default createRouter(Backbone).extend({
     log: true,
     beforeRoute() {
@@ -14,7 +15,8 @@ export default createRouter(Backbone).extend({
         '': 'home',
         home: 'home',
         partenaires: 'partenaires',
-        contact: 'contact'
+        contact: 'contact',
+        admin: 'admin'
     },
     home() {
         this._pageContent(HomeView);
@@ -24,6 +26,11 @@ export default createRouter(Backbone).extend({
     },
     contact() {
         this._pageContent(ContactView, {props: {hasLoad: false}});
+    },
+    admin() {
+        if (userHelper.getLogin() && userHelper.getLogin().isAdmin) {
+            this._pageContent(AdminView, {props: {hasLoad: false}});
+        }
     }
 });
 

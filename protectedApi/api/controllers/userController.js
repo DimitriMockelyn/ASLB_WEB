@@ -165,6 +165,25 @@ exports.isMembreActif = function(req, res, next) {
   }
 };
 
+exports.isAdmin = function(req, res, next) {
+  if (req.user) {
+    User.findOne({
+      email: req.user.email
+    }, function(err, user) {
+      if (err) {
+        throw err;
+      }
+      if (user.isAdmin) {
+        return next();
+      } else {
+        return res.status(401).json({ message: 'Il faut être connecté avec un compte administrateur pour réaliser cette action' });
+      }
+    })
+  } else {
+    return res.status(401).json({ message: 'Il faut être connecté pour réaliser cette action' });
+  }
+};
+
 exports.isEvenementOwner = function(req, res, next) {
   if (req.user && req.params.evenementId) {
     Evenement.findById(req.params.evenementId, function(err, evenement) {
@@ -190,7 +209,7 @@ exports.canMembreCreerCours = function(req, res, next) {
       if (err) {
         throw err;
       }
-      if (user.canCreate || user.email === 'dimitri.mockelyn@gmail.com') { //TODO remove second condition
+      if (user.canCreate) {
         return next();
       } else {
         return res.status(401).json({ message: 'Vous ne pouvez pas créer de cours' });

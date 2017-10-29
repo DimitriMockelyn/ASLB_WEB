@@ -3,7 +3,7 @@ import FocusCore from 'focus-core';
 import FocusComponents from 'focus-components';
 import render from 'focus-core/application/render';
 import Layout from 'focus-components/components/layout';
-import DemoMenuLeft from '../views/menu/menu-left';
+import MenuLeft from '../views/menu/menu-left';
 import MessageCenter from '../components/message-center';
 import Footer from '../views/header/footer';
 import PopinMessageCenter from '../components/popin-message-center';
@@ -13,7 +13,7 @@ export default () => {
         return (
             <div>
                 <Layout
-                    MenuLeft={DemoMenuLeft}
+                    MenuLeft={MenuLeft}
                     Footer={Footer}
                     MessageCenter={() => {
                         return <MessageCenter ttlWarning={6000000000} ttlError={9000000000000} ttlSuccess={5000}/>;

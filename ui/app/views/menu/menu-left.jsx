@@ -15,7 +15,12 @@ function computeMenuItem() {
 }
 
 export default () => {
+    let menu = computeMenuItem();
+    console.log('USER :', userHelper.getLogin());
+    if (userHelper.getLogin() && userHelper.getLogin().isAdmin) {
+        menu.push({icon: 'show_chart', name: 'Administration', route: 'admin'})
+    }
     return (
-        <Menu items={computeMenuItem()} />
+        <Menu items={menu} />
     );
 };
