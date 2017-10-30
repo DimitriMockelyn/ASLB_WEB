@@ -10,6 +10,9 @@ module.exports = function(app) {
 		.get(eventHandler.list_all_evenements)
 		.post(userHandlers.loginRequired, userHandlers.isMembreActif, userHandlers.canMembreCreerCours, eventHandler.create_a_evenement);
 
+	app.route('/evenements/next')
+		.get(eventHandler.list_all_incoming_evenements)
+		
 	app.route('/evenements/:evenementId')
 		.get(eventHandler.read_a_evenement)
 		.put(userHandlers.loginRequired, userHandlers.isMembreActif, userHandlers.isEvenementOwner, eventHandler.update_a_evenement)

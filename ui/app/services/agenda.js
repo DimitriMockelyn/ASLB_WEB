@@ -29,5 +29,8 @@ export default {
     },
     loadTypeEvenements() {
         return fetch(agendaUrl.loadTypeEvenements(), utils.computeHeaders());  
+    },
+    loadIncoming() {
+        return fetch(agendaUrl.loadIncoming());
     }
 };

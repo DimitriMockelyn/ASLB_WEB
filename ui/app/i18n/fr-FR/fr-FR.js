@@ -98,7 +98,12 @@ export default {
         create: 'Créer',
         newsCreatedBy: 'Crée par',
         newsCreatedAt: 'le',
-        derniereNews: 'Dernières news'
+        derniereNews: 'Dernières news',
+        incomingEvents: 'Événements à venir',
+        eventAt: 'Début de l\'activité :',
+        nbInscrits: 'Inscrits :',
+        noMoreNews: 'Pas de news plus ancienne',
+        noMoreEvents: 'Pas plus d\'événements prévu'
     },
     event: {
         created: 'Crée le',

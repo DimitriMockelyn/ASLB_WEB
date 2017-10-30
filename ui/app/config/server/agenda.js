@@ -5,6 +5,7 @@ const url = getConfig().API_ROOT;
 
 export default {
     loadAll:  builder(url + 'evenements', 'GET'),
+    loadIncoming:  builder(url + 'evenements/next', 'GET'),
     loadMine:  builder(url + 'myEvenements', 'GET'),
     addSelfToEvent: builder(url + 'evenements/addSelf/${eventId}', 'POST'),
     removeSelfToEvent: builder(url + 'evenements/removeSelf/${eventId}', 'POST'),

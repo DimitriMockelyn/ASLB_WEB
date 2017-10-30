@@ -9,6 +9,7 @@ import {component as Popin} from 'focus-components/application/popin';
 import userHelper from 'focus-core/user';
 import homeServices from '../../services/home';
 import News from './news';
+import Evenements from './evenements';
 export default React.createClass({
     displayName: 'HomeView',
     mixins: [cartridgeBehaviour],
@@ -44,7 +45,7 @@ export default React.createClass({
             </div>
             <div data-focus='home-container'>
                 <News hasLoad={false}/>
-                <News hasLoad={false}/>
+                <Evenements hasLoad={false} />
             </div>
         </div>
         );
