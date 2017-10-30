@@ -219,3 +219,13 @@ exports.canMembreCreerCours = function(req, res, next) {
     return res.status(401).json({ message: 'Il faut être connecté pour réaliser cette action' });
   }
 };
+
+exports.load_users = function(req, res) {
+  var filter = new RegExp(req.body.filter, 'i');
+  User.find({ $or: [{'nom': filter}, {'email': filter}, {'prenom':filter}]}, function(err, users) {
+    if (err) {
+      res.send(err);
+    }
+    return res.json(users);
+  });
+}

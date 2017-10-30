@@ -6,4 +6,5 @@ export default {
     createNews:  builder(url + 'news', 'PUT'),
     loadAllNews:  builder(url + 'news', 'GET'),
     editNews:  builder(url + 'news/${id}', 'POST'),
+    loadAllUsers: builder(url + 'users', 'POST'),
 };

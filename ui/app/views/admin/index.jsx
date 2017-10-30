@@ -9,6 +9,9 @@ import {component as Popin} from 'focus-components/application/popin';
 import userHelper from 'focus-core/user';
 import homeServices from '../../services/home';
 import News from './news';
+import ScrollspyContainer from 'focus-components/components/scrollspy-container';
+import Users from './users';
+
 export default React.createClass({
     displayName: 'HomeView',
     mixins: [cartridgeBehaviour],
@@ -35,7 +38,10 @@ export default React.createClass({
         return (
         <div>
             <div>
-                <News hasLoad={false} />
+                <ScrollspyContainer>
+                    <News hasLoad={false} />
+                    <Users hasLoad={false} />
+                </ScrollspyContainer>
             </div>
         </div>
         );

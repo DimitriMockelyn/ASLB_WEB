@@ -12,4 +12,7 @@ export default {
     editNews(data) {
         return fetch(adminUrl.editNews({urlData: {id: data.id}, data: data}), utils.computeHeaders());
     },
+    loadAllUsers(data) {
+        return fetch(adminUrl.loadAllUsers({data}), utils.computeHeaders());
+    }
 };

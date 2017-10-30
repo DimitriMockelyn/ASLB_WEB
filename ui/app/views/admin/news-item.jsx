@@ -17,7 +17,7 @@ export default React.createClass({
     render() {
         return (
         <div data-focus='panel-into-panel'>
-            <Panel title={this.props.data.titre} actions={this.renderActionsEdit} >
+            <Panel title={this.props.data.titre} actions={this.renderActionsEdit} data-spy={undefined} >
                 <div className='news-content' dangerouslySetInnerHTML={{ __html: this.props.data.content }} />
 
                 <div data-focus='news-info'>

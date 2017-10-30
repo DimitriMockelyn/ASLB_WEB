@@ -55,4 +55,7 @@ module.exports = function(app) {
 
 	app.route('/news/:id')
 		.post(userHandlers.loginRequired, userHandlers.isMembreActif, userHandlers.isAdmin, adminHandler.edit_news)
+
+	app.route('/users')
+		.post(userHandlers.loginRequired, userHandlers.isMembreActif, userHandlers.isAdmin, userHandlers.load_users)
 };
