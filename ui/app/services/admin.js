@@ -14,5 +14,14 @@ export default {
     },
     loadAllUsers(data) {
         return fetch(adminUrl.loadAllUsers({data}), utils.computeHeaders());
-    }
+    },
+    canCreateToggle(data) {
+        return fetch(adminUrl.canCreateToggle({urlData: {id: data.id}}), utils.computeHeaders());
+    },
+    toggleAdmin(data) {
+        return fetch(adminUrl.toggleAdmin({urlData: {id: data.id}}), utils.computeHeaders());
+    },
+    updateUser(data) {
+        return fetch(adminUrl.updateUser({urlData: {id: data.id}, data: data}), utils.computeHeaders());
+    },
 };

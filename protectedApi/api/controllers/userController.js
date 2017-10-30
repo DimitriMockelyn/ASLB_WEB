@@ -62,7 +62,7 @@ exports.activate = function(req, res) {
         return res.json({activated: false});
       } else {
 
-        User.findByIdAndUpdate(token.user, {actif: true, date_activation : Date.now()}, function(err, userActif) {
+        User.findByIdAndUpdate(token.user, {actif: true}, function(err, userActif) {
           if (err) {
             return res.json({activated: false});
           } else {
@@ -226,6 +226,49 @@ exports.load_users = function(req, res) {
     if (err) {
       res.send(err);
     }
+    for (let index in users) {
+      users[index]['hash_password'] = undefined;
+    }
     return res.json(users);
+  });
+}
+
+exports.toggle_creation = function(req, res) {
+  User.findById(req.params.id, function(err, user) {
+    if (err) {
+      res.send(err);
+    }
+    user.canCreate = !user.canCreate;
+    user.save(function(err, user) {
+      if (err) {
+        return res.json({success: false});
+      }
+      return res.json({success: true});
+    })    
+  });
+}
+
+exports.toggle_admin = function(req, res) {
+  User.findById(req.params.id, function(err, user) {
+    if (err) {
+      res.send(err);
+    }
+    user.isAdmin = !user.isAdmin;
+    user.save(function(err, user) {
+      if (err) {
+        return res.json({success: false});
+      }
+      return res.json({success: true});
+    })    
+  });
+}
+
+exports.update_date_activation = function(req, res) {
+  User.findByIdAndUpdate(req.params.id, {date_activation : req.body.date_activation}, function(err, userActif) {
+    if (err) {
+      return res.json({updated: false});
+    } else {
+      return res.json({updated: true});
+    }
   });
 }

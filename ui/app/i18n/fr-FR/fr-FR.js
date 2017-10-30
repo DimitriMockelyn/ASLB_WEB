@@ -103,7 +103,8 @@ export default {
         eventAt: 'Début de l\'activité :',
         nbInscrits: 'Inscrits :',
         noMoreNews: 'Pas de news plus ancienne',
-        noMoreEvents: 'Pas plus d\'événements prévu'
+        noMoreEvents: 'Pas plus d\'événements prévu',
+        personDetail: 'Détail du compte'
     },
     event: {
         created: 'Crée le',
@@ -125,7 +126,9 @@ export default {
         typeEvenement: 'Type'
     },
     select: {
-        unSelected: '-'
+        unSelected: '-',
+        oui: 'Oui',
+        non: 'Non'
     },
     user: {
         connect : 'Se connecter',
@@ -151,7 +154,12 @@ export default {
         createdSuccess: 'Le compte à été crée, veuillez le valider pour vous connecter',
         confirmResetPassword: 'Veuillez entrer les nouvelles informations de mot de passe',
         passwordReseted: 'Votre mot de passe a été réinitialisé',
-        mailResetSent: 'Un mail vous a été envoyé pour réinitialiser votre mot de passe'
+        mailResetSent: 'Un mail vous a été envoyé pour réinitialiser votre mot de passe',
+        date_activation: 'Date d\'activation',
+        canCreate: 'Peut créer un événement',
+        isAdmin: 'Est admin',
+        toggleCanCreate: 'Toggle de la création d\'événements',
+        setAdmin: 'Toggle du rôle d\'administration de la personne'
     },
     partenaires: {
         description: 'Vous trouverez ci-dessous la liste des partenaires de l\'association'

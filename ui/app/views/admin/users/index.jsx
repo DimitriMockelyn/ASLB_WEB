@@ -12,6 +12,7 @@ import {component as Button} from 'focus-components/common/button/action';
 import Toggle from 'focus-components/components/input/toggle';
 import Panel from 'focus-components/components/panel';
 import Input from 'focus-components/components/input/text';
+import UserInfo from './user-info';
 export default React.createClass({
     displayName: 'UsersView',
     mixins: [formMixin],
@@ -61,8 +62,8 @@ export default React.createClass({
                     }
                 })}
             </div>
-            {this.state.selectedUser && <Popin open={true} size='large' onPopinClose={this.closePopin}>
-                
+            {this.state.selectedUser && <Popin open={true} size='medium' onPopinClose={this.closePopin}>
+                <UserInfo hasLoad={false} data={this.state.selectedUser} onPopinClose={this.closePopin}/>
             </Popin>}
         </Panel>
         );

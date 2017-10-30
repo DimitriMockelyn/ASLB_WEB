@@ -86,6 +86,18 @@ export default {
         nom: {
             domain: 'DO_LABEL_LONG',
             required: true
+        },
+        date_activation: {
+            domain: 'DO_DATE',
+            required: false
+        },
+        isAdmin: {
+            domain: 'DO_YES_NO',
+            required: false
+        },
+        canCreate: {
+            domain: 'DO_YES_NO',
+            required: false
         }
     }
 };

@@ -58,4 +58,11 @@ module.exports = function(app) {
 
 	app.route('/users')
 		.post(userHandlers.loginRequired, userHandlers.isMembreActif, userHandlers.isAdmin, userHandlers.load_users)
+
+	app.route('/toggleCreation/:id')
+		.post(userHandlers.loginRequired, userHandlers.isMembreActif, userHandlers.isAdmin, userHandlers.toggle_creation)
+	app.route('/toggleAdmin/:id')
+		.post(userHandlers.loginRequired, userHandlers.isMembreActif, userHandlers.isAdmin, userHandlers.toggle_admin)
+	app.route('/updateUser/:id')
+		.post(userHandlers.loginRequired, userHandlers.isMembreActif, userHandlers.isAdmin, userHandlers.update_date_activation)
 };
