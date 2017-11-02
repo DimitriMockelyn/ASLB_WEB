@@ -9,5 +9,5 @@ export default {
     loadAllUsers: builder(url + 'users', 'POST'),
     canCreateToggle:  builder(url + 'toggleCreation/${id}', 'POST'),
     toggleAdmin:  builder(url + 'toggleAdmin/${id}', 'POST'),
-    updateUser: builder(url + 'updateUser/${id}', 'POST'),
+    updateUser: builder(url + 'updateUser   /${id}', 'POST'),
 };

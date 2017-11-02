@@ -359,6 +359,11 @@ div[data-focus="field"][data-mode="edit"][data-domain='DO_RTE'] [data-focus="fie
     align-items: center;
     & > div {
       width: 100%;
+      display: flex;
+      flex-direction: row;
+      & > div {
+        margin-right: 30px;
+      }
     }
   }
   [data-focus='user-line']:nth-of-type(2n) {
@@ -381,4 +386,8 @@ div[data-focus="field"][data-mode="edit"][data-domain='DO_RTE'] [data-focus="fie
   i {
     color: white;
   }
+}
+
+[data-focus='me-panel'] {
+  margin-bottom: 25px;
 }

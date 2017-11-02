@@ -7,6 +7,8 @@ import userHelper from 'focus-core/user';
 import userServices from '../../services/user';
 import {component as Popin} from 'focus-components/application/popin';
 import ConnectOrCreate from './connect-or-create';
+import MyInfo from './my-info';
+
 export default React.createClass({
     displayName: 'HomeView',
     mixins: [formMixin],
@@ -47,9 +49,10 @@ export default React.createClass({
                         
                     </div>
                 }
-                {userHelper.getLogin() && 
+                {userHelper.getLogin() && <div>
+                        <MyInfo />
                         <Button label='user.disconnect' type='button' handleOnClick={this.disconnect}/>
-                        
+                        </div>
                 }
             </Popin>}
         </div>

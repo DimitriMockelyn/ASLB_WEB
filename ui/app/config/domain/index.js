@@ -1,6 +1,5 @@
 import DO_CODE from './do-code';
 import DO_COMMENT from './do-comment';
-import DO_DA from './do-da';
 import DO_DATE from './do-date';
 import DO_DATE_TIME from './do-date-time';
 import DO_EMAIL from './do-email';
@@ -25,21 +24,15 @@ import DO_NUMBER from './do-number';
 import DO_ENTIER from './do-entier';
 import DO_ENTIER_NATUREL from './do-entier-naturel';
 import DO_TELEPHONE from './do-telephone';
-import DO_SIRET from './do-siret';
-import DO_SIREN from './do-siren';
 import DO_AUTOCOMPLETE from './do-autocomplete-custom';
 import DO_MULTISELECT_ALL from './do-multiselect-all';
 import DO_DOWNLOAD from './do-download';
 import DO_DATE_WITH_NAME from './do-date-with-name';
 import DO_ETAT_WITH_NAME from './do-etat-with-name';
-import DO_NUMERO_ETABLISSEMENT from './do-numero-etablissement';
-import DO_NUMBER_DABPF from './do-number-dabpf';
-import DO_CODE_POSTAL_ETRANGER from './do-code-postal-etranger';
 import DO_RTE from './do-rte';
 export default {
     DO_CODE,
     DO_COMMENT,
-    DO_DA,
     DO_DATE,
     DO_DATE_TIME,
     DO_EMAIL,
@@ -64,15 +57,10 @@ export default {
     DO_ENTIER,
     DO_ENTIER_NATUREL,
     DO_TELEPHONE,
-    DO_SIRET,
-    DO_SIREN,
     DO_AUTOCOMPLETE,
     DO_MULTISELECT_ALL,
     DO_DOWNLOAD,
     DO_DATE_WITH_NAME,
     DO_ETAT_WITH_NAME,
-    DO_NUMERO_ETABLISSEMENT,
-    DO_NUMBER_DABPF,
-    DO_CODE_POSTAL_ETRANGER,
     DO_RTE
 };

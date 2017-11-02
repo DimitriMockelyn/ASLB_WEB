@@ -155,7 +155,7 @@ export default {
         confirmResetPassword: 'Veuillez entrer les nouvelles informations de mot de passe',
         passwordReseted: 'Votre mot de passe a été réinitialisé',
         mailResetSent: 'Un mail vous a été envoyé pour réinitialiser votre mot de passe',
-        date_activation: 'Date d\'activation',
+        date_activation: 'Date d\'adhésion',
         canCreate: 'Peut créer un événement',
         isAdmin: 'Est admin',
         toggleCanCreate: 'Toggle de la création d\'événements',

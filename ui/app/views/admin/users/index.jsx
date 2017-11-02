@@ -55,7 +55,11 @@ export default React.createClass({
                 {this.state.users && this.state.users.length > 0 && this.state.users.map((value, pos) => {
                     if (pos < this.state.limit) {
                         return <div data-focus='user-line'>
-                            <div>{value.nom + ' ' + value.prenom}</div>
+                            <div>
+                                <div>{value.nom + ' ' + value.prenom}</div>
+                                {value.canCreate && <i className='material-icons' >border_color</i>}
+                                {value.isAdmin && <i className='material-icons' >build</i>}
+                            </div>
                             <div>{value.email}</div>
                             <div><Button type='button' icon='edit' shape='fav' handleOnClick={() => {this.openPopin(value)}}/></div>
                         </div>
