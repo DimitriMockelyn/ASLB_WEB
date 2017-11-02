@@ -65,4 +65,7 @@ module.exports = function(app) {
 		.post(userHandlers.loginRequired, userHandlers.isMembreActif, userHandlers.isAdmin, userHandlers.toggle_admin)
 	app.route('/updateUser/:id')
 		.post(userHandlers.loginRequired, userHandlers.isMembreActif, userHandlers.isAdmin, userHandlers.update_date_activation)
+
+	app.route('/uploadAvatar')
+		.post(userHandlers.loginRequired, userHandlers.changeAvatar)
 };

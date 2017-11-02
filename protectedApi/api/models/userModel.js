@@ -51,6 +51,9 @@ var User = new Schema({
   canCreate: {
     type: Boolean,
     default: false
+  },
+  avatar: {
+    type: String
   }
 });
 

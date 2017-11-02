@@ -159,7 +159,10 @@ export default {
         canCreate: 'Peut créer un événement',
         isAdmin: 'Est admin',
         toggleCanCreate: 'Toggle de la création d\'événements',
-        setAdmin: 'Toggle du rôle d\'administration de la personne'
+        setAdmin: 'Toggle du rôle d\'administration de la personne',
+        nonAdherent: 'Adhésion non validée',
+        adherentDepuis: 'Adhérent depuis le',
+        changeAvatar: 'Changer mon avatar'
     },
     partenaires: {
         description: 'Vous trouverez ci-dessous la liste des partenaires de l\'association'

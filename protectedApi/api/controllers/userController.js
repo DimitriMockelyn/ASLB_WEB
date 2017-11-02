@@ -8,9 +8,12 @@ var mongoose = require('mongoose'),
   TokenUser = mongoose.model('TokenUser'),
   mailer = require('../utils/mailer'),
   uuidv4 = require('uuid/v4'),
+  fs =  require('fs'),
   moment = require('moment');
 
   var {getConfig} = require('../../config');
+
+  var formidable = require('formidable');
 
 exports.register = function(req, res) {
   var newUser = new User(req.body);
@@ -271,4 +274,30 @@ exports.update_date_activation = function(req, res) {
       return res.json({updated: true});
     }
   });
+}
+
+exports.changeAvatar = function(req, res) {
+  var form = new formidable.IncomingForm();
+  form.parse(req, function (err, fields, files) {
+    console.log('FILE', files);
+    if (files.file.name.toLowerCase().endsWith('.jpg') ||
+        files.file.name.toLowerCase().endsWith('.jpeg') ||
+        files.file.name.toLowerCase().endsWith('.png')) {
+      
+      User.findOneAndUpdate({email: req.user.email}, {avatar : base64_encode(files.file.path)}, {new: true}, function(err, evenement) {
+        if (err)
+          res.send(err);
+        res.json({updated: true});
+      });
+    } else {
+      return res.status(401).json({ message: 'Seuls les formats JPG, JPEG, PNG sont acceptés' });
+    }
+  });
+}
+
+function base64_encode(file) {
+  // read binary data
+  var bitmap = fs.readFileSync(file);
+  // convert binary data to base64 encoded string
+  return new Buffer(bitmap).toString('base64');
 }

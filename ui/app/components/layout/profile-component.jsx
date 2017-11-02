@@ -40,7 +40,8 @@ export default React.createClass({
                 <label>{userHelper.getLogin().prenom + ' ' + userHelper.getLogin().nom}</label>}
             {!userHelper.getLogin() && 
                 <label>{i18n.t('user.connect')}</label> }
-                <i className='material-icons'>person</i>
+                {(!userHelper.getLogin() || !userHelper.getLogin().avatar) &&<i className='material-icons'>person</i>}
+                {(userHelper.getLogin() && userHelper.getLogin().avatar) && <img  src={'data:image/png;base64,'+userHelper.getLogin().avatar} />}
             </div>
             {this.state.openPopin && <Popin type='from-right' open={true} onPopinClose={this.closePopin}>
                 {!userHelper.getLogin() && 
@@ -50,8 +51,8 @@ export default React.createClass({
                     </div>
                 }
                 {userHelper.getLogin() && <div>
-                        <MyInfo />
-                        <Button label='user.disconnect' type='button' handleOnClick={this.disconnect}/>
+                            <MyInfo />
+                            <Button label='user.disconnect' type='button' handleOnClick={this.disconnect}/>
                         </div>
                 }
             </Popin>}
