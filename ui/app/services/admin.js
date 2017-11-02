@@ -24,4 +24,10 @@ export default {
     updateUser(data) {
         return fetch(adminUrl.updateUser({urlData: {id: data.id}, data: data}), utils.computeHeaders());
     },
+    editPartenaire(data) {
+        return fetch(adminUrl.editPartenaire({urlData: {id: data.id}, data: data}), utils.computeHeaders());
+    },
+    createPartenaire(data) {
+        return fetch(adminUrl.createPartenaire({data}), utils.computeHeaders());
+    },
 };

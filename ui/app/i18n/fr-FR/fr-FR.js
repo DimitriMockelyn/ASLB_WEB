@@ -104,7 +104,9 @@ export default {
         nbInscrits: 'Inscrits :',
         noMoreNews: 'Pas de news plus ancienne',
         noMoreEvents: 'Pas plus d\'événements prévu',
-        personDetail: 'Détail du compte'
+        personDetail: 'Détail du compte',
+        partenaire: 'Partenaire',
+        addPartenaire: 'Ajouter un partenaire'
     },
     event: {
         created: 'Crée le',
@@ -165,6 +167,12 @@ export default {
         changeAvatar: 'Changer mon avatar'
     },
     partenaires: {
-        description: 'Vous trouverez ci-dessous la liste des partenaires de l\'association'
+        description: 'Vous trouverez ci-dessous la liste des partenaires de l\'association',
+    },
+    partenaire: {
+        name: 'Nom',
+        url: 'URL',
+        logo: 'Logo (url)',
+        description: 'Description'
     }
 };

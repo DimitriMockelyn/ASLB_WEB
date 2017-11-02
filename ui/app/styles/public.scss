@@ -399,4 +399,15 @@ div[data-focus="field"][data-mode="edit"][data-domain='DO_RTE'] [data-focus="fie
   margin-bottom: 25px;
   display: flex;
   flex-direction: column;
+  button {
+    width: 25%;
+    margin-top: 5px;
+  }
+}
+
+div[data-focus="field"][data-domain="DO_RTE"] [data-focus="field-value-container"] {
+  width: calc(66.66667% - 16px);
+  max-width: calc(66.66667% - 16px);
+  max-height: 400px;
+  overflow: auto;
 }

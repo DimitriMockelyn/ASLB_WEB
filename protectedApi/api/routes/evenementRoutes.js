@@ -48,6 +48,10 @@ module.exports = function(app) {
 		
 	app.route('/partenaires')
 		.get(adminHandler.list_all_partenaires)
+		.put(userHandlers.loginRequired, userHandlers.isMembreActif, userHandlers.isAdmin, adminHandler.create_partenaire)
+
+	app.route('/partenaires/:id')
+		.post(userHandlers.loginRequired, userHandlers.isMembreActif, userHandlers.isAdmin, adminHandler.edit_partenaire)
 
 	app.route('/news')
 		.get(adminHandler.list_all_news)

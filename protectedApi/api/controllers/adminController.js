@@ -107,9 +107,6 @@ exports.create_news = function(req, res) {
   }, function(err, user) {
     var new_news = new News(req.body);
     new_news.createur = user;
-    if (parseInt(new_news.limite,10) <= 0) {
-      new_news.limite === null;
-    }
     new_news.save(function(err, news) {
       if (err)
         res.send(err);
@@ -124,6 +121,30 @@ exports.edit_news = function(req, res) {
     content: req.body.content
   }
   News.findOneAndUpdate({_id:req.params.id}, data, {new: true}, function(err, news) {
+    if (err)
+      res.send(err);
+    res.json({updated: true});
+  });
+};
+
+
+exports.create_partenaire = function(req, res) {
+  var new_ptn = new Partenaire(req.body);
+  new_ptn.save(function(err, news) {
+    if (err)
+      res.send(err);
+    res.json({created: true});
+  });
+};
+
+exports.edit_partenaire = function(req, res) {
+  var data = {
+    name: req.body.name,
+    logo: req.body.logo,
+    url: req.body.url,
+    description: req.body.description
+  }
+  Partenaire.findOneAndUpdate({_id:req.params.id}, data, {new: true}, function(err, news) {
     if (err)
       res.send(err);
     res.json({updated: true});
