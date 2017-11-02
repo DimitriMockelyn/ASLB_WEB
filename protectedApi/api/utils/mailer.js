@@ -2,6 +2,7 @@ var nodemailer = require('nodemailer');
 
 var mg = require('nodemailer-mailgun-transport');
 var {getConfig} = require('../../config');
+var sendmail = require('sendmail')({silent: true})
 // This is your API key that you retrieve from www.mailgun.com/cp (free up to 10K monthly emails)
 var auth = {
   auth: getConfig().authMail
@@ -21,4 +22,16 @@ exports.sendMail = function(dests, objet, message) {
           console.log('Response: ' + info);
         }
       });
+}
+
+exports.sendMailNoSmtp = function(dests, objet, message) {
+  sendmail({
+      from: 'no-reply@aslb.com',
+      to: dests.join(", "), 
+      subject: objet,
+      html: message,
+    }, function(err, reply) {
+      console.log(err && err.stack);
+      console.log(reply);
+  });
 }
