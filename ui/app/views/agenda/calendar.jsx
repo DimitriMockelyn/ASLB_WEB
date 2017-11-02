@@ -150,6 +150,7 @@ export default React.createClass({
                 onSelectSlot={this.createEvent}
                 min={minTime}
                 max={maxTime}
+                selectable='ignoreEvents'
                 eventPropGetter={this.detectPropsEvent}
                 messages={{next: 'Semaine suivante', today: 'Aujourd\'hui', previous: 'Semaine précédente', week: 'Vue semaine', day: 'Vue journée'}}
                 />
