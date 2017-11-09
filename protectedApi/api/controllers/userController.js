@@ -236,6 +236,20 @@ exports.load_users = function(req, res) {
   });
 }
 
+exports.load_users_autocomplete = function(req, res) {
+  var filter = new RegExp(req.body.data.criteria, 'i');
+  User.find({ $or: [{'nom': filter}, {'email': filter}, {'prenom':filter}]}, function(err, users) {
+    if (err) {
+      res.send(err);
+    }
+    var result = [];
+    for (let index in users) {
+      result.push({key: users[index]._id, label: users[index].nom + ' ' + users[index].prenom});
+    }
+    return res.json({data:result, totalCount: users.length});
+  });
+}
+
 exports.toggle_creation = function(req, res) {
   User.findById(req.params.id, function(err, user) {
     if (err) {

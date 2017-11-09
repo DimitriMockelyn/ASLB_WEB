@@ -72,6 +72,10 @@ export default {
         description:{
             domain: 'DO_COMMENT',
             required: false
+        },
+        animateur: {
+            domain: 'DO_AUTOCOMPLETE',
+            required: true
         }
     },
     person: {

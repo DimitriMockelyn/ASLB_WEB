@@ -6,6 +6,7 @@ import {component as Button} from 'focus-components/common/button/action';
 import agendaServices from '../../services/agenda';
 import moment from 'moment';
 import userHelper from 'focus-core/user';
+import userServices from '../../services/user';
 
 export default React.createClass({
     displayName: 'HomeView',
@@ -33,6 +34,7 @@ export default React.createClass({
                 {this.fieldFor('date_debut', {isEdit: true})}
                 {this.fieldFor('duree', {isEdit: true})}
                 {this.fieldFor('limite', {isEdit: true})}
+                {this.fieldFor('animateur', {isEdit: true, options: {querySearcherCs: userServices.loadUserAutocomplete}})}
                 {this.fieldFor('description', {isEdit: true})}
                 {this.fieldFor('typeEvenement', {isEdit: true, listName: 'typeEvenements', isRequired: true, valueKey: '_id', labelKey: 'name'})}
                 <div>

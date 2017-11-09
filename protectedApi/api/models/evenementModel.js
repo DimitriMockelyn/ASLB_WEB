@@ -33,6 +33,10 @@ var Evenement = new Schema({
   createur: {
     type: mongoose.Schema.Types.ObjectId,
 		ref: 'User'
+  },  
+  animateur: {
+    type: mongoose.Schema.Types.ObjectId,
+		ref: 'User'
   },
   typeEvenement: {
     type: mongoose.Schema.Types.ObjectId,

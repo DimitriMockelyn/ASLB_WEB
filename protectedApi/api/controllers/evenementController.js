@@ -18,7 +18,7 @@ exports.list_all_evenements = function(req, res) {
         evenement.participants = evenement.participants;
     });
     res.json(evenements);
-  }).populate('createur', '_id prenom nom').populate('participants', '_id prenom nom');
+  }).populate('createur', '_id prenom nom').populate('participants', '_id prenom nom').populate('animateur', '_id prenom nom');
 };
 
 exports.list_all_incoming_evenements = function(req, res) {
@@ -35,7 +35,7 @@ exports.list_all_incoming_evenements = function(req, res) {
         evenement.participants = evenement.participants;
     });
     res.json(evenements);
-  }).populate('createur', '_id prenom nom').populate('participants', '_id prenom nom').populate('typeEvenement', '_id code name').sort({date_debut: 1});
+  }).populate('createur', '_id prenom nom').populate('participants', '_id prenom nom').populate('typeEvenement', '_id code name').populate('animateur', '_id prenom nom').sort({date_debut: 1});
 }
 
 exports.list_my_evenements = function(req,res) {
@@ -45,7 +45,7 @@ exports.list_my_evenements = function(req,res) {
     if (err) {
       res.send(err);
     }
-    Evenement.find({participants: user}, function(err, evenements) {
+    Evenement.find({$or: [{participants: user}, {animateur: user}]}, function(err, evenements) {
       if (err) {
         res.send(err);
       }
@@ -54,7 +54,7 @@ exports.list_my_evenements = function(req,res) {
           evenement.participants = evenement.participants;
       });
       res.json(evenements);
-    }).populate('createur', '_id prenom nom').populate('participants', '_id prenom nom');
+    }).populate('createur', '_id prenom nom').populate('participants', '_id prenom nom').populate('animateur', '_id prenom nom');
   })
 }
 
@@ -175,8 +175,10 @@ exports.update_a_evenement = function(req, res) {
     date_debut: new Date(req.body.date_debut),
     duree: req.body.duree,
     limite: req.body.limite,
-    description: req.body.description
+    description: req.body.description,
+    animateur: req.body.animateur
   }
+  
   check_evenement_conflit(data, res, () => {
     TypeEvenement.findOne({
       _id: req.body.typeEvenement
@@ -190,7 +192,7 @@ exports.update_a_evenement = function(req, res) {
     });
   })
 };
-// evenement.remove({}).exec(function(){});
+
 exports.delete_a_evenement = function(req, res) {
 
   Evenement.remove({

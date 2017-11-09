@@ -10,4 +10,5 @@ export default {
     activate: builder(url + 'activate', 'POST'),
     changePassword: builder(url + 'changePassword', 'POST'),
     sendMailReset: builder(url + 'sendMailReset', 'POST'),
+    loadUserAutocomplete:  builder(url + 'usersAutocomplete', 'POST'),
 };

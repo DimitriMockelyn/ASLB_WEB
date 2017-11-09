@@ -15,7 +15,7 @@ export default React.createClass({
       return !this.initialized || (this.wasConsult === true && newProps.isEdit === true);
     },
     componentWillReceiveProps(newProps) {
-        if (hasPropsInitialString(newProps) && newProps.value && shouldReinit(newProps)) {
+        if (this.hasPropsInitialString(newProps) && newProps.value && this.shouldReinit(newProps)) {
             if (!this.initialized) {
                 this.initialized = true;
             }
@@ -28,9 +28,9 @@ export default React.createClass({
 
     },
     getLabelFromKey(key) {
-        if (this.queryResult) {
+        if (this.queryResult !== undefined) {
             for (const index in this.queryResult.data) {
-                if (this.queryResult.data[index].key === key || parseInt(this.queryResult.data[index].key,10) === key) {
+                if (this.queryResult.data[index].key.toString() === key.toString()) {
                     return this.queryResult.data[index].label;
                 }
             }
@@ -39,7 +39,7 @@ export default React.createClass({
     },
     keyResolver(key){
         return new Promise(resolve => {
-            // mapping entre key et label ?
+            // mapping entre key et label ?            
             setTimeout(resolve.bind(this, this.getLabelFromKey(key)), 1);
         });
     },
@@ -57,6 +57,7 @@ export default React.createClass({
         if (query.length > 0) {
             return this.props.options.querySearcherCs ?
                 this.props.options.querySearcherCs({data: {criteria: query}, urlData: {skip: 0, top: 30}}).then(res=> {
+                    
                     that.queryResult = res;
                     return res;
                 }) :
@@ -67,11 +68,11 @@ export default React.createClass({
         }
     },
     onChange(key) {
+        
         this.state.customError = null;
-        const value = isNaN(parseInt(key,10)) ? undefined : parseInt(key,10);
-        this.state.value = value;
+        this.state.value = key;
         if (this.props.onChange) {
-            this.props.onChange(value);
+            this.props.onChange(key);
         }
     },
     handleCustomBadInputvalue(value) {

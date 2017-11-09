@@ -63,6 +63,9 @@ module.exports = function(app) {
 	app.route('/users')
 		.post(userHandlers.loginRequired, userHandlers.isMembreActif, userHandlers.isAdmin, userHandlers.load_users)
 
+	app.route('/usersAutocomplete')
+		.post(userHandlers.loginRequired, userHandlers.isMembreActif, userHandlers.load_users_autocomplete)
+
 	app.route('/toggleCreation/:id')
 		.post(userHandlers.loginRequired, userHandlers.isMembreActif, userHandlers.isAdmin, userHandlers.toggle_creation)
 	app.route('/toggleAdmin/:id')

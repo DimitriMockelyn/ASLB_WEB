@@ -7,6 +7,7 @@ import agendaServices from '../../services/agenda';
 import moment from 'moment';
 import userHelper from 'focus-core/user';
 import confirm from 'focus-core/application/confirm';
+import userServices from '../../services/user';
 
 export default React.createClass({
     displayName: 'HomeView',
@@ -18,7 +19,7 @@ export default React.createClass({
 
     },
     getInitialState() {
-        return {...this.props.event, date_debut : moment(this.props.event.date_debut)};
+        return {...this.props.event, date_debut : moment(this.props.event.date_debut), animateur: this.props.event && this.props.event.animateur && this.props.event.animateur._id};
     },
     addSelf() {
         if (this.validate()) {
@@ -60,6 +61,7 @@ export default React.createClass({
     },
     /** @inheritDoc */
     renderContent() {
+        console.log('animateur', this.state.animateur)
         return (
         <div>
             <Panel title='agenda.evenementDetail' actions={this.isOwner() && this.renderActionsUpdate}>
@@ -69,6 +71,7 @@ export default React.createClass({
                 {this.fieldFor('date_debut')}
                 {this.fieldFor('duree')}
                 {this.fieldFor('limite')}
+                {this.fieldFor('animateur',{options: {querySearcherCs: userServices.loadUserAutocomplete, initialString: this.props.event && this.props.event.animateur && this.props.event.animateur.nom + ' ' + this.props.event.animateur.prenom}})}
                 {this.fieldFor('description', {value: this.state.description})}
                 {this.fieldFor('typeEvenement', {listName: 'typeEvenements', isRequired: true, valueKey: '_id', labelKey: 'name'})}
                 {this.state.participants && this.state.participants.length > 0 && <div data-focus='participants-list'>

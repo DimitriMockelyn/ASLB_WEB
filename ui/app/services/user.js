@@ -34,4 +34,7 @@ export default {
     sendMailReset(data) {
         return fetch(userUrl.sendMailReset({data}));
     },
+    loadUserAutocomplete(data) {
+        return fetch(userUrl.loadUserAutocomplete({data}), utils.computeHeaders());
+    }
 };

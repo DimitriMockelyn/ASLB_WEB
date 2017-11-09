@@ -125,7 +125,8 @@ export default {
         limite: 'Limite de places',
         create: 'Créer l\'évenement',
         participantsList: 'Liste des participants',
-        typeEvenement: 'Type'
+        typeEvenement: 'Type',
+        animateur: 'Animateur'
     },
     select: {
         unSelected: '-',
