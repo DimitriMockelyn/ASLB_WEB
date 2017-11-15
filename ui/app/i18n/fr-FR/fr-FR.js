@@ -170,6 +170,10 @@ export default {
     partenaires: {
         description: 'Vous trouverez ci-dessous la liste des partenaires de l\'association',
     },
+    historique: {
+        description: 'Historique de mes événements',
+        eventsParticipant: ' événement(s) terminé(s)'
+    },
     partenaire: {
         name: 'Nom',
         url: 'URL',

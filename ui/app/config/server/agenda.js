@@ -13,4 +13,5 @@ export default {
     createEvent: builder(url + 'evenements', 'POST'),
     updateEvent: builder(url + 'evenements/${eventId}', 'PUT'),
     loadTypeEvenements: builder(url + 'typeEvenements', 'GET'),
+    loadMyHistory:  builder(url + 'evenements/history', 'GET'),
 };

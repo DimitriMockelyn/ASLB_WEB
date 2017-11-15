@@ -32,5 +32,8 @@ export default {
     },
     loadIncoming() {
         return fetch(agendaUrl.loadIncoming());
+    },
+    loadMyHistory() {
+        return fetch(agendaUrl.loadMyHistory(), utils.computeHeaders());
     }
 };

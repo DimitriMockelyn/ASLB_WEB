@@ -16,6 +16,9 @@ function computeMenuItem() {
 
 export default () => {
     let menu = computeMenuItem();
+    if (userHelper.getLogin()) {
+        menu.push({icon: 'history', name: 'Historique', route: 'historique'})
+    }
     if (userHelper.getLogin() && userHelper.getLogin().isAdmin) {
         menu.push({icon: 'show_chart', name: 'Administration', route: 'admin'})
     }

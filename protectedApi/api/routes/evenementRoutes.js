@@ -12,6 +12,9 @@ module.exports = function(app) {
 
 	app.route('/evenements/next')
 		.get(eventHandler.list_all_incoming_evenements)
+
+	app.route('/evenements/history')
+		.get(userHandlers.loginRequired, eventHandler.list_my_history)
 		
 	app.route('/evenements/:evenementId')
 		.get(eventHandler.read_a_evenement)
