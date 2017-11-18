@@ -2,6 +2,7 @@
 
 var mongoose = require('mongoose'),
   Evenement = mongoose.model('Evenement'),
+  Commentaire = mongoose.model('Commentaire'),
   TypeEvenement = mongoose.model('TypeEvenement'),
   User= mongoose.model("User"),
   Partenaire = mongoose.model('Partenaire'),
@@ -76,7 +77,87 @@ exports.list_my_history = function(req, res) {
           evenement.participants = evenement.participants;
       });
       res.json(evenements);
-    }).populate('createur', '_id prenom nom').populate('participants', '_id prenom nom').populate('animateur', '_id prenom nom').sort({date_debut: -1});
+    }).populate('createur', '_id prenom nom').populate('participants', '_id prenom nom').populate('typeEvenement', '_id code name').populate('animateur', '_id prenom nom').sort({date_debut: -1});
+  })
+}
+
+exports.get_commentaire_for_user = function(req, res) {
+  User.findOne({
+    email: req.user.email
+  }, function(err, user) {
+    if (err) {
+      res.send(err);
+    }
+    Evenement.findById(req.params.evenementId, function(err, evenement) {
+      if (err) {
+        res.send(err);
+      }
+      Commentaire.find({$and: [
+        {auteur : user},
+        {evenement: evenement}
+      ]}, function(err, commentaires) {
+        if (err) {
+          res.send(err);
+        }
+        if (!commentaires || commentaires.length === 0) {
+          res.json({commentairePresent: false});
+        } else {
+          let result = {};
+          result._id = commentaires[0]._id;
+          result.evenement = commentaires[0].evenement ;
+          result.commentaire = commentaires[0].commentaire ;
+          result.date = commentaires[0].date ;
+          result.note = commentaires[0].note ;
+          result.auteur = commentaires[0].auteur ;
+          result['commentairePresent'] = true;
+          console.log(result);
+          res.json(result);
+        }
+      })
+    })
+  })
+}
+
+exports.post_commentaire_for_user = function(req, res) {
+  User.findOne({
+    email: req.user.email
+  }, function(err, user) {
+    if (err) {
+      res.send(err);
+    }
+    Evenement.findById(req.params.evenementId, function(err, evenement) {
+      if (err) {
+        res.send(err);
+      }
+      Commentaire.find({$and: [
+        {auteur : user},
+        {evenement: evenement}
+      ]}, function(err, commentaires) {
+        if (err) {
+          res.send(err);
+        }
+        if (!commentaires || commentaires.length === 0) {
+          var comm = new Commentaire(req.body);
+          comm.auteur = user;
+          comm.evenement = evenement;
+          comm.save(function(err, newComm) {
+              if (err) {
+                res.send(err);
+              }
+              newComm.commentairePresent = true;
+              res.json(newComm);
+          });
+        } else {
+          Commentaire.findOneAndUpdate({_id:commentaires[0]._id}, {note: req.body.note, date: Date.now(), commentaire: req.body.commentaire}, {new: true}, function(err, newComm) {
+            if (err) {
+              res.send(err);
+            }
+            newComm.commentairePresent = true;
+            res.json(newComm);
+          });
+        }
+      })
+    })
   })
 }
 

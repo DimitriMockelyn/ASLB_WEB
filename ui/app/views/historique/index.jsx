@@ -1,6 +1,9 @@
 import React from 'react';
 import agendaServices from '../../services/agenda';
-import EventItem from '../home/evenements/event-item';
+import EventItem from './event-item';
+import CommentaireEvenement from './commentaire';
+
+import {component as Popin} from 'focus-components/application/popin';
 export default React.createClass({
     displayName: 'HistoriqueView',
 
@@ -9,7 +12,10 @@ export default React.createClass({
         agendaServices.loadMyHistory().then(res => {this.setState({history: res})});
     },
     onClickEvent(value) {
-        console.log(value);
+        this.setState({eventClicked: value});
+    },
+    closeCommentaire() {
+        this.setState({eventClicked: undefined});
     },
     /** @inheritDoc */
     render() {
@@ -23,6 +29,9 @@ export default React.createClass({
                 })}
                 </div>
             </div>
+            {this.state.eventClicked && <Popin open={true}  onPopinClose={this.closeCommentaire}>
+                <CommentaireEvenement data={this.state.eventClicked} onPopinClose={this.closeCommentaire} hasLoad={false} hasForm={false}/>
+            </Popin>}
         </div>
         );
     }

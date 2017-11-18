@@ -30,6 +30,7 @@ import DO_DOWNLOAD from './do-download';
 import DO_DATE_WITH_NAME from './do-date-with-name';
 import DO_ETAT_WITH_NAME from './do-etat-with-name';
 import DO_RTE from './do-rte';
+import DO_NOTE from './do-note';
 export default {
     DO_CODE,
     DO_COMMENT,
@@ -62,5 +63,6 @@ export default {
     DO_DOWNLOAD,
     DO_DATE_WITH_NAME,
     DO_ETAT_WITH_NAME,
-    DO_RTE
+    DO_RTE,
+    DO_NOTE
 };

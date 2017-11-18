@@ -10,6 +10,7 @@ var express = require('express'),
   TokenUser = require('./api/models/tokenUserModel'),
   Partenaire = require('./api/models/partenaireModel'),
   News = require('./api/models/newsModel'),
+  Commentaire = require('./api/models/commentaireModel'),
   bodyParser = require('body-parser'),
   jsonwebtoken = require("jsonwebtoken");
 

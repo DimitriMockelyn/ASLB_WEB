@@ -78,4 +78,8 @@ module.exports = function(app) {
 
 	app.route('/uploadAvatar')
 		.post(userHandlers.loginRequired, userHandlers.changeAvatar)
+
+	app.route('/commentaire/:evenementId')
+		.get(userHandlers.loginRequired, userHandlers.isMembreActif, eventHandler.get_commentaire_for_user)
+		.post(userHandlers.loginRequired, userHandlers.isMembreActif, eventHandler.post_commentaire_for_user);
 };

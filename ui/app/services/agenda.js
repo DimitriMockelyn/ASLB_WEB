@@ -35,5 +35,11 @@ export default {
     },
     loadMyHistory() {
         return fetch(agendaUrl.loadMyHistory(), utils.computeHeaders());
+    },
+    loadCommentaire(id) {
+        return fetch(agendaUrl.loadCommentaire({urlData: {eventId:id}}), utils.computeHeaders());
+    },
+    postCommentaire(json) {
+        return fetch(agendaUrl.postCommentaire({urlData: {eventId:json.idEvent}, data: json.data}), utils.computeHeaders());
     }
 };

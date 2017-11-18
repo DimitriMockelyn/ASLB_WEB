@@ -14,4 +14,6 @@ export default {
     updateEvent: builder(url + 'evenements/${eventId}', 'PUT'),
     loadTypeEvenements: builder(url + 'typeEvenements', 'GET'),
     loadMyHistory:  builder(url + 'evenements/history', 'GET'),
+    loadCommentaire: builder(url + 'commentaire/${eventId}', 'GET'),
+    postCommentaire: builder(url + 'commentaire/${eventId}', 'POST'),
 };

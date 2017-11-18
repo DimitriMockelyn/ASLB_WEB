@@ -76,6 +76,14 @@ export default {
         animateur: {
             domain: 'DO_AUTOCOMPLETE',
             required: true
+        },
+        note: {
+            domain: 'DO_NOTE',
+            required: false
+        },
+        commentaire: {
+            domain: 'DO_COMMENT',
+            required: false
         }
     },
     person: {

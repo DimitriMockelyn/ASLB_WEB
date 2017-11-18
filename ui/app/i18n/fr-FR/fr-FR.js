@@ -126,7 +126,13 @@ export default {
         create: 'Créer l\'évenement',
         participantsList: 'Liste des participants',
         typeEvenement: 'Type',
-        animateur: 'Animateur'
+        animateur: 'Animateur',
+        commentaireVide: 'Veuillez renseigner un des champs du commentaire',
+        commentairePoste: 'Votre commentaire à bien été enregistré',
+        editComment: 'Editer mon commentaire',
+        createComment: 'Envoyer mon commentaire',
+        note: 'Note',
+        commentaire: 'Commentaire'
     },
     select: {
         unSelected: '-',
@@ -171,7 +177,7 @@ export default {
         description: 'Vous trouverez ci-dessous la liste des partenaires de l\'association',
     },
     historique: {
-        description: 'Historique de mes événements',
+        description: 'Historique de mes événements. Vous pouvez laisser un commentaire sur un événement en le selectionnant.',
         eventsParticipant: ' événement(s) terminé(s)'
     },
     partenaire: {
