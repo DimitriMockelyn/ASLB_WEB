@@ -8,7 +8,7 @@ var auth = {
   auth: getConfig().authMail
 }
 var nodemailerMailgun = nodemailer.createTransport(mg(auth));
-exports.sendMail = function(dests, objet, message) {
+exports.sendMailMailgun = function(dests, objet, message) {
     nodemailerMailgun.sendMail({
         from: 'dimitri.mockelyn@gmail.com',
         to: dests, // An array if you have multiple recipients.
@@ -24,9 +24,35 @@ exports.sendMail = function(dests, objet, message) {
       });
 }
 
+let transporter = nodemailer.createTransport({
+  host: 'mail.smtp2go.com',
+  port: 2525,
+  secure: false, // secure:true for port 465, secure:false for port 587
+  auth: {
+    user: 'dimitri.mockelyn@gmail.com',
+    pass: 'CJyMTP5deQYw'
+  }
+});
+
+exports.sendMail = function(dests, objet, message) {
+    
+  let mailOptions = {
+      from: 'email.aslb@gmail.com', // sender address
+      to: dests.join(", "), 
+      subject: objet,
+      html: message
+  };
+  transporter.sendMail(mailOptions, (error, info) => {
+      if (error) {
+          return console.log(error);
+      }
+      console.log('Message sent: %s', info); 
+  });
+}
+
 exports.sendMailNoSmtp = function(dests, objet, message) {
   sendmail({
-      from: 'no-reply@aslb.com',
+      from: 'email.aslb@gmail.com',
       to: dests.join(", "), 
       subject: objet,
       html: message,
