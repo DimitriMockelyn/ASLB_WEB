@@ -188,7 +188,7 @@ exports.isMembreActif = function(req, res, next) {
       if (err) {
         throw err;
       }
-      if (user.date_activation && moment().subtract(1, 'years').isBefore(moment(user.date_activation))) {
+      if (isMembreActif(user)) {
         return next();
       } else {
         return res.status(401).json({ message: 'Il faut être connecté avec un compte actif pour réaliser cette action' });
@@ -284,6 +284,28 @@ exports.load_users = function(req, res) {
   });
 }
 
+exports.load_users_group = function(req, res) {
+  User.find({}, function(err, users) {
+    if (err) {
+      res.send(err);
+    }
+    let result = {admins: [], createurCours: [], tous: []};
+    for (let index in users) {
+      let user = users[index];
+      if (isMembreActif(user)) {
+        result.tous.push(user.email);
+        if (user.isAdmin) {
+          result.admins.push(user.email);
+        }
+        if (user.canCreate) {
+          result.createurCours.push(user.email)
+        }
+      }
+    }
+    return res.json(result);
+  });
+}
+
 exports.load_users_autocomplete = function(req, res) {
   var filter = new RegExp(req.body.data.criteria, 'i');
   User.find({ $or: [{'nom': filter}, {'email': filter}, {'prenom':filter}]}, function(err, users) {
@@ -362,4 +384,8 @@ function base64_encode(file) {
   var bitmap = fs.readFileSync(file);
   // convert binary data to base64 encoded string
   return new Buffer(bitmap).toString('base64');
+}
+
+function isMembreActif(user) {
+  return user.date_activation && moment().subtract(1, 'years').isBefore(moment(user.date_activation));
 }

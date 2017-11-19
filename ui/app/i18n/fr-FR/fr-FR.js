@@ -106,7 +106,10 @@ export default {
         noMoreEvents: 'Pas plus d\'événements prévu',
         personDetail: 'Détail du compte',
         partenaire: 'Partenaire',
-        addPartenaire: 'Ajouter un partenaire'
+        addPartenaire: 'Ajouter un partenaire',
+        mailAll: 'Envoyer un mail général',
+        mailCreateurs: 'Envoyer un mail aux créateurs de cours',
+        mailAdmins: 'Envoyer un mail aux administrateurs'
     },
     detail: {
         saved: 'Les informations ont bien été enregistrées.'

@@ -30,4 +30,7 @@ export default {
     createPartenaire(data) {
         return fetch(adminUrl.createPartenaire({data}), utils.computeHeaders());
     },
+    loadUsersForMail() {
+        return fetch(adminUrl.loadUsersForMail(), utils.computeHeaders());
+    }
 };

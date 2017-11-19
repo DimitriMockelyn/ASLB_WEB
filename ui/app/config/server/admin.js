@@ -12,4 +12,5 @@ export default {
     updateUser: builder(url + 'updateUser/${id}', 'POST'),
     editPartenaire:  builder(url + 'partenaires/${id}', 'POST'),
     createPartenaire:  builder(url + 'partenaires', 'PUT'),
+    loadUsersForMail:  builder(url + 'loadUsersForMail', 'GET'),
 };

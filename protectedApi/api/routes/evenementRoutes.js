@@ -51,30 +51,30 @@ module.exports = function(app) {
 		
 	app.route('/partenaires')
 		.get(adminHandler.list_all_partenaires)
-		.put(userHandlers.loginRequired, userHandlers.isMembreActif, userHandlers.isAdmin, adminHandler.create_partenaire)
+		.put(userHandlers.loginRequired,  userHandlers.isAdmin, adminHandler.create_partenaire)
 
 	app.route('/partenaires/:id')
-		.post(userHandlers.loginRequired, userHandlers.isMembreActif, userHandlers.isAdmin, adminHandler.edit_partenaire)
+		.post(userHandlers.loginRequired,  userHandlers.isAdmin, adminHandler.edit_partenaire)
 
 	app.route('/news')
 		.get(adminHandler.list_all_news)
-		.put(userHandlers.loginRequired, userHandlers.isMembreActif, userHandlers.isAdmin, adminHandler.create_news)
+		.put(userHandlers.loginRequired, userHandlers.isAdmin, adminHandler.create_news)
 
 	app.route('/news/:id')
-		.post(userHandlers.loginRequired, userHandlers.isMembreActif, userHandlers.isAdmin, adminHandler.edit_news)
+		.post(userHandlers.loginRequired,  userHandlers.isAdmin, adminHandler.edit_news)
 
 	app.route('/users')
-		.post(userHandlers.loginRequired, userHandlers.isMembreActif, userHandlers.isAdmin, userHandlers.load_users)
+		.post(userHandlers.loginRequired,  userHandlers.isAdmin, userHandlers.load_users)
 
 	app.route('/usersAutocomplete')
 		.post(userHandlers.load_users_autocomplete)
 
 	app.route('/toggleCreation/:id')
-		.post(userHandlers.loginRequired, userHandlers.isMembreActif, userHandlers.isAdmin, userHandlers.toggle_creation)
+		.post(userHandlers.loginRequired,  userHandlers.isAdmin, userHandlers.toggle_creation)
 	app.route('/toggleAdmin/:id')
-		.post(userHandlers.loginRequired, userHandlers.isMembreActif, userHandlers.isAdmin, userHandlers.toggle_admin)
+		.post(userHandlers.loginRequired,  userHandlers.isAdmin, userHandlers.toggle_admin)
 	app.route('/updateUser/:id')
-		.post(userHandlers.loginRequired, userHandlers.isMembreActif, userHandlers.isAdmin, userHandlers.update_date_activation)
+		.post(userHandlers.loginRequired,  userHandlers.isAdmin, userHandlers.update_date_activation)
 
 	app.route('/uploadAvatar')
 		.post(userHandlers.loginRequired, userHandlers.changeAvatar)
@@ -92,4 +92,7 @@ module.exports = function(app) {
 	app.route('/mesInformations')
 		.get(userHandlers.loginRequired, userHandlers.get_mes_informations)
 		.post(userHandlers.loginRequired, userHandlers.update_mes_informations)
+
+	app.route('/loadUsersForMail')
+		.get(userHandlers.loginRequired, userHandlers.isAdmin, userHandlers.load_users_group)
 };
