@@ -7,6 +7,9 @@ import moment from 'moment';
 import userHelper from 'focus-core/user';
 import message from 'focus-core/message';
 import {navigate} from 'focus-core/history';
+import FileUpload from '../../components/file-upload';
+import {getConfig} from '../../config';
+const root = getConfig().API_ROOT;
 export default React.createClass({
     displayName: 'MesInformationsView',
     mixins: [formMixin],
@@ -58,10 +61,25 @@ export default React.createClass({
             />
         );
     },
+    buttonCancelCst() {
+        const handleOnClick = () => {
+            this.clearError();
+            this.setState({...this.state, isEdit: false})
+        }
+        return (
+            <Button
+                handleOnClick={handleOnClick}
+                icon='undo'
+                label='button.cancel'
+                shape={null}
+                type='button'
+            />
+        );
+    },
     renderEditActions() {
         return <span>
             {this.buttonSaveCst()}
-            {this.buttonCancel()}
+            {this.buttonCancelCst()}
         </span>
     },
     /** @inheritDoc */
@@ -73,6 +91,10 @@ export default React.createClass({
                 {this.fieldFor('nom')}
                 <label>{i18n.t('person.changeEmailWarning')}</label>
                 {this.fieldFor('email')}
+                <Button type='button' label='person.changeAvatar' handleOnClick={() => {this.refs.upload.refs.focusFile.dropzone.hiddenFileInput.click()}}/>
+                <div style={{'display': 'none'}}>
+                    <FileUpload ref='upload' onFileSuccess={() => {window.location.reload()}} url={root + 'uploadAvatar'}/>
+                </div>
             </Panel>
         </div>
         );
