@@ -204,6 +204,23 @@ exports.isEvenementOwner = function(req, res, next) {
   }
 };
 
+exports.isEvenementFutur = function(req, res, next) {
+  if (req.params.evenementId) {
+    Evenement.findById(req.params.evenementId, function(err, evenement) {
+      if (err) {
+        return res.status(401).json({ message: 'Evenement non trouvé' });
+      }
+      if (evenement.date_debut.getTime() > Date.now()) {
+        return next();
+      } else {
+      return res.status(401).json({ message: 'Vous ne pouvez pas faire cette action sur un événement passé' });
+      }
+    }).populate('createur');
+  } else {
+    return res.status(401).json({ message: 'L\'évenement n\'existe pas' });
+  }
+};
+
 exports.canMembreCreerCours = function(req, res, next) {
   if (req.user) {
     User.findOne({

@@ -279,6 +279,9 @@ exports.create_a_evenement = function(req, res) {
     if (parseInt(new_evenement.limite,10) <= 0) {
       new_evenement.limite === null;
     }
+    if (new_evenement.date_debut.getTime() < Date.now()) {
+      return res.status(401).json({ message: 'Vous ne pouvez pas créer d\'événement dans le passé' });
+    }
     //Vérification de la plage horaire
     let date_debut = new Date(new_evenement.date_debut.getTime());
     let heure_debut = date_debut.getHours();

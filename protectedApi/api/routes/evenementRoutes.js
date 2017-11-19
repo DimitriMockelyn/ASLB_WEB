@@ -8,7 +8,7 @@ module.exports = function(app) {
 	// todoList Routes
 	app.route('/evenements')
 		.get(eventHandler.list_all_evenements)
-		.post(userHandlers.loginRequired, userHandlers.isMembreActif, userHandlers.canMembreCreerCours, eventHandler.create_a_evenement);
+		.post(userHandlers.loginRequired, userHandlers.isMembreActif, userHandlers.canMembreCreerCours, eventHandler.create_a_evenement); 
 
 	app.route('/evenements/next')
 		.get(eventHandler.list_all_incoming_evenements)
@@ -18,13 +18,13 @@ module.exports = function(app) {
 		
 	app.route('/evenements/:evenementId')
 		.get(eventHandler.read_a_evenement)
-		.put(userHandlers.loginRequired, userHandlers.isMembreActif, userHandlers.isEvenementOwner, eventHandler.update_a_evenement)
-		.delete(userHandlers.loginRequired, userHandlers.isMembreActif, userHandlers.isEvenementOwner, eventHandler.delete_a_evenement);
+		.put(userHandlers.loginRequired, userHandlers.isMembreActif, userHandlers.isEvenementOwner, userHandlers.isEvenementFutur, eventHandler.update_a_evenement)
+		.delete(userHandlers.loginRequired, userHandlers.isMembreActif, userHandlers.isEvenementOwner, userHandlers.isEvenementFutur, eventHandler.delete_a_evenement); 
 
 	app.route('/evenements/addSelf/:evenementId')
-		.post(userHandlers.loginRequired, userHandlers.isMembreActif, eventHandler.add_self_to_evenement);
+		.post(userHandlers.loginRequired, userHandlers.isMembreActif, userHandlers.isEvenementFutur, eventHandler.add_self_to_evenement);
 	app.route('/evenements/removeSelf/:evenementId')
-		.post(userHandlers.loginRequired, eventHandler.remove_self_to_evenement);
+		.post(userHandlers.loginRequired, userHandlers.isEvenementFutur, eventHandler.remove_self_to_evenement);
 
 	app.route('/auth/register')
 		.post(userHandlers.register);
