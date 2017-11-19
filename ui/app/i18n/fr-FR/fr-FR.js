@@ -132,7 +132,9 @@ export default {
         editComment: 'Editer mon commentaire',
         createComment: 'Envoyer mon commentaire',
         note: 'Note',
-        commentaire: 'Commentaire'
+        commentaire: 'Commentaire',
+        noteMoyenne: 'Note moyenne',
+        noNotes: 'Pas de notes'
     },
     select: {
         unSelected: '-',
@@ -177,8 +179,9 @@ export default {
         description: 'Vous trouverez ci-dessous la liste des partenaires de l\'association',
     },
     historique: {
-        description: 'Historique de mes événements. Vous pouvez laisser un commentaire sur un événement en le selectionnant.',
-        eventsParticipant: ' événement(s) terminé(s)'
+        description: 'Historique de mes événements. Laissez un commentaire sur un événement en le selectionnant.',
+        eventsParticipant: ' événement(s) terminé(s)',
+        descriptionCoach: 'Historique de mon coaching événements. Cliquer sur un événement pour voir les commentaires laissés',
     },
     partenaire: {
         name: 'Nom',

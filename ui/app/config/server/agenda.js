@@ -16,4 +16,6 @@ export default {
     loadMyHistory:  builder(url + 'evenements/history', 'GET'),
     loadCommentaire: builder(url + 'commentaire/${eventId}', 'GET'),
     postCommentaire: builder(url + 'commentaire/${eventId}', 'POST'),
+    isCoach: builder(url + 'isCoach', 'GET'),
+    loadMyCoachingHistory: builder(url + 'coachHistory', 'GET'),
 };

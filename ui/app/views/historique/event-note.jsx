@@ -8,6 +8,30 @@ import confirm from 'focus-core/application/confirm';
 
 export default React.createClass({
     displayName: 'NewsPanel',
+    noteMoyenne : 0.0,
+    nbNote: 0,
+    nbCommentaires: 0,
+    computeNote() {
+        this.noteMoyenne = 0.0;
+        this.nbNote = 0;
+        this.nbCommentaires = 0;
+        console.log(this.props.data);
+        if (this.props.data.commentaires) {
+            for (let index in this.props.data.commentaires) {
+                let comm = this.props.data.commentaires[index];
+                if (comm.note) {
+                    this.noteMoyenne = (this.noteMoyenne*this.nbNote+comm.note)/(this.nbNote+1);
+                    this.nbNote = this.nbNote +1;
+                }
+                if (comm.commentaire) {
+                    this.nbCommentaires++;
+                }
+            }
+        }
+    },
+    componentWillMount() {
+        this.computeNote();
+    },
     /** @inheritDoc */
     render() {
         var limitString = this.props.data.limite ?  '/' + this.props.data.limite : '';
@@ -17,8 +41,13 @@ export default React.createClass({
                 <div>
                     {this.props.data.description}
                 </div>
-                
-
+                {this.nbNote !== 0 && <div>
+                    {i18n.t('event.noteMoyenne') + ' ' + this.noteMoyenne + '/5 ( ' + this.nbNote + ' note(s) )' }
+                    </div>}
+                {!this.nbNote && <div>{i18n.t('event.noNotes')}</div>}
+                {<div>
+                    {this.nbCommentaires + ' commentaire(s)'}    
+                </div>}
                 <div data-focus='news-info'>
                     <div>{i18n.t('admin.eventAt') + ' ' + moment(this.props.data.date_debut, moment.ISO_8601).format('DD/MM/YYYY - HH:mm') + ' - ' +
                      i18n.t('event.duree') + ' ' + this.props.data.duree + ' - ' +

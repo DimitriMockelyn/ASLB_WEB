@@ -67,7 +67,7 @@ exports.list_my_history = function(req, res) {
       res.send(err);
     }
     Evenement.find({$and: [
-        {$or: [{participants: user}, {animateur: user}]}, 
+        {participants: user}, 
         { date_debut: {$lt: Date.now()}}]}, function(err, evenements) {
       if (err) {
         res.send(err);
@@ -78,6 +78,58 @@ exports.list_my_history = function(req, res) {
       });
       res.json(evenements);
     }).populate('createur', '_id prenom nom').populate('participants', '_id prenom nom').populate('typeEvenement', '_id code name').populate('animateur', '_id prenom nom').sort({date_debut: -1});
+  })
+}
+
+exports.list_my_coach_history = function(req, res) {
+  User.findOne({
+    email: req.user.email
+  }, function(err, user) {
+    if (err) {
+      res.send(err);
+    }
+    Evenement.find({$and: [
+        { animateur: user}, 
+        { date_debut: {$lt: Date.now()}}]}, function(err, evenements) {
+      if (err) {
+        res.send(err);
+      }
+      evenements.forEach(function(evenement) { 
+          evenement.createur = evenement.createur;
+          evenement.participants = evenement.participants;
+      });
+    }).populate('createur', '_id prenom nom').populate('participants', '_id prenom nom').populate('typeEvenement', '_id code name').populate('animateur', '_id prenom nom').sort({date_debut: -1}).lean().exec(function(err, events) {
+      Commentaire.find({ evenement : { $in : events } }, function(err, commentaires) {
+        events.forEach(function(event) {
+          event.commentaires = [];
+        });
+        commentaires.forEach(function(commentaire) {
+          let evenementFound = events.find(function(event) {
+            return event._id.toString() === commentaire.evenement._id.toString();
+          });
+          evenementFound.commentaires.push(commentaire);
+        });
+        res.json(events);
+      }).populate('auteur', '_id prenom nom').populate('evenement', '_id');
+    });
+  })
+}
+
+exports.is_user_coach = function(req, res) {
+  User.findOne({
+    email: req.user.email
+  }, function(err, user) {
+    if (err) {
+      res.send(err);
+    }
+    Evenement.find({$and: [
+        {animateur: user}, 
+        { date_debut: {$lt: Date.now()}}]}, function(err, evenements) {
+      if (err) {
+        res.send(err);
+      }
+      res.json({isCoach: evenements.length > 0});
+    });
   })
 }
 
@@ -110,7 +162,6 @@ exports.get_commentaire_for_user = function(req, res) {
           result.note = commentaires[0].note ;
           result.auteur = commentaires[0].auteur ;
           result['commentairePresent'] = true;
-          console.log(result);
           res.json(result);
         }
       })
@@ -333,7 +384,6 @@ function check_evenement_conflit(event, res, cb) {
         (dateDebutEvent <= dateDebut && dateFinEvent > dateDebut) || //Debut du nouvel evenement pendant un autre
         (dateDebutEvent < dateFin && dateFinEvent >= dateFin)  //Fin du nouvel evenement pendant un autre
       )) {
-        console.log(existingEvent, event);
         return res.status(401).json({ message: 'Cette activité entre en conflit avec une autre' });
       }
     }

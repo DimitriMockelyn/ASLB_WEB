@@ -82,4 +82,10 @@ module.exports = function(app) {
 	app.route('/commentaire/:evenementId')
 		.get(userHandlers.loginRequired, userHandlers.isMembreActif, eventHandler.get_commentaire_for_user)
 		.post(userHandlers.loginRequired, userHandlers.isMembreActif, eventHandler.post_commentaire_for_user);
+
+	app.route('/isCoach')
+		.get(userHandlers.loginRequired, userHandlers.isMembreActif, eventHandler.is_user_coach)
+
+	app.route('/coachHistory')
+		.get(userHandlers.loginRequired, eventHandler.list_my_coach_history)
 };

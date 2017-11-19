@@ -427,6 +427,18 @@ div[data-focus="field"][data-domain="DO_RTE"] [data-focus="field-value-container
   }
 }
 
+.dv-star-rating {
+  width: auto;
+  & > label {
+    width: 12px;
+    overflow: hidden;
+  }
+  & > label:nth-of-type(2n+1) {
+    display: flex;
+    flex-flow: row-reverse;
+  }
+}
+
 div[data-focus="field"][data-mode="edit"][data-domain="DO_NOTE"] [data-focus="field-value-container"] > div {
   width: auto;
 }
@@ -439,5 +451,76 @@ div[data-focus="field"][data-mode="edit"][data-domain="DO_COMMENT"] [data-focus=
   }
   .mdl-textfield__input {
     min-height: 100px !important;
+  }
+}
+
+[data-focus='historique-evenements'] [data-focus="panel"]{
+  cursor: pointer;
+  label {
+    cursor: pointer;
+  }
+}
+
+[data-focus='historique-list'] {
+  margin: 20px;
+  & > div {
+    margin-top: 20px;
+  }
+}
+
+[data-focus='tab-array'] {
+  display: flex;
+  flex-direction: row;
+  margin-bottom: 15px;
+  & > div {
+    background-color: transparent;
+    color: black;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    padding: 15px;
+    border: 1px solid black;
+    cursor: pointer;
+    label {
+      cursor: pointer;
+    }
+  }
+  .tab-active {
+    background-color: $primary-color;
+    color: white;
+  }
+}
+[data-focus='commentaire-coach'] {
+  & > div:first-child {
+    margin: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    & > .dv-star-rating {
+      margin-left: 20px;
+    }
+  }
+  & > div:nth-child(2) {
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  [data-focus='commentaire-detail'] {
+    border-top: 1px solid black;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    [data-focus="commentaire-auteur"] {
+      margin-left: auto;
+    }
+    [data-focus="commentaire-commentaire"] {
+      margin-left: 15px;
+      max-width: 500px;
+    }
   }
 }

@@ -41,5 +41,11 @@ export default {
     },
     postCommentaire(json) {
         return fetch(agendaUrl.postCommentaire({urlData: {eventId:json.idEvent}, data: json.data}), utils.computeHeaders());
-    }
+    },
+    isCoach() {
+        return fetch(agendaUrl.isCoach(), utils.computeHeaders());
+    },
+    loadMyCoachingHistory() {
+        return fetch(agendaUrl.loadMyCoachingHistory(), utils.computeHeaders());
+    },
 };
