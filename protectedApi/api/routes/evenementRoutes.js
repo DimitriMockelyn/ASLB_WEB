@@ -67,7 +67,7 @@ module.exports = function(app) {
 		.post(userHandlers.loginRequired, userHandlers.isMembreActif, userHandlers.isAdmin, userHandlers.load_users)
 
 	app.route('/usersAutocomplete')
-		.post(userHandlers.loginRequired, userHandlers.isMembreActif, userHandlers.load_users_autocomplete)
+		.post(userHandlers.load_users_autocomplete)
 
 	app.route('/toggleCreation/:id')
 		.post(userHandlers.loginRequired, userHandlers.isMembreActif, userHandlers.isAdmin, userHandlers.toggle_creation)
