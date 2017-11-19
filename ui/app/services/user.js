@@ -36,5 +36,11 @@ export default {
     },
     loadUserAutocomplete(data) {
         return fetch(userUrl.loadUserAutocomplete({data}), utils.computeHeaders());
-    }
+    },
+    loadMesInformations() {
+        return fetch(userUrl.loadMesInformations(), utils.computeHeaders());
+    },
+    updateMesInformations(data) {
+        return fetch(userUrl.updateMesInformations({data}), utils.computeHeaders());
+    },
 };

@@ -108,6 +108,9 @@ export default {
         partenaire: 'Partenaire',
         addPartenaire: 'Ajouter un partenaire'
     },
+    detail: {
+        saved: 'Les informations ont bien été enregistrées.'
+    },
     event: {
         created: 'Crée le',
         creator: 'Crée par',
@@ -173,7 +176,10 @@ export default {
         setAdmin: 'Toggle du rôle d\'administration de la personne',
         nonAdherent: 'Adhésion non validée',
         adherentDepuis: 'Adhérent depuis le',
-        changeAvatar: 'Changer mon avatar'
+        changeAvatar: 'Changer mon avatar',
+        modifierInformations: 'Modifier mes informations',
+        changeEmailWarning: 'Vous pouvez modifier votre adresse e-mail, mais vous allez être automatiquement déconnecté suite à cette action. Vous pourrez vous reconnecter par la suite.',
+        mesInformations: 'Mes informations'
     },
     partenaires: {
         description: 'Vous trouverez ci-dessous la liste des partenaires de l\'association',

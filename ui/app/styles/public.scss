@@ -12,6 +12,9 @@ label {
   width: 120px;
 }
 
+[data-focus="snackbar-message-center"] {
+  z-index: 3002;
+}
 
 //Fix des couleurs
 button.mdl-button:not(.mdl-button--icon) {

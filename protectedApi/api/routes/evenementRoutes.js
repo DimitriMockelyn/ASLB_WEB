@@ -88,4 +88,8 @@ module.exports = function(app) {
 
 	app.route('/coachHistory')
 		.get(userHandlers.loginRequired, eventHandler.list_my_coach_history)
+
+	app.route('/mesInformations')
+		.get(userHandlers.loginRequired, userHandlers.get_mes_informations)
+		.post(userHandlers.loginRequired, userHandlers.update_mes_informations)
 };

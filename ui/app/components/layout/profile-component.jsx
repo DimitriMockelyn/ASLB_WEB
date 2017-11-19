@@ -51,7 +51,7 @@ export default React.createClass({
                     </div>
                 }
                 {userHelper.getLogin() && <div>
-                            <MyInfo />
+                            <MyInfo closePopin={this.closePopin} />
                             <Button label='user.disconnect' type='button' handleOnClick={this.disconnect}/>
                         </div>
                 }

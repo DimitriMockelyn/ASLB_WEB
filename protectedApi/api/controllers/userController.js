@@ -141,6 +141,37 @@ exports.me = function(req, res) {
   }
 };
 
+exports.update_mes_informations = function(req, res) {
+  if (req.user) {
+    User.findOneAndUpdate({
+      email: req.user.email
+    }, {email : req.body.email, nom: req.body.nom, prenom: req.body.prenom}, {new: true}, function(err, user) {
+        if (err) {
+          return res.status(401).json({ message: 'Une erreur est survenue lors de votre opération. Vérifiez que l\'adresse e-mail n\'est pas utilisée' })
+        }
+        let data = user;
+        data['hash_password'] = undefined;
+        return res.json(data);
+    });
+  } else {
+    return res.json({});
+  }
+};
+
+exports.get_mes_informations = function(req, res) {
+  if (req.user) {
+    User.findOne({
+      email: req.user.email
+    }, function(err, user) {
+        let data = user;
+        data['hash_password'] = undefined;
+        return res.json(data);
+    });
+  } else {
+    return res.json({});
+  }
+};
+
 exports.loginRequired = function(req, res, next) {
   if (req.user) {
     next();
