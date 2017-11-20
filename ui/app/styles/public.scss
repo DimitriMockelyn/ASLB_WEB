@@ -531,3 +531,47 @@ div[data-focus="field"][data-mode="edit"][data-domain="DO_COMMENT"] [data-focus=
 [data-focus="commentaire-coach"] .dv-star-rating {
   pointer-events: none;
 }
+
+[data-focus='presentation-personne'] {
+  [data-focus='title'] {
+    font-size: 15px;
+    display: flex;
+    font-weight: bold;
+    text-align: center;
+    cursor: pointer;
+    label {
+      cursor: pointer;
+      margin-top: auto;
+      margin-bottom: auto;
+    }
+  }
+  [data-focus='presentation-box'] {
+    padding: 10px;
+    border-left: 2px solid $grey;
+    display: flex;
+    flex-direction: column;
+    & > img {
+      width: 100px;
+      height: 100px;
+      margin-top: 10px;
+    }
+    & > label {
+      font-weight: bold;
+    }
+    [data-focus="interview"] {
+      margin-top: 15px;
+      [data-focus='interview-bloc'] {
+        margin-bottom: 5px;
+        [data-focus='interview-question'] {
+          font-weight: bold;
+          margin-bottom: 3px;
+        }
+        [data-focus='interview-reponse'] {
+          color: $primary-color-light;
+          font-style: italic;
+          max-width: 1200px;
+        }
+      }
+    }
+  }
+}

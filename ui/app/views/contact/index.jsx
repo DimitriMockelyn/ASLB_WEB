@@ -1,6 +1,7 @@
 import React from 'react';
 import Panel from 'focus-components/components/panel';
 import ScrollspyContainer from 'focus-components/components/scrollspy-container';
+import Presentations from './presentations';
 export default React.createClass({
     displayName: 'PartenairesView',
 
@@ -11,22 +12,7 @@ export default React.createClass({
     render() {
         return (
             <ScrollspyContainer>
-                <Panel title="Contacts de l'association">
-                    <div data-focus='contact'>
-                        <label>
-                            Les membres du bureau actuel sont :
-                        </label>
-                        <label>
-                            - Stéphane Martin : Président
-                        </label>
-                        <label>
-                            - Guillaume Blanchard : Trésorier
-                        </label>
-                        <label>- Dimitri Mockelyn : Secrétaire
-                        
-                        </label>
-                    </div>
-                </Panel>
+                <Presentations />
                 <Panel title='Informations du site'>
                     <div data-focus='contact'>
                         <label>
