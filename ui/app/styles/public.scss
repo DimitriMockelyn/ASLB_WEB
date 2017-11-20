@@ -527,3 +527,7 @@ div[data-focus="field"][data-mode="edit"][data-domain="DO_COMMENT"] [data-focus=
     }
   }
 }
+
+[data-focus="commentaire-coach"] .dv-star-rating {
+  pointer-events: none;
+}
