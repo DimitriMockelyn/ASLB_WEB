@@ -17,7 +17,7 @@ export default React.createClass({
                             Les membres du bureau actuel sont :
                         </label>
                         <PresentationPerson baseFr='stephaneMartin' portrait='https://dgalywyr863hv.cloudfront.net/pictures/athletes/10015096/3020222/6/large.jpg'/>
-                        <PresentationPerson baseFr='guillaumeBlanchard' portrait='https://lh5.googleusercontent.com/-hDutsHId2Bg/AAAAAAAAAAI/AAAAAAAABzI/tdU6DoqXD70/photo.jpg' /> 
+                        <PresentationPerson baseFr='guillaumeBlanchard' portrait='https://dgalywyr863hv.cloudfront.net/pictures/athletes/21091550/7637844/1/large.jpg' /> 
                         <PresentationPerson baseFr='dimitriMockelyn' portrait='https://dgalywyr863hv.cloudfront.net/pictures/athletes/23700855/6809599/2/large.jpg'/>
                     </div>
                 </Panel>
