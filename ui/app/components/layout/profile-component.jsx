@@ -17,6 +17,13 @@ export default React.createClass({
         userServices.loadMe().then( res => {
             this.setState(res);
         })
+        this.action = {
+            save: this.saveEmpty,
+            loadReference: this.saveEmpty
+        }
+    },
+    saveEmpty() {
+        return;
     },
     togglePopin() {
         this.setState({openPopin: true});
@@ -46,7 +53,7 @@ export default React.createClass({
             {this.state.openPopin && <Popin type='from-right' open={true} onPopinClose={this.closePopin}>
                 {!userHelper.getLogin() && 
                     <div>
-                        <ConnectOrCreate hasLoad={false} />
+                        <ConnectOrCreate hasLoad={false} hasForm={false}/>
                         
                     </div>
                 }

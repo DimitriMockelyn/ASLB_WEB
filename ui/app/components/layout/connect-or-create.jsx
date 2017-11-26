@@ -12,8 +12,15 @@ export default React.createClass({
     displayName: 'HomeView',
     mixins: [formMixin],
     definitionPath: 'person',
+    action: undefined,
+    saveEmpty() {
+        return;
+    },
     componentWillMount() {
-        
+        this.action = {
+            save: this.saveEmpty,
+            loadReference: this.saveEmpty
+        }
     },
     getInitialState() {
         return {tab: 0, password: '', passwordAgain: '', prenom: '', nom: ''};
@@ -57,11 +64,16 @@ export default React.createClass({
             <Button label='user.forgot' className={this.state.tab === 2 ? '' : 'active'} type='button' handleOnClick={() => {this.setState({tab: 2})} } />
             </div>
             {this.fieldFor('email', {isEdit: true})}
-            {this.state.tab !== 2 && this.fieldFor('password', {isEdit: true})}
+            {this.state.tab !== 2 && this.fieldFor('password', {isEdit: true, options: { _handleKeyPress: function(e) {
+                if (e.key === 'Enter') {
+                console.log('do validate');
+                }
+            }}})}
             {this.state.tab === 1 && this.fieldFor('passwordAgain', {isEdit: true})}
             {this.state.tab === 1 && this.fieldFor('prenom', {isEdit: true})}
             {this.state.tab === 1 && this.fieldFor('nom', {isEdit: true})}
-            {this.state.tab === 0 && <Button label='user.connexion' type='button' handleOnClick={this.connect} />}
+            {this.state.tab === 1 && this.fieldFor('dateNaissance', {isEdit: true})}
+            {this.state.tab === 0 && <Button label='user.connexion' handleOnClick={this.connect} />}
             {this.state.tab === 1 && <Button label='user.creation' type='button' handleOnClick={this.create} />}
             {this.state.tab === 2 && <Button label='user.reset' type='button' handleOnClick={this.sendMailReset} />}
         </div>

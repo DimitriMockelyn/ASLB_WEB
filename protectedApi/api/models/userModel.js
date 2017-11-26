@@ -36,6 +36,9 @@ var User = new Schema({
   date_activation: {
     type: Date
   },
+  dateNaissance: {
+    type: Date
+  },
   date_creation: {
     type: Date,
     default: Date.now

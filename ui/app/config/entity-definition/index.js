@@ -118,6 +118,10 @@ export default {
         canCreate: {
             domain: 'DO_YES_NO',
             required: false
+        },
+        dateNaissance: {
+            domain: 'DO_DATE',
+            required: true
         }
     }
 };
