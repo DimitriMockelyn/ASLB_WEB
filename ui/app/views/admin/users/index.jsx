@@ -39,7 +39,7 @@ export default React.createClass({
     renderActionsEdit() {
         if (!this.props.hideButtons) {
             return <div>
-                <Button type='button' label='button.voirPlus' handleOnClick={() => {this.setState({limitNews: this.state.limit+3})}}/>
+                <Button type='button' label='button.voirPlus' handleOnClick={() => {this.setState({limit: this.state.limit+3})}}/>
             </div>
         }
     },
