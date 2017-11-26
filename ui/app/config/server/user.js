@@ -13,4 +13,6 @@ export default {
     loadUserAutocomplete:  builder(url + 'usersAutocomplete', 'POST'),
     loadMesInformations: builder(url + 'mesInformations', 'GET'),
     updateMesInformations: builder(url + 'mesInformations', 'POST'),
+    loadSexes: builder(url + 'typeSexe', 'GET'),
+    loadEntreprises: builder(url + 'typeEntreprise', 'GET')
 };

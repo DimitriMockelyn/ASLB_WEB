@@ -9,7 +9,9 @@ var mongoose = require('mongoose'),
   mailer = require('../utils/mailer'),
   uuidv4 = require('uuid/v4'),
   fs =  require('fs'),
-  moment = require('moment');
+  moment = require('moment'),
+  Sexe = mongoose.model('Sexe'),
+  Entreprise = mongoose.model('Entreprise');
 
   var {getConfig} = require('../../config');
 
@@ -22,6 +24,7 @@ exports.register = function(req, res) {
   newUser.hash_password = bcrypt.hashSync(req.body.password, 10);
   newUser.save(function(err, user) {
     if (err) {
+      console.log(err);
       return res.status(401).json({ message: 'Le compte n\'a pas pu être crée ou existe déjà' });
     } else {
       user.hash_password = undefined;
@@ -376,6 +379,24 @@ exports.changeAvatar = function(req, res) {
     } else {
       return res.status(401).json({ message: 'Seuls les formats JPG, JPEG, PNG sont acceptés' });
     }
+  });
+}
+
+exports.list_all_sexes = function(req,res) {
+  Sexe.find({}, function(err, types) {
+    if (err) {
+      res.send(err);
+    }
+    res.json(types);
+  });
+}
+
+exports.list_all_entreprises = function(req,res) {
+  Entreprise.find({}, function(err, types) {
+    if (err) {
+      res.send(err);
+    }
+    res.json(types);
   });
 }
 

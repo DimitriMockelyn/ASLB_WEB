@@ -43,4 +43,11 @@ export default {
     updateMesInformations(data) {
         return fetch(userUrl.updateMesInformations({data}), utils.computeHeaders());
     },
+
+    loadSexes() {
+        return fetch(userUrl.loadSexes());
+    },
+    loadEntreprises() {
+        return fetch(userUrl.loadEntreprises());
+    }
 };

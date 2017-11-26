@@ -57,6 +57,16 @@ var User = new Schema({
   },
   avatar: {
     type: String
+  },
+  sexe: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Sexe',
+    required: true
+  },
+  entreprise: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Entreprise',
+    required: true
   }
 });
 

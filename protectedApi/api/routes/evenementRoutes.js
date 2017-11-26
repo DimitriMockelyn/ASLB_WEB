@@ -37,6 +37,12 @@ module.exports = function(app) {
 	app.route('/typeEvenements')
 		.get(eventHandler.list_all_type_evenements);
 
+	app.route('/typeSexe')
+		.get(userHandlers.list_all_sexes);
+
+	app.route('/typeEntreprise')
+		.get(userHandlers.list_all_entreprises);
+
 	app.route('/activate')
 		.post(userHandlers.activate);
 	

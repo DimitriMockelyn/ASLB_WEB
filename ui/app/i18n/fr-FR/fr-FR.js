@@ -184,7 +184,8 @@ export default {
         changeEmailWarning: 'Vous pouvez modifier votre adresse e-mail, mais vous allez être automatiquement déconnecté suite à cette action. Vous pourrez vous reconnecter par la suite.',
         mesInformations: 'Mes informations',
         dateNaissance: 'Date de naissance',
-        sexe: 'Sexe'
+        sexe: 'Sexe',
+        entreprise: 'Entreprise'
     },
     partenaires: {
         description: 'Vous trouverez ci-dessous la liste des partenaires de l\'association',

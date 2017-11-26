@@ -6,6 +6,8 @@ var mongoose = require('mongoose'),
   User= mongoose.model("User"),
   Partenaire = mongoose.model('Partenaire'),
   News= mongoose.model('News'),
+  Sexe=mongoose.model('Sexe'),
+  Entreprise=mongoose.model('Entreprise'),
   mailer = require('../utils/mailer');
 
 
@@ -32,6 +34,42 @@ exports.initData = function() {
   TypeEvenement.findOneAndUpdate({code: 'AUTRE'}, {
     name: 'Autre',
     code:'AUTRE'
+  }, {upsert: true, 'new': true}, function(err, model) {
+  });
+
+  Sexe.findOneAndUpdate({code: 'H'}, {
+    label: 'Homme',
+    code:'H'
+  }, {upsert: true, 'new': true}, function(err, model) {
+  });
+
+  Sexe.findOneAndUpdate({code: 'F'}, {
+    label: 'Femme',
+    code:'F'
+  }, {upsert: true, 'new': true}, function(err, model) {
+  });
+
+  Entreprise.findOneAndUpdate({code: 'KLEE'}, {
+    label: 'Klee Group',
+    code:'KLEE'
+  }, {upsert: true, 'new': true}, function(err, model) {
+  });
+
+  Entreprise.findOneAndUpdate({code: 'TOK'}, {
+    label: 'Tokheim',
+    code:'TOK'
+  }, {upsert: true, 'new': true}, function(err, model) {
+  });
+
+  Entreprise.findOneAndUpdate({code: 'MIS'}, {
+    label: 'MISCO',
+    code:'MIS'
+  }, {upsert: true, 'new': true}, function(err, model) {
+  });
+
+  Entreprise.findOneAndUpdate({code: 'AUT'}, {
+    label: 'Autre',
+    code:'AUT'
   }, {upsert: true, 'new': true}, function(err, model) {
   });
     
