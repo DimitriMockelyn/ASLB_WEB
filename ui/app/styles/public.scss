@@ -206,6 +206,7 @@ button.mdl-button:not(.mdl-button--icon) {
 .rbc-time-view {
   border-top-left-radius: 4px;
   border-top-right-radius: 4px;
+  background-color: #eeeeee;
 }
 
 .rbc-event:hover {
@@ -574,4 +575,11 @@ div[data-focus="field"][data-mode="edit"][data-domain="DO_COMMENT"] [data-focus=
       }
     }
   }
+}
+
+[data-focus="layout"] {
+  background-image: url('../assets/logo_big_transparent.png');
+  background-size: 1000px 500px;
+  background-repeat: no-repeat;
+  background-position: 50vh 30vh;
 }
