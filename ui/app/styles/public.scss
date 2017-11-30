@@ -600,8 +600,11 @@ div[data-focus="field"][data-mode="edit"][data-domain="DO_COMMENT"] [data-focus=
 
 [data-route="home"][data-focus='header-scrolling'][data-deployed="true"] [data-focus="header-content"] {
   display: flex;
-  height: 50px;
+  height: 100px;
   padding: 15px;
+  top: 0;
+  position: absolute;
+  width: 100%;
   & > div {
     display: flex;
     flex-direction: column;
@@ -610,4 +613,8 @@ div[data-focus="field"][data-mode="edit"][data-domain="DO_COMMENT"] [data-focus=
     align-items: center;
     width: 100%;
   }
+}
+
+[data-focus='layout'][data-menu='left'] [data-route="home"] + [data-focus="menu-left"] + [data-focus="page-content"] {
+  margin-top: 75px;
 }
