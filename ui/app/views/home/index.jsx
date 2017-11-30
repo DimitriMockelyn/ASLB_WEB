@@ -10,6 +10,8 @@ import userHelper from 'focus-core/user';
 import homeServices from '../../services/home';
 import News from './news';
 import Evenements from './evenements';
+import Cartridge from './cartridge';
+import Summary from './summary';
 export default React.createClass({
     displayName: 'HomeView',
     mixins: [cartridgeBehaviour],
@@ -21,6 +23,8 @@ export default React.createClass({
      */
     cartridgeConfiguration() {
         return {
+            cartridge: {component: Cartridge},
+            summary: {component: Summary},
             actions: {
                 primary: [],
                 secondary: []

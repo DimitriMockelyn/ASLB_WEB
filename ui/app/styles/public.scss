@@ -577,9 +577,35 @@ div[data-focus="field"][data-mode="edit"][data-domain="DO_COMMENT"] [data-focus=
   }
 }
 
-[data-focus="layout"] {
+[data-focus="background-logo"] {
   background-image: url('../assets/logo_big_transparent.png');
   background-size: 1000px 500px;
   background-repeat: no-repeat;
   background-position: 50vh 30vh;
+  height: 100vh;
+  top: 0;
+  position: fixed;
+  width: 100vw;
+}
+
+[data-focus='header-scrolling'][data-deployed="false"] [data-focus="header-top-row-middle"] {
+  display: flex;
+  align-items: center;
+  &> div {
+
+  }
+}
+
+[data-focus='header-scrolling'][data-deployed="true"] [data-focus="header-content"] {
+  display: flex;
+  height: 50px;
+  padding: 15px;
+  & > div {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+  }
 }

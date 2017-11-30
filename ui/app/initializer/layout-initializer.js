@@ -12,6 +12,7 @@ export default () => {
     const customLayout = () => {
         return (
             <div>
+                <div data-focus="background-logo"/>
                 <Layout
                     MenuLeft={MenuLeft}
                     Footer={Footer}
