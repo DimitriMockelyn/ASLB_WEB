@@ -333,6 +333,8 @@ div[data-focus="field"][data-mode="edit"][data-domain='DO_RTE'] [data-focus="fie
   [data-focus='panel'] {
     box-shadow: none;
     border-top: 1px solid black;
+    min-height: auto;
+    margin-bottom: 10px;
   }
   [data-focus='panel'] [data-focus='panel-title'] h1, [data-focus='panel'] [data-focus='panel-title'] h2, [data-focus='panel'] [data-focus='panel-title'] h3, [data-focus='panel'] [data-focus='panel-title'] h4 {
     @include text-text();
@@ -596,7 +598,7 @@ div[data-focus="field"][data-mode="edit"][data-domain="DO_COMMENT"] [data-focus=
   }
 }
 
-[data-focus='header-scrolling'][data-deployed="true"] [data-focus="header-content"] {
+[data-route="home"][data-focus='header-scrolling'][data-deployed="true"] [data-focus="header-content"] {
   display: flex;
   height: 50px;
   padding: 15px;

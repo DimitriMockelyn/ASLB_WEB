@@ -15,28 +15,10 @@ export default createRouter(Backbone).extend({
     },
     routes: {
         '': 'home',
-        home: 'home',
-        partenaires: 'partenaires',
-        contact: 'contact',
-        admin: 'admin',
-        me: 'me'
+        home: 'home'
     },
     home() {
         this._pageContent(HomeView);
-    },
-    partenaires() {
-        this._pageContent(PartenaireView, {props: {hasLoad: false}});
-    },
-    contact() {
-        this._pageContent(ContactView, {props: {hasLoad: false}});
-    },
-    admin() {
-        if (userHelper.getLogin() && userHelper.getLogin().isAdmin) {
-            this._pageContent(AdminView, {props: {hasLoad: false}});
-        }
-    },
-    me() {
-        this._pageContent(MeView);
     }
 });
 
