@@ -618,3 +618,8 @@ div[data-focus="field"][data-mode="edit"][data-domain="DO_COMMENT"] [data-focus=
 [data-focus='layout'][data-menu='left'] [data-route="home"] + [data-focus="menu-left"] + [data-focus="page-content"] {
   margin-top: 75px;
 }
+
+[data-focus='layout'] {
+  background-color: transparent;
+  position: relative;
+}
