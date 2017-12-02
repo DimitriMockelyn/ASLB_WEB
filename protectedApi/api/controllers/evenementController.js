@@ -55,7 +55,7 @@ exports.list_my_evenements = function(req,res) {
           evenement.participants = evenement.participants;
       });
       res.json(evenements);
-    }).populate('createur', '_id prenom nom').populate('participants', '_id prenom nom').populate('typeEvenement', '_id code name').populate('animateur', '_id prenom nom').sort({date_debut: 1});
+    }).populate('createur', '_id prenom nom').populate('participants', '_id prenom nom').populate('animateur', '_id prenom nom').sort({date_debut: 1});
   })
 }
 
