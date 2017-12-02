@@ -646,6 +646,7 @@ $lines-to-show: 3;
       [data-focus="tile"] {
         margin: 15px;
         opacity: 0.9;
+        position: relative;
         [data-focus='tile-title'] {
           font-weight: bold;
           white-space: pre;
