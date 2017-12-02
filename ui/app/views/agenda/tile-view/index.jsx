@@ -9,7 +9,7 @@ export default React.createClass({
     getInitialState() {
         return {currentWeek: this.props.week || this.getCurrentWeek(), events: this.props.events, jours: [[],[],[],[],[]]}
     },
-    componentWillMount() {
+    componentDidMount() {
         moment.locale('fr');
         this.computeEventsPerDay();
     },
