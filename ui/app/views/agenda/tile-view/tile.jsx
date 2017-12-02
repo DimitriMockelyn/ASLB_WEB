@@ -1,0 +1,29 @@
+import React from 'react';
+import moment from 'moment';
+
+export default React.createClass({
+    displayName: 'TileView',
+    componentWillMount() {
+        this.setState({});
+        console.log(this.props.data);
+    },
+    /** @inheritDoc */
+    render() {
+        let props = this.props.eventPropGetter(this.props.data);
+        props.className = props.className + ' rbc-event';
+        var limitString = this.props.data.limite ?  '/' + this.props.data.limite : '';
+        return (
+            <div data-focus='tile'  {...props} onClick={this.props.onClickTile}>
+                <div data-focus='tile-title'>
+                    {moment(this.props.data.startDate).format('HH:mm') + ' - ' + moment(this.props.data.endDate).format('HH:mm')  + '   ' + this.props.data.name}
+                </div>
+                <div data-focus='tile-description'>
+                    {this.props.data.description}
+                </div>
+                <div data-focus='tile-info'>
+                    <div>{i18n.t('admin.nbInscrits') + ' ' + this.props.data.participants.length + limitString} </div>
+                </div>
+            </div>
+        );
+    }
+});

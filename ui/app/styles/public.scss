@@ -210,9 +210,7 @@ button.mdl-button:not(.mdl-button--icon) {
 }
 
 .rbc-event:hover {
-  width: 100% !important;
   z-index: 3 !important;
-  height: auto !important;
 }
 
 [data-focus='participants-list'] {
@@ -622,4 +620,50 @@ div[data-focus="field"][data-mode="edit"][data-domain="DO_COMMENT"] [data-focus=
 [data-focus='layout'] {
   background-color: transparent;
   position: relative;
+}
+
+.rbc-toolbar {
+  button {
+    text-transform: initial;
+  }
+}
+$font-size: 26px;
+$line-height: 1.4;
+$lines-to-show: 3;
+
+[data-focus='week-bar'] {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  & > div {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    [data-focus='tile-list'] {
+      margin-top: 20px;
+      width: 100%;
+      [data-focus="tile"] {
+        margin: 15px;
+        opacity: 0.9;
+        [data-focus='tile-title'] {
+          font-weight: bold;
+          white-space: pre;
+        }
+        [data-focus="tile-description"] {
+          display: block;
+          display: -webkit-box;
+          margin: 0 auto;
+          line-height: 1.4;
+          -webkit-line-clamp: 3;
+          -webkit-box-orient: vertical;
+          overflow: hidden;
+          text-overflow: ellipsis;
+        }
+        [data-focus="tile-info"] {
+          font-style: italic;
+        }
+      }
+    }
+  }
 }

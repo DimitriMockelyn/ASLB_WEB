@@ -12,6 +12,7 @@ import agendaServices from '../../services/agenda';
 import CreateEvent from './create-event';
 import userHelper from 'focus-core/user';
 import Toggle from 'focus-components/components/input/toggle';
+import TileView from './tile-view';
 export default React.createClass({
     displayName: 'CalendarView',
     mixins: [formMixin],
@@ -22,7 +23,9 @@ export default React.createClass({
             events : [],
             selectedEvent : undefined,
             serviceLoad: agendaServices.loadAll,
-            fullView: false
+            fullView: false,
+            calendarView: true,
+            currentWeek : moment().week()
         }
     },
     onChangeView() {
@@ -38,6 +41,19 @@ export default React.createClass({
             this.refs['toggle'].refs['mdlHolder'].classList.add('is-checked');
         } else {
             this.refs['toggle'].refs['mdlHolder'].classList.remove('is-checked');
+        }
+    },
+    onChangeCalendar() {
+        this.setState({
+            calendarView: !this.state.calendarView})
+    },
+    onChangeCalendarFromLabel() {
+        var showIsChecked = !this.state.calendarView;
+        this.onChangeCalendar();
+        if (showIsChecked) {
+            this.refs['toggle-cal'].refs['mdlHolder'].classList.add('is-checked');
+        } else {
+            this.refs['toggle-cal'].refs['mdlHolder'].classList.remove('is-checked');
         }
     },
     componentWillMount() {
@@ -115,6 +131,15 @@ export default React.createClass({
             className: className
         }
     },
+    onNavigateCalendar(data, data2, type) {
+        if (type === 'TODAY') {
+            this.setState({currentWeek : moment().week()})
+        } else if (type === 'PREV') {
+            this.setState({currentWeek : this.state.currentWeek -1})
+        } else if (type === 'NEXT') {
+            this.setState({currentWeek : this.state.currentWeek +1})
+        }
+    },
     sendEmail() {
         
     },
@@ -138,22 +163,37 @@ export default React.createClass({
                 <label onClick={this.onChangeViewFromLabel}>{i18n.t('agenda.all')}</label>
                 <Toggle ref='toggle' value={this.state.fullView} label={i18n.t('agenda.mine')} onChange={this.onChangeView} />
             </div>}
+            <div data-focus='toggle-bar'>
+                <label onClick={this.onChangeCalendarFromLabel}>{i18n.t('agenda.tile')}</label>
+                <Toggle ref='toggle-cal' value={this.state.calendarView} label={i18n.t('agenda.calendar')} onChange={this.onChangeCalendar} />
+            </div>
+            {this.state.calendarView &&
             <BigCalendar
                 events={this.state.events}
                 startAccessor='startDate'
                 endAccessor='endDate'
-                views={[views.WEEK]}
-                defaultView={views.WEEK}
+                views={[views.WORK_WEEK]}
+                defaultView={views.WORK_WEEK}
                 onSelectEvent={this.onSelectEvent}
                 culture='fr-FR'
                 selectable={true}
                 onSelectSlot={this.createEvent}
+                onNavigate={this.onNavigateCalendar}
+                date={moment().week(this.state.currentWeek).day(3)}
                 min={minTime}
                 max={maxTime}
                 selectable='ignoreEvents'
                 eventPropGetter={this.detectPropsEvent}
                 messages={{next: 'Semaine suivante', today: 'Aujourd\'hui', previous: 'Semaine précédente', week: 'Vue semaine', day: 'Vue journée'}}
-                />
+                />}
+                {!this.state.calendarView && <TileView 
+                    events={this.state.events}
+                    onSelectEvent={this.onSelectEvent}
+                    onCreateSlot={this.createEvent}
+                    eventPropGetter={this.detectPropsEvent}
+                    onNavigate={this.onNavigateCalendar}
+                    week={this.state.currentWeek}
+                />}
             {this.state.selectedEvent && <Popin open={true} size='small' onPopinClose={this.closePopin}>
                 <EventInfos event={this.state.selectedEvent} onPopinClose={this.closePopin} isEdit={false} hasLoad={false} hasForm={false}/>
             </Popin>}

@@ -89,7 +89,9 @@ export default {
         home: 'Agenda des activités de l\'ASLB',
         evenementDetail: 'Détail de l\'évènement',
         mine: 'Mon agenda',
-        all: 'Tous les évenements'
+        all: 'Tous les évenements',
+        calendar: 'Vue calendrier',
+        tile: 'Vue condensée'
     },
     admin: {
         addNews: 'Créer une news',

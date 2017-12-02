@@ -19,7 +19,7 @@ exports.list_all_evenements = function(req, res) {
         evenement.participants = evenement.participants;
     });
     res.json(evenements);
-  }).populate('createur', '_id prenom nom').populate('participants', '_id prenom nom').populate('animateur', '_id prenom nom');
+  }).populate('createur', '_id prenom nom').populate('participants', '_id prenom nom').populate('animateur', '_id prenom nom').sort({date_debut: 1});
 };
 
 exports.list_all_incoming_evenements = function(req, res) {
