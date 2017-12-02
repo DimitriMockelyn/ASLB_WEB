@@ -82,7 +82,8 @@ export default {
         change: 'Changer',
         estimate: 'Estimer',
         execute: 'Exécuter',
-        voirPlus: 'Voir plus'
+        voirPlus: 'Voir plus',
+        exporter: 'Exporter'
     },
     agenda: {
         home: 'Agenda des activités de l\'ASLB',
@@ -194,6 +195,12 @@ export default {
         description: 'Historique de mes événements. Laissez un commentaire sur un événement en le selectionnant.',
         eventsParticipant: ' événement(s) terminé(s)',
         descriptionCoach: 'Historique de mon coaching événements. Cliquer sur un événement pour voir les commentaires laissés',
+    },
+    sexe: {
+        label: 'sexe'
+    },
+    entreprise: {
+        label: 'entreprise'
     },
     partenaire: {
         name: 'Nom',

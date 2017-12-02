@@ -7,6 +7,7 @@ var mongoose = require('mongoose'),
   Evenement = mongoose.model('Evenement'),
   TokenUser = mongoose.model('TokenUser'),
   mailer = require('../utils/mailer'),
+  json2csv = require('json2csv'),
   uuidv4 = require('uuid/v4'),
   fs =  require('fs'),
   moment = require('moment'),
@@ -284,7 +285,25 @@ exports.load_users = function(req, res) {
       users[index]['hash_password'] = undefined;
     }
     return res.json(users);
-  });
+  }).populate('sexe', '_id label').populate('entreprise', '_id label');
+}
+
+exports.export_users = function(req, res) {
+  var filter = new RegExp(req.body.filter, 'i');
+  User.find({ $or: [{'nom': filter}, {'email': filter}, {'prenom':filter}]}, function(err, users) {
+    if (err) {
+      res.send(err);
+    }
+    for (let index in users) {
+      users[index]['hash_password'] = undefined;
+    }
+    var fields = ['nom', 'prenom', 'email','sexe.label', 'entreprise.label']
+    json2csv({ data: users, fields: fields,quotes:'', del: ';' }, function(err, csv) {
+      res.setHeader('Content-disposition', 'attachment; filename=data.csv');
+      res.set('Content-Type', 'text/csv');
+      return res.status(200).send(csv);
+    });
+  }).populate('sexe', '_id label').populate('entreprise', '_id label');
 }
 
 exports.load_users_group = function(req, res) {

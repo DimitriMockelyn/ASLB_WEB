@@ -15,6 +15,9 @@ export default {
     loadAllUsers(data) {
         return fetch(adminUrl.loadAllUsers({data}), utils.computeHeaders());
     },
+    exportAllUsers(data) {
+        return fetch(adminUrl.exportAllUsers({data}), utils.computeHeaders());
+    },
     canCreateToggle(data) {
         return fetch(adminUrl.canCreateToggle({urlData: {id: data.id}}), utils.computeHeaders());
     },

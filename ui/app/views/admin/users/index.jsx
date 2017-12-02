@@ -13,6 +13,7 @@ import Toggle from 'focus-components/components/input/toggle';
 import Panel from 'focus-components/components/panel';
 import Input from 'focus-components/components/input/text';
 import UserInfo from './user-info';
+import {downloadCSV} from '../../../utils/download';
 export default React.createClass({
     displayName: 'UsersView',
     mixins: [formMixin],
@@ -29,6 +30,9 @@ export default React.createClass({
     loadAllUsers() {
         adminServices.loadAllUsers({filter: this.state.filter}).then(res => {this.setState({users: res})});
     },
+    export() {
+        adminServices.exportAllUsers({filter: this.state.filter}).then(res => {downloadCSV(res, 'users.csv')});;
+    },
     openPopin(user) {
         this.setState({selectedUser : user});
     },
@@ -39,6 +43,7 @@ export default React.createClass({
     renderActionsEdit() {
         if (!this.props.hideButtons) {
             return <div>
+                <Button type='button' label='button.exporter' handleOnClick={this.export} />
                 <Button type='button' label='button.voirPlus' handleOnClick={() => {this.setState({limit: this.state.limit+3})}}/>
             </div>
         }

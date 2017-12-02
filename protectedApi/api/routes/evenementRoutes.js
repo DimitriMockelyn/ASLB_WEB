@@ -72,6 +72,9 @@ module.exports = function(app) {
 	app.route('/users')
 		.post(userHandlers.loginRequired,  userHandlers.isAdmin, userHandlers.load_users)
 
+	app.route('/usersExport')
+		.post(userHandlers.loginRequired,  userHandlers.isAdmin, userHandlers.export_users)
+
 	app.route('/usersAutocomplete')
 		.post(userHandlers.load_users_autocomplete)
 
