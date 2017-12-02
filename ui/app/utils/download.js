@@ -6,7 +6,8 @@ let downloadCSV = function(res, filename) {
         header[index] = i18n.t(header[index]);
     }
     data[0] = header.join(';')
-    result = data.join('\n')
+    result = data.join('\n');
+    result = '\ufeff' +  result;
     download(result,filename,'text/csv');
 }
 
