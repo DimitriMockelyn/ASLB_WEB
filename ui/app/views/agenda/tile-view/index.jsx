@@ -27,7 +27,7 @@ export default React.createClass({
             this.state.events.map(event => {
                 // on range les evenements dans la bonne case
                 let dateDebut = moment(event.startDate);
-                if (dateDebut.week() === this.state.currentWeek) {
+                if (dateDebut.week() === this.state.currentWeek && dateDebut.weekday() < 5 ) {
                     state.jours[dateDebut.weekday()].push(event);
                 }
             });
