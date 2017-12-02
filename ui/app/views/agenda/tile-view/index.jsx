@@ -9,6 +9,13 @@ export default React.createClass({
     getInitialState() {
         return {currentWeek: this.props.week || this.getCurrentWeek(), events: this.props.events, jours: [[],[],[],[],[]]}
     },
+    componentWillReceiveProps(newProps) {
+        if (newProps.events) {
+            this.setState({events: newProps.events}, this.computeEventsPerDay);
+        } else {
+            this.setState({events: [], jours: [[],[],[],[],[]]});
+        }
+    },
     componentDidMount() {
         moment.locale('fr');
         this.computeEventsPerDay();
