@@ -625,6 +625,11 @@ div[data-focus="field"][data-mode="edit"][data-domain="DO_COMMENT"] [data-focus=
 .rbc-toolbar {
   button {
     text-transform: initial;
+    &:focus {
+    outline: none;
+    background-color: transparent;
+    color: #445ada;
+    }
   }
 }
 $font-size: 26px;
