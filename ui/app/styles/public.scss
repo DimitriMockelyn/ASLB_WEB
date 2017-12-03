@@ -673,3 +673,10 @@ $lines-to-show: 3;
     }
   }
 }
+
+[data-focus='back-button-root'] {
+  position: fixed;
+  top: 7px;
+  left: 117px;
+  z-index: 1001;
+}

@@ -8,6 +8,7 @@ import MessageCenter from '../components/message-center';
 import Footer from '../views/header/footer';
 import PopinMessageCenter from '../components/popin-message-center';
 import ProfileComponent from '../components/layout/profile-component';
+import Back from '../components/back'
 export default () => {
     const customLayout = () => {
         return (
@@ -21,7 +22,7 @@ export default () => {
                         }
                     }
                     OtherRootComponent={() => {
-                        return <div><PopinMessageCenter/><ProfileComponent hasLoad={false}/></div>;
+                        return <div><div data-focus='back-button-root'><Back /></div><PopinMessageCenter/><ProfileComponent hasLoad={false}/></div>;
                         }
                     } />
             </div>);
