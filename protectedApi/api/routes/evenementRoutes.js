@@ -61,6 +61,7 @@ module.exports = function(app) {
 
 	app.route('/partenaires/:id')
 		.post(userHandlers.loginRequired,  userHandlers.isAdmin, adminHandler.edit_partenaire)
+		.delete(userHandlers.loginRequired,  userHandlers.isAdmin, adminHandler.delete_partenaire)
 
 	app.route('/news')
 		.get(adminHandler.list_all_news)
@@ -68,6 +69,7 @@ module.exports = function(app) {
 
 	app.route('/news/:id')
 		.post(userHandlers.loginRequired,  userHandlers.isAdmin, adminHandler.edit_news)
+		.delete(userHandlers.loginRequired,  userHandlers.isAdmin, adminHandler.delete_news)
 
 	app.route('/users')
 		.post(userHandlers.loginRequired,  userHandlers.isAdmin, userHandlers.load_users)

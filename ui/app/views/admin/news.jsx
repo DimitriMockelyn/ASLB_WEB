@@ -43,6 +43,9 @@ export default React.createClass({
             </div>
         }
     },
+    delete(data) {
+        adminServices.deleteNews({id: data._id}).then(this.loadAllNews);
+    },
     /** @inheritDoc */
     renderContent() {
         return (
@@ -50,7 +53,7 @@ export default React.createClass({
             <div data-focus='news-list'>
                 {this.state.news && this.state.news.length > 0 && this.state.news.map((value, pos) => {
                     if (pos < this.state.limitNews) {
-                        return <NewsItem data={value} editAction={this.openPopin}/>
+                        return <NewsItem data={value} editAction={this.openPopin} deleteAction={this.delete}/>
                     }
                 })}
             </div>

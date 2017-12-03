@@ -44,6 +44,9 @@ export default React.createClass({
             </div>
         }
     },
+    delete(data) {
+        adminServices.deletePartenaire({id: data._id}).then(this.loadAllPartenaires);
+    },
     /** @inheritDoc */
     renderContent() {
         return (
@@ -51,7 +54,7 @@ export default React.createClass({
             <div data-focus='news-list'>
                 {this.state.ptn && this.state.ptn.length > 0 && this.state.ptn.map((value, pos) => {
                     if (pos < this.state.limit) {
-                        return <PartenairePanel value={value} editAction={this.openPopin}/>
+                        return <PartenairePanel value={value} editAction={this.openPopin} deleteAction={this.delete}/>
                     }
                 })}
             </div>

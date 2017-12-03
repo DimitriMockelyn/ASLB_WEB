@@ -165,6 +165,13 @@ exports.edit_news = function(req, res) {
   });
 };
 
+exports.delete_news = function(req, res) {
+  News.remove({_id:req.params.id}, function(err, news) {
+    if (err)
+      res.send(err);
+    res.json({removed: true});
+  });
+};
 
 exports.create_partenaire = function(req, res) {
   var new_ptn = new Partenaire(req.body);
@@ -172,6 +179,14 @@ exports.create_partenaire = function(req, res) {
     if (err)
       res.send(err);
     res.json({created: true});
+  });
+};
+
+exports.delete_partenaire = function(req, res) {
+  Partenaire.remove({_id:req.params.id}, function(err, news) {
+    if (err)
+      res.send(err);
+    res.json({removed: true});
   });
 };
 

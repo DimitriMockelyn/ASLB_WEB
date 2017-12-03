@@ -11,7 +11,13 @@ export default React.createClass({
     /** @inheritDoc */
     renderActionsEdit() {
         if (!this.props.hideButtons) {
-            return <Button type='button' label='button.edit' handleOnClick={() => {this.props.editAction(this.props.data)}}/>
+            return <div>
+                <Button type='button' label='button.edit' handleOnClick={() => {this.props.editAction(this.props.data)}}/>
+                <Button type='button' label='button.remove' handleOnClick={() => {
+                    confirm(i18n.t('confirmDelete.news')).then(
+                        () => {this.props.deleteAction(this.props.data)}
+                    )}}/>
+                </div>
         }
     },
     render() {

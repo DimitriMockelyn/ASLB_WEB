@@ -12,6 +12,9 @@ export default {
     editNews(data) {
         return fetch(adminUrl.editNews({urlData: {id: data.id}, data: data}), utils.computeHeaders());
     },
+    deleteNews(data) {
+        return fetch(adminUrl.deleteNews({urlData: {id: data.id}}), utils.computeHeaders());
+    },
     loadAllUsers(data) {
         return fetch(adminUrl.loadAllUsers({data}), utils.computeHeaders());
     },
@@ -29,6 +32,9 @@ export default {
     },
     editPartenaire(data) {
         return fetch(adminUrl.editPartenaire({urlData: {id: data.id}, data: data}), utils.computeHeaders());
+    },
+    deletePartenaire(data) {
+        return fetch(adminUrl.deletePartenaire({urlData: {id: data.id}}), utils.computeHeaders());
     },
     createPartenaire(data) {
         return fetch(adminUrl.createPartenaire({data}), utils.computeHeaders());

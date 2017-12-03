@@ -145,6 +145,10 @@ export default {
         noteMoyenne: 'Note moyenne',
         noNotes: 'Pas de notes'
     },
+    confirmDelete: {
+        news: 'Etes-vous sur de vouloir supprimer cette news ?',
+        partenaire: 'Etes-vous sur de vouloir supprimer ce partenaire ?',
+    },
     select: {
         unSelected: '-',
         oui: 'Oui',
