@@ -602,7 +602,7 @@ div[data-focus="field"][data-mode="edit"][data-domain="DO_COMMENT"] [data-focus=
   height: 60px;
   top: 0;
   position: absolute;
-  width: 100%;
+  width: calc( 100% - 60px );
   & > div {
     display: flex;
     flex-direction: column;
