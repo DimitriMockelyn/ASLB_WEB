@@ -22,7 +22,7 @@ export default () => {
                         }
                     }
                     OtherRootComponent={() => {
-                        return <div><div data-focus='back-button-root'><Back /></div><PopinMessageCenter/><ProfileComponent hasLoad={false}/></div>;
+                        return <div><PopinMessageCenter/><ProfileComponent hasLoad={false}/></div>;
                         }
                     } />
             </div>);

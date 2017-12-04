@@ -1,6 +1,6 @@
 import React from 'react';
-import Menu from 'focus-components/components/menu';
-import history from 'focus-core/history';
+import Menu from './menu';
+import {navigate} from 'focus-core/history';
 import userHelper from 'focus-core/user';
 
 import {getConfig} from '../../config';
@@ -23,6 +23,6 @@ export default () => {
         menu.push({icon: 'show_chart', name: 'Administration', route: 'admin'})
     }
     return (
-        <Menu items={menu} />
+        <Menu items={menu} handleBrandClick={() => {navigate('/',true)}} />
     );
 };

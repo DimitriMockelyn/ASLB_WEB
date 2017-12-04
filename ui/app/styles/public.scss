@@ -591,6 +591,7 @@ div[data-focus="field"][data-mode="edit"][data-domain="DO_COMMENT"] [data-focus=
 [data-focus='header-scrolling'][data-deployed="false"] [data-focus="header-top-row-middle"] {
   display: flex;
   align-items: center;
+  margin-left: 100px;
   &> div {
 
   }
@@ -598,7 +599,7 @@ div[data-focus="field"][data-mode="edit"][data-domain="DO_COMMENT"] [data-focus=
 
 [data-route="home"][data-focus='header-scrolling'][data-deployed="true"] [data-focus="header-content"] {
   display: flex;
-  height: 100px;
+  height: 60px;
   padding: 15px;
   top: 0;
   position: absolute;
@@ -679,4 +680,12 @@ $lines-to-show: 3;
   top: 7px;
   left: 117px;
   z-index: 1001;
+}
+
+[data-focus="menu-left"] [data-focus="menu-items"] li:hover span {
+  cursor: pointer;
+}
+
+[data-focus="menu-left"] [data-focus="menu-items"] li:hover {
+  cursor: pointer;
 }
