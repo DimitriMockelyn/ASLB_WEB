@@ -4,5 +4,4 @@ import 'react-big-calendar/lib/css/react-big-calendar.css';
 import './datetime.css';
 import './common/panel.scss';
 
-
 import './public.scss';
