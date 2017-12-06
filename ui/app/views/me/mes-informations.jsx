@@ -14,6 +14,7 @@ export default React.createClass({
     displayName: 'MesInformationsView',
     mixins: [formMixin],
     definitionPath: 'person',
+    referenceNames: ['typeSexe', 'typeEntreprise'], 
     componentWillMount() {
         userServices.loadMesInformations().then(res => {this.setState(res)});
     },
@@ -91,6 +92,9 @@ export default React.createClass({
                 {this.fieldFor('nom')}
                 <label>{i18n.t('person.changeEmailWarning')}</label>
                 {this.fieldFor('email')}
+                {this.fieldFor('dateNaissance')}
+                {this.fieldFor('sexe', {listName: 'typeSexe', valueKey: '_id', isRequired: true})}
+                {this.fieldFor('entreprise', {listName: 'typeEntreprise', valueKey: '_id', isRequired: true})}
                 <Button type='button' label='person.changeAvatar' handleOnClick={() => {this.refs.upload.refs.focusFile.dropzone.hiddenFileInput.click()}}/>
                 <div style={{'display': 'none'}}>
                     <FileUpload ref='upload' onFileSuccess={() => {window.location.reload()}} url={root + 'uploadAvatar'}/>
