@@ -37,7 +37,7 @@ export default React.createClass({
             this.clearError();
             if (this._validate()) {
                 var emailChanged = this._getEntity().email !== this.state.email;
-                userServices.updateMesInformations(this._getEntity()).then((res) => {
+                userServices.updateMesInformations({...this._getEntity(),avatar:undefined}).then((res) => {
                     this.setState({...res, isEdit: false});
                     message.addSuccessMessage(i18n.t('detail.saved'));
                     if (emailChanged) {
