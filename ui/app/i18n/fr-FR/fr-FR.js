@@ -42,6 +42,11 @@ export default {
             confirm: 'Confirmer'
         }
     },
+    domain: {
+        error: {
+            telephone :' Le numéro de téléphone n\'est pas valide'
+        }
+    },
     field: {
         required: 'Ce champ est obligatoire'
     },
@@ -192,7 +197,8 @@ export default {
         mesInformations: 'Mes informations',
         dateNaissance: 'Date de naissance',
         sexe: 'Sexe',
-        entreprise: 'Entreprise'
+        entreprise: 'Entreprise',
+        telephone: 'Téléphone'
     },
     partenaires: {
         description: 'Vous trouverez ci-dessous la liste des partenaires de l\'association',

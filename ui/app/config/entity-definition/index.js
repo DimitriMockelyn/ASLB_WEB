@@ -122,6 +122,10 @@ export default {
         dateNaissance: {
             domain: 'DO_DATE',
             required: true
+        },
+        telephone: {
+            domain: 'DO_TELEPHONE',
+            required: false
         }
     }
 };

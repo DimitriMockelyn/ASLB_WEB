@@ -67,6 +67,9 @@ var User = new Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Entreprise',
     required: true
+  },
+  telephone: {
+    type: String
   }
 });
 

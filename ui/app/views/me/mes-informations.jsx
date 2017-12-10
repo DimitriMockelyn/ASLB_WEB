@@ -95,6 +95,7 @@ export default React.createClass({
                 {this.fieldFor('dateNaissance')}
                 {this.fieldFor('sexe', {listName: 'typeSexe', valueKey: '_id', isRequired: true})}
                 {this.fieldFor('entreprise', {listName: 'typeEntreprise', valueKey: '_id', isRequired: true})}
+                {this.fieldFor('telephone')}
                 <Button type='button' label='person.changeAvatar' handleOnClick={() => {this.refs.upload.refs.focusFile.dropzone.hiddenFileInput.click()}}/>
                 <div style={{'display': 'none'}}>
                     <FileUpload ref='upload' onFileSuccess={() => {window.location.reload()}} url={root + 'uploadAvatar'}/>

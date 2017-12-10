@@ -74,6 +74,7 @@ export default React.createClass({
             {this.state.tab === 1 && this.fieldFor('dateNaissance', {isEdit: true})}
             {this.state.tab === 1 && this.fieldFor('sexe', {isEdit: true, listName: 'typeSexe', valueKey: '_id', isRequired: true})}
             {this.state.tab === 1 && this.fieldFor('entreprise', {isEdit: true, listName: 'typeEntreprise', valueKey: '_id', isRequired: true})}
+            {this.state.tab === 1 && this.fieldFor('telephone', {isEdit: true})}
             {this.state.tab === 0 && <Button label='user.connexion' handleOnClick={this.connect} />}
             {this.state.tab === 1 && <Button label='user.creation' type='button' handleOnClick={this.create} />}
             {this.state.tab === 2 && <Button label='user.reset' type='button' handleOnClick={this.sendMailReset} />}
