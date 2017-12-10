@@ -106,4 +106,12 @@ module.exports = function(app) {
 
 	app.route('/loadUsersForMail')
 		.get(userHandlers.loginRequired, userHandlers.isAdmin, userHandlers.load_users_group)
+
+	app.route('/presentations')
+		.get(adminHandler.list_all_presentations)
+		.put(userHandlers.loginRequired,  userHandlers.isAdmin, adminHandler.create_presentation)
+
+	app.route('/presentations/:id')
+		.post(userHandlers.loginRequired,  userHandlers.isAdmin, adminHandler.edit_presentation)
+		.delete(userHandlers.loginRequired,  userHandlers.isAdmin, adminHandler.delete_presentation)
 };

@@ -118,7 +118,8 @@ export default {
         addPartenaire: 'Ajouter un partenaire',
         mailAll: 'Envoyer un mail général',
         mailCreateurs: 'Envoyer un mail aux créateurs de cours',
-        mailAdmins: 'Envoyer un mail aux administrateurs'
+        mailAdmins: 'Envoyer un mail aux administrateurs',
+        addPresentation: 'Ajouter une présentation'
     },
     detail: {
         saved: 'Les informations ont bien été enregistrées.'
@@ -154,6 +155,7 @@ export default {
     confirmDelete: {
         news: 'Etes-vous sur de vouloir supprimer cette news ?',
         partenaire: 'Etes-vous sur de vouloir supprimer ce partenaire ?',
+        presentation:'Etes-vous sur de vouloir supprimer cette présentation ?'
     },
     select: {
         unSelected: '-',
@@ -220,6 +222,13 @@ export default {
         url: 'URL',
         logo: 'Logo (url)',
         description: 'Description'
+    },
+    presentation: {
+        name: 'Titre',
+        image: 'Image (URL)',
+        isBureau: 'Membre du bureau ?',
+        description : 'Description',
+        ordre: 'Ordre d\'affichage'
     },
     contact: {
         presentationMembres: 'Présentation des membres',

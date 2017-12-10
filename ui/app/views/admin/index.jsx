@@ -13,6 +13,7 @@ import ScrollspyContainer from 'focus-components/components/scrollspy-container'
 import Users from './users';
 import Partenaires from './partenaire';
 import Mails from './mails';
+import Presentations from './presentations';
 export default React.createClass({
     displayName: 'HomeView',
     mixins: [cartridgeBehaviour],
@@ -44,6 +45,7 @@ export default React.createClass({
                     <Users hasLoad={false} />
                     <Mails hasLoad={false} />
                     <Partenaires hasLoad={false} />
+                    <Presentations hasLoad={false} />
                 </ScrollspyContainer>
             </div>
         </div>

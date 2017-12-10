@@ -16,4 +16,7 @@ export default {
     deletePartenaire:  builder(url + 'partenaires/${id}', 'DELETE'),
     createPartenaire:  builder(url + 'partenaires', 'PUT'),
     loadUsersForMail:  builder(url + 'loadUsersForMail', 'GET'),
+    editPresentation:  builder(url + 'presentations/${id}', 'POST'),
+    deletePresentation:  builder(url + 'presentations/${id}', 'DELETE'),
+    createPresentation:  builder(url + 'presentations', 'PUT'),
 };

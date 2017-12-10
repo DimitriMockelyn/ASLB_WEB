@@ -127,6 +127,20 @@ export default {
             domain: 'DO_TELEPHONE',
             required: false
         }
+    },
+    presentation: {
+        image: {
+            domain: 'DO_URL'
+        },
+        description: {
+            domain: 'DO_RTE'
+        },
+        isBureau: {
+            domain: 'DO_YES_NO'
+        },
+        ordre: {
+            domain: 'DO_NUMBER'
+        }
     }
 };
 

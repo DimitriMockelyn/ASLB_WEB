@@ -8,6 +8,7 @@ var mongoose = require('mongoose'),
   News= mongoose.model('News'),
   Sexe=mongoose.model('Sexe'),
   Entreprise=mongoose.model('Entreprise'),
+  Presentation= mongoose.model('Presentation'),
   mailer = require('../utils/mailer');
 
 
@@ -198,6 +199,47 @@ exports.edit_partenaire = function(req, res) {
     description: req.body.description
   }
   Partenaire.findOneAndUpdate({_id:req.params.id}, data, {new: true}, function(err, news) {
+    if (err)
+      res.send(err);
+    res.json({updated: true});
+  });
+};
+
+exports.list_all_presentations = function(req, res) {
+  Presentation.find({}, function(err, ptns) {
+    if (err) {
+      res.send(err);
+    }
+    res.json(ptns);
+  }).sort({ordre: 1});
+};
+
+exports.create_presentation = function(req, res) {
+  var new_ptn = new Presentation(req.body);
+  new_ptn.save(function(err, news) {
+    if (err)
+      res.send(err);
+    res.json({created: true});
+  });
+};
+
+exports.delete_presentation = function(req, res) {
+  Presentation.remove({_id:req.params.id}, function(err, news) {
+    if (err)
+      res.send(err);
+    res.json({removed: true});
+  });
+};
+
+exports.edit_presentation = function(req, res) {
+  var data = {
+    name: req.body.name,
+    image: req.body.image,
+    isBureau: req.body.isBureau,
+    description: req.body.description,
+    ordre: req.body.ordre
+  }
+  Presentation.findOneAndUpdate({_id:req.params.id}, data, {new: true}, function(err, news) {
     if (err)
       res.send(err);
     res.json({updated: true});

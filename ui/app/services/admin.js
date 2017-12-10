@@ -41,5 +41,14 @@ export default {
     },
     loadUsersForMail() {
         return fetch(adminUrl.loadUsersForMail(), utils.computeHeaders());
+    },
+    editPresentation(data) {
+        return fetch(adminUrl.editPresentation({urlData: {id: data.id}, data: data}), utils.computeHeaders());
+    },
+    deletePresentation(data) {
+        return fetch(adminUrl.deletePresentation({urlData: {id: data.id}}), utils.computeHeaders());
+    },
+    createPresentation(data) {
+        return fetch(adminUrl.createPresentation({data}), utils.computeHeaders());
     }
 };

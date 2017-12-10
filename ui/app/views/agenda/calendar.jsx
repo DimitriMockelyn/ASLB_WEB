@@ -24,7 +24,7 @@ export default React.createClass({
             selectedEvent : undefined,
             serviceLoad: agendaServices.loadAll,
             fullView: false,
-            calendarView: true,
+            calendarView: false,
             currentWeek : moment().week()
         }
     },

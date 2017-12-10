@@ -3,5 +3,6 @@ import {getConfig} from '../../config';
 
 const url = getConfig().API_ROOT;
 export default {
-    loadPartenaires:  builder(url + 'partenaires', 'GET')
+    loadPartenaires:  builder(url + 'partenaires', 'GET'),
+    loadPresentations:  builder(url + 'presentations', 'GET'),
 };

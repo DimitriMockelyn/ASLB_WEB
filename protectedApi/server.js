@@ -13,6 +13,7 @@ var express = require('express'),
   Entreprise = require('./api/models/entrepriseModel'),
   News = require('./api/models/newsModel'),
   Commentaire = require('./api/models/commentaireModel'),
+  Presentation = require('./api/models/presentationModel'),
   bodyParser = require('body-parser'),
   jsonwebtoken = require("jsonwebtoken");
 

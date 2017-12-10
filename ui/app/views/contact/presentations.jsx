@@ -2,11 +2,17 @@ import React from 'react';
 import Panel from 'focus-components/components/panel';
 import ScrollspyContainer from 'focus-components/components/scrollspy-container';
 import PresentationPerson from './presentation-person';
+import homeServices from '../../services/home';
+import PersPanel from './panel';
 export default React.createClass({
     displayName: 'PresentationView',
 
     componentWillMount() {
         this.setState({});
+        this.loadAllPresentations();
+    },
+    loadAllPresentations() {
+        homeServices.loadPresentations().then(res => {this.setState({membres: res})});
     },
     /** @inheritDoc */
     render() {
@@ -16,9 +22,19 @@ export default React.createClass({
                         <label>
                             Les membres du bureau actuel sont :
                         </label>
-                        <PresentationPerson baseFr='stephaneMartin' portrait='https://dgalywyr863hv.cloudfront.net/pictures/athletes/10015096/3020222/6/large.jpg'/>
-                        <PresentationPerson baseFr='guillaumeBlanchard' portrait='https://dgalywyr863hv.cloudfront.net/pictures/athletes/21091550/7637844/1/large.jpg' /> 
-                        <PresentationPerson baseFr='dimitriMockelyn' portrait='https://dgalywyr863hv.cloudfront.net/pictures/athletes/23700855/6809599/2/large.jpg'/>
+                        {this.state.membres && this.state.membres.map(value => {
+                            if (value.isBureau) {
+                                return <PersPanel value={value} />
+                            }   
+                        })}
+                        <label>
+                            Les autres membres d'honneur ou coach sont :
+                        </label>
+                        {this.state.membres && this.state.membres.map(value => {
+                            if (!value.isBureau) {
+                                return <PersPanel value={value} />
+                            }   
+                        })}
                     </div>
                 </Panel>
                 
