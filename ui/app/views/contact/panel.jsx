@@ -13,20 +13,26 @@ export default React.createClass({
     },
     render() {
         return (
-        <div data-focus='panel-into-panel'>
-            <div data-focus='presentation-personne'>
+        <div data-focus='panel-into-panel' className='person-tile'>
+            <div data-focus='presentation-personne'  className={this.state.toggled === true ? 'toggled' : this.state.toggled === false ? 'closed' : ''}>
+                <div data-focus='big-tile'>
                     <div data-focus='title' onClick={() => {this.setState({toggled: !this.state.toggled})}}>
                         <label>{this.props.value.name}</label>
                         <i className='material-icons'>{this.state.toggled ? 'keyboard_arrow_up' : 'keyboard_arrow_down'}</i>
                     </div>
-                    {this.state.toggled && <div data-focus='presentation-box'>
+                    {this.props.value.image && <div className='image-line'><img src={this.props.value.image} alt={this.props.value.name}/></div>}
+                    <div data-focus='presentation-box' className={this.state.toggled === true ? 'toggled' : this.state.toggled === false ? 'closed' : ''}>
                         <label>{i18n.t('contact.presentationTitre')}</label>
-                        {this.props.value.image && <img src={this.props.value.image} alt={this.props.value.name}/>}
+                        
                         <div data-focus='interview'>
                             <div dangerouslySetInnerHTML={{ __html: this.props.value.description }} />
                         </div>
-                    </div>}
-                </div>     
+                    </div>
+                    <div data-focus='fonction'>
+                        <label>{this.props.value.fonction}</label>
+                    </div>
+                </div>
+            </div>     
         </div>
         );
     }

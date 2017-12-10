@@ -228,7 +228,8 @@ export default {
         image: 'Image (URL)',
         isBureau: 'Membre du bureau ?',
         description : 'Description',
-        ordre: 'Ordre d\'affichage'
+        ordre: 'Ordre d\'affichage',
+        fonction: 'Fonction'
     },
     contact: {
         presentationMembres: 'Présentation des membres',

@@ -20,6 +20,9 @@ var Presentation = new Schema({
   },
   ordre: {
     type: Number
+  }, 
+  fonction: {
+    type: String
   }
 });
 

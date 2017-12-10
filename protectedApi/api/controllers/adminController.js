@@ -237,7 +237,8 @@ exports.edit_presentation = function(req, res) {
     image: req.body.image,
     isBureau: req.body.isBureau,
     description: req.body.description,
-    ordre: req.body.ordre
+    ordre: req.body.ordre,
+    fonction: req.body.fonction
   }
   Presentation.findOneAndUpdate({_id:req.params.id}, data, {new: true}, function(err, news) {
     if (err)

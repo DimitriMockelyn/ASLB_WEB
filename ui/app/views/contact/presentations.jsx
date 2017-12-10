@@ -16,25 +16,33 @@ export default React.createClass({
     },
     /** @inheritDoc */
     render() {
+        /*
+            display: flex;
+            flex-wrap: wrap;
+        */
         return (
                 <Panel title="contact.presentationMembres">
                     <div data-focus='contact'>
                         <label>
                             Les membres du bureau actuel sont :
                         </label>
+                        <div data-focus='tiles-container'>
                         {this.state.membres && this.state.membres.map(value => {
                             if (value.isBureau) {
-                                return <PersPanel value={value} />
+                                return <PersPanel value={value} />;
                             }   
                         })}
+                        </div>
                         <label>
                             Les autres membres d'honneur ou coach sont :
                         </label>
+                        <div data-focus='tiles-container'>
                         {this.state.membres && this.state.membres.map(value => {
                             if (!value.isBureau) {
                                 return <PersPanel value={value} />
                             }   
                         })}
+                        </div>
                     </div>
                 </Panel>
                 

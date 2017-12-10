@@ -735,3 +735,103 @@ $lines-to-show: 3;
     margin-top: 15px;
   }
 }
+
+[data-focus='tiles-container'] {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+.person-tile {
+  [data-focus="presentation-personne"] {
+    min-width: 300px;
+    border: 1px solid black;
+    border-radius: 2px;
+    width: 300px;
+    margin: 15px;
+    [data-focus='presentation-box'].toggled {
+      animation: up 1s;
+      overflow: auto;
+      max-height: 1000px;
+      overflow: auto;
+      padding: 10px;
+    }
+    [data-focus='presentation-box'].closed {
+      animation: down 1s;
+    }
+    [data-focus='presentation-box'] {
+      max-height: 0px;
+      overflow: hidden;
+      padding: 0px;
+      border-left: none;
+    }
+  }
+  [data-focus="presentation-personne"].toggled {
+    animation: expand 1s;
+    width: 90%;
+  }
+  [data-focus="presentation-personne"].closed {
+    animation: unexpand 1s;
+  }
+  [data-focus='big-tile'] {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    background-color: rgba(68, 90, 218, 0.7);
+    [data-focus='title'] {
+      padding: 5px;
+    }
+    [ data-focus='fonction'] {
+      padding: 5px;
+      font-weight: bold;
+      min-height: 20px;
+    }
+    .image-line {
+      height: 35px;
+      width: 100%;
+      border-bottom: 1px solid black;
+      text-align: center;
+      margin-bottom: 35px;
+    }
+    img {
+      width: 70px;
+      height: auto;
+      border-radius: 50px;
+      border: 1px solid black;
+    }
+  }
+}
+
+@keyframes up {
+  0% {max-height: 0px}
+  100% {
+    max-height: 1000px;
+  }
+}
+
+@keyframes down {
+  
+  0% {
+    max-height: 1000px;
+  }
+  100% {max-height: 0px}
+}
+
+@keyframes expand {
+  0% {
+    width: 400px;
+  }
+  100% {
+    width: 90%;
+  }
+}
+
+@keyframes unexpand {
+  0% {
+    width: 90%;
+  }
+  100% {
+    width: 400px;
+  }
+}
