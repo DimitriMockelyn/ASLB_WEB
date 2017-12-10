@@ -709,3 +709,28 @@ $lines-to-show: 3;
     display: none;
   }
 }
+
+[data-focus='legend'] {
+  border: 1px solid black;
+  padding: 10px;
+  margin-top: 15px;
+  width: 400px;
+  & > label {
+    border-bottom: 1px solid black;
+  }
+
+  [data-focus='legend-item'] {
+    display: flex;
+    flex-direction: row;
+    .rbc-event {
+      width: 5px;
+      height: 5px;
+      margin-right: 5px;
+      border-radius: 0px;
+      padding: 5px;
+    }
+  }
+  [data-focus='legend-item'].first {
+    margin-top: 15px;
+  }
+}

@@ -194,6 +194,17 @@ export default React.createClass({
                     onNavigate={this.onNavigateCalendar}
                     week={this.state.currentWeek}
                 />}
+                <div data-focus='legend'>
+                    <label>{i18n.t('agenda.legende')}</label>
+                    {this.state.reference && this.state.reference.typeEvenements && this.state.reference.typeEvenements.map((data,index) => {
+                        var firstChild = index === 0 ? 'first' :'';
+                        return <div data-focus='legend-item' className={firstChild}>
+                                <div className={'rbc-event ' + data.code } />
+                                <div>{data.name} </div>
+                            </div>
+                    })}
+                </div>
+
             {this.state.selectedEvent && <Popin open={true} size='small' onPopinClose={this.closePopin}>
                 <EventInfos event={this.state.selectedEvent} onPopinClose={this.closePopin} isEdit={false} hasLoad={false} hasForm={false}/>
             </Popin>}

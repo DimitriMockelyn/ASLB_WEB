@@ -96,7 +96,8 @@ export default {
         mine: 'Mon agenda',
         all: 'Tous les évenements',
         calendar: 'Vue calendrier',
-        tile: 'Vue condensée'
+        tile: 'Vue condensée',
+        legende: 'Légende'
     },
     admin: {
         addNews: 'Créer une news',
