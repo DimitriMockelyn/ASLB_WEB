@@ -750,11 +750,11 @@ $lines-to-show: 3;
     width: 300px;
     margin: 15px;
     [data-focus='presentation-box'].toggled {
-      animation: up 1s;
+      animation: up 2s;
       overflow: auto;
       max-height: 1000px;
       overflow: auto;
-      padding: 10px;
+      padding: 5px;
     }
     [data-focus='presentation-box'].closed {
       animation: down 1s;
@@ -771,7 +771,7 @@ $lines-to-show: 3;
     width: 90%;
   }
   [data-focus="presentation-personne"].closed {
-    animation: unexpand 1s;
+    animation: unexpand 2s;
   }
   [data-focus='big-tile'] {
     display: flex;
@@ -805,6 +805,7 @@ $lines-to-show: 3;
 
 @keyframes up {
   0% {max-height: 0px}
+  50% {max-height: 0px}
   100% {
     max-height: 1000px;
   }
@@ -820,7 +821,7 @@ $lines-to-show: 3;
 
 @keyframes expand {
   0% {
-    width: 400px;
+    width: 300px;
   }
   100% {
     width: 90%;
@@ -831,7 +832,10 @@ $lines-to-show: 3;
   0% {
     width: 90%;
   }
+  50% {
+    width: 90%;
+  }
   100% {
-    width: 400px;
+    width: 300px;
   }
 }
