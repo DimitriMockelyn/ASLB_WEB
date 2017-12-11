@@ -849,3 +849,7 @@ $lines-to-show: 3;
     margin-top: 20px;
   }
 }
+
+[data-domain="DO_DATE"] .mdl-textfield__error {
+  white-space: nowrap;
+}

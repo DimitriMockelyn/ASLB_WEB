@@ -33,17 +33,18 @@ export default React.createClass({
         }
     },
     computeDateFin(dateAdhesion) {
-        console.log(dateAdhesion);
         var momentFin = moment('31/08/2018','DD/MM/YYYY');
-        var momentDebut = moment(dateAdhesion, moment.ISO_8601);
-        momentFin.set('year', momentDebut.get('year'));
-        if (momentFin.isBefore(momentDebut)) {
-            momentFin.set('year', momentFin.get('year') +1);
+        var momentDebut = moment(dateAdhesion, [moment.ISO_8601,'DD/MM/YYYY', 'DDMMYYYY']);
+        if (momentDebut.isValid()) {
+            momentFin.set('year', momentDebut.get('year'));
+            if (momentFin.isBefore(momentDebut)) {
+                momentFin.set('year', momentFin.get('year') +1);
+            }
+            if (momentFin.get('year') === 2018) {
+                momentFin.set('year', momentFin.get('year') +1);
+            }
+            this.setState({date_fin: momentFin, date_activation: dateAdhesion});
         }
-        if (momentFin.get('year') === 2018) {
-            momentFin.set('year', momentFin.get('year') +1);
-        }
-        this.setState({date_fin: momentFin, date_activation: momentDebut});
     },
     /** @inheritDoc */
     renderContent() {

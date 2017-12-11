@@ -7,6 +7,6 @@ export default {
     formatter: date => {
         return date ? moment(date, moment.ISO_8601).format('DD/MM/YYYY') : '';
     },
-    format: ['DD/MM/YYYY'],
+    format: ['DD/MM/YYYY', 'DDMMYYYY'],
     locale: 'fr'
 };

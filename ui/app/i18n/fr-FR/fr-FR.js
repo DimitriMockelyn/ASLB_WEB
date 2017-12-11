@@ -44,7 +44,8 @@ export default {
     },
     domain: {
         error: {
-            telephone :' Le numéro de téléphone n\'est pas valide'
+            telephone :' Le numéro de téléphone n\'est pas valide',
+            date: 'La date doit être au format JJ/MM/AAAA'
         }
     },
     field: {

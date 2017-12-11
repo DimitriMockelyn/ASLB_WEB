@@ -40,19 +40,19 @@ exports.initData = function() {
   });
 
   NiveauEvenement.findOneAndUpdate({code: 'NIV1'}, {
-    name: 'Initiation',
+    name: '*',
     code:'NIV1'
   }, {upsert: true, 'new': true}, function(err, model) {
   });
 
   NiveauEvenement.findOneAndUpdate({code: 'NIV2'}, {
-    name: 'Confirmés',
+    name: '**',
     code:'NIV2'
   }, {upsert: true, 'new': true}, function(err, model) {
   });
 
   NiveauEvenement.findOneAndUpdate({code: 'NIV3'}, {
-    name: 'Difficile',
+    name: '***',
     code:'NIV3'
   }, {upsert: true, 'new': true}, function(err, model) {
   });
