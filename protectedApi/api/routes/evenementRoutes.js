@@ -35,7 +35,12 @@ module.exports = function(app) {
 	app.route('/me')
 		.get(userHandlers.me);
 	app.route('/typeEvenements')
-		.get(eventHandler.list_all_type_evenements);
+		.get(eventHandler.list_all_type_evenements)
+		.put(userHandlers.loginRequired,  userHandlers.isAdmin, adminHandler.create_type_evenement);
+
+	app.route('/typeEvenements/:id')
+		.post(userHandlers.loginRequired,  userHandlers.isAdmin, adminHandler.edit_type_evenement)
+		.delete(userHandlers.loginRequired,  userHandlers.isAdmin, adminHandler.delete_type_evenement)
 
 	app.route('/niveauEvenements')
 		.get(eventHandler.list_all_niveau_evenements);

@@ -223,7 +223,7 @@ button.mdl-button:not(.mdl-button--icon) {
   }
 }
 
-.rbc-event {
+/*.rbc-event {
   &.DANSE{
     background-color: rgb(255,26,142);
     border: 1px solid rgb(255,26,142);
@@ -240,7 +240,7 @@ button.mdl-button:not(.mdl-button--icon) {
     background-color: rgb(241,200,142);
     border: 1px solid rgb(241,200,142);
   }
-}
+}*/
 
 .rbc-event.participant:after {
   content: '\2713';
@@ -717,12 +717,15 @@ $lines-to-show: 3;
   margin-top: 15px;
   width: 400px;
   & > label {
-    border-bottom: 1px solid black;
   }
 
   [data-focus='legend-item'] {
     display: flex;
     flex-direction: row;
+    cursor: pointer;
+    & > div:last-child{
+      border-bottom: 1px solid black;
+    }
     .rbc-event {
       width: 5px;
       height: 5px;
@@ -837,5 +840,11 @@ $lines-to-show: 3;
   }
   100% {
     width: 300px;
+  }
+}
+
+[data-focus="legende-description"] {
+  & > div {
+    margin-top: 20px;
   }
 }

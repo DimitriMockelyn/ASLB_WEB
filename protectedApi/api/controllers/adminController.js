@@ -224,6 +224,37 @@ exports.edit_partenaire = function(req, res) {
   });
 };
 
+exports.create_type_evenement = function(req, res) {
+  var new_ptn = new TypeEvenement(req.body);
+  new_ptn.save(function(err, news) {
+    if (err)
+      res.send(err);
+    res.json({created: true});
+  });
+};
+
+exports.delete_type_evenement = function(req, res) {
+  TypeEvenement.remove({_id:req.params.id}, function(err, news) {
+    if (err)
+      res.send(err);
+    res.json({removed: true});
+  });
+};
+
+exports.edit_type_evenement = function(req, res) {
+  var data = {
+    name: req.body.name,
+    code: req.body.code,
+    color: req.body.color,
+    description: req.body.description
+  }
+  TypeEvenement.findOneAndUpdate({_id:req.params.id}, data, {new: true}, function(err, news) {
+    if (err)
+      res.send(err);
+    res.json({updated: true});
+  });
+};
+
 exports.list_all_presentations = function(req, res) {
   Presentation.find({}, function(err, ptns) {
     if (err) {

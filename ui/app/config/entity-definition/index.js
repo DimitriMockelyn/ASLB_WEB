@@ -149,6 +149,14 @@ export default {
         ordre: {
             domain: 'DO_NUMBER'
         }
-    }
+    },
+    typeEvenement: {
+        description: {
+            domain: 'DO_RTE'
+        },
+        color: {
+            domain: 'DO_COLOR'
+        }
+    },
 };
 

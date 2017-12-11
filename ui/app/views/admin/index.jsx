@@ -14,6 +14,7 @@ import Users from './users';
 import Partenaires from './partenaire';
 import Mails from './mails';
 import Presentations from './presentations';
+import TypeActivites from './typeActivites';
 export default React.createClass({
     displayName: 'HomeView',
     mixins: [cartridgeBehaviour],
@@ -46,6 +47,7 @@ export default React.createClass({
                     <Mails hasLoad={false} />
                     <Partenaires hasLoad={false} />
                     <Presentations hasLoad={false} />
+                    <TypeActivites hasLoad={false} />
                 </ScrollspyContainer>
             </div>
         </div>

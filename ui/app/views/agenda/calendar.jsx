@@ -28,6 +28,21 @@ export default React.createClass({
             currentWeek : moment().week()
         }
     },
+    afterChange(changeInfos) {
+        if (changeInfos.property === 'typeEvenements') {
+            this.state.reference.typeEvenements.map(data => {
+                if (data.color) {
+                    if (!document.getElementById('STYLE-'+data.code) ) {
+                        var style = document.createElement('style');
+                        style.id = 'STYLE-'+data.code;
+                        style.type = 'text/css';
+                        style.innerHTML = '.rbc-event.'+data.code+' { background-color: '+data.color+'; border: 1px solid '+data.color+'; }';
+                        document.getElementsByTagName('head')[0].appendChild(style);
+                    }
+                }
+            })
+        }
+    },
     onChangeView() {
         this.setState({
             serviceLoad: this.state.serviceLoad === agendaServices.loadAll ? agendaServices.loadMine :  agendaServices.loadAll,
@@ -143,7 +158,14 @@ export default React.createClass({
     sendEmail() {
         
     },
-
+    togglePopinLegende(code) {
+        return () => {
+            this.setState({legendePopin: code});
+        }
+    },
+    closePopinLegende() {
+        this.setState({legendePopin: undefined});
+    },
     /** @inheritDoc */
     renderContent() {
         let minTime = new Date();
@@ -198,7 +220,7 @@ export default React.createClass({
                     <label>{i18n.t('agenda.legende')}</label>
                     {this.state.reference && this.state.reference.typeEvenements && this.state.reference.typeEvenements.map((data,index) => {
                         var firstChild = index === 0 ? 'first' :'';
-                        return <div data-focus='legend-item' className={firstChild}>
+                        return <div data-focus='legend-item' className={firstChild} onClick={this.togglePopinLegende(data.code)}>
                                 <div className={'rbc-event ' + data.code } />
                                 <div>{data.name} </div>
                             </div>
@@ -210,6 +232,12 @@ export default React.createClass({
             </Popin>}
             {this.state.creerEvent && <Popin open={true} size='small' onPopinClose={this.closeCreerEvent}>
                 <CreateEvent data={this.state.creerEvent} onPopinClose={this.closeCreerEvent} hasLoad={false} hasForm={false}/>
+            </Popin>}
+            {this.state.legendePopin && <Popin open={true} size='small' onPopinClose={this.closePopinLegende}>
+                <div data-focus='legende-description'>
+                    <label>{this.state.reference.typeEvenements.find(data => {return data.code === this.state.legendePopin}).name}</label>
+                    <div dangerouslySetInnerHTML={{ __html: this.state.reference.typeEvenements.find(data => { return data.code === this.state.legendePopin}).description}}/>
+                </div>
             </Popin>}
         </div>
         );

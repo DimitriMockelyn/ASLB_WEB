@@ -100,6 +100,8 @@ export default {
         legende: 'Légende'
     },
     admin: {
+        typeEvenement: 'Type d\'évènements',
+        addType: 'Ajouter un type',
         addNews: 'Créer une news',
         news: 'News',
         titre: 'Titre',
@@ -156,7 +158,8 @@ export default {
     confirmDelete: {
         news: 'Etes-vous sur de vouloir supprimer cette news ?',
         partenaire: 'Etes-vous sur de vouloir supprimer ce partenaire ?',
-        presentation:'Etes-vous sur de vouloir supprimer cette présentation ?'
+        presentation:'Etes-vous sur de vouloir supprimer cette présentation ?',
+        typeEvenement: 'Etes-vous sur de vouloir supprimer ce type d\'évènement ?',
     },
     select: {
         unSelected: '-',
@@ -233,6 +236,12 @@ export default {
         description : 'Description',
         ordre: 'Ordre d\'affichage',
         fonction: 'Fonction'
+    },
+    typeEvenement: {
+        name: 'Nom',
+        code: 'Code',
+        description: 'Description',
+        color: 'Couleur rgba'
     },
     contact: {
         presentationMembres: 'Présentation des membres',

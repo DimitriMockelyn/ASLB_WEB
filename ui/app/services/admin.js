@@ -50,5 +50,14 @@ export default {
     },
     createPresentation(data) {
         return fetch(adminUrl.createPresentation({data}), utils.computeHeaders());
+    },
+    editTypeEvenement(data) {
+        return fetch(adminUrl.editTypeEvenement({urlData: {id: data.id}, data: data}), utils.computeHeaders());
+    },
+    deleteTypeEvenement(data) {
+        return fetch(adminUrl.deleteTypeEvenement({urlData: {id: data.id}}), utils.computeHeaders());
+    },
+    createTypeEvenement(data) {
+        return fetch(adminUrl.createTypeEvenement({data}), utils.computeHeaders());
     }
 };

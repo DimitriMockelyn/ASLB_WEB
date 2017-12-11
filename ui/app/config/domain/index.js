@@ -31,6 +31,7 @@ import DO_DATE_WITH_NAME from './do-date-with-name';
 import DO_ETAT_WITH_NAME from './do-etat-with-name';
 import DO_RTE from './do-rte';
 import DO_NOTE from './do-note';
+import DO_COLOR from './do-color';
 export default {
     DO_CODE,
     DO_COMMENT,
@@ -64,5 +65,6 @@ export default {
     DO_DATE_WITH_NAME,
     DO_ETAT_WITH_NAME,
     DO_RTE,
-    DO_NOTE
+    DO_NOTE,
+    DO_COLOR
 };

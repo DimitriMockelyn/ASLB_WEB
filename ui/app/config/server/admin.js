@@ -19,4 +19,7 @@ export default {
     editPresentation:  builder(url + 'presentations/${id}', 'POST'),
     deletePresentation:  builder(url + 'presentations/${id}', 'DELETE'),
     createPresentation:  builder(url + 'presentations', 'PUT'),
+    editTypeEvenement:  builder(url + 'typeEvenements/${id}', 'POST'),
+    deleteTypeEvenement:  builder(url + 'typeEvenements/${id}', 'DELETE'),
+    createTypeEvenement:  builder(url + 'typeEvenements', 'PUT'),
 };
