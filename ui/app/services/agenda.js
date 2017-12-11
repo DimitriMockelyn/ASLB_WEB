@@ -30,6 +30,9 @@ export default {
     loadTypeEvenements() {
         return fetch(agendaUrl.loadTypeEvenements(), utils.computeHeaders());  
     },
+    loadNiveauEvenements() {
+        return fetch(agendaUrl.loadNiveauEvenements(), utils.computeHeaders());  
+    },
     loadIncoming() {
         return fetch(agendaUrl.loadIncoming());
     },

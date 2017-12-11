@@ -9,6 +9,7 @@ var mongoose = require('mongoose'),
   Sexe=mongoose.model('Sexe'),
   Entreprise=mongoose.model('Entreprise'),
   Presentation= mongoose.model('Presentation'),
+  NiveauEvenement= mongoose.model('NiveauEvenement'),
   mailer = require('../utils/mailer');
 
 
@@ -35,6 +36,24 @@ exports.initData = function() {
   TypeEvenement.findOneAndUpdate({code: 'AUTRE'}, {
     name: 'Autre',
     code:'AUTRE'
+  }, {upsert: true, 'new': true}, function(err, model) {
+  });
+
+  NiveauEvenement.findOneAndUpdate({code: 'NIV1'}, {
+    name: 'Initiation',
+    code:'NIV1'
+  }, {upsert: true, 'new': true}, function(err, model) {
+  });
+
+  NiveauEvenement.findOneAndUpdate({code: 'NIV2'}, {
+    name: 'Confirmés',
+    code:'NIV2'
+  }, {upsert: true, 'new': true}, function(err, model) {
+  });
+
+  NiveauEvenement.findOneAndUpdate({code: 'NIV3'}, {
+    name: 'Difficile',
+    code:'NIV3'
   }, {upsert: true, 'new': true}, function(err, model) {
   });
 

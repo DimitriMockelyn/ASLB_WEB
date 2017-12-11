@@ -37,6 +37,9 @@ module.exports = function(app) {
 	app.route('/typeEvenements')
 		.get(eventHandler.list_all_type_evenements);
 
+	app.route('/niveauEvenements')
+		.get(eventHandler.list_all_niveau_evenements);
+
 	app.route('/typeSexe')
 		.get(userHandlers.list_all_sexes);
 

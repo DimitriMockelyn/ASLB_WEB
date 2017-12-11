@@ -14,6 +14,7 @@ var express = require('express'),
   News = require('./api/models/newsModel'),
   Commentaire = require('./api/models/commentaireModel'),
   Presentation = require('./api/models/presentationModel'),
+  NiveauEvenement= require('./api/models/niveauEvenementModel'),
   bodyParser = require('body-parser'),
   jsonwebtoken = require("jsonwebtoken");
 

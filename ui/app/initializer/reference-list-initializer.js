@@ -8,4 +8,5 @@ export default () => {
     reference.config.set({typeEvenements: agendaService.loadTypeEvenements});
     reference.config.set({typeSexe: userService.loadSexes});
     reference.config.set({typeEntreprise: userService.loadEntreprises});
+    reference.config.set({niveauEvenements: agendaService.loadNiveauEvenements});
 };

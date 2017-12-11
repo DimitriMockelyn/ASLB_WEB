@@ -43,6 +43,10 @@ var Evenement = new Schema({
     ref: 'TypeEvenement',
     required: true
   },
+  niveau: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'NiveauEvenement'
+  },
   limite: {
     type: Number
   },

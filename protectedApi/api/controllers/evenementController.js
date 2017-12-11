@@ -4,6 +4,7 @@ var mongoose = require('mongoose'),
   Evenement = mongoose.model('Evenement'),
   Commentaire = mongoose.model('Commentaire'),
   TypeEvenement = mongoose.model('TypeEvenement'),
+  NiveauEvenement= mongoose.model('NiveauEvenement'),
   User= mongoose.model("User"),
   Partenaire = mongoose.model('Partenaire'),
   mailer = require('../utils/mailer');
@@ -328,6 +329,16 @@ exports.list_all_type_evenements = function(req,res) {
   });
 }
 
+exports.list_all_niveau_evenements = function(req,res) {
+  NiveauEvenement.find({}, function(err, types) {
+    if (err) {
+      res.send(err);
+    }
+    res.json(types);
+  });
+}
+
+
 exports.update_a_evenement = function(req, res) {
   var data = {
     _id:req.params.evenementId,
@@ -337,7 +348,8 @@ exports.update_a_evenement = function(req, res) {
     duree: req.body.duree,
     limite: req.body.limite,
     description: req.body.description,
-    animateur: req.body.animateur
+    animateur: req.body.animateur,
+    niveau: req.body.niveau
   }
   
   check_evenement_conflit(data, res, () => {

@@ -13,7 +13,7 @@ export default React.createClass({
     displayName: 'HomeView',
     mixins: [formMixin],
     definitionPath: 'event',
-    referenceNames: ['typeEvenements'],
+    referenceNames: ['typeEvenements', 'niveauEvenements'],
     componentWillMount() {
         this.setState({});
 
@@ -74,6 +74,7 @@ export default React.createClass({
                 {this.fieldFor('animateur',{options: {querySearcherCs: userServices.loadUserAutocomplete, initialString: this.props.event && this.props.event.animateur && this.props.event.animateur.nom + ' ' + this.props.event.animateur.prenom}})}
                 {this.fieldFor('description', {value: this.state.description})}
                 {this.fieldFor('typeEvenement', {listName: 'typeEvenements', isRequired: true, valueKey: '_id', labelKey: 'name'})}
+                {this.fieldFor('niveau', {listName: 'niveauEvenements', valueKey: '_id', labelKey: 'name'})}
                 {this.state.participants && this.state.participants.length > 0 && <div data-focus='participants-list'>
                     <label>{i18n.t('event.participantsList') + ' ('+this.state.participants.length+')'}</label>
                     <div data-focus='list'>

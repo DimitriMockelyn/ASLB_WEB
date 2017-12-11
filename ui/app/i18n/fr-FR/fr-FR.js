@@ -125,6 +125,7 @@ export default {
         saved: 'Les informations ont bien été enregistrées.'
     },
     event: {
+        niveau: 'Niveau',
         created: 'Crée le',
         creator: 'Crée par',
         start: 'Débute le',

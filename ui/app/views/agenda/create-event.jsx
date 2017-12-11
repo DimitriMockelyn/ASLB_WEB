@@ -12,7 +12,7 @@ export default React.createClass({
     displayName: 'HomeView',
     mixins: [formMixin],
     definitionPath: 'event',
-    referenceNames: ['typeEvenements'],
+    referenceNames: ['typeEvenements', 'niveauEvenements'],
     componentWillMount() {
     },
     getInitialState() {
@@ -37,6 +37,7 @@ export default React.createClass({
                 {this.fieldFor('animateur', {isEdit: true, options: {querySearcherCs: userServices.loadUserAutocomplete}})}
                 {this.fieldFor('description', {isEdit: true})}
                 {this.fieldFor('typeEvenement', {isEdit: true, listName: 'typeEvenements', isRequired: true, valueKey: '_id', labelKey: 'name'})}
+                {this.fieldFor('niveau', {isEdit: true, listName: 'niveauEvenements', valueKey: '_id', labelKey: 'name'})}
                 <div>
                     <Button label='event.create' type='button' handleOnClick={this.create} />
                 </div>
