@@ -9,6 +9,7 @@ export default {
     connect:  builder(url + 'auth/sign_in', 'POST'),
     activate: builder(url + 'activate', 'POST'),
     changePassword: builder(url + 'changePassword', 'POST'),
+    changePasswordConnecte: builder(url + 'changePasswordConnecte', 'POST'),
     sendMailReset: builder(url + 'sendMailReset', 'POST'),
     loadUserAutocomplete:  builder(url + 'usersAutocomplete', 'POST'),
     loadMesInformations: builder(url + 'mesInformations', 'GET'),

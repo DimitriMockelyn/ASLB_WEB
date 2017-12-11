@@ -131,6 +131,30 @@ exports.changePassword = function(req, res) {
   });
 }
 
+exports.changePasswordConnecte = function(req, res) {
+  User.findOne({
+    email: req.user.email
+  }, function(err,user) {
+    
+    if (err || !user) {
+      console.log(err, user)
+      return res.json({changed: false});
+    }
+    if (!user.actif) {
+      return res.json({changed: false});
+    } else {
+      
+      User.findByIdAndUpdate(user._id, {hash_password : bcrypt.hashSync(req.body.password, 10)}, function(err, userActif) {
+        if (err) {
+          return res.json({changed: false});
+        } else {
+          return res.json({changed: true});
+        }
+      });
+    }
+  });
+}
+
 exports.me = function(req, res) {
   if (req.user) {
     User.findOne({

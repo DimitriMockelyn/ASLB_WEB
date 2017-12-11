@@ -56,6 +56,9 @@ module.exports = function(app) {
 	
 	app.route('/changePassword')
 		.post(userHandlers.changePassword);
+
+	app.route('/changePasswordConnecte')
+		.post(userHandlers.changePasswordConnecte);
 	
 	app.route('/sendMailReset')
 		.post(userHandlers.sendMailReset);

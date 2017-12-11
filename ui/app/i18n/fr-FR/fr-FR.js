@@ -208,7 +208,8 @@ export default {
         entreprise: 'Entreprise',
         telephone: 'Téléphone',
         date_fin: 'Date de fin d\'adhésion',
-        dossier_complet: 'Dossier complet'
+        dossier_complet: 'Dossier complet',
+        changePassword: 'Changer mon mot de passe'
     },
     partenaires: {
         description: 'Vous trouverez ci-dessous la liste des partenaires de l\'association',

@@ -3,6 +3,7 @@ import agendaServices from '../../services/agenda';
 import Tabs from '../../components/tabs';
 import ScrollspyContainer from 'focus-components/components/scrollspy-container';
 import MesInformations from './mes-informations';
+import ChangePassword from './changePassword';
 
 export default React.createClass({
     displayName: 'MeView',
@@ -12,6 +13,7 @@ export default React.createClass({
         return (
         <ScrollspyContainer>
             <MesInformations hasLoad={false} hasForm={false}/>
+            <ChangePassword hasLoad={false} hasForm={false}/>
         </ScrollspyContainer>
         );
     }
