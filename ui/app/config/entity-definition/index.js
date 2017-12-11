@@ -79,7 +79,7 @@ export default {
         },
         note: {
             domain: 'DO_NOTE',
-            required: false
+            required: true
         },
         commentaire: {
             domain: 'DO_COMMENT',
