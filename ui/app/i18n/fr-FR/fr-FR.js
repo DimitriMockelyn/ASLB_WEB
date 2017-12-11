@@ -211,6 +211,10 @@ export default {
         dossier_complet: 'Dossier complet',
         changePassword: 'Changer mon mot de passe'
     },
+    confirmAddDroits: {
+        create: 'Voulez vous vraiment changer les droits de création d\'activité a cette personne ?',
+        admin: 'Voulez vous vraiment changer les droits d\'administrateur a cette personne ?'
+    },
     partenaires: {
         description: 'Vous trouverez ci-dessous la liste des partenaires de l\'association',
     },

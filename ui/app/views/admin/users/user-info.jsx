@@ -5,6 +5,7 @@ import {component as Button} from 'focus-components/common/button/action';
 import adminServices from '../../../services/admin';
 import moment from 'moment';
 import userHelper from 'focus-core/user';
+import confirm from 'focus-core/application/confirm';
 
 export default React.createClass({
     displayName: 'HomeView',
@@ -16,10 +17,14 @@ export default React.createClass({
         return {...this.props.data};
     },
     canCreateToggle() {
-        adminServices.canCreateToggle({ id: this.state._id}).then(this.props.onPopinClose);
+        confirm(i18n.t('confirmAddDroits.create')).then( () => {
+            adminServices.canCreateToggle({ id: this.state._id}).then(this.props.onPopinClose);
+        });
     },
     toggleAdmin() {
-        adminServices.toggleAdmin({ id: this.state._id}).then(this.props.onPopinClose);
+        confirm(i18n.t('confirmAddDroits.admin')).then( () => {
+            adminServices.toggleAdmin({ id: this.state._id}).then(this.props.onPopinClose);
+        });
     },
     update() {
         adminServices.updateUser({...this._getEntity(),id: this.state._id, avatar: undefined}).then(this.props.onPopinClose);
