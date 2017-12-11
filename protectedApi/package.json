@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "set NODE_ENV=dev&& set PORT=80&& nodemon server.js",
-    "prod": "set NODE_ENV=prod&& set PORT=8080&& nodemon server.js"
+    "prod": "set NODE_ENV=prod&& set PORT=8080&& forever start server.js"
   },
   "repository": {
     "type": "git",
@@ -32,6 +32,7 @@
     "bcrypt": "^1.0.2",
     "body-parser": "^1.15.2",
     "express": "^4.14.0",
+    "forever": "^0.15.3",
     "formidable": "^1.1.1",
     "json2csv": "^3.11.5",
     "jsonwebtoken": "^7.3.0",
