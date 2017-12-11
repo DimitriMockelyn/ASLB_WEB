@@ -111,6 +111,14 @@ export default {
             domain: 'DO_DATE',
             required: false
         },
+        date_fin: {
+            domain: 'DO_DATE',
+            required: false
+        },
+        dossier_complet: {
+            domain: 'DO_YES_NO',
+            required: false
+        },
         isAdmin: {
             domain: 'DO_YES_NO',
             required: false

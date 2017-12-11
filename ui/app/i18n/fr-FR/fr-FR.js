@@ -201,7 +201,9 @@ export default {
         dateNaissance: 'Date de naissance',
         sexe: 'Sexe',
         entreprise: 'Entreprise',
-        telephone: 'Téléphone'
+        telephone: 'Téléphone',
+        date_fin: 'Date de fin d\'adhésion',
+        dossier_complet: 'Dossier complet'
     },
     partenaires: {
         description: 'Vous trouverez ci-dessous la liste des partenaires de l\'association',

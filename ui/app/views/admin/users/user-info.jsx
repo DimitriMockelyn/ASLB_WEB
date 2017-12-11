@@ -22,7 +22,7 @@ export default React.createClass({
         adminServices.toggleAdmin({ id: this.state._id}).then(this.props.onPopinClose);
     },
     update() {
-        adminServices.updateUser({...this._getEntity(),id: this.state._id}).then(this.props.onPopinClose);
+        adminServices.updateUser({...this._getEntity(),id: this.state._id, avatar: undefined}).then(this.props.onPopinClose);
         this.setState({...this._getEntity(),isEdit: !this.state.isEdit});
     },
     renderActionsUpdate() {
@@ -32,6 +32,19 @@ export default React.createClass({
             return <Button label='button.edit' type='button' handleOnClick={ () => this.setState({isEdit: !this.state.isEdit})} />;
         }
     },
+    computeDateFin(dateAdhesion) {
+        console.log(dateAdhesion);
+        var momentFin = moment('31/08/2018','DD/MM/YYYY');
+        var momentDebut = moment(dateAdhesion, moment.ISO_8601);
+        momentFin.set('year', momentDebut.get('year'));
+        if (momentFin.isBefore(momentDebut)) {
+            momentFin.set('year', momentFin.get('year') +1);
+        }
+        if (momentFin.get('year') === 2018) {
+            momentFin.set('year', momentFin.get('year') +1);
+        }
+        this.setState({date_fin: momentFin, date_activation: momentDebut});
+    },
     /** @inheritDoc */
     renderContent() {
         return (
@@ -40,7 +53,9 @@ export default React.createClass({
                 {this.fieldFor('nom', {isEdit: false})}
                 {this.fieldFor('prenom', {isEdit: false})}
                 {this.fieldFor('email', {isEdit: false})}
-                {this.fieldFor('date_activation')}
+                {this.fieldFor('date_activation', {onChange: this.computeDateFin})}
+                {this.fieldFor('date_fin')}
+                {this.fieldFor('dossier_complet')}
                 {this.fieldFor('canCreate', {isEdit: false})}
                 {this.fieldFor('isAdmin', {isEdit: false})}
                 <div>  

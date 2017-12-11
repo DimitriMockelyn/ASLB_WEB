@@ -36,6 +36,12 @@ var User = new Schema({
   date_activation: {
     type: Date
   },
+  date_fin: {
+    type: Date
+  },
+  dossier_complet: {
+    type: Boolean
+  },
   dateNaissance: {
     type: Date
   },

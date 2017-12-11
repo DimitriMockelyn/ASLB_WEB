@@ -373,7 +373,7 @@ exports.toggle_admin = function(req, res) {
 }
 
 exports.update_date_activation = function(req, res) {
-  User.findByIdAndUpdate(req.params.id, {date_activation : req.body.date_activation}, function(err, userActif) {
+  User.findByIdAndUpdate(req.params.id, {date_activation : req.body.date_activation, date_fin: req.body.date_fin, dossier_complet: req.body.dossier_complet }, function(err, userActif) {
     if (err) {
       return res.json({updated: false});
     } else {
@@ -427,5 +427,5 @@ function base64_encode(file) {
 }
 
 function isMembreActif(user) {
-  return user.date_activation && moment().subtract(1, 'years').isBefore(moment(user.date_activation));
+  return  user.date_fin && user.date_activation && moment().isBefore(moment(user.date_fin)) && moment().isAfter(moment(user.date_activation));
 }

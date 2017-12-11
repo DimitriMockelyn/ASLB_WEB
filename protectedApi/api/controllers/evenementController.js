@@ -227,6 +227,10 @@ exports.add_self_to_evenement = function(req, res) {
     User.findOne({
       email: req.user.email
     }, function(err, user) {
+        //On vérifie que la date de fin n'est pas trop loin
+        if (evenement.date_debut.getTime() > user.date_fin.getTime()) {
+           return res.status(401).json({ message: 'Cet évenement est apres votre fin d\'ashésion' });
+        }
         //On vérifie qu'on ajoute pas de doublons
         if (evenement.participants.indexOf(user._id) === -1) {
           evenement.participants.push(user);
