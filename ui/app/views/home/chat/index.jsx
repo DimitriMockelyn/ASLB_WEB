@@ -39,9 +39,12 @@ export default React.createClass({
             if (data && !this.state.messages) {
                 this.scrollView();
             } else {
-                console.log(data[0], this.state.messages[this.state.messages.length-1]);
-                if (data[0]._id !== this.state.messages[this.state.messages.length-1]._id) {
+                if (data.length > this.state.messages.length) {
                     this.scrollView();
+                } else {
+                    if (data[0]._id !== this.state.messages[this.state.messages.length-1]._id) {
+                        this.scrollView();
+                    }
                 }
             }
             this.setState({messages : res.reverse()});

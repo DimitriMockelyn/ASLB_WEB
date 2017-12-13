@@ -971,3 +971,18 @@ $lines-to-show: 3;
 [data-focus='layout'][data-menu='left'] [data-route="home"] + [data-focus="menu-left"] + [data-focus="page-content"] {
   margin-top: 75px;
 }
+
+
+header label {
+  display: flex;
+  white-space: pre;
+  font-weight: bold;
+}
+
+.blue-aslb {
+  color: $primary-color-dark;
+}
+
+[data-focus='cartridge-home'] > label:first-child {
+  font-size: 21px !important;
+}

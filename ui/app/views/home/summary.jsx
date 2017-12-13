@@ -8,7 +8,7 @@ export default React.createClass({
     render() {
         return <div>
             <label>
-            Association Sportive La Boursidière
+                Association <div className='blue-aslb'>S</div>portive La Boursidière
             </label>
         </div>;
     }

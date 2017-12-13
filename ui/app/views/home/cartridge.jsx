@@ -7,12 +7,14 @@ export default React.createClass({
 
     render() {
         return <div>
-            <label>
-            Bienvenue sur le site de l'ASLB !
-            </label>
-            <label>
-                Cette interface vous permets de vous inscrire aux différentes activités proposés par l'association. 
-            </label>
+            <div data-focus='cartridge-home'>
+                <label>
+                Association <div className='blue-aslb'>S</div>portive La Boursidière
+                </label>
+                <label>
+                Le sport loisirs au sein du Centre d'Affaires de La Boursidière
+                </label>    
+            </div>
         </div>;
     }
 });
