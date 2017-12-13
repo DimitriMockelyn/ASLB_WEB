@@ -19,6 +19,9 @@ var TypeEvenement = new Schema({
   },
   color: {
     type: String
+  },
+  image: {
+    type: String
   }
 });
 

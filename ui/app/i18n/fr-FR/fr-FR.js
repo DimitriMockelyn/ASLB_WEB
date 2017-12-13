@@ -247,7 +247,8 @@ export default {
         name: 'Nom',
         code: 'Code',
         description: 'Description',
-        color: 'Couleur rgba'
+        color: 'Couleur rgba',
+        image: 'Image (URL)'
     },
     contact: {
         presentationMembres: 'Présentation des membres',

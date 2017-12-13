@@ -13,10 +13,10 @@ import Evenements from './evenements';
 import Cartridge from './cartridge';
 import Summary from './summary';
 import DisplayCarrousel from './display-caroussel';
+import HeaderActivities from './header-activites';
 export default React.createClass({
     displayName: 'HomeView',
     mixins: [cartridgeBehaviour],
-
     /**
      * Related to the CartridgeBehaviour.
      * Define the cartridge configuration.
@@ -45,7 +45,7 @@ export default React.createClass({
     render() {
         return (
         <div>
-            
+            <HeaderActivities hasLoad={false} />
             <div data-focus='home-title'>
                     Bienvenue sur l'interface web de l'ASLB
             </div>

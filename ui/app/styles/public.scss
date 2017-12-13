@@ -853,3 +853,29 @@ $lines-to-show: 3;
 [data-domain="DO_DATE"] .mdl-textfield__error {
   white-space: nowrap;
 }
+
+[data-focus="header-activites"] {
+  display: flex;
+  flex-direction: row;
+  overflow: hidden;
+  justify-content: center;
+  margin-top: -60px;
+  margin-bottom: 30px;
+  & > div {
+    border: 1px solid black;
+    padding: 3px;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    margin: auto;
+    cursor: pointer;
+    img {
+      height: 150px;
+      width: auto;
+    }
+    & > div {
+      text-align: center;
+    }
+  }
+}

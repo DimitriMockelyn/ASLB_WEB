@@ -246,7 +246,8 @@ exports.edit_type_evenement = function(req, res) {
     name: req.body.name,
     code: req.body.code,
     color: req.body.color,
-    description: req.body.description
+    description: req.body.description,
+    image: req.body.image
   }
   TypeEvenement.findOneAndUpdate({_id:req.params.id}, data, {new: true}, function(err, news) {
     if (err)
