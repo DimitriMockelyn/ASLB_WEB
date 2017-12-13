@@ -601,25 +601,7 @@ div[data-focus="field"][data-mode="edit"][data-domain="DO_COMMENT"] [data-focus=
   }
 }
 
-[data-route="home"][data-focus='header-scrolling'][data-deployed="true"] [data-focus="header-content"] {
-  display: flex;
-  height: 60px;
-  top: 0;
-  position: absolute;
-  width: calc( 100% - 60px );
-  & > div {
-    display: flex;
-    flex-direction: column;
-    height: 100%;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-  }
-}
 
-[data-focus='layout'][data-menu='left'] [data-route="home"] + [data-focus="menu-left"] + [data-focus="page-content"] {
-  margin-top: 75px;
-}
 
 [data-focus='layout'] {
   background-color: transparent;
@@ -885,6 +867,7 @@ $lines-to-show: 3;
   display: flex;
   flex-direction: row;
   justify-content: flex-end;
+  width: calc( 100% - 350px );
   & > div {
     width: 100%;
   }
@@ -899,6 +882,10 @@ $lines-to-show: 3;
   flex-direction: column;
   justify-content: flex-end;
   width: 350px;
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  margin-bottom: 15px;
   [data-focus='chat-title'] {
     padding: 5px;
     justify-content: center;
@@ -947,4 +934,40 @@ $lines-to-show: 3;
   pointer-events: none;
   height: 0px;
   overflow: hidden;
+}
+
+
+//Partie home
+
+[data-route="home"][data-focus='header-scrolling'][data-deployed="true"] [data-focus="header-top-row"] {
+  height: 110px;
+}
+
+[data-route="home"][data-focus='header-scrolling'][data-deployed="true"] [data-focus="header-content"] {
+  display: flex;
+  height: 110px;
+  top: 0;
+  position: absolute;
+  width: calc( 100% - 60px );
+  & > div {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+  }
+}
+
+[data-focus='layout'][data-menu='left'] [data-route="home"][data-deployed="true"] + [data-focus="menu-left"] {
+  position: absolute;
+  [data-focus="menu-brand"] {
+    height: 110px;
+    width: 237px;
+  }
+
+}
+
+[data-focus='layout'][data-menu='left'] [data-route="home"] + [data-focus="menu-left"] + [data-focus="page-content"] {
+  margin-top: 75px;
 }
