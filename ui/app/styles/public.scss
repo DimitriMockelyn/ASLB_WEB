@@ -973,7 +973,13 @@ $lines-to-show: 3;
 }
 
 
-header label {
+header [data-focus="cartridge-home"] label {
+  display: flex;
+  white-space: pre;
+  font-weight: bold;
+}
+
+header [data-focus="header-top-row-middle"] label {
   display: flex;
   white-space: pre;
   font-weight: bold;
@@ -985,4 +991,19 @@ header label {
 
 [data-focus='cartridge-home'] > label:first-child {
   font-size: 21px !important;
+}
+
+[data-focus='button-header-cst'] {
+  display: flex;
+  flex-direction: row;
+  .header-tile-click {
+    cursor: pointer;
+    margin: 15px;
+    margin-bottom: 0px;
+    font-weight: initial;
+    label {
+      cursor: pointer !important;
+    }
+    padding: 5px;
+  }
 }
