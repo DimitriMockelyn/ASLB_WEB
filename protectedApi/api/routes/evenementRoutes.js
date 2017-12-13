@@ -3,6 +3,7 @@
 module.exports = function(app) {
 	var eventHandler = require('../controllers/evenementController'),
 	userHandlers = require('../controllers/userController.js'),
+	homeController = require('../controllers/homeController'),
 	adminHandler = require('../controllers/adminController');
 
 	// todoList Routes
@@ -125,4 +126,8 @@ module.exports = function(app) {
 	app.route('/presentations/:id')
 		.post(userHandlers.loginRequired,  userHandlers.isAdmin, adminHandler.edit_presentation)
 		.delete(userHandlers.loginRequired,  userHandlers.isAdmin, adminHandler.delete_presentation)
+
+	app.route('/chat')
+		.get(homeController.load_chat)
+		.post(userHandlers.loginRequired, homeController.add_message)
 };

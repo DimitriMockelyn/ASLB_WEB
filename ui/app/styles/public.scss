@@ -346,7 +346,7 @@ div[data-focus="field"][data-mode="edit"][data-domain='DO_RTE'] [data-focus="fie
 
 [data-focus='list-home'] {
   margin: 30px;
-  width: 40vw;
+  width: 30vw;
   [data-focus='news-list'] {
   max-height: 600px;
   margin: 30px;
@@ -878,4 +878,65 @@ $lines-to-show: 3;
       text-align: center;
     }
   }
+}
+[data-focus='home-chat-display'] {
+  display: flex;
+  flex-direction: row;
+}
+
+[data-focus='chat'] {
+  border-lefT: 2px solid $primary-color-dark;
+  background-color: white;
+  padding-left: 5px;
+  height: calc( 100% - 180px);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  [data-focus='chat-title'] {
+    padding: 5px;
+    justify-content: center;
+    display: flex;
+    font-weight: bold;
+    min-height: 30px;
+  }
+  p {
+    margin-bottom: 0px;
+  }
+  [data-focus="chat-history"] {
+    display: block;
+    overflow-y: scroll;
+  }
+  .public-DraftEditor-content {
+    max-height: 100px;
+  }
+  [data-focus='message-chat'] {
+    display: flex;
+    flex-direction: row;
+    padding: 5px;
+    & > div:first-child {
+      width: 100%;
+      & > div:first-child {
+        font-weight: bold;
+      }
+    }
+    & > div:last-child {
+      font-size: 10px;
+      font-style: italic;
+      white-space: nowrap;
+      margin-top: auto;
+      margin-bottom: auto;
+    }
+  }
+  [data-focus='message-chat']:nth-child(2n) {
+    background-color: $grey;
+  }
+  [data-focus='message-chat']:nth-child(2n+1) {
+    background-color: #FFFFFF;
+}
+}
+
+.hide-for-width {
+  pointer-events: none;
+  height: 0px;
+  overflow: hidden;
 }

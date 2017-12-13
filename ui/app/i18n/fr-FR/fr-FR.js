@@ -243,6 +243,9 @@ export default {
         ordre: 'Ordre d\'affichage',
         fonction: 'Fonction'
     },
+    chat: {
+        comment: 'Laissez un petit mot sur notre mur'
+    },
     typeEvenement: {
         name: 'Nom',
         code: 'Code',

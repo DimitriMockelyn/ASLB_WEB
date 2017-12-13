@@ -13,6 +13,9 @@ export default React.createClass({
 
         return {value: value};
     },
+    resetInput() {
+        this.setState({value: RichTextEditor.createEmptyValue()});
+    },
     onChangeValue(value) {
         this.setState({value});
         if (this.props.onChange) {

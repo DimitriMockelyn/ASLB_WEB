@@ -14,6 +14,8 @@ import Cartridge from './cartridge';
 import Summary from './summary';
 import DisplayCarrousel from './display-caroussel';
 import HeaderActivities from './header-activites';
+import Chat from './chat';
+
 export default React.createClass({
     displayName: 'HomeView',
     mixins: [cartridgeBehaviour],
@@ -44,7 +46,8 @@ export default React.createClass({
     /** @inheritDoc */
     render() {
         return (
-        <div>
+        <div data-focus='home-chat-display'>
+            <div>
             <HeaderActivities hasLoad={false} />
             <div data-focus='home-title'>
                     Bienvenue sur l'interface web de l'ASLB
@@ -52,7 +55,10 @@ export default React.createClass({
             <div data-focus='home-container'>
                 <News hasLoad={false}/>
                 <Evenements hasLoad={false} />
+                
             </div>
+            </div>
+            <Chat hasLoad={false} />
         </div>
         );
     }
