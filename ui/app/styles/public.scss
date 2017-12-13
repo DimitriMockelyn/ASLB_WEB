@@ -342,11 +342,13 @@ div[data-focus="field"][data-mode="edit"][data-domain='DO_RTE'] [data-focus="fie
 [data-focus='home-container'] {
   display: flex;
   flex-direction: row;
+  & > form {
+    width: 100%;
+  }
 }
 
 [data-focus='list-home'] {
   margin: 30px;
-  width: 30vw;
   [data-focus='news-list'] {
   max-height: 600px;
   margin: 30px;
@@ -882,6 +884,10 @@ $lines-to-show: 3;
 [data-focus='home-chat-display'] {
   display: flex;
   flex-direction: row;
+  justify-content: flex-end;
+  & > div {
+    width: 100%;
+  }
 }
 
 [data-focus='chat'] {
@@ -892,6 +898,7 @@ $lines-to-show: 3;
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
+  width: 350px;
   [data-focus='chat-title'] {
     padding: 5px;
     justify-content: center;
