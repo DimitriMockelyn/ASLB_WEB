@@ -75,7 +75,7 @@ export default React.createClass({
                             <label>{moment.weekdaysShort()[index+1]  + ' ' + moment().week(this.state.currentWeek).day(index+1).format('DD/MM')}</label>
                             <div data-focus='tile-list'>
                             {jour.length > 0 && jour.map( event => {
-                                return <Tile data={event} eventPropGetter={this.props.eventPropGetter} onClickTile={() => {this.props.onSelectEvent(event)}} />
+                                return <Tile niveaux={this.props.niveaux} data={event} eventPropGetter={this.props.eventPropGetter} onClickTile={() => {this.props.onSelectEvent(event)}} />
                             })}
                             </div>
                         </div>

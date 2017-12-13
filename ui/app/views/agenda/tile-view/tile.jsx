@@ -7,6 +7,13 @@ export default React.createClass({
         this.setState({});
         console.log(this.props.data);
     },
+    computeNiveau(id) {
+        if (!id || !this.props.niveaux) {
+            return '';
+        }
+
+        return this.props.niveaux.find(data => { return data._id === id}).name;
+    },
     /** @inheritDoc */
     render() {
         let props = this.props.eventPropGetter(this.props.data);
@@ -15,7 +22,7 @@ export default React.createClass({
         return (
             <div data-focus='tile'  {...props} onClick={this.props.onClickTile}>
                 <div data-focus='tile-title'>
-                    {moment(this.props.data.startDate).format('HH:mm') + ' - ' + moment(this.props.data.endDate).format('HH:mm')  + '   ' + this.props.data.name}
+                    {moment(this.props.data.startDate).format('HH:mm') + ' - ' + moment(this.props.data.endDate).format('HH:mm')  + '   ' + this.props.data.name + ' ' + this.computeNiveau(this.props.data.niveau)}
                 </div>
                 <div data-focus='tile-description'>
                     {this.props.data.description}

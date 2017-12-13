@@ -17,7 +17,7 @@ export default React.createClass({
     displayName: 'CalendarView',
     mixins: [formMixin],
     definitionPath: 'event',
-    referenceNames: ['typeEvenements'],
+    referenceNames: ['typeEvenements', 'niveauEvenements'],
     getInitialState() {
         return {
             events : [],
@@ -41,6 +41,9 @@ export default React.createClass({
                     }
                 }
             })
+        }
+        if (changeInfos.property === 'niveauEvenements') {
+            this.loadAllEvents();
         }
     },
     onChangeView() {
@@ -72,7 +75,14 @@ export default React.createClass({
         }
     },
     componentWillMount() {
-        this.loadAllEvents();
+        //this.loadAllEvents();
+    },
+    computeNiveau(id) {
+        if (!id || !this.state.reference || !this.state.reference.niveauEvenements) {
+            return '';
+        }
+
+        return this.state.reference.niveauEvenements.find(data => { return data._id === id}).name;
     },
     loadAllEvents() {
         this.state.serviceLoad().then(res => {
@@ -82,7 +92,7 @@ export default React.createClass({
                
                 if (event) {
                     //get by id
-                    let title = event.name + ' (';
+                    let title = event.name + ' ' +this.computeNiveau(event.niveau) + ' (';
                     if (event.participants) {
                         if (event.participants.length === 1) {
                             title = title + event.participants.length + ' participant)';
@@ -215,6 +225,7 @@ export default React.createClass({
                     eventPropGetter={this.detectPropsEvent}
                     onNavigate={this.onNavigateCalendar}
                     week={this.state.currentWeek}
+                    niveaux={this.state.reference && this.state.reference.niveauEvenements}
                 />}
                 <div data-focus='legend'>
                     <label>{i18n.t('agenda.legende')}</label>

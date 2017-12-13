@@ -335,7 +335,7 @@ exports.list_all_niveau_evenements = function(req,res) {
       res.send(err);
     }
     res.json(types);
-  });
+  }).sort({code:1});
 }
 
 
