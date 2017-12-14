@@ -227,6 +227,9 @@ button.mdl-button:not(.mdl-button--icon) {
       & > div {
         margin-left: 20px;
         font-weight: bold;
+
+        font-size: 19px;
+        color: black;
       }
     }
   }
@@ -310,6 +313,29 @@ button.mdl-button:not(.mdl-button--icon) {
   flex-direction: column;
   label {
     margin-top: 5px;
+  }
+}
+
+[data-focus='column'] {
+  display: flex;
+  flex-direction: column;
+  label {
+    display: flex;
+    flex-direction: row;
+    white-space: pre;
+  }
+  li {
+    label {
+      display: block;
+    }
+  }
+}
+
+[data-focus='inscription-title'] {
+  padding: 15px;
+  label {
+    font-size: 20px;
+    font-weight: bold;
   }
 }
 
@@ -1018,4 +1044,10 @@ header [data-focus="header-top-row-middle"] label {
     }
     padding: 5px;
   }
+}
+
+.link {
+  text-decoration: underline;
+  cursor: pointer;
+  color: $primary-color;
 }

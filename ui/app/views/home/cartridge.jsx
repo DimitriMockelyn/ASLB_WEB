@@ -17,7 +17,7 @@ export default React.createClass({
                 </label>    
             </div>
             <div data-focus='button-header-cst'>
-                <div className='header-tile-click' onClick={() => {navigate('contact', true)}}>
+                <div className='header-tile-click' onClick={() => {navigate('inscription', true)}}>
                     <label>
                         Nous rejoindre ?
                     </label>

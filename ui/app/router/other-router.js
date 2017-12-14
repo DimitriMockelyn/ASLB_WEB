@@ -8,6 +8,7 @@ import ContactView from '../views/contact';
 import AdminView from '../views/admin';
 import MeView from '../views/me';
 import MediaView from '../views/media';
+import InscriptionView from '../views/inscription';
 
 export default createRouter(Backbone).extend({
     log: true,
@@ -19,7 +20,8 @@ export default createRouter(Backbone).extend({
         contact: 'contact',
         admin: 'admin',
         me: 'me',
-        media: 'media'
+        media: 'media',
+        inscription: 'inscription'
     },
 
     partenaires() {
@@ -38,6 +40,9 @@ export default createRouter(Backbone).extend({
     },
     media() {
         this._pageContent(MediaView);
+    },
+    inscription() {
+        this._pageContent(InscriptionView);
     }
 });
 
