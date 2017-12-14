@@ -34,7 +34,7 @@ export default React.createClass({
                         })}
                         </div>
                         <label>
-                            Les autres membres d'honneur ou coach sont :
+                            Les membres de l'équipe d'animation sont :
                         </label>
                         <div data-focus='tiles-container'>
                         {this.state.membres && this.state.membres.map(value => {
