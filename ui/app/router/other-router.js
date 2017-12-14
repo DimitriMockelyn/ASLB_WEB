@@ -7,6 +7,7 @@ import PartenaireView from '../views/partenaires';
 import ContactView from '../views/contact';
 import AdminView from '../views/admin';
 import MeView from '../views/me';
+import MediaView from '../views/media';
 
 export default createRouter(Backbone).extend({
     log: true,
@@ -17,7 +18,8 @@ export default createRouter(Backbone).extend({
         partenaires: 'partenaires',
         contact: 'contact',
         admin: 'admin',
-        me: 'me'
+        me: 'me',
+        media: 'media'
     },
 
     partenaires() {
@@ -33,6 +35,9 @@ export default createRouter(Backbone).extend({
     },
     me() {
         this._pageContent(MeView);
+    },
+    media() {
+        this._pageContent(MediaView);
     }
 });
 

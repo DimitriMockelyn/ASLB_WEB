@@ -13,7 +13,7 @@ export default React.createClass({
     displayName: 'HomeView',
     mixins: [formMixin],
     definitionPath: 'event',
-    referenceNames: ['typeEvenements', 'niveauEvenements'],
+    referenceNames: ['typeEvenements', 'niveauEvenements', 'typeSexe'],
     componentWillMount() {
         this.setState({});
 
@@ -59,6 +59,16 @@ export default React.createClass({
             return <Button label='button.edit' type='button' handleOnClick={ () => this.setState({isEdit: !this.state.isEdit})} />;
         }
     },
+    computeSexeData(membre) {
+        if (!membre.sexe || !this.state.reference || !this.state.reference.typeSexe) {
+            return '';
+        }
+        //'♂';
+        if (this.state.reference.typeSexe.find(data => {return data._id === membre.sexe}).code === 'H') {
+            return <i className='fa fa-mars'></i>;                
+        }
+        return <i className='fa fa-venus'></i>; 
+    },
     /** @inheritDoc */
     renderContent() {
         console.log('animateur', this.state.animateur)
@@ -79,7 +89,7 @@ export default React.createClass({
                     <label>{i18n.t('event.participantsList') + ' ('+this.state.participants.length+')'}</label>
                     <div data-focus='list'>
                         {this.state.participants && this.state.participants.length > 0 && this.state.participants.map(value => {
-                            return <div>{value.nom + ' ' + value.prenom}</div>
+                            return <div>{value.nom + ' ' + value.prenom}<div>{this.computeSexeData(value)}</div></div>
                         })}
                     </div>
                 </div>}

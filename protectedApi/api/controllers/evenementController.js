@@ -20,7 +20,7 @@ exports.list_all_evenements = function(req, res) {
         evenement.participants = evenement.participants;
     });
     res.json(evenements);
-  }).populate('createur', '_id prenom nom').populate('participants', '_id prenom nom').populate('animateur', '_id prenom nom').sort({date_debut: 1});
+  }).populate('createur', '_id prenom nom').populate('participants', '_id prenom nom sexe').populate('animateur', '_id prenom nom').sort({date_debut: 1});
 };
 
 exports.list_all_incoming_evenements = function(req, res) {
@@ -37,7 +37,7 @@ exports.list_all_incoming_evenements = function(req, res) {
         evenement.participants = evenement.participants;
     });
     res.json(evenements);
-  }).populate('createur', '_id prenom nom').populate('participants', '_id prenom nom').populate('typeEvenement', '_id code name').populate('animateur', '_id prenom nom').sort({date_debut: 1});
+  }).populate('createur', '_id prenom nom').populate('participants', '_id prenom nom sexe').populate('typeEvenement', '_id code name').populate('animateur', '_id prenom nom').sort({date_debut: 1});
 }
 
 exports.list_my_evenements = function(req,res) {
@@ -56,7 +56,7 @@ exports.list_my_evenements = function(req,res) {
           evenement.participants = evenement.participants;
       });
       res.json(evenements);
-    }).populate('createur', '_id prenom nom').populate('participants', '_id prenom nom').populate('animateur', '_id prenom nom').sort({date_debut: 1});
+    }).populate('createur', '_id prenom nom').populate('participants', '_id prenom nom sexe').populate('animateur', '_id prenom nom').sort({date_debut: 1});
   })
 }
 
@@ -78,7 +78,7 @@ exports.list_my_history = function(req, res) {
           evenement.participants = evenement.participants;
       });
       res.json(evenements);
-    }).populate('createur', '_id prenom nom').populate('participants', '_id prenom nom').populate('typeEvenement', '_id code name').populate('animateur', '_id prenom nom').sort({date_debut: -1});
+    }).populate('createur', '_id prenom nom').populate('participants', '_id prenom nom sexe').populate('typeEvenement', '_id code name').populate('animateur', '_id prenom nom').sort({date_debut: -1});
   })
 }
 
@@ -99,7 +99,7 @@ exports.list_my_coach_history = function(req, res) {
           evenement.createur = evenement.createur;
           evenement.participants = evenement.participants;
       });
-    }).populate('createur', '_id prenom nom').populate('participants', '_id prenom nom').populate('typeEvenement', '_id code name').populate('animateur', '_id prenom nom').sort({date_debut: -1}).lean().exec(function(err, events) {
+    }).populate('createur', '_id prenom nom').populate('participants', '_id prenom nom sexe').populate('typeEvenement', '_id code name').populate('animateur', '_id prenom nom').sort({date_debut: -1}).lean().exec(function(err, events) {
       Commentaire.find({ evenement : { $in : events } }, function(err, commentaires) {
         events.forEach(function(event) {
           event.commentaires = [];
