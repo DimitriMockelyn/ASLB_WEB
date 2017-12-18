@@ -314,15 +314,26 @@ exports.load_users = function(req, res) {
 
 exports.export_users = function(req, res) {
   var filter = new RegExp(req.body.filter, 'i');
-  User.find({ $or: [{'nom': filter}, {'email': filter}, {'prenom':filter}]}, function(err, users) {
+  User.find({ $or: [{'nom': filter}, {'email': filter}, {'prenom':filter}]}, function(err, users_db) {
     if (err) {
       res.send(err);
     }
-    for (let index in users) {
-      users[index]['hash_password'] = undefined;
+    var users = [];
+    for (let index in users_db) {
+      users.push({});
+
+      users[index]['nom'] = users_db[index]['nom'];
+      users[index]['prenom'] = users_db[index]['prenom'];
+      users[index]['email'] = users_db[index]['email'];
+      users[index]['sexe'] = users_db[index]['sexe'];
+      users[index]['entreprise'] = users_db[index]['entreprise'];
+      users[index]['dossier_complet'] = users_db[index].dossier_complet ? 'Oui' : 'Non';
+      users[index]['date_activation'] = users_db[index]['date_activation'] ? moment(users_db[index]['date_activation'], moment.ISO_8601).format('DD/MM/YYYY') : '';
+      users[index]['date_fin'] = users_db[index]['date_fin'] ? moment(users_db[index]['date_fin'], moment.ISO_8601).format('DD/MM/YYYY') : '';
     }
-    var fields = ['nom', 'prenom', 'email','sexe.label', 'entreprise.label']
-    json2csv({ data: users, fields: fields,quotes:'', del: ';' }, function(err, csv) {
+    var fields = ['nom', 'prenom', 'email','sexe.label', 'entreprise.label', 'date_activation', 'date_fin', 'dossier_complet']
+    var fieldNames  = ['person.nom', 'person.prenom', 'person.email','sexe.label', 'entreprise.label', 'person.date_activation', 'person.date_fin', 'person.dossier_complet']
+    json2csv({ data: users, fields: fields, fieldNames:fieldNames, quotes:'', del: ';' }, function(err, csv) {
       res.setHeader('Content-disposition', 'attachment; filename=data.csv');
       res.set('Content-Type', 'text/csv');
       return res.status(200).send(csv);

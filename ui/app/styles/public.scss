@@ -406,14 +406,25 @@ div[data-focus="field"][data-mode="edit"][data-domain='DO_RTE'] [data-focus="fie
     flex-direction: row;
     justify-content: center;
     align-items: center;
+    height: 42px;
     & > div {
       width: 100%;
       display: flex;
       flex-direction: row;
+      word-break: break-word;
       & > div {
         margin-right: 30px;
       }
     }
+    & > div:first-of-type {
+      word-break: initial;
+    }
+    & > div:last-of-type {
+      word-break: initial;
+    }
+  }
+  [data-focus='user-line']:first-of-type {
+    font-weight: bold;
   }
   [data-focus='user-line']:nth-of-type(2n) {
     box-shadow: 0px 0px 1px 1px rgba(128,128,128,0.3);
