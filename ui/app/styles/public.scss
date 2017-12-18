@@ -878,11 +878,13 @@ $lines-to-show: 3;
 
 [data-focus="header-activites"] {
   display: flex;
-  flex-direction: row;
-  overflow: hidden;
-  justify-content: center;
+  //max-width: calc( 100% - 100px );
+  max-width: calc( 100vw - 450px);
+  overflow: auto;
   margin-top: -60px;
   margin-bottom: 30px;
+  flex-direction: row;
+  margin-right: auto;
   & > div {
     border: 1px solid black;
     padding: 3px;
