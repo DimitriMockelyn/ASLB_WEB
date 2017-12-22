@@ -39,7 +39,7 @@ export default React.createClass({
         window.location.reload();
     },
     componentDidMount() {
-        if (userHelper.getLogin().premiereConnexion) {
+        if (userHelper.getLogin() && userHelper.getLogin().premiereConnexion) {
             //Toggle de la popin de bienvenue
             this.setState({openPopinBienvenue: true});
         }
