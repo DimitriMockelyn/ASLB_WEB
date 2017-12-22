@@ -51,7 +51,7 @@
 }
 
 .step2 > div {
-    animation: go-contact 1s linear;
+    animation: go-history 1s linear;
     animation-fill-mode:forwards;
     /*right: 300px;
     top: 200px;
@@ -60,6 +60,15 @@
 }
 
 .step3 > div {
+    animation: go-contact 1s linear;
+    animation-fill-mode:forwards;
+    /*right: 300px;
+    top: 200px;
+    width: 200px;
+    height: 200px;*/
+}
+
+.step4> div {
     animation: go-ptn 1s linear;
     animation-fill-mode:forwards;
     /*right: 300px;
@@ -68,7 +77,7 @@
     height: 200px;*/
 }
 
-.step4 > div {
+.step5 > div {
     animation: go-profile 1s linear;
     animation-fill-mode:forwards;
     /*right: 300px;
@@ -77,7 +86,7 @@
     height: 200px;*/
 }
 
-.step5 > div {
+.step6 > div {
     animation: go-back-center 1s linear;
     animation-fill-mode:forwards;
     /*right: 300px;
@@ -102,7 +111,7 @@
     }
 }
 
-@keyframes go-contact {
+@keyframes go-history {
     from {
         
             right: calc( 100vw - 100px);
@@ -116,7 +125,25 @@
         top: 200px;
         width: 200px;
         height: 70px;
-        transform:  rotate(-50deg) translateX(250px) rotate(50deg) translateY(285px);
+        transform:  rotate(-50deg) translateX(250px) rotate(50deg) translateY(215px);
+    }
+}
+
+@keyframes go-contact {
+    from {
+        
+            right: calc( 100vw - 100px);
+            top: 200px;
+            width: 200px;
+            height: 70px;
+            transform:  rotate(-50deg) translateX(250px) rotate(50deg) translateY(215px);
+    }
+    to {
+        right: calc( 100vw - 100px);
+        top: 200px;
+        width: 200px;
+        height: 70px;
+        transform:  rotate(-50deg) translateX(250px) rotate(50deg) translateY(275px);
     }
 }
 
@@ -127,14 +154,14 @@
             top: 200px;
             width: 200px;
             height: 70px;
-            transform:  rotate(-50deg) translateX(250px) rotate(50deg) translateY(285px);
+            transform:  rotate(-50deg) translateX(250px) rotate(50deg) translateY(275px);
     }
     to {
         right: calc( 100vw - 100px);
         top: 200px;
         width: 200px;
         height: 70px;
-        transform:  rotate(-50deg) translateX(250px) rotate(50deg) translateY(352px);
+        transform:  rotate(-50deg) translateX(250px) rotate(50deg) translateY(342px);
     }
 }
 
@@ -144,7 +171,7 @@
         top: 200px;
         width: 200px;
         height: 70px;
-        transform:  rotate(-50deg) translateX(250px) rotate(50deg) translateY(285px);
+        transform:  rotate(-50deg) translateX(250px) rotate(50deg) translateY(342px);
     }
     to {
       right: 300px;

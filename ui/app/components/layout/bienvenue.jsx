@@ -17,7 +17,7 @@ export default React.createClass({
     },
     upgradeStep() {
         var value = this.state.step+1;
-        if (value > 5) {
+        if (value > 6) {
             return this.props.onClose();
         }
         this.setState({step: (this.state.step+1)})
@@ -30,7 +30,7 @@ export default React.createClass({
         var me = userHelper.getLogin();
         return <div data-focus='welcome' className={'step'+this.state.step}>
                 <div onClick={this.upgradeStep}>
-                    {(this.state.step === 0 || this.state.step === 5) && <div data-focus="menu-brand" />}
+                    {(this.state.step === 0 || this.state.step === 6) && <div data-focus="menu-brand" />}
                     {i18n.t(this.state.message).split('\n').map(text => {
                         return <Label name={text} />
                     })}
