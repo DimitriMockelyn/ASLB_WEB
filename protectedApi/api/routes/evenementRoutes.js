@@ -23,7 +23,7 @@ module.exports = function(app) {
 		.delete(userHandlers.loginRequired, userHandlers.isMembreActif, userHandlers.isEvenementOwner, userHandlers.isEvenementFutur, eventHandler.delete_a_evenement); 
 
 	app.route('/evenements/addSelf/:evenementId')
-		.post(userHandlers.loginRequired, userHandlers.isMembreActif, userHandlers.isEvenementFutur, eventHandler.add_self_to_evenement);
+		.post(userHandlers.loginRequired, userHandlers.isMembreActif, userHandlers.isEvenementFutur, userHandlers.inscriptionTokenPossible, eventHandler.add_self_to_evenement);
 	app.route('/evenements/removeSelf/:evenementId')
 		.post(userHandlers.loginRequired, userHandlers.isEvenementFutur, eventHandler.remove_self_to_evenement);
 

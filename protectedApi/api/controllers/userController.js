@@ -18,6 +18,8 @@ var mongoose = require('mongoose'),
 
   var formidable = require('formidable');
 
+  var TOKEN_NB = 3;
+
 exports.register = function(req, res) {
   var newUser = new User(req.body);
   newUser.nom = newUser.nom.toUpperCase();
@@ -294,6 +296,30 @@ exports.canMembreCreerCours = function(req, res, next) {
         return res.status(401).json({ message: 'Vous ne pouvez pas créer de cours' });
       }
     })
+  } else {
+    return res.status(401).json({ message: 'Il faut être connecté pour réaliser cette action' });
+  }
+};
+
+exports.inscriptionTokenPossible = function(req, res, next) {
+  if (req.user) {
+    User.findOne({
+      email: req.user.email
+    }, function(err, user) {
+      Evenement.find({$and: [{
+        date_debut: {
+            $gte: Date.now(),
+        }},{participants: user}]}, function(err, events) {
+            if (err) {
+              throw err;
+            }
+            if (events.length < TOKEN_NB) {
+              return next();
+            } else {
+              return res.status(401).json({ message: 'Vous ne pouvez pas vous inscrire a plus de '+TOKEN_NB.toString()+' cours futurs' });
+            }
+        })
+      })
   } else {
     return res.status(401).json({ message: 'Il faut être connecté pour réaliser cette action' });
   }
