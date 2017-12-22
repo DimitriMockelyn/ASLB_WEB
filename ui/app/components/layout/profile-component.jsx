@@ -8,7 +8,7 @@ import userServices from '../../services/user';
 import {component as Popin} from 'focus-components/application/popin';
 import ConnectOrCreate from './connect-or-create';
 import MyInfo from './my-info';
-
+import Bienvenue from './bienvenue';
 export default React.createClass({
     displayName: 'HomeView',
     mixins: [formMixin],
@@ -38,6 +38,12 @@ export default React.createClass({
         userServices.disconnect();
         window.location.reload();
     },
+    componentDidMount() {
+        if (userHelper.getLogin().premiereConnexion) {
+            //Toggle de la popin de bienvenue
+            this.setState({openPopinBienvenue: true});
+        }
+    },
     /** @inheritDoc */
     renderContent() {
         return (
@@ -63,6 +69,7 @@ export default React.createClass({
                         </div>
                 }
             </Popin>}
+            {this.state.openPopinBienvenue && <Bienvenue onClose={() => {this.setState({openPopinBienvenue: false});}} />}
         </div>
         );
     }

@@ -76,6 +76,10 @@ var User = new Schema({
   },
   telephone: {
     type: String
+  },
+  premiereConnexion: {
+    type: Boolean,
+    default: true
   }
 });
 

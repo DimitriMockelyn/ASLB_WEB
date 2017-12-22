@@ -5,3 +5,4 @@ import './datetime.css';
 import './common/panel.scss';
 
 import './public.scss';
+import './welcome.scss';

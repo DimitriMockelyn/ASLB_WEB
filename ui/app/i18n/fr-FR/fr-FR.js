@@ -91,6 +91,16 @@ export default {
         voirPlus: 'Voir plus',
         exporter: 'Exporter'
     },
+    home: {
+        message: {
+            0: 'Bienvenue sur l\'interface web de l\'ASLB ! \n (Cliquez sur la fenêtre pour continuer)',
+            1: 'Vous pouvez voir l\'ensemble des activités proposées dans ce menu',
+            2: 'Si vous voulez en savoir plus sur nous, c\'est ici',
+            3: 'Nos partenaires sont la',
+            4: 'Pour apprendre a mieux vous connaitre, vous pouvez personnaliser votre profil en cliquant ici ↗',
+            5: 'L\'association est la pour vous. N\'hésitez pas a nous soumettre vos idées et critiques, a nous poser toutes les questions qui vous viennent ...  Nous sommes la pour vous aider. \n Laissez nous un petit message a l\'occasion, ça nous fait toujours plaisir :) \n \n Bon sport a vous, et on se retrouve à la salle !'
+        }
+    },
     agenda: {
         home: 'Agenda des activités de l\'ASLB',
         evenementDetail: 'Détail de l\'évènement',

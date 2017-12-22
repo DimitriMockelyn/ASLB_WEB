@@ -8,7 +8,7 @@ export default {
 
         return fetch(userUrl.loadMe(), utils.computeHeaders()).then(
             (res) => {
-                userHelper.setLogin({...userHelper.getLogin(), ...res});
+                //userHelper.setLogin({...userHelper.getLogin(), ...res});
                 return res;
             }, 
             err => {

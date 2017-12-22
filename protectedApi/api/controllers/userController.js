@@ -164,6 +164,9 @@ exports.me = function(req, res) {
     }, function(err, user) {
         let data = user;
         data['hash_password'] = undefined;
+        User.findByIdAndUpdate(user._id, {premiereConnexion : false}, function(err, userActif) {
+        });
+        console.log('PREMIERE CONN', data.premiereConnexion);
         return res.json(data);
     });
   } else {

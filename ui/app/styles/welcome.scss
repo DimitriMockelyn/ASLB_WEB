@@ -1,0 +1,187 @@
+@import './common/_variables.scss';
+
+[data-focus='welcome'] {
+    position: fixed;
+    top:0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0,0,0,0.3);
+    cursor: initial;
+    & > div {
+        position: fixed;
+        border-radius: 20px;
+        flex-direction: column;
+        background-color: white;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        box-shadow: 0 0 0px 1px rgba(41, 33, 154, 0.33), 0 1px 5px 0 rgba(74, 72, 193, 0.25), 0 2px 4px -1px rgba(85, 61, 218, 0.1);
+        cursor: pointer;
+        label {
+            text-align: center;
+            min-height: 20px;
+            cursor: pointer !important;
+        }
+        [data-focus='menu-brand'] {
+            margin-top: -30px;
+            margin-bottom: 30px;
+            height: 120px;
+            width: 220px;
+        }
+    }
+}
+
+.step0 > div {
+    animation: go-center 2s linear;
+    animation-fill-mode:forwards;
+    /*width: 50vh;
+    height: 50vh;
+    top: 25vh;
+    left: 25vw;*/
+}
+
+.step1 > div {
+    animation: go-agenda 1s linear;
+    animation-fill-mode:forwards;
+    /*right: 300px;
+    top: 200px;
+    width: 200px;
+    height: 200px;*/
+}
+
+.step2 > div {
+    animation: go-contact 1s linear;
+    animation-fill-mode:forwards;
+    /*right: 300px;
+    top: 200px;
+    width: 200px;
+    height: 200px;*/
+}
+
+.step3 > div {
+    animation: go-ptn 1s linear;
+    animation-fill-mode:forwards;
+    /*right: 300px;
+    top: 200px;
+    width: 200px;
+    height: 200px;*/
+}
+
+.step4 > div {
+    animation: go-profile 1s linear;
+    animation-fill-mode:forwards;
+    /*right: 300px;
+    top: 200px;
+    width: 200px;
+    height: 200px;*/
+}
+
+.step5 > div {
+    animation: go-back-center 1s linear;
+    animation-fill-mode:forwards;
+    /*right: 300px;
+    top: 200px;
+    width: 200px;
+    height: 200px;*/
+}
+
+@keyframes go-agenda {
+    from {
+        width: 50vh;
+        height: 300px;
+        top: 25vh;
+        right: 25vw;
+    }
+    to {
+      right: calc( 100vw - 100px);
+      top: 200px;
+      width: 200px;
+      height: 70px;
+      transform:  rotate(-50deg) translateX(250px) rotate(50deg) translateY(150px);
+    }
+}
+
+@keyframes go-contact {
+    from {
+        
+            right: calc( 100vw - 100px);
+            top: 200px;
+            width: 200px;
+            height: 70px;
+            transform:  rotate(-50deg) translateX(250px) rotate(50deg) translateY(150px);
+    }
+    to {
+        right: calc( 100vw - 100px);
+        top: 200px;
+        width: 200px;
+        height: 70px;
+        transform:  rotate(-50deg) translateX(250px) rotate(50deg) translateY(218px);
+    }
+}
+
+@keyframes go-ptn {
+    from {
+        
+            right: calc( 100vw - 100px);
+            top: 200px;
+            width: 200px;
+            height: 70px;
+            transform:  rotate(-50deg) translateX(250px) rotate(50deg) translateY(218px);
+    }
+    to {
+        right: calc( 100vw - 100px);
+        top: 200px;
+        width: 200px;
+        height: 70px;
+        transform:  rotate(-50deg) translateX(250px) rotate(50deg) translateY(285px);
+    }
+}
+
+@keyframes go-profile {
+    from {
+        right: calc( 100vw - 100px);
+        top: 200px;
+        width: 200px;
+        height: 70px;
+        transform:  rotate(-50deg) translateX(250px) rotate(50deg) translateY(285px);
+    }
+    to {
+      right: 300px;
+      top: 200px;
+      width: 200px;
+      height: 200px;
+      transform: translateX(250px) rotate(50deg) translateX(-250px) rotate(-50deg);
+    }
+}
+
+@keyframes go-center {
+    from {
+        width: 50vh;
+        height: 300px;
+        top: 25vh;
+        right: 25vw;
+    }
+    to {
+        width: 50vh;
+        height: 300px;
+        top: 25vh;
+        right: 25vw;
+    }
+}
+
+@keyframes go-back-center {
+    from {
+        right: 300px;
+        top: 200px;
+        width: 200px;
+        height: 200px;
+        transform: translateX(250px) rotate(50deg) translateX(-250px) rotate(-50deg);
+      }
+    to {
+        width: 50vw;
+        height: 50vh;
+        top: 25vh;
+        right: 25vw;
+    }
+}
