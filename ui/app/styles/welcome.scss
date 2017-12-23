@@ -7,6 +7,7 @@
     width: 100vw;
     height: 100vh;
     background-color: rgba(0,0,0,0.3);
+    
     cursor: initial;
     & > div {
         position: fixed;
@@ -31,6 +32,31 @@
         }
     }
 }
+
+
+
+.step1 {
+    background: radial-gradient(circle at 30px 200px, transparent 0%, transparent 40px, rgba(0, 0, 0, 0.3) 50px, rgba(0, 0, 0, 0.3));
+}
+
+.step2 {
+    background: radial-gradient(circle at 30px 260px, transparent 0%, transparent 40px, rgba(0, 0, 0, 0.3) 50px, rgba(0, 0, 0, 0.3));
+}
+
+.step3 {
+    background: radial-gradient(circle at 30px 320px, transparent 0%, transparent 40px, rgba(0, 0, 0, 0.3) 50px, rgba(0, 0, 0, 0.3));
+}
+
+.step4 {
+    background: radial-gradient(circle at 30px 380px, transparent 0%, transparent 40px, rgba(0, 0, 0, 0.3) 50px, rgba(0, 0, 0, 0.3));
+}
+
+.step5 {
+    background: radial-gradient(closest-corner at calc( 100vw - 150px) 33px, transparent 0%, transparent 140px, rgba(0, 0, 0, 0.3) 178px, rgba(0, 0, 0, 0.3))
+}
+
+
+
 
 .step0 > div {
     animation: go-center 2s linear;
@@ -100,7 +126,7 @@
         width: 50vh;
         height: 300px;
         top: 25vh;
-        right: 25vw;
+        right: calc( 50vw - 150px );
     }
     to {
       right: calc( 100vw - 100px);
@@ -187,13 +213,13 @@
         width: 50vh;
         height: 300px;
         top: 25vh;
-        right: 25vw;
+        right: calc( 50vw - 150px );
     }
     to {
         width: 50vh;
         height: 300px;
         top: 25vh;
-        right: 25vw;
+        right: calc( 50vw - 150px );
     }
 }
 
