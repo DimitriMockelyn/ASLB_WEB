@@ -15,5 +15,7 @@ export default {
     loadMesInformations: builder(url + 'mesInformations', 'GET'),
     updateMesInformations: builder(url + 'mesInformations', 'POST'),
     loadSexes: builder(url + 'typeSexe', 'GET'),
-    loadEntreprises: builder(url + 'typeEntreprise', 'GET')
+    loadEntreprises: builder(url + 'typeEntreprise', 'GET'),
+    loadMonProfil:  builder(url + 'monProfil', 'GET'),
+    updateMonProfil:  builder(url + 'monProfil', 'POST'),
 };

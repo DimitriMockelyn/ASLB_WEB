@@ -130,4 +130,9 @@ module.exports = function(app) {
 	app.route('/chat')
 		.get(homeController.load_chat)
 		.post(userHandlers.loginRequired, homeController.add_message)
+
+	app.route('/monProfil')
+		.get(userHandlers.loginRequired,  userHandlers.load_profil)
+		.post(userHandlers.loginRequired, userHandlers.edit_profil)
+
 };

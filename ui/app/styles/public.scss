@@ -1064,3 +1064,7 @@ header [data-focus="header-top-row-middle"] label {
   cursor: pointer;
   color: $primary-color;
 }
+
+div[data-focus="field"] [data-focus="field-label-container"].mdl-cell--12-col {
+    text-align: left;
+}

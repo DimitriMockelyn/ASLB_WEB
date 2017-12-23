@@ -36,7 +36,7 @@ export default React.createClass({
         list.map(value => {
             value.toggle = false;
             for (const index in values) {
-                if (value.code === values[index]) {
+                if (value._id.toString() === values[index].toString()) {
                     value.toggle = true;
                 }
             }
@@ -47,7 +47,7 @@ export default React.createClass({
         const res = [];
         this.state.list.map(value => {
             if (value.toggle) {
-                res.push(value.code);
+                res.push(value._id.toString());
             }
         });
         return res;
@@ -61,7 +61,7 @@ export default React.createClass({
         return () => {
             const list = this.state.list;
             list.map(value => {
-                if (value.code === code) {
+                if (value._id.toString() === code) {
                     value.toggle = !value.toggle;
                 }
             });
@@ -87,41 +87,21 @@ export default React.createClass({
             allToggle: !this.state.allToggle
         });
     },
-    validate() {
-        if (this.props.isOneRequired && this.getValue().length === 0) {
-            this.setState({error: translate('field.required', {name: translate(this.props.label)})});
-            return false;
-        }
-    },
     render() {
         const that = this;
+        if (!this.props.isEdit) {
+            const values = this.getValue();
+            console.log(this.state, values)
+            return <div>
+                {this.state.list.map(value => {
+                    if (values.indexOf(value._id) > -1) {
+                        return <div>{value.name}</div>
+                    }
+                })}
+            </div>
+        }
         return (
-            <div
-                className="mdl-grid"
-                data-domain="checkbox-select"
-                data-focus="field"
-                data-mode="edit"
-                data-required={this.props.isOneRequired ? 'true' : 'false'}
-                data-valid={this.state.error ? 'false' : 'true'}
-            >
-                <div
-                    className="mdl-cell mdl-cell--top mdl-cell--4-col"
-                    data-focus="field-label-container"
-                >
-                    <label data-focus="label">{translate(this.props.label)}</label>
-                {this.props.hasToggle &&
-                    <i
-                        className="material-icons focusable"
-                        onClick={this.toggle}
-                    >
-                        {this.state.toggle ? 'arrow_drop_up' : 'arrow_drop_down'}
-                    </i>
-                }
-                </div>
-                <div
-                    className={(this.state.toggle || !this.props.hasToggle ?'visible ' : 'hidden ') + 'mdl-cell mdl-cell--top mdl-cell--8-col'}
-                    data-focus="field-value-container"
-                >
+                <div>
                     {this.props.hasAll && <div>
                         <Checkbox
                             label='Tous'
@@ -133,15 +113,14 @@ export default React.createClass({
                         return (
                             <div>
                                 <Checkbox
-                                    label={value.label}
-                                    onChange={that.onChangeToggle(value.code)}
+                                    label={value.name}
+                                    onChange={that.onChangeToggle(value._id.toString())}
                                     value={value.toggle}
                                 />
                             </div>
                         );
                     })}
                 </div>
-            </div>
         );
     }
 });

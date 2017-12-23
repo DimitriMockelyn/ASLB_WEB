@@ -134,6 +134,21 @@ export default {
         telephone: {
             domain: 'DO_TELEPHONE',
             required: false
+        },
+        description: {
+            domain: 'DO_RTE'
+        },
+        raisonSport: {
+            domain: 'DO_RTE'
+        },
+        activitesVoulues: {
+            domain: 'DO_CHECKBOX_SELECT'
+        },
+        autreActivites: {
+            domain: 'DO_RTE'
+        },
+        records: {
+            domain: 'DO_RTE'
         }
     },
     presentation: {

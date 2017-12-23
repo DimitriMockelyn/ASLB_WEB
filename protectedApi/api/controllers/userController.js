@@ -12,6 +12,7 @@ var mongoose = require('mongoose'),
   fs =  require('fs'),
   moment = require('moment'),
   Sexe = mongoose.model('Sexe'),
+  Profil = mongoose.model('Profil'),
   Entreprise = mongoose.model('Entreprise');
 
   var {getConfig} = require('../../config');
@@ -166,7 +167,6 @@ exports.me = function(req, res) {
         data['hash_password'] = undefined;
         User.findByIdAndUpdate(user._id, {premiereConnexion : false}, function(err, userActif) {
         });
-        console.log('PREMIERE CONN', data.premiereConnexion);
         return res.json(data);
     });
   } else {
@@ -492,4 +492,60 @@ function base64_encode(file) {
 
 function isMembreActif(user) {
   return  user.date_fin && user.date_activation && moment().isBefore(moment(user.date_fin)) && moment().isAfter(moment(user.date_activation));
+}
+
+exports.load_profil = function(req, res) {
+  if (req.user) {
+    User.findOne({
+      email: req.user.email
+    }, function(err, user) {
+        let data = user;
+        data['hash_password'] = undefined;
+        return res.json(data.profil);
+    }).populate('profil', '_id description activitesVoulues raisonSport autreActivites records');
+  } else {
+    return res.json({});
+  }
+}
+
+exports.edit_profil = function(req, res) {
+  User.findOne({
+    email: req.user.email
+  }, function(err,user) {
+    
+    if (err || !user) {
+      console.log(err, user)
+      return res.json({changed: false});
+    }
+    console.log(user.profil.toString());
+    if (req.body._id && user.profil && user.profil.toString() === req.body._id.toString()) { //Le profil existe, on le mets a jour
+      Profil.findOneAndUpdate({
+        _id: req.body._id
+      }, req.body, {new: true}, function(err, prf) {
+          if (err) {
+            console.log(err);
+            return res.status(401).json({ message: 'Une erreur est survenue lors de votre opération.'})
+          }
+          let data = prf;
+          return res.json(data);
+      });
+    } else if (!user.profil) {
+      var prf = new Profil(req.body);
+      prf.save(function(err, newPrf) {
+        if (err) {
+          console.log(err);
+          return res.status(401).json({ message: 'Une erreur est survenue lors de votre opération.'})
+        }
+        user.profil = newPrf;
+        user.save(function(err, newPrf) {
+          if (err) {
+            console.log(err);
+            return res.status(401).json({ message: 'Une erreur est survenue lors de votre opération.'})
+          }
+          return res.json(newPrf);
+        })
+      })
+      // On le crée
+    }
+  })
 }
