@@ -27,6 +27,9 @@ export default React.createClass({
                 <div>{this.state.history && this.state.history.length > 0 && this.state.history.map((value, pos) => {
                         return <div data-focus='historique-evenements' onClick={() => {this.onClickEvent(value)}}><EventNote data={value}/></div>
                 })}
+                {(!this.state.history || this.state.history.length === 0) && <div>
+                    <label>{i18n.t('historique.notCoachYet')}</label>
+                </div> }
                 </div>
             </div>
             {this.state.eventClicked && <Popin open={true}  onPopinClose={this.closeCommentaire}>

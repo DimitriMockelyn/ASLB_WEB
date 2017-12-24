@@ -239,6 +239,7 @@ export default {
         description: 'Historique de mes événements. Laissez un commentaire sur un événement en le selectionnant.',
         eventsParticipant: ' événement(s) terminé(s)',
         descriptionCoach: 'Historique de mon coaching événements. Cliquer sur un événement pour voir les commentaires laissés',
+        notCoachYet: 'Vous n\'avez pas encore animé de séances. Si l\'animation d\'activités vous intéresse, vous pouvez contacter les membres du bureau pour soumettre votre projet !'
     },
     sexe: {
         label: 'sexe'
