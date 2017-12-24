@@ -19,7 +19,7 @@ export default React.createClass({
                     <div data-focus='column'>
                         <label>L'inscription est réservée aux employés du Centre d'Affaires La Boursidière.</label>
                         <label>Le prix de l'inscription, valable jusqu'au prochain 31 août à compter de la date d'inscription, est fixé à 30€</label>
-                        <label>Les inscription en 2017 seront valable, exceptionnellements, jusqu'au 31 août 2018</label>
+                        <label>Les inscription en 2017 seront valable, exceptionnellements, jusqu'au 31 août 2019</label>
                     </div>
                 </Panel>
                 <Panel title='Nous rejoindre'>
