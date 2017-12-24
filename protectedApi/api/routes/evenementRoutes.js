@@ -135,4 +135,6 @@ module.exports = function(app) {
 		.get(userHandlers.loginRequired,  userHandlers.load_profil)
 		.post(userHandlers.loginRequired, userHandlers.edit_profil)
 
+	app.route('/loadTokens')
+		.get(userHandlers.loginRequired,  userHandlers.load_tokens);
 };

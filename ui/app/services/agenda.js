@@ -51,4 +51,7 @@ export default {
     loadMyCoachingHistory() {
         return fetch(agendaUrl.loadMyCoachingHistory(), utils.computeHeaders());
     },
+    loadTokens() {
+        return fetch(agendaUrl.loadTokens(), utils.computeHeaders());
+    }
 };

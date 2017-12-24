@@ -19,4 +19,5 @@ export default {
     postCommentaire: builder(url + 'commentaire/${eventId}', 'POST'),
     isCoach: builder(url + 'isCoach', 'GET'),
     loadMyCoachingHistory: builder(url + 'coachHistory', 'GET'),
+    loadTokens: builder(url + 'loadTokens', 'GET'),
 };

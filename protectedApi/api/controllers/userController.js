@@ -304,6 +304,23 @@ exports.canMembreCreerCours = function(req, res, next) {
   }
 };
 
+exports.load_tokens = function(req, res) {
+  User.findOne({
+    email: req.user.email
+  }, function(err, user) {
+    Evenement.find({$and: [{
+      date_debut: {
+          $gte: Date.now(),
+      }},{participants: user}]}, function(err, events) {
+          
+          if (err) {
+            throw err;
+          }
+          return res.json(TOKEN_NB - events.length);
+      })
+    })
+}
+
 exports.inscriptionTokenPossible = function(req, res, next) {
   if (req.user) {
     User.findOne({
