@@ -106,6 +106,15 @@ module.exports = function(app) {
 		.get(userHandlers.loginRequired, userHandlers.isMembreActif, eventHandler.get_commentaire_for_user)
 		.post(userHandlers.loginRequired, userHandlers.isMembreActif, eventHandler.post_commentaire_for_user);
 
+	app.route('/loadAbsents/:evenementId')
+		.get(userHandlers.loginRequired, userHandlers.isMembreActif, eventHandler.loadAbsents)
+
+	app.route('/setAbsent/:evenementId')
+		.post(userHandlers.loginRequired, userHandlers.isMembreActif, eventHandler.setAbsent)
+
+	app.route('/setPresent/:evenementId')
+		.post(userHandlers.loginRequired, userHandlers.isMembreActif, eventHandler.setPresent)
+
 	app.route('/isCoach')
 		.get(userHandlers.loginRequired, userHandlers.isMembreActif, eventHandler.is_user_coach)
 

@@ -53,5 +53,14 @@ export default {
     },
     loadTokens() {
         return fetch(agendaUrl.loadTokens(), utils.computeHeaders());
-    }
+    },
+    loadAbsents(id) {
+        return fetch(agendaUrl.loadAbsents({urlData: {eventId:id}}), utils.computeHeaders());
+    },
+    setAbsent(data) {
+        return fetch(agendaUrl.setAbsent({urlData: {eventId:data.id}, data: data}), utils.computeHeaders());
+    },
+    setPresent(data) {
+        return fetch(agendaUrl.setPresent({urlData: {eventId:data.id}, data: data}), utils.computeHeaders());
+    },
 };

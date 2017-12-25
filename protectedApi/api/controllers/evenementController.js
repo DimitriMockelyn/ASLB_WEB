@@ -410,3 +410,74 @@ function check_evenement_conflit(event, res, cb) {
   })
   
 }
+
+exports.loadAbsents = function(req, res) {
+  User.findOne({
+    email: req.user.email
+  }, function(err, user) {
+    Evenement.findById(req.params.evenementId, function(err, evenement) {
+      if (err) {
+        res.send(err);
+      }
+      if (evenement.animateur.toString() !== user._id.toString()) {
+        return res.status(401).json({ message: 'Vous n\'etes pas l\'animateur de la séance' });
+      }
+      return res.json(evenement);
+      
+    }).populate('participants', '_id prenom nom').populate('absents', '_id prenom nom');
+  });
+};
+
+exports.setAbsent = function(req, res) {
+  User.findOne({
+    email: req.user.email
+  }, function(err, user) {
+    Evenement.findById(req.params.evenementId, function(err, evenement) {
+      if (err) {
+        res.send(err);
+      }
+      if (evenement.animateur.toString() !== user._id.toString()) {
+        return res.status(401).json({ message: 'Vous n\'etes pas l\'animateur de la séance' });
+      }
+      if (evenement.absents.indexOf(req.body.user) < 0) {
+        evenement.absents.push(req.body.user);
+      }
+      evenement.save(function(err, evt) {
+        if (err) {
+          res.send(err)
+        }
+        res.json({updated: true})
+      })
+    });
+  });
+};
+
+exports.setPresent = function(req, res) {
+  User.findOne({
+    email: req.user.email
+  }, function(err, user) {
+    Evenement.findById(req.params.evenementId, function(err, evenement) {
+      if (err) {
+        res.send(err);
+      }
+      if (evenement.animateur.toString() !== user._id.toString()) {
+        return res.status(401).json({ message: 'Vous n\'etes pas l\'animateur de la séance' });
+      }
+      var index = -1;
+      evenement.absents.map((abss, indexLoop) => {
+        if (abss.toString() === req.body.user.toString()) {
+          index = indexLoop;
+        }
+      })
+      if (index > -1) {
+        evenement.absents.splice(index, 1);
+      }
+      evenement.save(function(err, evt) {
+        if (err) {
+          res.send(err)
+        }
+        res.json({updated: true})
+      })
+    });
+  });
+};
