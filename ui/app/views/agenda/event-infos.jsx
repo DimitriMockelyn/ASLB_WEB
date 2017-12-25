@@ -8,6 +8,7 @@ import moment from 'moment';
 import userHelper from 'focus-core/user';
 import confirm from 'focus-core/application/confirm';
 import userServices from '../../services/user';
+import message from 'focus-core/message';
 
 export default React.createClass({
     displayName: 'HomeView',
@@ -23,7 +24,12 @@ export default React.createClass({
     },
     addSelf() {
         if (this.validate()) {
-            agendaServices.addSelfToEvent(this.props.event).then(this.props.onPopinClose);
+            agendaServices.addSelfToEvent(this.props.event).then( res => {
+                if (res.message) {
+                    message.addSuccessMessage(res.message);
+                }
+                this.props.onPopinClose();
+            });
             //request.execute(function(event) {that.props.onPopinClose()})
         }
     },
@@ -120,7 +126,7 @@ export default React.createClass({
                         })}
                     </div>
                 </div>}
-                {this.isInFile(userHelper.getLogin()._id) && <div>
+                {userHelper.getLogin() &&  this.isInFile(userHelper.getLogin()._id) && <div>
                         {this.computeInfoFile(userHelper.getLogin()._id)}
                     </div>}
                 {userHelper.getLogin() && !this.isInEvent(userHelper.getLogin()._id) && <div>

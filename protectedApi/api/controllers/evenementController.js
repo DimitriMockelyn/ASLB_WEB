@@ -254,7 +254,7 @@ exports.add_self_to_evenement = function(req, res) {
                   if (err) {
                     res.send(err);
                   }
-                  return res.status(401).json({ message: 'Cet evenement est complet. Vous avez été mis en file d\'attente' });
+                  return res.status(200).json({ message: 'Cet evenement est complet. Vous avez été mis en file d\'attente' });
                 });
                 
               });
