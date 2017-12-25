@@ -17,6 +17,7 @@ var express = require('express'),
   NiveauEvenement= require('./api/models/niveauEvenementModel'),
   Message = require('./api/models/messageModel'),
   Profil = require('./api/models/profilModel'),
+  Queue = require('./api/models/queueModel'),
   bodyParser = require('body-parser'),
   jsonwebtoken = require("jsonwebtoken");
 

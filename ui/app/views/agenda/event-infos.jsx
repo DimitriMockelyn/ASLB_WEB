@@ -43,7 +43,35 @@ export default React.createClass({
                 return true;
             }
         }
+        for (let index in this.props.event.fileAttente) {
+            if (this.props.event.fileAttente[index].personne.toString() === id.toString()) {
+                return true;
+            }
+        }
         return false;
+    },
+    isInFile(id) {
+        for (let index in this.props.event.fileAttente) {
+            if (this.props.event.fileAttente[index].personne.toString() === id.toString()) {
+                return true;
+            }
+        }
+        return false;
+    },
+    computeInfoFile(id) {
+        var position = 1;
+        var indexOrdre = -1;
+        for (let index in this.props.event.fileAttente) {
+            if (this.props.event.fileAttente[index].personne.toString() === id.toString()) {
+                indexOrdre = index;
+            }
+        }
+        for (let index in this.props.event.fileAttente) {
+            if (this.props.event.fileAttente[index].ordre < this.props.event.fileAttente[indexOrdre].ordre) {
+                position++;
+            }
+        }
+        return 'Vous etes en position numéro '+position.toString()+' dans la file d\'attente'
     },
     isOwner() {
         return userHelper.getLogin() && this.props.event.createur._id === userHelper.getLogin()._id;
@@ -71,7 +99,6 @@ export default React.createClass({
     },
     /** @inheritDoc */
     renderContent() {
-        console.log('animateur', this.state.animateur)
         return (
         <div>
             <Panel title='agenda.evenementDetail' actions={this.isOwner() && this.renderActionsUpdate}>
@@ -93,6 +120,9 @@ export default React.createClass({
                         })}
                     </div>
                 </div>}
+                {this.isInFile(userHelper.getLogin()._id) && <div>
+                        {this.computeInfoFile(userHelper.getLogin()._id)}
+                    </div>}
                 {userHelper.getLogin() && !this.isInEvent(userHelper.getLogin()._id) && <div>
                     <Button label='event.addSelf' type='button' handleOnClick={this.addSelf} />
                 </div>}
