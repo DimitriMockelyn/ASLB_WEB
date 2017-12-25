@@ -13,6 +13,7 @@ var mongoose = require('mongoose'),
   moment = require('moment'),
   Sexe = mongoose.model('Sexe'),
   Profil = mongoose.model('Profil'),
+  Commentaire = mongoose.model('Commentaire'),
   Entreprise = mongoose.model('Entreprise');
 
   var {getConfig} = require('../../config');
@@ -20,6 +21,7 @@ var mongoose = require('mongoose'),
   var formidable = require('formidable');
 
   var TOKEN_NB = 3;
+  var GLISSEMENT_JOURS_STATS = 30;
 
 exports.register = function(req, res) {
   var newUser = new User(req.body);
@@ -347,14 +349,13 @@ exports.inscriptionTokenPossible = function(req, res, next) {
 
 exports.load_users = function(req, res) {
   var filter = new RegExp(req.body.filter, 'i');
-  User.find({ $or: [{'nom': filter}, {'email': filter}, {'prenom':filter}]}, function(err, users) {
+  User.find({ $or: [{'nom': filter}, {'email': filter}, {'prenom':filter}]}, function(err, users_db) {
     if (err) {
       res.send(err);
     }
-    for (let index in users) {
-      users[index]['hash_password'] = undefined;
-    }
-    return res.json(users);
+    fill_user_data(users_db, false,  (users_res) => {
+      return res.json(users_res);
+    })
   }).populate('sexe', '_id label').populate('entreprise', '_id label');
 }
 
@@ -364,27 +365,86 @@ exports.export_users = function(req, res) {
     if (err) {
       res.send(err);
     }
-    var users = [];
-    for (let index in users_db) {
-      users.push({});
-
-      users[index]['nom'] = users_db[index]['nom'];
-      users[index]['prenom'] = users_db[index]['prenom'];
-      users[index]['email'] = users_db[index]['email'];
-      users[index]['sexe'] = users_db[index]['sexe'];
-      users[index]['entreprise'] = users_db[index]['entreprise'];
-      users[index]['dossier_complet'] = users_db[index].dossier_complet ? 'Oui' : 'Non';
-      users[index]['date_activation'] = users_db[index]['date_activation'] ? moment(users_db[index]['date_activation'], moment.ISO_8601).format('DD/MM/YYYY') : '';
-      users[index]['date_fin'] = users_db[index]['date_fin'] ? moment(users_db[index]['date_fin'], moment.ISO_8601).format('DD/MM/YYYY') : '';
-    }
-    var fields = ['nom', 'prenom', 'email','sexe.label', 'entreprise.label', 'date_activation', 'date_fin', 'dossier_complet']
-    var fieldNames  = ['person.nom', 'person.prenom', 'person.email','sexe.label', 'entreprise.label', 'person.date_activation', 'person.date_fin', 'person.dossier_complet']
-    json2csv({ data: users, fields: fields, fieldNames:fieldNames, quotes:'', del: ';' }, function(err, csv) {
-      res.setHeader('Content-disposition', 'attachment; filename=data.csv');
-      res.set('Content-Type', 'text/csv');
-      return res.status(200).send(csv);
-    });
+    fill_user_data(users_db, true, users => {      
+      var fields = ['nom', 'prenom', 'email','sexe.label', 'entreprise.label', 'date_activation', 'date_fin', 'dossier_complet', 'nombreInscription', 'noteMoyenneDonnee', 'noteMoyenneRecue']
+      var fieldNames  = ['person.nom', 'person.prenom', 'person.email','sexe.label', 'entreprise.label', 'person.date_activation', 'person.date_fin', 'person.dossier_complet', 
+      'Nombre d\'inscriptions dans les '+GLISSEMENT_JOURS_STATS+' derniers jours', 'Note moyenne donnée sur '+GLISSEMENT_JOURS_STATS+' jours', 'Note moyenne recue sur '+GLISSEMENT_JOURS_STATS+' jours']
+      json2csv({ data: users, fields: fields, fieldNames:fieldNames, quotes:'', del: ';' }, function(err, csv) {
+        res.setHeader('Content-disposition', 'attachment; filename=data.csv');
+        res.set('Content-Type', 'text/csv');
+        return res.status(200).send(csv);
+      });
+    })
   }).populate('sexe', '_id label').populate('entreprise', '_id label');
+}
+
+function fill_user_data(users_db, formatDate, cb) {
+  var users = [];
+  for (let index in users_db) {
+    users.push({});
+    users[index]['_id']  = users_db[index]['_id'];
+    users[index]['nom'] = users_db[index]['nom'];
+    users[index]['prenom'] = users_db[index]['prenom'];
+    users[index]['email'] = users_db[index]['email'];
+    users[index]['sexe'] = users_db[index]['sexe'];
+    users[index]['entreprise'] = users_db[index]['entreprise'];
+    users[index]['dossier_complet'] = users_db[index].dossier_complet ? 'Oui' : 'Non';
+    users[index]['date_activation'] = formatDate ? (users_db[index]['date_activation'] ? moment(users_db[index]['date_activation'], moment.ISO_8601).format('DD/MM/YYYY') : '') : users_db[index]['date_activation'];
+    users[index]['date_fin'] = formatDate ? ( users_db[index]['date_fin'] ? moment(users_db[index]['date_fin'], moment.ISO_8601).format('DD/MM/YYYY') : '')  : users_db[index]['date_fin'];
+    users[index]['nombreInscription'] = 0;
+    users[index]['nombreNotesDonnee'] = 0;
+    users[index]['noteMoyenneDonnee'] = 0.0;
+    users[index]['nombreNotesRecue'] = 0;
+    users[index]['noteMoyenneRecue'] = 0.0;
+  }
+  var minDate = new Date(Date.now());
+  minDate.setDate(minDate.getDate() - GLISSEMENT_JOURS_STATS);
+  return Evenement.find({$and: [{
+    date_debut: {
+        $lte: Date.now(),
+    }}, {
+      date_debut: {
+        $gte: minDate
+      }
+    }]}, function(err, events) {
+        events.map(event => {
+          event.participants.map(idParticipant => {
+            users.map(user => {
+              if (idParticipant.toString() === user._id.toString()) {
+                user.nombreInscription += 1;
+              }
+            })
+          })
+        });
+        Commentaire.find({
+          evenement: events
+        }, function(err, comms) {
+          if (err) {
+            throw err;
+          }
+          comms.map(comm => {
+            users.map(user => {
+              if (comm.auteur.toString() === user._id.toString()) {
+                user.nombreNotesDonnee +=1;
+                user.noteMoyenneDonnee += comm.note;
+              }
+              if (comm.evenement.animateur.toString() === user._id.toString()) {
+                user.nombreNotesRecue +=1;
+                user.noteMoyenneRecue += comm.note;
+              }
+            })
+          })
+          users.map(user => {
+            if (user.nombreNotesDonnee !== 0) {
+              user.noteMoyenneDonnee =  user.noteMoyenneDonnee/user.nombreNotesDonnee;
+            }
+            if (user.nombreNotesRecue !== 0) {
+              user.noteMoyenneRecue =  user.noteMoyenneRecue/user.nombreNotesRecue;
+            }
+          })
+          cb(users);
+        }).populate('evenement', '_id animateur');
+    });
 }
 
 exports.load_users_group = function(req, res) {
