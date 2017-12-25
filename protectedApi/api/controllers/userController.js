@@ -366,9 +366,12 @@ exports.export_users = function(req, res) {
       res.send(err);
     }
     fill_user_data(users_db, true, users => {      
-      var fields = ['nom', 'prenom', 'email','sexe.label', 'entreprise.label', 'date_activation', 'date_fin', 'dossier_complet', 'nombreInscription', 'noteMoyenneDonnee', 'noteMoyenneRecue']
+      var fields = ['nom', 'prenom', 'email','sexe.label', 'entreprise.label', 
+      'date_activation', 'date_fin', 'dossier_complet', 'nombreInscription',
+       'noteMoyenneDonnee', 'noteMoyenneRecue' , 'nombreAbsences', 'nombreCoach']
       var fieldNames  = ['person.nom', 'person.prenom', 'person.email','sexe.label', 'entreprise.label', 'person.date_activation', 'person.date_fin', 'person.dossier_complet', 
-      'Nombre d\'inscriptions dans les '+GLISSEMENT_JOURS_STATS+' derniers jours', 'Note moyenne donnée sur '+GLISSEMENT_JOURS_STATS+' jours', 'Note moyenne recue sur '+GLISSEMENT_JOURS_STATS+' jours']
+      'Nombre d\'inscriptions dans les '+GLISSEMENT_JOURS_STATS+' derniers jours', 'Note moyenne donnée sur '+GLISSEMENT_JOURS_STATS+' jours', 
+      'Note moyenne recue sur '+GLISSEMENT_JOURS_STATS+' jours', 'Nombre d\'absences sur '+GLISSEMENT_JOURS_STATS+' jours', 'Nombre d\'activités données sur '+GLISSEMENT_JOURS_STATS+' jours']
       json2csv({ data: users, fields: fields, fieldNames:fieldNames, quotes:'', del: ';' }, function(err, csv) {
         res.setHeader('Content-disposition', 'attachment; filename=data.csv');
         res.set('Content-Type', 'text/csv');
@@ -396,6 +399,8 @@ function fill_user_data(users_db, formatDate, cb) {
     users[index]['noteMoyenneDonnee'] = 0.0;
     users[index]['nombreNotesRecue'] = 0;
     users[index]['noteMoyenneRecue'] = 0.0;
+    users[index]['nombreAbsences'] = 0;
+    users[index]['nombreCoach'] = 0;
   }
   var minDate = new Date(Date.now());
   minDate.setDate(minDate.getDate() - GLISSEMENT_JOURS_STATS);
@@ -414,6 +419,18 @@ function fill_user_data(users_db, formatDate, cb) {
                 user.nombreInscription += 1;
               }
             })
+          })
+          event.absents.map(idAbsent => {
+            users.map(user => {
+              if (idAbsent.toString() === user._id.toString()) {
+                user.nombreAbsences += 1;
+              }
+            })
+          })
+          users.map(user => {
+            if (event.animateur && event.animateur.toString() === user._id.toString()) {
+              user.nombreCoach += 1;
+            }
           })
         });
         Commentaire.find({
