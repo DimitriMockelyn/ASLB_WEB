@@ -96,6 +96,10 @@ module.exports = function(app) {
 		.post(userHandlers.loginRequired,  userHandlers.isAdmin, userHandlers.toggle_creation)
 	app.route('/toggleAdmin/:id')
 		.post(userHandlers.loginRequired,  userHandlers.isAdmin, userHandlers.toggle_admin)
+
+	app.route('/toggleActif/:id')
+		.post(userHandlers.loginRequired,  userHandlers.isAdmin, userHandlers.toggle_actif)
+
 	app.route('/updateUser/:id')
 		.post(userHandlers.loginRequired,  userHandlers.isAdmin, userHandlers.update_date_activation)
 

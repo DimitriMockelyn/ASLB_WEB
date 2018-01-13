@@ -7,16 +7,10 @@ import {cartridgeBehaviour} from 'focus-components/page/mixin';
 import Panel from 'focus-components/components/panel';
 import {component as Popin} from 'focus-components/application/popin';
 import userHelper from 'focus-core/user';
-import homeServices from '../../services/home';
-import News from './news';
+import homeServices from '../../../services/home';
 import ScrollspyContainer from 'focus-components/components/scrollspy-container';
-import Users from './users';
-import Partenaires from './partenaire';
-import Mails from './mails';
-import Presentations from './presentations';
-import TypeActivites from './typeActivites';
-import {navigate} from 'focus-core/history';
-import {component as Button} from 'focus-components/common/button/action';
+import Users from '../users';
+import Mails from '../mails';
 export default React.createClass({
     displayName: 'HomeView',
     mixins: [cartridgeBehaviour],
@@ -44,11 +38,8 @@ export default React.createClass({
         <div>
             <div>
                 <ScrollspyContainer>
-                    <Button icon='person' type='button' shape='' label='admin.adminUsers' handleOnClick={() => {navigate('adminUsers', true)}} />
-                    <News hasLoad={false} />
-                    <Partenaires hasLoad={false} />
-                    <Presentations hasLoad={false} />
-                    <TypeActivites hasLoad={false} />
+                    <Users hasLoad={false} />
+                    <Mails hasLoad={false} />
                 </ScrollspyContainer>
             </div>
         </div>

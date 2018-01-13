@@ -9,7 +9,7 @@ import AdminView from '../views/admin';
 import MeView from '../views/me';
 import MediaView from '../views/media';
 import InscriptionView from '../views/inscription';
-
+import AdminUsersView from '../views/admin/admin-users';
 export default createRouter(Backbone).extend({
     log: true,
     beforeRoute() {
@@ -19,6 +19,7 @@ export default createRouter(Backbone).extend({
         partenaires: 'partenaires',
         contact: 'contact',
         admin: 'admin',
+        adminUsers: 'adminUsers',
         me: 'me',
         media: 'media',
         inscription: 'inscription'
@@ -33,6 +34,11 @@ export default createRouter(Backbone).extend({
     admin() {
         if (userHelper.getLogin() && userHelper.getLogin().isAdmin) {
             this._pageContent(AdminView, {props: {hasLoad: false}});
+        }
+    },
+    adminUsers() {
+        if (userHelper.getLogin() && userHelper.getLogin().isAdmin) {
+            this._pageContent(AdminUsersView, {props: {hasLoad: false}});
         }
     },
     me() {

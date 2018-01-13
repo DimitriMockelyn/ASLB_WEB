@@ -11,6 +11,7 @@ export default {
     exportAllUsers: builder(url + 'usersExport', 'POST'),
     canCreateToggle:  builder(url + 'toggleCreation/${id}', 'POST'),
     toggleAdmin:  builder(url + 'toggleAdmin/${id}', 'POST'),
+    toggleActif: builder(url + 'toggleActif/${id}', 'POST'),
     updateUser: builder(url + 'updateUser/${id}', 'POST'),
     editPartenaire:  builder(url + 'partenaires/${id}', 'POST'),
     deletePartenaire:  builder(url + 'partenaires/${id}', 'DELETE'),

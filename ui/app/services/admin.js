@@ -27,6 +27,9 @@ export default {
     toggleAdmin(data) {
         return fetch(adminUrl.toggleAdmin({urlData: {id: data.id}}), utils.computeHeaders());
     },
+    toggleActif(data) {
+        return fetch(adminUrl.toggleActif({urlData: {id: data.id}, data: data}), utils.computeHeaders());
+    },
     updateUser(data) {
         return fetch(adminUrl.updateUser({urlData: {id: data.id}, data: data}), utils.computeHeaders());
     },

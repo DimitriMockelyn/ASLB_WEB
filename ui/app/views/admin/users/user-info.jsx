@@ -6,6 +6,26 @@ import adminServices from '../../../services/admin';
 import moment from 'moment';
 import userHelper from 'focus-core/user';
 import confirm from 'focus-core/application/confirm';
+import Textarea from 'focus-components/components/input/textarea';
+import {translate} from 'focus-core/translation';
+
+const ComponentDesactivation = React.createClass({
+    getInitialState() {
+        return {raison: ''};
+    },
+    onRaisonChange(value) {
+        this.props.onRaisonChange(value);
+        this.setState({raison: value});
+    },
+    render() {
+        return (
+        <div data-focus='display-column'>
+        <label>{translate(this.props.showComment ? 'person.confirmDesactiver' : 'person.confirmActiver')}</label>
+        {this.props.showComment && <Textarea onChange={this.onRaisonChange} value={this.state.raison} />}
+        </div>
+        );
+    }
+});
 
 export default React.createClass({
     displayName: 'HomeView',
@@ -51,6 +71,14 @@ export default React.createClass({
             this.setState({date_fin: momentFin, date_activation: dateAdhesion});
         }
     },
+    onRaisonChange(value) {
+        this.state.raisonChange = value;
+    },
+    toggleActif() {
+        confirm(() => <ComponentDesactivation showComment={this.state.actif} onRaisonChange={this.onRaisonChange} /> ).then( () => {
+            adminServices.toggleActif({ id: this.state._id, raison: this.state.raisonChange}).then(this.props.onPopinClose);
+        });
+    },
     /** @inheritDoc */
     renderContent() {
         return (
@@ -67,6 +95,7 @@ export default React.createClass({
                 <div>  
                     <Button label='person.toggleCanCreate' type='button' handleOnClick={this.canCreateToggle} />
                     <Button label='person.setAdmin' type='button' handleOnClick={this.toggleAdmin} />
+                    <Button label={this.state.actif ? 'person.inactiver' : 'person.activer'} type='button' handleOnClick={this.toggleActif} />
                 </div>
             </Panel>
         </div>

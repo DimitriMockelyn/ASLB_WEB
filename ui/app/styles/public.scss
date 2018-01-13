@@ -1064,3 +1064,8 @@ header [data-focus="header-top-row-middle"] label {
   cursor: pointer;
   color: $primary-color;
 }
+
+[data-focus='display-column'] {
+  display: flex;
+  flex-direction: column;
+}

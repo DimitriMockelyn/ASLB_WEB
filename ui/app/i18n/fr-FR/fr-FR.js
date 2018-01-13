@@ -112,6 +112,7 @@ export default {
         legende: 'Légende'
     },
     admin: {
+        adminUsers: 'Administrer les utilisateurs',
         typeEvenement: 'Type d\'évènements',
         addType: 'Ajouter un type',
         addNews: 'Créer une news',
@@ -193,6 +194,10 @@ export default {
         changed: 'Le mot de passe à été changé.'
     },
     person: {
+        confirmDesactiver: 'Etes vous sur de vouloir désactiver ce compte ? Vous pouvez indiquer la raison dans le champ ci-dessous',
+        confirmActiver: 'Etes vous sur de vouloir activer ce compte ?',
+        inactiver: 'Inactiver',
+        activer: 'Activer',
         email: 'Adresse e-mail',
         password: 'Mot de passe',
         passwordAgain: 'Confirmez le mot de passe',

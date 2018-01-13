@@ -436,6 +436,26 @@ exports.toggle_admin = function(req, res) {
   });
 }
 
+exports.toggle_actif = function(req, res) {
+  User.findById(req.params.id, function(err, user) {
+    if (err) {
+      res.send(err);
+    }
+    user.actif = !user.actif;
+    if (!user.actif) {
+      //Envoi du mail avec raison si précisée
+      //console.log(req.body.raison);
+    }
+    user.save(function(err, user) {
+      if (err) {
+        return res.json({success: false});
+      }
+      return res.json({success: true});
+    })    
+  });
+}
+
+
 exports.update_date_activation = function(req, res) {
   User.findByIdAndUpdate(req.params.id, {date_activation : req.body.date_activation, date_fin: req.body.date_fin, dossier_complet: req.body.dossier_complet }, function(err, userActif) {
     if (err) {
