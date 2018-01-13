@@ -32,7 +32,9 @@ import DO_ETAT_WITH_NAME from './do-etat-with-name';
 import DO_RTE from './do-rte';
 import DO_NOTE from './do-note';
 import DO_COLOR from './do-color';
+import DO_CHECKBOX_SELECT from './do-checkbox-select';
 export default {
+    DO_CHECKBOX_SELECT,
     DO_CODE,
     DO_COMMENT,
     DO_DATE,

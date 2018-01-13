@@ -52,5 +52,11 @@ export default {
     },
     loadEntreprises() {
         return fetch(userUrl.loadEntreprises());
-    }
+    },
+    loadMonProfil() {
+        return fetch(userUrl.loadMonProfil(), utils.computeHeaders());
+    },
+    updateMonProfil(data) {
+        return fetch(userUrl.updateMonProfil({data}), utils.computeHeaders());
+    },
 };

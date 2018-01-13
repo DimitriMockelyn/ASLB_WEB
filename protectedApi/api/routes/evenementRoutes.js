@@ -110,6 +110,15 @@ module.exports = function(app) {
 		.get(userHandlers.loginRequired, userHandlers.isMembreActif, eventHandler.get_commentaire_for_user)
 		.post(userHandlers.loginRequired, userHandlers.isMembreActif, eventHandler.post_commentaire_for_user);
 
+	app.route('/loadAbsents/:evenementId')
+		.get(userHandlers.loginRequired, userHandlers.isMembreActif, eventHandler.loadAbsents)
+
+	app.route('/setAbsent/:evenementId')
+		.post(userHandlers.loginRequired, userHandlers.isMembreActif, eventHandler.setAbsent)
+
+	app.route('/setPresent/:evenementId')
+		.post(userHandlers.loginRequired, userHandlers.isMembreActif, eventHandler.setPresent)
+
 	app.route('/isCoach')
 		.get(userHandlers.loginRequired, userHandlers.isMembreActif, eventHandler.is_user_coach)
 
@@ -134,4 +143,11 @@ module.exports = function(app) {
 	app.route('/chat')
 		.get(homeController.load_chat)
 		.post(userHandlers.loginRequired, homeController.add_message)
+
+	app.route('/monProfil')
+		.get(userHandlers.loginRequired,  userHandlers.load_profil)
+		.post(userHandlers.loginRequired, userHandlers.edit_profil)
+
+	app.route('/loadTokens')
+		.get(userHandlers.loginRequired,  userHandlers.load_tokens);
 };

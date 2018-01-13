@@ -5,7 +5,8 @@ import {component as Button} from 'focus-components/common/button/action';
 import moment from 'moment';
 import userHelper from 'focus-core/user';
 import confirm from 'focus-core/application/confirm';
-
+import {component as Popin} from 'focus-components/application/popin';
+import Absents from './absents';
 export default React.createClass({
     displayName: 'NewsPanel',
     noteMoyenne : 0.0,
@@ -15,7 +16,6 @@ export default React.createClass({
         this.noteMoyenne = 0.0;
         this.nbNote = 0;
         this.nbCommentaires = 0;
-        console.log(this.props.data);
         if (this.props.data.commentaires) {
             for (let index in this.props.data.commentaires) {
                 let comm = this.props.data.commentaires[index];
@@ -29,15 +29,28 @@ export default React.createClass({
             }
         }
     },
+    getInitialState() {
+        return {}
+    },
     componentWillMount() {
         this.computeNote();
+    },
+    toggleGestionAbsent() {
+        this.setState({togglePopinAbsent : true});
+    },
+    closePopin() {
+        this.setState({togglePopinAbsent : false});
+    },
+    renderAction() {
+        return <Button label='Gérer les absents' type='button' shape='' handleOnClick={this.toggleGestionAbsent} />;
     },
     /** @inheritDoc */
     render() {
         var limitString = this.props.data.limite ?  '/' + this.props.data.limite : '';
         return (
         <div data-focus='panel-into-panel'>
-            <Panel title={this.props.data.typeEvenement.name + ' - ' + this.props.data.name}>
+            <Panel title={this.props.data.typeEvenement.name + ' - ' + this.props.data.name} actions={this.renderAction}>
+            <div onClick={this.props.onClick}>
                 <div>
                     {this.props.data.description}
                 </div>
@@ -53,6 +66,11 @@ export default React.createClass({
                      i18n.t('event.duree') + ' ' + this.props.data.duree + ' - ' +
                      i18n.t('admin.nbInscrits') + ' ' + this.props.data.participants.length + limitString} </div>
                 </div>
+            </div>
+            {this.state.togglePopinAbsent && <Popin open={true} type='from-right' onPopinClose={this.closePopin}>
+                <Absents id={this.props.data._id} />
+            </Popin>}
+            
             </Panel>
         </div>
         );

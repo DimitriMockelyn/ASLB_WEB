@@ -13,7 +13,6 @@ export default React.createClass({
         return {isCoach: false}
     },
     render() {
-        if (this.state.isCoach) {
             var data = [];
             data.push({
                 name: 'Historique participant',
@@ -28,11 +27,5 @@ export default React.createClass({
             return (
                 <Tabs tabs={data}/>
             );
-        }
-        return (
-        <div>
-            <EvenementParticipe />
-        </div>
-        );
     }
 });

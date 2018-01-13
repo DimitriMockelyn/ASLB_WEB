@@ -80,6 +80,11 @@ var User = new Schema({
   premiereConnexion: {
     type: Boolean,
     default: true
+  },
+  profil: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Profil',
+    required: true
   }
 });
 

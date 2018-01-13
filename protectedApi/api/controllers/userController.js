@@ -12,6 +12,9 @@ var mongoose = require('mongoose'),
   fs =  require('fs'),
   moment = require('moment'),
   Sexe = mongoose.model('Sexe'),
+  Profil = mongoose.model('Profil'),
+  Queue = mongoose.model('Queue'),
+  Commentaire = mongoose.model('Commentaire'),
   Entreprise = mongoose.model('Entreprise');
 
   var {getConfig} = require('../../config');
@@ -19,6 +22,7 @@ var mongoose = require('mongoose'),
   var formidable = require('formidable');
 
   var TOKEN_NB = 3;
+  var GLISSEMENT_JOURS_STATS = 30;
 
 exports.register = function(req, res) {
   var newUser = new User(req.body);
@@ -166,7 +170,6 @@ exports.me = function(req, res) {
         data['hash_password'] = undefined;
         User.findByIdAndUpdate(user._id, {premiereConnexion : false}, function(err, userActif) {
         });
-        console.log('PREMIERE CONN', data.premiereConnexion);
         return res.json(data);
     });
   } else {
@@ -304,24 +307,54 @@ exports.canMembreCreerCours = function(req, res, next) {
   }
 };
 
+exports.load_tokens = function(req, res) {
+  User.findOne({
+    email: req.user.email
+  }, function(err, user) {
+    Evenement.find({$and: [{
+      date_debut: {
+          $gte: Date.now(),
+      }},{participants: user}]}, function(err, events) {
+          
+          if (err) {
+            throw err;
+          }
+          return res.json(TOKEN_NB - events.length);
+      })
+    })
+}
+
 exports.inscriptionTokenPossible = function(req, res, next) {
   if (req.user) {
     User.findOne({
       email: req.user.email
     }, function(err, user) {
-      Evenement.find({$and: [{
-        date_debut: {
-            $gte: Date.now(),
-        }},{participants: user}]}, function(err, events) {
-            if (err) {
-              throw err;
-            }
-            if (events.length < TOKEN_NB) {
-              return next();
-            } else {
-              return res.status(401).json({ message: 'Vous ne pouvez pas vous inscrire a plus de '+TOKEN_NB.toString()+' cours futurs' });
-            }
-        })
+      Queue.find({personne: user}, function(err, queues) {
+        Evenement.find({$and: [{
+          date_debut: {
+              $gte: Date.now(),
+          }},{
+            $or:[{
+              participants: user
+            },
+            {
+              fileAttente: {
+                 $in: queues
+              }
+            }]
+          }
+        ]}, function(err, events) {
+              if (err) {
+                throw err;
+              }
+              console.log(events);
+              if (events.length < TOKEN_NB) {
+                return next();
+              } else {
+                return res.status(401).json({ message: 'Vous ne pouvez pas vous inscrire a plus de '+TOKEN_NB.toString()+' cours futurs' });
+              }
+          }).populate('fileAttente', '_id personne');
+      })
       })
   } else {
     return res.status(401).json({ message: 'Il faut être connecté pour réaliser cette action' });
@@ -330,14 +363,13 @@ exports.inscriptionTokenPossible = function(req, res, next) {
 
 exports.load_users = function(req, res) {
   var filter = new RegExp(req.body.filter, 'i');
-  User.find({ $or: [{'nom': filter}, {'email': filter}, {'prenom':filter}]}, function(err, users) {
+  User.find({ $or: [{'nom': filter}, {'email': filter}, {'prenom':filter}]}, function(err, users_db) {
     if (err) {
       res.send(err);
     }
-    for (let index in users) {
-      users[index]['hash_password'] = undefined;
-    }
-    return res.json(users);
+    fill_user_data(users_db, false,  (users_res) => {
+      return res.json(users_res);
+    })
   }).populate('sexe', '_id label').populate('entreprise', '_id label');
 }
 
@@ -347,27 +379,103 @@ exports.export_users = function(req, res) {
     if (err) {
       res.send(err);
     }
-    var users = [];
-    for (let index in users_db) {
-      users.push({});
-
-      users[index]['nom'] = users_db[index]['nom'];
-      users[index]['prenom'] = users_db[index]['prenom'];
-      users[index]['email'] = users_db[index]['email'];
-      users[index]['sexe'] = users_db[index]['sexe'];
-      users[index]['entreprise'] = users_db[index]['entreprise'];
-      users[index]['dossier_complet'] = users_db[index].dossier_complet ? 'Oui' : 'Non';
-      users[index]['date_activation'] = users_db[index]['date_activation'] ? moment(users_db[index]['date_activation'], moment.ISO_8601).format('DD/MM/YYYY') : '';
-      users[index]['date_fin'] = users_db[index]['date_fin'] ? moment(users_db[index]['date_fin'], moment.ISO_8601).format('DD/MM/YYYY') : '';
-    }
-    var fields = ['nom', 'prenom', 'email','sexe.label', 'entreprise.label', 'date_activation', 'date_fin', 'dossier_complet']
-    var fieldNames  = ['person.nom', 'person.prenom', 'person.email','sexe.label', 'entreprise.label', 'person.date_activation', 'person.date_fin', 'person.dossier_complet']
-    json2csv({ data: users, fields: fields, fieldNames:fieldNames, quotes:'', del: ';' }, function(err, csv) {
-      res.setHeader('Content-disposition', 'attachment; filename=data.csv');
-      res.set('Content-Type', 'text/csv');
-      return res.status(200).send(csv);
-    });
+    fill_user_data(users_db, true, users => {      
+      var fields = ['nom', 'prenom', 'email','sexe.label', 'entreprise.label', 
+      'date_activation', 'date_fin', 'dossier_complet', 'nombreInscription',
+       'noteMoyenneDonnee', 'noteMoyenneRecue' , 'nombreAbsences', 'nombreCoach']
+      var fieldNames  = ['person.nom', 'person.prenom', 'person.email','sexe.label', 'entreprise.label', 'person.date_activation', 'person.date_fin', 'person.dossier_complet', 
+      'Nombre d\'inscriptions dans les '+GLISSEMENT_JOURS_STATS+' derniers jours', 'Note moyenne donnée sur '+GLISSEMENT_JOURS_STATS+' jours', 
+      'Note moyenne recue sur '+GLISSEMENT_JOURS_STATS+' jours', 'Nombre d\'absences sur '+GLISSEMENT_JOURS_STATS+' jours', 'Nombre d\'activités données sur '+GLISSEMENT_JOURS_STATS+' jours']
+      json2csv({ data: users, fields: fields, fieldNames:fieldNames, quotes:'', del: ';' }, function(err, csv) {
+        res.setHeader('Content-disposition', 'attachment; filename=data.csv');
+        res.set('Content-Type', 'text/csv');
+        return res.status(200).send(csv);
+      });
+    })
   }).populate('sexe', '_id label').populate('entreprise', '_id label');
+}
+
+function fill_user_data(users_db, formatDate, cb) {
+  var users = [];
+  for (let index in users_db) {
+    users.push({});
+    users[index]['_id']  = users_db[index]['_id'];
+    users[index]['nom'] = users_db[index]['nom'];
+    users[index]['prenom'] = users_db[index]['prenom'];
+    users[index]['email'] = users_db[index]['email'];
+    users[index]['sexe'] = users_db[index]['sexe'];
+    users[index]['entreprise'] = users_db[index]['entreprise'];
+    users[index]['dossier_complet'] = users_db[index].dossier_complet ? 'Oui' : 'Non';
+    users[index]['date_activation'] = formatDate ? (users_db[index]['date_activation'] ? moment(users_db[index]['date_activation'], moment.ISO_8601).format('DD/MM/YYYY') : '') : users_db[index]['date_activation'];
+    users[index]['date_fin'] = formatDate ? ( users_db[index]['date_fin'] ? moment(users_db[index]['date_fin'], moment.ISO_8601).format('DD/MM/YYYY') : '')  : users_db[index]['date_fin'];
+    users[index]['nombreInscription'] = 0;
+    users[index]['nombreNotesDonnee'] = 0;
+    users[index]['noteMoyenneDonnee'] = 0.0;
+    users[index]['nombreNotesRecue'] = 0;
+    users[index]['noteMoyenneRecue'] = 0.0;
+    users[index]['nombreAbsences'] = 0;
+    users[index]['nombreCoach'] = 0;
+  }
+  var minDate = new Date(Date.now());
+  minDate.setDate(minDate.getDate() - GLISSEMENT_JOURS_STATS);
+  return Evenement.find({$and: [{
+    date_debut: {
+        $lte: Date.now(),
+    }}, {
+      date_debut: {
+        $gte: minDate
+      }
+    }]}, function(err, events) {
+        events.map(event => {
+          event.participants.map(idParticipant => {
+            users.map(user => {
+              if (idParticipant.toString() === user._id.toString()) {
+                user.nombreInscription += 1;
+              }
+            })
+          })
+          event.absents.map(idAbsent => {
+            users.map(user => {
+              if (idAbsent.toString() === user._id.toString()) {
+                user.nombreAbsences += 1;
+              }
+            })
+          })
+          users.map(user => {
+            if (event.animateur && event.animateur.toString() === user._id.toString()) {
+              user.nombreCoach += 1;
+            }
+          })
+        });
+        Commentaire.find({
+          evenement: events
+        }, function(err, comms) {
+          if (err) {
+            throw err;
+          }
+          comms.map(comm => {
+            users.map(user => {
+              if (comm.auteur.toString() === user._id.toString()) {
+                user.nombreNotesDonnee +=1;
+                user.noteMoyenneDonnee += comm.note;
+              }
+              if (comm.evenement.animateur.toString() === user._id.toString()) {
+                user.nombreNotesRecue +=1;
+                user.noteMoyenneRecue += comm.note;
+              }
+            })
+          })
+          users.map(user => {
+            if (user.nombreNotesDonnee !== 0) {
+              user.noteMoyenneDonnee =  user.noteMoyenneDonnee/user.nombreNotesDonnee;
+            }
+            if (user.nombreNotesRecue !== 0) {
+              user.noteMoyenneRecue =  user.noteMoyenneRecue/user.nombreNotesRecue;
+            }
+          })
+          cb(users);
+        }).populate('evenement', '_id animateur');
+    });
 }
 
 exports.load_users_group = function(req, res) {
@@ -512,4 +620,60 @@ function base64_encode(file) {
 
 function isMembreActif(user) {
   return  user.date_fin && user.date_activation && moment().isBefore(moment(user.date_fin)) && moment().isAfter(moment(user.date_activation));
+}
+
+exports.load_profil = function(req, res) {
+  if (req.user) {
+    User.findOne({
+      email: req.user.email
+    }, function(err, user) {
+        let data = user;
+        data['hash_password'] = undefined;
+        return res.json(data.profil);
+    }).populate('profil', '_id description activitesVoulues raisonSport autreActivites records');
+  } else {
+    return res.json({});
+  }
+}
+
+exports.edit_profil = function(req, res) {
+  User.findOne({
+    email: req.user.email
+  }, function(err,user) {
+    
+    if (err || !user) {
+      console.log(err, user)
+      return res.json({changed: false});
+    }
+    console.log(user.profil.toString());
+    if (req.body._id && user.profil && user.profil.toString() === req.body._id.toString()) { //Le profil existe, on le mets a jour
+      Profil.findOneAndUpdate({
+        _id: req.body._id
+      }, req.body, {new: true}, function(err, prf) {
+          if (err) {
+            console.log(err);
+            return res.status(401).json({ message: 'Une erreur est survenue lors de votre opération.'})
+          }
+          let data = prf;
+          return res.json(data);
+      });
+    } else if (!user.profil) {
+      var prf = new Profil(req.body);
+      prf.save(function(err, newPrf) {
+        if (err) {
+          console.log(err);
+          return res.status(401).json({ message: 'Une erreur est survenue lors de votre opération.'})
+        }
+        user.profil = newPrf;
+        user.save(function(err, newPrf) {
+          if (err) {
+            console.log(err);
+            return res.status(401).json({ message: 'Une erreur est survenue lors de votre opération.'})
+          }
+          return res.json(newPrf);
+        })
+      })
+      // On le crée
+    }
+  })
 }

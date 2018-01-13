@@ -216,7 +216,8 @@ export default {
         nonAdherent: 'Adhésion non validée',
         adherentDepuis: 'Adhérent depuis le',
         changeAvatar: 'Changer mon avatar',
-        modifierInformations: 'Modifier mes informations',
+        modifierInformations: 'Modifier mon profil',
+        monProfil: 'Mon profil',
         changeEmailWarning: 'Vous pouvez modifier votre adresse e-mail, mais vous allez être automatiquement déconnecté suite à cette action. Vous pourrez vous reconnecter par la suite.',
         mesInformations: 'Mes informations',
         dateNaissance: 'Date de naissance',
@@ -225,7 +226,12 @@ export default {
         telephone: 'Téléphone',
         date_fin: 'Date de fin d\'adhésion',
         dossier_complet: 'Dossier complet',
-        changePassword: 'Changer mon mot de passe'
+        changePassword: 'Changer mon mot de passe',
+        description: 'Un petit mot pour te présenter ?',
+        raisonSport: 'Pour toi, le sport c\'est ... ?',
+        activitesVoulues: 'Parmis les activités proposées, quelles sont celles qui t\'intéressent ?',
+        autreActivites: 'Y-a-t\'il des activités sportives (non proposées) que tu aimerais voir dans cette liste?',
+        records: 'Des records, titres, accomplissements personnels que tu veux partager avec nous ?'
     },
     confirmAddDroits: {
         create: 'Voulez vous vraiment changer les droits de création d\'activité a cette personne ?',
@@ -238,6 +244,7 @@ export default {
         description: 'Historique de mes événements. Laissez un commentaire sur un événement en le selectionnant.',
         eventsParticipant: ' événement(s) terminé(s)',
         descriptionCoach: 'Historique de mon coaching événements. Cliquer sur un événement pour voir les commentaires laissés',
+        notCoachYet: 'Vous n\'avez pas encore animé de séances. Si l\'animation d\'activités vous intéresse, vous pouvez contacter les membres du bureau pour soumettre votre projet !'
     },
     sexe: {
         label: 'sexe'

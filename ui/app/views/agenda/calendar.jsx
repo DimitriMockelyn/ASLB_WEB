@@ -85,6 +85,11 @@ export default React.createClass({
         return this.state.reference.niveauEvenements.find(data => { return data._id === id}).name;
     },
     loadAllEvents() {
+        if ( userHelper.getLogin() && userHelper.getLogin()._id ) {
+            agendaServices.loadTokens().then(res => {
+                this.setState({tokensRestant: res});
+            })
+        }
         this.state.serviceLoad().then(res => {
             const events = []
             
@@ -191,6 +196,7 @@ export default React.createClass({
         maxTime.setSeconds(0);
         return (
         <div>
+            { userHelper.getLogin() && userHelper.getLogin()._id && <label>Vous pouvez encore vous inscrire à {this.state.tokensRestant} activités. Ce compteur reviendra a son maximum lorsque les activités où vous êtes inscrit seront passées</label>}
             { userHelper.getLogin() && userHelper.getLogin()._id && <div data-focus='toggle-bar'>
                 <label onClick={this.onChangeViewFromLabel}>{i18n.t('agenda.all')}</label>
                 <Toggle ref='toggle' value={this.state.fullView} label={i18n.t('agenda.mine')} onChange={this.onChangeView} />

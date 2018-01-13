@@ -6,6 +6,7 @@ var mongoose = require('mongoose'),
   TypeEvenement = mongoose.model('TypeEvenement'),
   NiveauEvenement= mongoose.model('NiveauEvenement'),
   User= mongoose.model("User"),
+  Queue = mongoose.model("Queue"),
   Partenaire = mongoose.model('Partenaire'),
   mailer = require('../utils/mailer');
 
@@ -20,7 +21,7 @@ exports.list_all_evenements = function(req, res) {
         evenement.participants = evenement.participants;
     });
     res.json(evenements);
-  }).populate('createur', '_id prenom nom').populate('participants', '_id prenom nom sexe').populate('animateur', '_id prenom nom').sort({date_debut: 1});
+  }).populate('createur', '_id prenom nom').populate('participants', '_id prenom nom sexe').populate('fileAttente', '_id personne ordre').populate('animateur', '_id prenom nom').sort({date_debut: 1});
 };
 
 exports.list_all_incoming_evenements = function(req, res) {
@@ -37,7 +38,7 @@ exports.list_all_incoming_evenements = function(req, res) {
         evenement.participants = evenement.participants;
     });
     res.json(evenements);
-  }).populate('createur', '_id prenom nom').populate('participants', '_id prenom nom sexe').populate('typeEvenement', '_id code name').populate('animateur', '_id prenom nom').sort({date_debut: 1});
+  }).populate('createur', '_id prenom nom').populate('participants', '_id prenom nom sexe').populate('typeEvenement', '_id code name').populate('fileAttente', '_id personne ordre').populate('animateur', '_id prenom nom').sort({date_debut: 1});
 }
 
 exports.list_my_evenements = function(req,res) {
@@ -56,7 +57,7 @@ exports.list_my_evenements = function(req,res) {
           evenement.participants = evenement.participants;
       });
       res.json(evenements);
-    }).populate('createur', '_id prenom nom').populate('participants', '_id prenom nom sexe').populate('animateur', '_id prenom nom').sort({date_debut: 1});
+    }).populate('createur', '_id prenom nom').populate('participants', '_id prenom nom sexe').populate('animateur', '_id prenom nom').populate('fileAttente', '_id personne ordre').sort({date_debut: 1});
   })
 }
 
@@ -78,7 +79,7 @@ exports.list_my_history = function(req, res) {
           evenement.participants = evenement.participants;
       });
       res.json(evenements);
-    }).populate('createur', '_id prenom nom').populate('participants', '_id prenom nom sexe').populate('typeEvenement', '_id code name').populate('animateur', '_id prenom nom').sort({date_debut: -1});
+    }).populate('createur', '_id prenom nom').populate('participants', '_id prenom nom sexe').populate('fileAttente', '_id personne ordre').populate('typeEvenement', '_id code name').populate('animateur', '_id prenom nom').sort({date_debut: -1});
   })
 }
 
@@ -221,10 +222,7 @@ exports.add_self_to_evenement = function(req, res) {
     if (!evenement.participants) {
       evenement.participants = [];
     }
-    //Y a t'il encore de la place ?
-    if (evenement.limite && evenement.participants.length >= evenement.limite) {
-      return res.status(401).json({ message: 'Cet évenement est complet. Vous ne pouvez pas vous y inscrire' });
-    }
+
     User.findOne({
       email: req.user.email
     }, function(err, user) {
@@ -234,18 +232,50 @@ exports.add_self_to_evenement = function(req, res) {
         }
         //On vérifie qu'on ajoute pas de doublons
         if (evenement.participants.indexOf(user._id) === -1) {
-          evenement.participants.push(user);
-          evenement.save(function(err, evenement) {
-            if (err)
-              res.send(err);
-            res.json(evenement);
-          });
+          //Y a t'il encore de la place ?
+          if (evenement.limite !== undefined && evenement.limite !== null && evenement.participants.length >= evenement.limite) {
+            //On se met en file d'attente
+            var queue = new Queue();
+            queue.personne = user;
+            queue.ordre = 1;
+            var toSave = true;
+            evenement.fileAttente.map(item => {
+              if (queue.ordre <= item.ordre) {
+                queue.ordre = item.ordre +1;
+              }
+              if (user._id.toString() === item.personne.toString()) {
+                toSave = false;
+              }
+            })
+            if (toSave) {
+              queue.save(function(err, queueSaved) {
+                evenement.fileAttente.push(queueSaved);
+                evenement.save(function(err, evenement) {
+                  if (err) {
+                    res.send(err);
+                  }
+                  return res.status(200).json({ message: 'Cet evenement est complet. Vous avez été mis en file d\'attente' });
+                });
+                
+              });
+            } else {
+              return res.status(401).json({ message: 'Vous etes deja en file d\'attente' }); //Deja en file d'attente
+            }
+            
+          } else {
+            evenement.participants.push(user);
+            evenement.save(function(err, evenement) {
+              if (err)
+                res.send(err);
+              res.json(evenement);
+            });
+          }
         } else {
           res.json(evenement);
         }
     });
 
-  });
+  }).populate('fileAttente', '_id ordre personne');
 };
 
 exports.remove_self_to_evenement = function(req, res) {
@@ -259,12 +289,38 @@ exports.remove_self_to_evenement = function(req, res) {
       email: req.user.email
     }, function(err, user) {
         //On vérifie qu'on ajoute pas de doublons
+        for (var i = 0; i < evenement.fileAttente.length; i++) {
+          if (evenement.fileAttente[i].personne.toString() === user._id.toString()) {
+            var toDelete = evenement.fileAttente[i];
+            evenement.fileAttente.splice(i, 1);
+            toDelete.remove(function(err, del) {})
+              i--;
+          }
+        }
         for (var i = 0; i < evenement.participants.length; i++) {
           if (evenement.participants[i].toString() === user._id.toString()) {
               evenement.participants.splice(i, 1);
               i--;
+              //changer file attente
+              if (evenement.fileAttente.length > 0) {
+                var minOrdre = -1;
+                var indexMin = -1;
+                evenement.fileAttente.map((itemAttente, index) => {
+                  if (minOrdre === -1 || itemAttente.ordre < minOrdre) {
+                    minOrdre = itemAttente.ordre;
+                    indexMin = index;
+                  }
+                })
+                //On ajoute le nouveau aux participants
+                evenement.participants.push(evenement.fileAttente[indexMin].personne);
+                //TODO send mail ?
+                var toDelete = evenement.fileAttente[indexMin];
+                evenement.fileAttente.splice(indexMin, 1);
+                toDelete.remove(function(err, del) {})
+              }
           }
         }
+
         evenement.save(function(err, evenement) {
             if (err) {
               res.send(err);
@@ -272,7 +328,7 @@ exports.remove_self_to_evenement = function(req, res) {
             res.json(evenement);
         });
       });
-  });
+  }).populate('fileAttente', '_id personne ordre');
 };
 
 exports.create_a_evenement = function(req, res) {
@@ -410,3 +466,74 @@ function check_evenement_conflit(event, res, cb) {
   })
   
 }
+
+exports.loadAbsents = function(req, res) {
+  User.findOne({
+    email: req.user.email
+  }, function(err, user) {
+    Evenement.findById(req.params.evenementId, function(err, evenement) {
+      if (err) {
+        res.send(err);
+      }
+      if (evenement.animateur.toString() !== user._id.toString()) {
+        return res.status(401).json({ message: 'Vous n\'etes pas l\'animateur de la séance' });
+      }
+      return res.json(evenement);
+      
+    }).populate('participants', '_id prenom nom').populate('absents', '_id prenom nom');
+  });
+};
+
+exports.setAbsent = function(req, res) {
+  User.findOne({
+    email: req.user.email
+  }, function(err, user) {
+    Evenement.findById(req.params.evenementId, function(err, evenement) {
+      if (err) {
+        res.send(err);
+      }
+      if (evenement.animateur.toString() !== user._id.toString()) {
+        return res.status(401).json({ message: 'Vous n\'etes pas l\'animateur de la séance' });
+      }
+      if (evenement.absents.indexOf(req.body.user) < 0) {
+        evenement.absents.push(req.body.user);
+      }
+      evenement.save(function(err, evt) {
+        if (err) {
+          res.send(err)
+        }
+        res.json({updated: true})
+      })
+    });
+  });
+};
+
+exports.setPresent = function(req, res) {
+  User.findOne({
+    email: req.user.email
+  }, function(err, user) {
+    Evenement.findById(req.params.evenementId, function(err, evenement) {
+      if (err) {
+        res.send(err);
+      }
+      if (evenement.animateur.toString() !== user._id.toString()) {
+        return res.status(401).json({ message: 'Vous n\'etes pas l\'animateur de la séance' });
+      }
+      var index = -1;
+      evenement.absents.map((abss, indexLoop) => {
+        if (abss.toString() === req.body.user.toString()) {
+          index = indexLoop;
+        }
+      })
+      if (index > -1) {
+        evenement.absents.splice(index, 1);
+      }
+      evenement.save(function(err, evt) {
+        if (err) {
+          res.send(err)
+        }
+        res.json({updated: true})
+      })
+    });
+  });
+};

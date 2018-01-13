@@ -67,6 +67,7 @@ export default React.createClass({
                     <div>Date de début d'adhésion</div>
                     <div>Date de fin d'adhésion</div>
                     <div>Dossier complet</div>
+                    <div>Nombre d'inscriptions dans les 30 derniers jours</div>
                     <div></div>
                 </div>
                 {this.state.users && this.state.users.length > 0 && this.state.users.map((value, pos) => {
@@ -83,6 +84,7 @@ export default React.createClass({
                             <div>{value.date_activation && moment(value.date_activation, moment.ISO_8601).format('DD/MM/YYYY')}</div>
                             <div>{value.date_fin && moment(value.date_fin, moment.ISO_8601).format('DD/MM/YYYY')}</div>
                             <div>{value.dossier_complet ? 'Oui' : 'Non'}</div>
+                            <div>{value.nombreInscription}</div>
                             <div><Button type='button' icon='edit' shape='fav' handleOnClick={() => {this.openPopin(value)}}/></div>
                         </div>
                     }

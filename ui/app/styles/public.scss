@@ -507,7 +507,7 @@ div[data-focus="field"][data-mode="edit"][data-domain="DO_COMMENT"] [data-focus=
   }
 }
 
-[data-focus='historique-evenements'] [data-focus="panel"]{
+[data-focus='historique-evenements'] [data-focus="panel"] [data-focus="panel-content"] {
   cursor: pointer;
   label {
     cursor: pointer;
@@ -1065,7 +1065,30 @@ header [data-focus="header-top-row-middle"] label {
   color: $primary-color;
 }
 
+
 [data-focus='display-column'] {
   display: flex;
   flex-direction: column;
+}
+
+div[data-focus="field"] [data-focus="field-label-container"].mdl-cell--12-col {
+    text-align: left;
+}
+
+[data-focus='absent-present'] {
+  display: flex;
+  flex-direction: row;
+  margin-top: 30px;
+  & > div {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    & > div {
+      display: flex;
+      align-items: center;
+    }
+    & > div:first-of-type {
+      margin-top: 15px;
+    }
+  }
 }

@@ -30,6 +30,14 @@ var Evenement = new Schema({
     type: mongoose.Schema.Types.ObjectId,
 		ref: 'User'
   }],
+  absents: [{
+    type: mongoose.Schema.Types.ObjectId,
+		ref: 'User'
+  }],
+  fileAttente: [{
+    type: mongoose.Schema.Types.ObjectId,
+		ref: 'Queue'
+  }],
   createur: {
     type: mongoose.Schema.Types.ObjectId,
 		ref: 'User'

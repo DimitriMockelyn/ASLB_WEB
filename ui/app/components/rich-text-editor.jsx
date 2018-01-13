@@ -22,11 +22,14 @@ export default React.createClass({
           // Send the changes up to the parent component as an HTML string. 
           // This is here to demonstrate using `.toString()` but in a real app it 
           // would be better to avoid generating a string on each change. 
-          this.props.onChange(
+          /*this.props.onChange(
             value.toString('html')
-          );
+          );*/
         }
       },
+    componentWillReceiveProps(newProps) {
+        this.setState({value :  newProps.value ? RichTextEditor.createValueFromString(newProps.value, 'html') : RichTextEditor.createEmptyValue()})
+    },
     render() {
         if (!this.props.isEdit) {
             return  <div dangerouslySetInnerHTML={{ __html: this.state.value.toString('html') }} />
