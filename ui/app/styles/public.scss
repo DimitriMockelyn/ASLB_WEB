@@ -1259,3 +1259,8 @@ i.inscrit {
 [data-focus="absent-present"] i {
   cursor: pointer;
 }
+
+
+.no-actions + [data-focus="button-stack"] {
+  display: none;
+}

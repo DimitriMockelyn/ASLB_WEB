@@ -90,7 +90,9 @@ export default {
         execute: 'Exécuter',
         voirPlus: 'Voir plus',
         exporter: 'Exporter',
-        sendMailParticipants: 'Contacter les participants'
+        sendMailParticipants: 'Contacter les participants',
+        cancelQueue: 'Je ne veux pas etre mis en attente',
+        acceptQueue: 'Je me mets en file d’attente :)'
     },
     home: {
         message: {
@@ -110,7 +112,22 @@ export default {
         all: 'Tous les évenements',
         calendar: 'Vue calendrier',
         tile: 'Vue condensée',
-        legende: 'Légende'
+        legende: 'Légende',
+        messageQueue: 'Salut ! \n'+
+'Tu souhaites t’inscrire à cette activité mais malheureusement elle est complète ! Bouhouhou…\n'+
+'Aucun problème ! Tu peux te mettre en file d’attente dans le cas ou une place se libère.\n'+
+'Comment ça fonctionne ? Rien de plus simple !\n'+
+'Si tu as encore des jetons disponibles, tu t’y inscris et ta position dans la la file te seras précisée, elle est attribuée par ordre d’arrivée. Tu peux te retirer de la file d’attente à tout moment pour récupérer ton jeton et t’inscrire à une autre activité.\n'+
+'Une place se libère et tu es celle/celui qui peut en bénéficier ?  Super ! Tu seras avertis par mail, il faut donc que tu ais tes affaires au cas ou :)\n'+
+'Tu ne peux pas y participer ? Merci de te désinscrire afin de laisser la place à celles et ceux qui sont derrière toi, en attentes d’une place. Si tu ne procèdes pas à la désincription, tu seras considéré comme absent(e).\n',
+        messageQueueImpossible: 'Salut ! \n'+
+'Tu souhaites t’inscrire à cette activité mais malheureusement elle est complète ! Bouhouhou…\n'+
+'Aucun problème ! Tu peux te mettre en file d’attente dans le cas ou une place se libère.\n'+
+'Comment ça fonctionne ? Rien de plus simple !\n'+
+'Tu n\'as plus de jetons disponibles actuellement, mais si tu participe bientot a un événement, tu en récupereras un. Sinon, si tu te désinscris d\'un événement, tu pourras alors t’y inscrire et ta position dans la la file te seras précisée, elle est attribuée par ordre d’arrivée. Tu peux te retirer de la file d’attente à tout moment pour récupérer ton jeton et t’inscrire à une autre activité.\n'+
+'Une place se libère et tu es celle/celui qui peut en bénéficier ?  Super ! Tu seras avertis par mail, il faut donc que tu ais tes affaires au cas ou :)\n'+
+'Tu ne peux pas y participer ? Merci de te désinscrire afin de laisser la place à celles et ceux qui sont derrière toi, en attentes d’une place. Si tu ne procèdes pas à la désincription, tu seras considéré comme absent(e).\n',
+
     },
     admin: {
         adminUsers: 'Administrer les utilisateurs',

@@ -10,6 +10,20 @@ import confirm from 'focus-core/application/confirm';
 import userServices from '../../services/user';
 import message from 'focus-core/message';
 import EventCard from './event-card';
+import {translate} from 'focus-core/translation';
+
+const ConfirmPopup = React.createClass({
+    render() {
+        return <div data-focus='display-column' className={this.props.tokensRestant === 0 ? 'no-actions' : ''}>
+                {this.props.tokensRestant !== 0 && translate('agenda.messageQueue').split('\n').map(data => {
+                    return <label>{data}</label>
+                })}
+                {this.props.tokensRestant === 0 && translate('agenda.messageQueueImpossible').split('\n').map(data => {
+                    return <label>{data}</label>
+                })}
+        </div>
+    }
+});
 
 export default React.createClass({
     displayName: 'HomeView',
@@ -25,19 +39,24 @@ export default React.createClass({
     },
     addSelf() {
         if (this.validate()) {
-            agendaServices.addSelfToEvent(this.props.event).then( res => {
-                if (res.message) {
-                    message.addSuccessMessage(res.message);
-                }
-                this.props.onPopinClose();
-            });
-            //request.execute(function(event) {that.props.onPopinClose()})
+            if (this.props.event.participants.length === this.props.event.limite) {
+                confirm(() => { return <ConfirmPopup tokensRestant={this.props.tokensRestant} />}, {cancelButtonLabel: 'button.cancelQueue', confirmButtonLabel: 'button.acceptQueue'}).then(this.trueAddSelf);
+            } else { 
+                this.trueAddSelf();
+            }
         }
+    },
+    trueAddSelf() {
+        agendaServices.addSelfToEvent(this.props.event).then( res => {
+            if (res.message) {
+                message.addSuccessMessage(res.message);
+            }
+            this.props.onPopinClose();
+        });
     },
     removeSelf() {
         if (this.validate()) {
             agendaServices.removeSelfToEvent(this.props.event).then(this.props.onPopinClose);
-            //request.execute(function(event) {that.props.onPopinClose()})
         }
     },
     deleteEvent() {
