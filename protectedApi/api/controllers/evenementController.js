@@ -8,6 +8,7 @@ var mongoose = require('mongoose'),
   User= mongoose.model("User"),
   Queue = mongoose.model("Queue"),
   Partenaire = mongoose.model('Partenaire'),
+  moment = require('moment'),
   mailer = require('../utils/mailer');
 
 
@@ -316,7 +317,7 @@ exports.remove_self_to_evenement = function(req, res) {
                 })
                 //On ajoute le nouveau aux participants
                 evenement.participants.push(evenement.fileAttente[indexMin].personne);
-                //TODO send mail ?
+                sendMailInscrit(evenement.fileAttente[indexMin].personne, evenement.name + ' - ' + moment(evenement.date_debut).format('DD/MM/YYYY - HH:mm'));
                 var toDelete = evenement.fileAttente[indexMin];
                 evenement.fileAttente.splice(indexMin, 1);
                 toDelete.remove(function(err, del) {})
@@ -332,6 +333,14 @@ exports.remove_self_to_evenement = function(req, res) {
         });
       });
   }).populate('fileAttente', '_id personne ordre');
+};
+
+function sendMailInscrit(id, infoEvents) {
+  User.findById(id, function(err, user) {
+      mailer.sendMail([user.email], 
+        '[aslb] Inscription automatique à un événement', 
+        'Bonjour. Tu étais en file d\'attente pour l\'évenement suivant : ' + infoEvents + '. Une personne s\'est désinscrite, et tu fais partie des participants a présent. N\'oublie pas tes affaires !. Ce message est envoyé automatiquement, merci de ne pas y répondre.');
+  });
 };
 
 exports.create_a_evenement = function(req, res) {
