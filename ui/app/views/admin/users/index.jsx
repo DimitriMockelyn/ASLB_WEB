@@ -83,7 +83,7 @@ export default React.createClass({
                             <div>{value.entreprise && value.entreprise.label}</div>
                             <div>{value.date_activation && moment(value.date_activation, moment.ISO_8601).format('DD/MM/YYYY')}</div>
                             <div>{value.date_fin && moment(value.date_fin, moment.ISO_8601).format('DD/MM/YYYY')}</div>
-                            <div>{value.dossier_complet ? 'Oui' : 'Non'}</div>
+                            <div>{value.dossier_complet}</div>
                             <div>{value.nombreInscription}</div>
                             <div><Button type='button' icon='edit' shape='fav' handleOnClick={() => {this.openPopin(value)}}/></div>
                         </div>

@@ -34,7 +34,7 @@ export default React.createClass({
     componentWillMount() {
     },
     getInitialState() {
-        return {...this.props.data};
+        return {...this.props.data, dossier_complet: (this.props.data.dossier_complet === 'Oui') };
     },
     canCreateToggle() {
         confirm(i18n.t('confirmAddDroits.create')).then( () => {
