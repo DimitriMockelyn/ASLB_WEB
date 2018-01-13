@@ -3,12 +3,12 @@ $color-text: $deep-grey;
 $color-white-text: $light-grey;
 $default-text-size: 15px;
 $title-text-size: 20px;
-@import url('https://fonts.googleapis.com/css?family=Roboto+Slab|Titillium+Web:300,400,700');
+@import url('https://fonts.googleapis.com/css?family=Quicksand');
 
 @mixin text-app-family {
     font-size: 17px!important;
     line-height: 20px!important;
-    font-family: 'Roboto Slab', serif;
+    font-family: 'Quicksand', serif;
     font-weight: bold;
     color: $deep-grey;
 }
@@ -16,14 +16,14 @@ $title-text-size: 20px;
 @mixin text-app-name {
     font-size: 17px!important;
     line-height: 20px!important;
-    font-family: 'Roboto Slab', serif;
+    font-family: 'Quicksand', serif;
     color: $deep-grey;
 }
 
 @mixin text-title {
     font-size: $title-text-size!important;
     line-height: 23px!important;
-    font-family: 'Roboto Slab', serif;
+    font-family: 'Quicksand', serif;
     font-weight: bold;
     color: $deep-grey;
 }
@@ -31,7 +31,7 @@ $title-text-size: 20px;
 @mixin text-highlight {
     font-size: $default-text-size!important;
     line-height: 18px!important;
-    font-family: 'Roboto Slab', serif;
+    font-family: 'Quicksand', serif;
     font-weight: bold;
     color: $deep-grey;
 }
@@ -39,25 +39,28 @@ $title-text-size: 20px;
 @mixin text-text {
     font-size: $default-text-size!important;
     line-height: 18px!important;
-    font-family: 'Roboto Slab', serif;
+    font-family: 'Quicksand', serif;
     color: $deep-grey;
 }
 
 @mixin text-button {
     font-size: 14px!important;
     line-height: 1!important;
-    font-family: 'Roboto Slab', serif;
+    font-family: 'Quicksand', serif;
     color: $deep-grey;
 }
 
 @mixin text-detail {
     font-size: 13px!important;
     line-height: 16px!important;
-    font-family: 'Roboto Slab', serif;
+    font-family: 'Quicksand', serif;
     font-style: italic;
     color: $deep-grey;
 }
 
+body {
+    font-family: 'Quicksand', serif;
+}
 // Mixins pour les boutons
 
 @mixin button-general {
