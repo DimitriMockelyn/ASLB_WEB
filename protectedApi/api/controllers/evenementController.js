@@ -230,6 +230,9 @@ exports.add_self_to_evenement = function(req, res) {
         if (evenement.date_debut.getTime() > user.date_fin.getTime()) {
            return res.status(401).json({ message: 'Cet évenement est apres votre fin d\'ashésion' });
         }
+        if (evenement.animateur.toString() === user._id.toString()) {
+          return res.status(401).json({ message: 'Vous ne pouvez pas vous inscrire a un événement dont vous etes deja l\'animateur' });
+        }
         //On vérifie qu'on ajoute pas de doublons
         if (evenement.participants.indexOf(user._id) === -1) {
           //Y a t'il encore de la place ?

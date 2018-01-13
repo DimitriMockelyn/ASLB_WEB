@@ -311,7 +311,7 @@ exports.load_tokens = function(req, res) {
   User.findOne({
     email: req.user.email
   }, function(err, user) {
-    if (false && user.isAdmin) {
+    if (user.isAdmin) {
       return res.json({count:'∞'});
     } else {
       Queue.find({personne: user}, function(err, queues) {
