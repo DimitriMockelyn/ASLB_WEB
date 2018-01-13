@@ -5,6 +5,7 @@ import {component as Button} from 'focus-components/common/button/action';
 import moment from 'moment';
 import userHelper from 'focus-core/user';
 import confirm from 'focus-core/application/confirm';
+import {translate} from 'focus-core/translation';
 
 export default React.createClass({
     displayName: 'NewsPanel',
@@ -12,18 +13,15 @@ export default React.createClass({
     render() {
         var limitString = this.props.data.limite ?  '/' + this.props.data.limite : '';
         return (
-        <div data-focus='panel-into-panel'>
-            <Panel title={this.props.data.typeEvenement.name + ' - ' + this.props.data.name}>
+        <div className={'rbc-event ' + this.props.data.typeEvenement.code }>
                 <div>
-                    {this.props.data.description}
+                    {this.props.data.typeEvenement.name + ' ' + this.props.data.name}
                 </div>
-
-                <div data-focus='news-info'>
-                    <div>{i18n.t('admin.eventAt') + ' ' + moment(this.props.data.date_debut, moment.ISO_8601).format('DD/MM/YYYY - HH:mm') + ' - ' +
-                     i18n.t('event.duree') + ' ' + this.props.data.duree + ' - ' +
-                     i18n.t('admin.nbInscrits') + ' ' + this.props.data.participants.length + limitString} </div>
+                <div>{moment(this.props.data.date_debut, moment.ISO_8601).format('DD/MM/YYYY - HH:mm') }</div>
+                <div>
+                     {this.props.data.duree + ' ' + translate('event.minutes')}
                 </div>
-            </Panel>
+                     <div>{translate('event.nbInscrits') + ' ' +this.props.data.participants.length + limitString} </div>
         </div>
         );
     }

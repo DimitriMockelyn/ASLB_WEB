@@ -140,6 +140,8 @@ export default {
         saved: 'Les informations ont bien été enregistrées.'
     },
     event: {
+        minutes: 'minutes',
+        nbInscrits: 'Inscrits :',
         dateHeure: 'Date/Heure ',
         participantsPlace: 'Participants/Places',
         animePar: 'Animé par', 

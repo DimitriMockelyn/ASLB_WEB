@@ -1188,3 +1188,43 @@ i.inscrit {
   max-height: 66.66667vh;
   overflow: auto;
 }
+
+[data-focus="header-activites"] > div.slider {
+  height: 180px !important;
+  & > .slider-frame {
+    height: 174px !important;
+  }
+  .slider-decorator-2 {
+    display: none !important;
+  }
+}
+
+[data-focus="message-chat"] img {
+  max-width: 250px;
+  height: auto;
+}
+
+[data-focus="home-chat-display"] [data-focus='panel-into-panel'] [data-focus='panel'] h3 {
+  font-size: 20px !important;
+}
+
+[data-focus='list-home'] [data-focus='event-list'] {
+  display: flex;
+  flex-direction: row;
+  max-width: calc( 100vw - 550px);  
+  overflow: auto;
+  & > div {
+    max-width: 200px;
+    margin-right: 15px;
+    height: 60px;
+    & > div {
+      white-space: nowrap;
+      font-size: 10px;
+      line-height: 12px;
+    }
+    & > div:first-child {
+      line-height: 20px;
+      font-size: 20px;
+    }
+  }
+}

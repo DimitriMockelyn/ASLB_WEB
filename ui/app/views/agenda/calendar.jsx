@@ -29,20 +29,6 @@ export default React.createClass({
         }
     },
     afterChange(changeInfos) {
-        if (changeInfos.property === 'typeEvenements') {
-            this.state.reference.typeEvenements.map(data => {
-                if (data.color) {
-                    if (!document.getElementById('STYLE-'+data.code) ) {
-                        var style = document.createElement('style');
-                        style.id = 'STYLE-'+data.code;
-                        style.type = 'text/css';
-                        style.innerHTML = '.rbc-event.'+data.code+' { background-color: '+data.color+'; border: 1px solid '+data.color+'; } '+ 
-                        '[data-focus=\'event-consult-card\'] .'+data.code + ' { color: '+data.color+';}';
-                        document.getElementsByTagName('head')[0].appendChild(style);
-                    }
-                }
-            })
-        }
         if (changeInfos.property === 'niveauEvenements') {
             this.loadAllEvents();
         }

@@ -12,13 +12,14 @@ import {component as Button} from 'focus-components/common/button/action';
 import Toggle from 'focus-components/components/input/toggle';
 import EventItem from './event-item';
 import Panel from 'focus-components/components/panel';
+import {translate} from 'focus-core/translation';
 export default React.createClass({
     displayName: 'NewsView',
     mixins: [formMixin],
     definitionPath: 'admin',
     getInitialState() {
         return {
-            limit : 3
+            limit : 100
         }
     },
     componentWillMount() {
@@ -37,18 +38,14 @@ export default React.createClass({
     renderContent() {
         return (
             <div data-focus='list-home'>
-        <Panel  title='admin.incomingEvents' actions={this.renderActionsEdit}>
-            <div data-focus='news-list'>
+            <div>{translate('admin.incomingEvents')}</div>
+            <div data-focus='event-list'>
                 {this.state.events && this.state.events.length > 0 && this.state.events.map((value, pos) => {
                     if (pos < this.state.limit) {
                         return <EventItem data={value}/>
                     }
                 })}
-                {this.state.events && this.state.events.length < this.state.limit && <div>
-                    <label>{i18n.t('admin.noMoreEvents')}</label>
-                    </div>}
             </div>
-        </Panel>
         </div>
         );
     }

@@ -52,11 +52,8 @@ export default React.createClass({
             <div data-focus='home-title'>
                     Bienvenue sur l'interface web de l'ASLB
             </div>
-            <div data-focus='home-container'>
-                <News hasLoad={false}/>
-                <Evenements hasLoad={false} />
-                
-            </div>
+            <Evenements hasLoad={false} />
+            <News hasLoad={false}/>                
             </div>
             <Chat hasLoad={false} />
         </div>

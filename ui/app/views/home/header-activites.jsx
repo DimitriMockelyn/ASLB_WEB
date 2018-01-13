@@ -9,6 +9,7 @@ import userHelper from 'focus-core/user';
 import {component as Button} from 'focus-components/common/button/action';
 import Toggle from 'focus-components/components/input/toggle';
 import Panel from 'focus-components/components/panel';
+import Carousel from 'nuka-carousel';
 export default React.createClass({
     displayName: 'HeaderView',
     mixins: [formMixin],
@@ -24,9 +25,41 @@ export default React.createClass({
         this.setState({legendePopin: undefined});
     },
     renderContent() {
+        var Decorators = [{
+            component:  React.createClass({
+              render() {
+                return (
+                  <i className='material-icons'
+                    onClick={this.props.previousSlide}>
+                    keyboard_arrow_left
+                  </i>
+                )
+              }
+            }),
+            position: 'CenterLeft',
+            style: {
+              padding: 20
+            }
+          },{
+            component:  React.createClass({
+              render() {
+                return (
+                  <i className='material-icons'
+                    onClick={this.props.nextSlide}>
+                    keyboard_arrow_right
+                  </i>
+                )
+              }
+            }),
+            position: 'CenterRight',
+            style: {
+              padding: 20
+            }
+          }];
         return (
             <div>
             <div data-focus='header-activites'>
+                <Carousel wrapAround={true} slidesToShow={3} decorators={Decorators}>
                 {this.state && this.state.reference && this.state.reference.typeEvenements && this.state.reference.typeEvenements.map(data => {
                     if (data.image) {
                     return (<div onClick={this.togglePopinLegende(data.code)}>
@@ -35,6 +68,7 @@ export default React.createClass({
                         </div>);
                     }
                 })}
+                </Carousel>
             </div>
             {this.state.legendePopin && <Popin open={true} size='small' onPopinClose={this.closePopinLegende}>
                 <div data-focus='legende-description'>
