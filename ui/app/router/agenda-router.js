@@ -11,13 +11,17 @@ export default createRouter(Backbone).extend({
     },
     routes: {
         agenda: 'agenda',
-        historique: 'historique'
+        historique: 'historique',
+        historiqueAnimation: 'historiqueAnimation'
     },
     agenda() {
         this._pageContent(AgendaView);
     },
     historique() {
         this._pageContent(HistoriqueView);
+    },
+    historiqueAnimation() {
+        this._pageContent(HistoriqueView, {props: {animation: true}});
     }
 });
 

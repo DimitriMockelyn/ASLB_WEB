@@ -9,7 +9,7 @@ export default React.createClass({
         }
     },
     getInitialState() {
-        return {selectedTab: 0};
+        return {selectedTab: this.props.initialTab || 0};
     },
     render() {
         const selected = this.props.tabs[this.state.selectedTab];

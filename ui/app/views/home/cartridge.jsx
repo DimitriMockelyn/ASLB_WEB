@@ -27,7 +27,7 @@ export default React.createClass({
                         Nous contacter
                     </label>
                 </div>
-                <div className='header-tile-click' onClick={() => {navigate('contact', true)}}>
+                <div className='header-tile-click' onClick={() => {navigate('historiqueAnimation', true)}}>
                     <label>
                         Rejoindre l'équipe d'animation ?
                     </label>

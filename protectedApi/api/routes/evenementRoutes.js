@@ -120,7 +120,7 @@ module.exports = function(app) {
 		.post(userHandlers.loginRequired, userHandlers.isMembreActif, eventHandler.setPresent)
 
 	app.route('/isCoach')
-		.get(userHandlers.loginRequired, userHandlers.isMembreActif, eventHandler.is_user_coach)
+		.get(userHandlers.loginRequired, eventHandler.is_user_coach)
 
 	app.route('/coachHistory')
 		.get(userHandlers.loginRequired, eventHandler.list_my_coach_history)

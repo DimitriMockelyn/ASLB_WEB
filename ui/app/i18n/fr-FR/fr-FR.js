@@ -249,7 +249,10 @@ export default {
         description: 'Historique de mes événements. Laissez un commentaire sur un événement en le selectionnant.',
         eventsParticipant: ' événement(s) terminé(s)',
         descriptionCoach: 'Historique de mon coaching événements. Cliquer sur un événement pour voir les commentaires laissés',
-        notCoachYet: 'Vous n\'avez pas encore animé de séances. Si l\'animation d\'activités vous intéresse, vous pouvez contacter les membres du bureau pour soumettre votre projet !'
+        notCoachYet: 'Vous n\'avez pas encore animé de séances.',
+        howToCoach: 'Si l\'animation d\'activités vous intéresse, nous sommes la pour vous aider a concretiser votre projet !',
+        coachBenefits: 'L\'association fonctionne grace a vous, et aux animateurs qui proposent des activités de groupe pour tout le monde. Toutes les idées sont les bienvenues.',
+        coachContact: 'Pour vous lancer dans cette aventure avec nous, prenez directement contact avec un animateur pendant les heures d\'ouverture, ou envoyez nous un petit mail :) Nous vous répondrons dans les plus brefs délais'
     },
     sexe: {
         label: 'sexe'

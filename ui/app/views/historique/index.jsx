@@ -25,7 +25,7 @@ export default React.createClass({
                 props: {}
             });
             return (
-                <Tabs tabs={data}/>
+                <Tabs tabs={data} initialTab={this.props.animation ? 1 : 0}/>
             );
     }
 });
