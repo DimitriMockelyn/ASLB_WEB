@@ -246,13 +246,13 @@ export default React.createClass({
                     })}
                 </div>
 
-            {this.state.selectedEvent && <Popin open={true} size='small' onPopinClose={this.closePopin}>
+            {this.state.selectedEvent && <Popin open={true}  onPopinClose={this.closePopin}>
                 <EventInfos event={this.state.selectedEvent} onPopinClose={this.closePopin} isEdit={false} hasLoad={false} hasForm={false}/>
             </Popin>}
-            {this.state.creerEvent && <Popin open={true} size='small' onPopinClose={this.closeCreerEvent}>
+            {this.state.creerEvent && <Popin open={true}  onPopinClose={this.closeCreerEvent}>
                 <CreateEvent data={this.state.creerEvent} onPopinClose={this.closeCreerEvent} hasLoad={false} hasForm={false}/>
             </Popin>}
-            {this.state.legendePopin && <Popin open={true} size='small' onPopinClose={this.closePopinLegende}>
+            {this.state.legendePopin && <Popin open={true}  onPopinClose={this.closePopinLegende}>
                 <div data-focus='legende-description'>
                     <label>{this.state.reference.typeEvenements.find(data => {return data.code === this.state.legendePopin}).name}</label>
                     <div dangerouslySetInnerHTML={{ __html: this.state.reference.typeEvenements.find(data => { return data.code === this.state.legendePopin}).description}}/>

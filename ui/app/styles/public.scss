@@ -1169,3 +1169,22 @@ i.inscrit {
   font-size: 15px !important;
   margin: 2px !important;
 }
+
+
+[data-focus='popin'][data-type='full'][data-size='small'] > div > [data-focus='popin-window'] > div {
+  max-width: 33.33333vw;
+  max-height: 33.33333vh;
+  overflow: auto;
+}
+
+[data-focus='popin'][data-type='full'][data-size='medium'] > div > [data-focus='popin-window'] > div {
+  max-width: 50vw;
+  max-height: 50vh;
+  overflow: auto;
+}
+
+[data-focus='popin'][data-type='full'][data-size='large'] > div > [data-focus='popin-window'] > div {
+  max-width: 66.66667vw;
+  max-height: 66.66667vh;
+  overflow: auto;
+}
