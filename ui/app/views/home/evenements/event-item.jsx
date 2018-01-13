@@ -14,9 +14,9 @@ export default React.createClass({
     render() {
         var limitString = this.props.data.limite ?  '/' + this.props.data.limite : '';
         return (
-        <div className={'rbc-event ' + this.props.data.typeEvenement.code } onClick={() => {navigate('agenda',true)}}>
+        <div className={'rbc-event event-caroussel ' + this.props.data.typeEvenement.code } onClick={() => {setTimeout(() => {navigate('agenda',true)},10)}}>
                 <div>
-                    {this.props.data.typeEvenement.name + ' ' + this.props.data.name}
+                    {this.props.data.typeEvenement.name + ' - ' + this.props.data.name}
                 </div>
                 <div>{moment(this.props.data.date_debut, moment.ISO_8601).format('DD/MM/YYYY - HH:mm') }</div>
                 <div>

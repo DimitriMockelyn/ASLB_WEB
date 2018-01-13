@@ -1208,23 +1208,34 @@ i.inscrit {
   font-size: 20px !important;
 }
 
-[data-focus='list-home'] [data-focus='event-list'] {
-  display: flex;
-  flex-direction: row;
+[data-focus='list-home'] [data-focus='event-list'] .slider {
   max-width: calc( 100vw - 550px);  
-  overflow: auto;
-  & > div {
-    max-width: 200px;
+  height: 67px !important;
+  padding-left: 50px;
+  padding-right: 50px;
+  .slider-slide > div {
     margin-right: 15px;
     height: 60px;
     & > div {
       white-space: nowrap;
       font-size: 10px;
       line-height: 12px;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
     & > div:first-child {
       line-height: 20px;
       font-size: 20px;
     }
   }
+  i {
+    cursor: pointer;
+  }
+}
+
+.center-text {
+  width: 100%;
+  text-align:  center;
+  margin-bottom: 10px;
+  font-weight: bold;
 }

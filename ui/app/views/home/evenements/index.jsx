@@ -13,6 +13,7 @@ import Toggle from 'focus-components/components/input/toggle';
 import EventItem from './event-item';
 import Panel from 'focus-components/components/panel';
 import {translate} from 'focus-core/translation';
+import Carousel from 'nuka-carousel';
 export default React.createClass({
     displayName: 'NewsView',
     mixins: [formMixin],
@@ -36,15 +37,48 @@ export default React.createClass({
     },
     /** @inheritDoc */
     renderContent() {
+        var Decorators = [{
+            component:  React.createClass({
+              render() {
+                return (
+                  <i className='material-icons'
+                    onClick={this.props.previousSlide}>
+                    keyboard_arrow_left
+                  </i>
+                )
+              }
+            }),
+            position: 'CenterLeft',
+            style: {
+              padding: 20
+            }
+          },{
+            component:  React.createClass({
+              render() {
+                return (
+                  <i className='material-icons'
+                    onClick={this.props.nextSlide}>
+                    keyboard_arrow_right
+                  </i>
+                )
+              }
+            }),
+            position: 'CenterRight',
+            style: {
+              padding: 20
+            }
+          }];
         return (
             <div data-focus='list-home'>
-            <div>{translate('admin.incomingEvents')}</div>
+            <div className='center-text'>{translate('admin.incomingEvents')}</div>
             <div data-focus='event-list'>
+            <Carousel decorators={Decorators} slidesToShow={4} >
                 {this.state.events && this.state.events.length > 0 && this.state.events.map((value, pos) => {
                     if (pos < this.state.limit) {
                         return <EventItem data={value}/>
                     }
                 })}
+                </Carousel>
             </div>
         </div>
         );
