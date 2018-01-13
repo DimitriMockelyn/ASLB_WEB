@@ -6,8 +6,10 @@ label {
 }
 
 [data-focus="menu-brand"] {
-  background-image: url('../assets/logo.jpg');
-  background-size: cover;
+  background-image: url('../assets/logo.png');
+  background-size: 90%;
+  background-repeat: no-repeat;
+  background-position: center;
   overflow: visible;
   width: 120px;
 }
@@ -161,7 +163,7 @@ button.mdl-button:not(.mdl-button--icon) {
 [data-focus="menu-left"] [data-focus="menu-items"] li:hover {
   width: 200px;
   background-color: $primary-color-dark;
-  background: linear-gradient(to right, $primary-color, $primary-color-darker);
+  background: linear-gradient(to right, $primary-color, $primary-color-light);
   transition: width 0.5s ease-out;
   box-shadow: 0 0 0px 1px rgba(0, 0, 0, 0.33), 0 1px 5px 0 rgba(0, 0, 0, 0.25), 0 2px 4px -1px rgba(0, 0, 0, 0.1);
   span {
@@ -628,7 +630,7 @@ div[data-focus="field"][data-mode="edit"][data-domain="DO_COMMENT"] [data-focus=
 }
 
 [data-focus="background-logo"] {
-  background-image: url('../assets/logo_big_transparent.png');
+  //background-image: url('../assets/logo_big_transparent.png');
   background-size: 1000px 500px;
   background-repeat: no-repeat;
   background-position: 50vh 30vh;
@@ -1016,8 +1018,13 @@ $lines-to-show: 3;
   [data-focus="menu-brand"] {
     height: 110px;
     width: 237px;
+    background-color: white;
   }
 
+}
+
+[data-focus="menu-left"] [data-focus="menu-brand"] {
+  background-color: white;
 }
 
 [data-focus='layout'][data-menu='left'] [data-route="home"] + [data-focus="menu-left"] + [data-focus="page-content"] {
@@ -1038,7 +1045,7 @@ header [data-focus="header-top-row-middle"] label {
 }
 
 .blue-aslb {
-  color: $primary-color-dark;
+  color: $primary-color-light;
 }
 
 [data-focus='cartridge-home'] > label:first-child {
