@@ -311,8 +311,8 @@ exports.load_tokens = function(req, res) {
   User.findOne({
     email: req.user.email
   }, function(err, user) {
-    if (user.isAdmin) {
-      return res.json('∞');
+    if (false && user.isAdmin) {
+      return res.json({count:'∞'});
     } else {
       Queue.find({personne: user}, function(err, queues) {
         Evenement.find({$and: [{
@@ -333,7 +333,18 @@ exports.load_tokens = function(req, res) {
             if (err) {
               throw err;
             }
-            return res.json(TOKEN_NB - events.length);
+            let countInscrit = 0;
+            let countAttente = 0;
+            events.map(evt => {
+              let found = false;
+              evt.participants.map(ptc => {
+                if (ptc.toString() === user._id.toString()) {
+                  found = true;
+                }
+              });
+              found ? countInscrit++ : countAttente++;
+            });
+            return res.json({count:TOKEN_NB - events.length, countAttente, countInscrit});
         })
       })
     }

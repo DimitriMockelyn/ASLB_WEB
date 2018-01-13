@@ -88,8 +88,9 @@ export default React.createClass({
     loadAllEvents() {
         if ( userHelper.getLogin() && userHelper.getLogin()._id ) {
             agendaServices.loadTokens().then(res => {
-                this.setState({tokensRestant: res});
+                this.setState({tokensRestant: res.count});
             })
+            window.computeTokens();
         }
         this.state.serviceLoad().then(res => {
             const events = []

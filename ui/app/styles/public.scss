@@ -1152,3 +1152,20 @@ div[data-focus="field"] [data-focus="field-label-container"].mdl-cell--12-col {
 .red {
   color: red;
 }
+
+i.tokenValid {
+  color: green !important;
+  font-size: 15px !important;
+  margin: 2px !important;
+}
+
+i.attente {
+  color: yellow !important;
+  font-size: 15px !important;
+  margin: 2px !important;
+}
+i.inscrit {
+  color: red !important;
+  font-size: 15px !important;
+  margin: 2px !important;
+}

@@ -5,6 +5,7 @@ import {component as Button} from 'focus-components/common/button/action';
 import moment from 'moment';
 import userHelper from 'focus-core/user';
 import userServices from '../../services/user';
+import agendaServices from '../../services/agenda';
 import {component as Popin} from 'focus-components/application/popin';
 import ConnectOrCreate from './connect-or-create';
 import MyInfo from './my-info';
@@ -17,6 +18,7 @@ export default React.createClass({
         userServices.loadMe().then( res => {
             this.setState(res);
         })
+        
         this.action = {
             save: this.saveEmpty,
             loadReference: this.saveEmpty
@@ -32,16 +34,40 @@ export default React.createClass({
         this.setState({openPopin: false});
     },
     getInitialState() {
-        return {};
+        return {tokensRestant: 0, inscrit: 0, countAttente : 0 };
     },
     disconnect() {
         userServices.disconnect();
         window.location.reload();
     },
+    computeTokens() {
+        agendaServices.loadTokens().then(res => {
+            this.setState({tokensRestant: res.count, inscrit: res.countInscrit, attente: res.countAttente});
+        })
+    },
+    renderTokens() {
+        let dataToken = [];
+        for (let index = 0; index < this.state.tokensRestant; index++) {
+            dataToken.push({className: 'tokenValid'});
+        }
+        for (let index = 0; index < this.state.attente; index++) {
+            dataToken.push({className: 'attente'});
+        }
+        for (let index = 0; index < this.state.inscrit; index++) {
+            dataToken.push({className: 'inscrit'});
+        }
+        return <div>{dataToken.map(tk => {
+                return <i className={tk.className + ' material-icons'}>group_work</i>
+            })}</div>
+    },
     componentDidMount() {
         if (userHelper.getLogin() && userHelper.getLogin().premiereConnexion) {
             //Toggle de la popin de bienvenue
             this.setState({openPopinBienvenue: true});
+        }
+        if (userHelper.getLogin()) {
+            this.computeTokens();
+            window.computeTokens = this.computeTokens;
         }
     },
     /** @inheritDoc */
@@ -49,6 +75,8 @@ export default React.createClass({
         return (
         <div data-scope='profile-top' >
             <div data-scope='user-info' onClick={this.togglePopin}>
+            {userHelper.getLogin() && 
+                this.renderTokens()}
             {userHelper.getLogin() && 
                 <label>{userHelper.getLogin().prenom + ' ' + userHelper.getLogin().nom}</label>}
             {!userHelper.getLogin() && 
