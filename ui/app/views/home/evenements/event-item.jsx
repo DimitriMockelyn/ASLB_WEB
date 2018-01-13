@@ -6,6 +6,7 @@ import moment from 'moment';
 import userHelper from 'focus-core/user';
 import confirm from 'focus-core/application/confirm';
 import {translate} from 'focus-core/translation';
+import {navigate} from 'focus-core/history';
 
 export default React.createClass({
     displayName: 'NewsPanel',
@@ -13,7 +14,7 @@ export default React.createClass({
     render() {
         var limitString = this.props.data.limite ?  '/' + this.props.data.limite : '';
         return (
-        <div className={'rbc-event ' + this.props.data.typeEvenement.code }>
+        <div className={'rbc-event ' + this.props.data.typeEvenement.code } onClick={() => {navigate('agenda',true)}}>
                 <div>
                     {this.props.data.typeEvenement.name + ' ' + this.props.data.name}
                 </div>
