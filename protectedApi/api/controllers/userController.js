@@ -311,15 +311,27 @@ exports.load_tokens = function(req, res) {
   User.findOne({
     email: req.user.email
   }, function(err, user) {
-    Evenement.find({$and: [{
-      date_debut: {
-          $gte: Date.now(),
-      }},{participants: user}]}, function(err, events) {
+    Queue.find({personne: user}, function(err, queues) {
+      Evenement.find({$and: [{
+        date_debut: {
+            $gte: Date.now(),
+        }},{
+          $or:[{
+            participants: user
+          },
+          {
+            fileAttente: {
+               $in: queues
+            }
+          }]
+        }
+      ]}, function(err, events) {
           
           if (err) {
             throw err;
           }
           return res.json(TOKEN_NB - events.length);
+      })
       })
     })
 }
@@ -354,7 +366,7 @@ exports.inscriptionTokenPossible = function(req, res, next) {
                 return res.status(401).json({ message: 'Vous ne pouvez pas vous inscrire a plus de '+TOKEN_NB.toString()+' cours futurs' });
               }
           }).populate('fileAttente', '_id personne');
-      })
+        })
       })
   } else {
     return res.status(401).json({ message: 'Il faut être connecté pour réaliser cette action' });
