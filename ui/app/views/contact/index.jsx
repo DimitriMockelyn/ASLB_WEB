@@ -2,6 +2,7 @@ import React from 'react';
 import Panel from 'focus-components/components/panel';
 import ScrollspyContainer from 'focus-components/components/scrollspy-container';
 import Presentations from './presentations';
+import Contact from './contact-asso';
 export default React.createClass({
     displayName: 'PartenairesView',
 
@@ -13,6 +14,7 @@ export default React.createClass({
         return (
             <ScrollspyContainer>
                 <Presentations />
+                <Contact />
                 <Panel title='Informations du site'>
                     <div data-focus='contact'>
                         <label>
