@@ -83,16 +83,38 @@ export default React.createClass({
     isOwner() {
         return userHelper.getLogin() && this.props.event.createur._id === userHelper.getLogin()._id;
     },
+    isAnimateur() {
+        return userHelper.getLogin() && this.props.event.animateur._id === userHelper.getLogin()._id;
+    },
     update() {
         agendaServices.updateEvent(this._getEntity());
         this.setState({...this._getEntity(),isEdit: !this.state.isEdit});
     },
     renderActionsUpdate() {
-        if (this.state.isEdit) {
-            return <Button label='button.save' type='button' handleOnClick={this.update} />
-        } else {
-            return <Button label='button.edit' type='button' handleOnClick={ () => this.setState({isEdit: !this.state.isEdit})} />;
+        var buttonEdit = <div/>;
+        if (this.isOwner()) {
+            if (this.state.isEdit) {
+                buttonEdit = <Button label='button.save' type='button' handleOnClick={this.update} />
+            } else {
+                buttonEdit = <Button label='button.edit' type='button' handleOnClick={ () => this.setState({isEdit: !this.state.isEdit})} />;
+            }
         }
+        var buttonMail = <div/>
+        if (this.isAnimateur()) {
+            buttonMail = <Button label='button.sendMailParticipants' icon='mail' type='button' handleOnClick={this.sendMailParticipants} />;
+        }
+        return <div>{buttonEdit} {buttonMail}</div>
+    },
+    sendMailParticipants() {
+        var users =''
+        for (let index in this.state.participants) {
+            if (users === '') {
+                users = this.state.participants[index].email;
+            } else {
+                users = users + ','+ this.state.participants[index].email
+            }
+        }
+        window.location.href = 'mailto:'+users;
     },
     computeSexeData(membre) {
         if (!membre.sexe || !this.state.reference || !this.state.reference.typeSexe) {
@@ -108,7 +130,7 @@ export default React.createClass({
     renderContent() {
         return (
         <div>
-            <Panel title='agenda.evenementDetail' actions={this.isOwner() && this.renderActionsUpdate}>
+            <Panel title='agenda.evenementDetail' actions={this.renderActionsUpdate} >
                 {!this.state.isEdit && <EventCard hasForm={false} hasLoad={false} data={this.state} computeSexeData={this.computeSexeData} animateur={this.props.event.animateur}/>}
                 {this.state.isEdit && <div>
                     {this.fieldFor('name')}

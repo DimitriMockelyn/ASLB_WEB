@@ -89,7 +89,8 @@ export default {
         estimate: 'Estimer',
         execute: 'Exécuter',
         voirPlus: 'Voir plus',
-        exporter: 'Exporter'
+        exporter: 'Exporter',
+        sendMailParticipants: 'Contacter les participants'
     },
     home: {
         message: {
