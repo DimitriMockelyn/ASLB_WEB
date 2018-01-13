@@ -38,9 +38,23 @@ export default React.createClass({
     },
     /** @inheritDoc */
     renderContent() {
+        var limitString = this.props.data.limite ?  '/' + this.props.data.limite : '';
         return (
         <div>
             <div data-focus='commentaire-coach'>
+                <div>
+                    {this.props.data.typeEvenement.name + ' - ' + this.props.data.name}
+                </div>
+                <div>
+                    {this.props.data.description}
+                </div>
+                
+
+                <div data-focus='news-info'>
+                    <div>{i18n.t('admin.eventAt') + ' ' + moment(this.props.data.date_debut, moment.ISO_8601).format('DD/MM/YYYY - HH:mm') + ' - ' +
+                     i18n.t('event.duree') + ' ' + this.props.data.duree + ' - ' +
+                     i18n.t('admin.nbInscrits') + ' ' + this.props.data.participants.length + limitString} </div>
+                </div>
                 {this.nbNote !== 0 && <div>
                     {i18n.t('event.noteMoyenne') + ' ' + this.noteMoyenne + '/5 ( ' + this.nbNote + ' note(s) )' }
                     <Note value={this.noteMoyenne} editing={false} name={this.noteMoyenne + '/5'}/>
