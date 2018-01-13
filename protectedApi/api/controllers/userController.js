@@ -311,28 +311,32 @@ exports.load_tokens = function(req, res) {
   User.findOne({
     email: req.user.email
   }, function(err, user) {
-    Queue.find({personne: user}, function(err, queues) {
-      Evenement.find({$and: [{
-        date_debut: {
-            $gte: Date.now(),
-        }},{
-          $or:[{
-            participants: user
-          },
-          {
-            fileAttente: {
-               $in: queues
-            }
-          }]
-        }
-      ]}, function(err, events) {
-          
-          if (err) {
-            throw err;
+    if (user.isAdmin) {
+      return res.json('∞');
+    } else {
+      Queue.find({personne: user}, function(err, queues) {
+        Evenement.find({$and: [{
+          date_debut: {
+              $gte: Date.now(),
+          }},{
+            $or:[{
+              participants: user
+            },
+            {
+              fileAttente: {
+                $in: queues
+              }
+            }]
           }
-          return res.json(TOKEN_NB - events.length);
+        ]}, function(err, events) {
+            
+            if (err) {
+              throw err;
+            }
+            return res.json(TOKEN_NB - events.length);
+        })
       })
-      })
+    }
     })
 }
 
@@ -360,7 +364,7 @@ exports.inscriptionTokenPossible = function(req, res, next) {
                 throw err;
               }
               console.log(events);
-              if (events.length < TOKEN_NB) {
+              if (events.length < TOKEN_NB || user.isAdmin) {
                 return next();
               } else {
                 return res.status(401).json({ message: 'Vous ne pouvez pas vous inscrire a plus de '+TOKEN_NB.toString()+' cours futurs' });
