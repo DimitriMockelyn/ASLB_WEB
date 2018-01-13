@@ -9,6 +9,7 @@ import userHelper from 'focus-core/user';
 import confirm from 'focus-core/application/confirm';
 import userServices from '../../services/user';
 import message from 'focus-core/message';
+import EventCard from './event-card';
 
 export default React.createClass({
     displayName: 'HomeView',
@@ -108,27 +109,31 @@ export default React.createClass({
         return (
         <div>
             <Panel title='agenda.evenementDetail' actions={this.isOwner() && this.renderActionsUpdate}>
-                {this.fieldFor('name')}
-                {this.fieldFor('created', {value: this.state.created_date, isEdit: false})}
-                {this.fieldFor('creator', {value: this.state.createur && (this.state.createur.prenom + ' ' + this.state.createur.nom), isEdit: false})}
-                {this.fieldFor('date_debut')}
-                {this.fieldFor('duree')}
-                {this.fieldFor('limite')}
-                {this.fieldFor('animateur',{options: {querySearcherCs: userServices.loadUserAutocomplete, initialString: this.props.event && this.props.event.animateur && this.props.event.animateur.nom + ' ' + this.props.event.animateur.prenom}})}
-                {this.fieldFor('description', {value: this.state.description})}
-                {this.fieldFor('typeEvenement', {listName: 'typeEvenements', isRequired: true, valueKey: '_id', labelKey: 'name'})}
-                {this.fieldFor('niveau', {listName: 'niveauEvenements', valueKey: '_id', labelKey: 'name'})}
-                {this.state.participants && this.state.participants.length > 0 && <div data-focus='participants-list'>
-                    <label>{i18n.t('event.participantsList') + ' ('+this.state.participants.length+')'}</label>
-                    <div data-focus='list'>
-                        {this.state.participants && this.state.participants.length > 0 && this.state.participants.map(value => {
-                            return <div>{value.nom + ' ' + value.prenom}<div>{this.computeSexeData(value)}</div></div>
-                        })}
-                    </div>
+                {!this.state.isEdit && <EventCard hasForm={false} hasLoad={false} data={this.state} computeSexeData={this.computeSexeData} animateur={this.props.event.animateur}/>}
+                {this.state.isEdit && <div>
+                    {this.fieldFor('name')}
+                    {this.fieldFor('created', {value: this.state.created_date, isEdit: false})}
+                    {this.fieldFor('creator', {value: this.state.createur && (this.state.createur.prenom + ' ' + this.state.createur.nom), isEdit: false})}
+                    {this.fieldFor('date_debut')}
+                    {this.fieldFor('duree')}
+                    {this.fieldFor('limite')}
+                    {this.fieldFor('animateur',{options: {querySearcherCs: userServices.loadUserAutocomplete, initialString: this.props.event && this.props.event.animateur && this.props.event.animateur.nom + ' ' + this.props.event.animateur.prenom}})}
+                    {this.fieldFor('description', {value: this.state.description})}
+                    {this.fieldFor('typeEvenement', {listName: 'typeEvenements', isRequired: true, valueKey: '_id', labelKey: 'name'})}
+                    {this.fieldFor('niveau', {listName: 'niveauEvenements', valueKey: '_id', labelKey: 'name'})}
+                    {this.state.participants && this.state.participants.length > 0 && <div data-focus='participants-list'>
+                        <label>{i18n.t('event.participantsList') + ' ('+this.state.participants.length+')'}</label>
+                        <div data-focus='list'>
+                            {this.state.participants && this.state.participants.length > 0 && this.state.participants.map(value => {
+                                return <div>{value.nom + ' ' + value.prenom}<div>{this.computeSexeData(value)}</div></div>
+                            })}
+                        </div>
+                    </div>}
                 </div>}
                 {userHelper.getLogin() &&  this.isInFile(userHelper.getLogin()._id) && <div>
                         {this.computeInfoFile(userHelper.getLogin()._id)}
                     </div>}
+                
                 {userHelper.getLogin() && !this.isInEvent(userHelper.getLogin()._id) && <div>
                     <Button label='event.addSelf' type='button' handleOnClick={this.addSelf} />
                 </div>}

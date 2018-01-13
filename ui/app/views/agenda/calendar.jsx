@@ -36,7 +36,8 @@ export default React.createClass({
                         var style = document.createElement('style');
                         style.id = 'STYLE-'+data.code;
                         style.type = 'text/css';
-                        style.innerHTML = '.rbc-event.'+data.code+' { background-color: '+data.color+'; border: 1px solid '+data.color+'; }';
+                        style.innerHTML = '.rbc-event.'+data.code+' { background-color: '+data.color+'; border: 1px solid '+data.color+'; } '+ 
+                        '[data-focus=\'event-consult-card\'] .'+data.code + ' { color: '+data.color+';}';
                         document.getElementsByTagName('head')[0].appendChild(style);
                     }
                 }

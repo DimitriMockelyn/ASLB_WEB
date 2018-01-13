@@ -1092,3 +1092,63 @@ div[data-focus="field"] [data-focus="field-label-container"].mdl-cell--12-col {
     }
   }
 }
+
+[data-focus='event-consult-card'] {
+  display: flex;
+  flex-direction: column;
+  & > div {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+  }
+  .top-row > * {
+    width: 100%;
+  }
+  .top-row> *:nth-child(1) {
+    font-size: 18px;
+    font-weight: bold;
+  }
+  .top-row> *:nth-child(2) {
+    font-weight: bold;
+  }
+  .top-row > *:nth-child(4) {
+    color: $primary-color;
+  }
+  .description {
+    width: 100%;
+    font-style: italic;
+    background-color: rgba(0, 0, 0, 0.10);
+    min-height: 40px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+  }
+  .line-info {
+    & > *:nth-child(1) {
+      margin-right: 10px;
+      font-weight: bold;
+    }
+    & > *:nth-child(2) {
+      color: $primary-color;
+    }
+  }
+  .line-info.mrg-top {
+    margin-top: 5px;
+  }
+  .participants {      
+    display: flex;
+    flex-wrap: wrap;
+    & > div {
+      display: flex;
+      flex-direction: row;
+      width: 50%;
+      & > div {
+        margin-left: 10px;
+      }
+    }
+    margin-bottom: 10px;
+  }
+}
+
+.red {
+  color: red;
+}

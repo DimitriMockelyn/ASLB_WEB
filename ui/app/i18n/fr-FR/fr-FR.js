@@ -140,6 +140,9 @@ export default {
         saved: 'Les informations ont bien été enregistrées.'
     },
     event: {
+        dateHeure: 'Date/Heure ',
+        participantsPlace: 'Participants/Places',
+        animePar: 'Animé par', 
         niveau: 'Niveau',
         created: 'Crée le',
         creator: 'Crée par',
