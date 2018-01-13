@@ -580,6 +580,15 @@ exports.toggle_actif = function(req, res) {
     if (!user.actif) {
       //Envoi du mail avec raison si précisée
       //console.log(req.body.raison);
+      if (req.body.raison && req.body.raison.length > 0) {
+      mailer.sendMail([user.email], 'Désactivation de votre compte ASLB', 
+      'Bonjour. Votre compte ASLB à été désactivé par un admin. La raison énoncée est la suivante : "' + req.body.raison+'". Merci de prendre contact avec le bureau de l\'association si vous pensez que cette désactivation n\'est pas justifiée.');
+      } else {
+        mailer.sendMail([user.email], 'Désactivation de votre compte ASLB', 
+        'Bonjour. Votre compte ASLB à été désactivé par un admin. Merci de prendre contact avec le bureau de l\'association si vous pensez que cette désactivation n\'est pas justifiée.');
+  
+      }
+
     }
     user.save(function(err, user) {
       if (err) {
