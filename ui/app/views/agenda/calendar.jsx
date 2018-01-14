@@ -25,7 +25,7 @@ export default React.createClass({
             serviceLoad: agendaServices.loadAll,
             fullView: false,
             calendarView: false,
-            currentWeek : moment().week()
+            currentWeek : moment().isoWeek()
         }
     },
     afterChange(changeInfos) {

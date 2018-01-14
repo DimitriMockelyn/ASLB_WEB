@@ -681,7 +681,6 @@ exports.edit_profil = function(req, res) {
       console.log(err, user)
       return res.json({changed: false});
     }
-    console.log(user.profil.toString());
     if (req.body._id && user.profil && user.profil.toString() === req.body._id.toString()) { //Le profil existe, on le mets a jour
       Profil.findOneAndUpdate({
         _id: req.body._id

@@ -37,7 +37,7 @@ export default React.createClass({
                 //Gestion des evenements hyper loin
                 var currentWeekReal = moment().week(this.state.currentWeek);
 
-                if (currentWeekReal.isoWeekday(1).startOf('week').isBefore(dateDebut) && currentWeekReal.isoWeekday(1).endOf('week').isAfter(dateDebut) && dateDebut.weekday() < 5 ) {
+                if (currentWeekReal.day(1).startOf('week').isBefore(dateDebut) && currentWeekReal.day(1).endOf('week').isAfter(dateDebut) && dateDebut.weekday() < 5 ) {
                     state.jours[dateDebut.weekday()].push(event);
                 }
             });
