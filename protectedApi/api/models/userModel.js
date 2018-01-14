@@ -83,8 +83,7 @@ var User = new Schema({
   },
   profil: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'Profil',
-    required: true
+    ref: 'Profil'
   }
 });
 

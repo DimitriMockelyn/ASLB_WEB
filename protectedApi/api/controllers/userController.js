@@ -442,6 +442,8 @@ function fill_user_data(users_db, formatDate, cb) {
     users[index]['noteMoyenneRecue'] = 0.0;
     users[index]['nombreAbsences'] = 0;
     users[index]['nombreCoach'] = 0;
+    users[index]['isAdmin'] = users_db[index]['isAdmin'];
+    users[index]['canCreate'] = users_db[index]['canCreate'];
   }
   var minDate = new Date(Date.now());
   minDate.setDate(minDate.getDate() - GLISSEMENT_JOURS_STATS);
@@ -549,6 +551,7 @@ exports.toggle_creation = function(req, res) {
     user.canCreate = !user.canCreate;
     user.save(function(err, user) {
       if (err) {
+        console.log(err);
         return res.json({success: false});
       }
       return res.json({success: true});
@@ -564,6 +567,7 @@ exports.toggle_admin = function(req, res) {
     user.isAdmin = !user.isAdmin;
     user.save(function(err, user) {
       if (err) {
+        console.log(err);
         return res.json({success: false});
       }
       return res.json({success: true});
