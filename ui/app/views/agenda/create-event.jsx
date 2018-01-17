@@ -25,11 +25,16 @@ export default React.createClass({
             //request.execute(function(event) {that.props.onPopinClose()})
         }
     },
+    renderCstAct() {
+        return                 (<div>
+        <Button label='event.create' type='button' handleOnClick={this.create} />
+        </div>);
+    },
     /** @inheritDoc */
     renderContent() {
         return (
         <div>
-            <Panel title='agenda.evenementDetail'>
+            <Panel title='agenda.evenementDetail' actions={this.renderCstAct}>
                 {this.fieldFor('name', {isEdit: true})}
                 {this.fieldFor('date_debut', {isEdit: true})}
                 {this.fieldFor('duree', {isEdit: true})}
@@ -38,9 +43,6 @@ export default React.createClass({
                 {this.fieldFor('description', {isEdit: true})}
                 {this.fieldFor('typeEvenement', {isEdit: true, listName: 'typeEvenements', isRequired: true, valueKey: '_id', labelKey: 'name'})}
                 {this.fieldFor('niveau', {isEdit: true, listName: 'niveauEvenements', valueKey: '_id', labelKey: 'name'})}
-                <div>
-                    <Button label='event.create' type='button' handleOnClick={this.create} />
-                </div>
             </Panel>
         </div>
         );

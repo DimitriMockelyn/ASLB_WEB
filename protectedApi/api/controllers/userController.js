@@ -378,7 +378,7 @@ exports.inscriptionTokenPossible = function(req, res, next) {
               if (events.length < TOKEN_NB || user.isAdmin) {
                 return next();
               } else {
-                return res.status(401).json({ message: 'Vous ne pouvez pas vous inscrire a plus de '+TOKEN_NB.toString()+' cours futurs' });
+                return res.status(401).json({ message: 'Vous ne pouvez pas vous inscrire a plus de '+TOKEN_NB.toString()+' cours à la fois' });
               }
           }).populate('fileAttente', '_id personne');
         })
