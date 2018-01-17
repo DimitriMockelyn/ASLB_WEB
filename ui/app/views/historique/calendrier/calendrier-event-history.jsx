@@ -18,12 +18,15 @@ export default React.createClass({
     componentWillMount() {
         agendaServices.loadCommentaire(this.props.event._id).then(res => { this.setState({noteComm : res})});
     },
+    componentWillReceiveProps() {
+        agendaServices.loadCommentaire(this.props.event._id).then(res => { this.setState({noteComm : res})});
+    },
     /** @inheritDoc */
     render() {
         return (
         <div>
             <div>{this.props.title}</div>
-            <div><Note value={(this.state.noteComm && this.state.noteComm.note) || 0} /></div>
+            <div><Note isConsult={true} value={(this.state.noteComm && this.state.noteComm.note) || 0} /></div>
         </div>
         );
     }

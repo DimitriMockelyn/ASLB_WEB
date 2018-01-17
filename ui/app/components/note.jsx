@@ -29,6 +29,7 @@ export default React.createClass({
                     renderStarIcon={(index, value) => {
                         return <i className='material-icons'>{index <= value ? 'star' : 'star_border'} </i>;
                     }}
+                    editing={!this.props.isConsult}
                     renderStarIconHalf={() => <i className='material-icons'>star_half</i>}
                 />);
     }

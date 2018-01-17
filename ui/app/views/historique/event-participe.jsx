@@ -10,6 +10,9 @@ export default React.createClass({
 
     componentWillMount() {
         this.setState({});
+        this.loadHistory();
+    },
+    loadHistory() {
         agendaServices.loadMyHistory().then(res => {
             const events = []
             this.setState({history: res})
@@ -35,6 +38,7 @@ export default React.createClass({
         this.setState({eventClicked: value});
     },
     closeCommentaire() {
+        console.log(this.state.eventClicked);
         this.setState({eventClicked: undefined});
     },
     /** @inheritDoc */
@@ -51,7 +55,7 @@ export default React.createClass({
             <label style={{'margin-left': '20px'}}>{i18n.t('historique.description')}</label>
             <div data-focus='historique-list'>
                 {this.state.history && <label>{this.state.history.length + i18n.t('historique.eventsParticipant')} </label> }
-                    <Calendar canSelect={this.state.eventClicked === undefined} hasLoad={false} hasForm={false} events={this.state.historyCal || []} onClickEvent={this.onClickEvent} components={components} />
+                    <Calendar ref='calendar' canSelect={this.state.eventClicked === undefined} hasLoad={false} hasForm={false} events={this.state.historyCal || []} onClickEvent={this.onClickEvent} components={components} />
             </div>
             {this.state.eventClicked && <Popin open={true}  onPopinClose={this.closeCommentaire}>
                 <CommentaireEvenement data={this.state.eventClicked} onPopinClose={this.closeCommentaire} hasLoad={false} hasForm={false}/>
