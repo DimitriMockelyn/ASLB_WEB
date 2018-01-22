@@ -689,7 +689,7 @@ function base64_encode(file) {
 }
 
 function isMembreActif(user) {
-  return  user.date_fin && user.date_activation && moment().isBefore(moment(user.date_fin)) && moment().isAfter(moment(user.date_activation));
+  return  user.date_fin && user.date_activation && moment().isBefore(moment(user.date_fin)) && moment().isAfter(moment(user.date_activation)) && user.actif;
 }
 
 exports.load_profil = function(req, res) {
