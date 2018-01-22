@@ -10,8 +10,9 @@ export default React.createClass({
         return {currentWeek: this.props.week || this.getCurrentWeek(), events: this.props.events, jours: [[],[],[],[],[]]}
     },
     componentWillReceiveProps(newProps) {
+
         if (newProps.events) {
-            this.setState({events: newProps.events}, this.computeEventsPerDay);
+            this.setState({events: newProps.events, currentWeek: newProps.week}, this.computeEventsPerDay);
         } else {
             this.setState({events: [], jours: [[],[],[],[],[]]});
         }
