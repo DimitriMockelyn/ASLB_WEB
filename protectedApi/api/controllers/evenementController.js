@@ -282,57 +282,78 @@ exports.add_self_to_evenement = function(req, res) {
   }).populate('fileAttente', '_id ordre personne');
 };
 
-exports.remove_self_to_evenement = function(req, res) {
-  Evenement.findById(req.params.evenementId, function(err, evenement) {
-    if (err)
+
+
+ const remove_one_from_evenement = function(req, res, user, evenementId, next) {
+  Evenement.findById(evenementId, function(err, evenement) {
+    if (err) {
       res.send(err);
-      if (!evenement.participants) {
-        evenement.participants = [];
+    }
+    if (!evenement.participants) {
+      evenement.participants = [];
+    }
+
+    //On vérifie qu'on ajoute pas de doublons
+    for (var i = 0; i < evenement.fileAttente.length; i++) {
+      if (evenement.fileAttente[i].personne.toString() === user._id.toString()) {
+        var toDelete = evenement.fileAttente[i];
+        evenement.fileAttente.splice(i, 1);
+        toDelete.remove(function(err, del) {})
+          i--;
       }
-    User.findOne({
+    }
+    for (var i = 0; i < evenement.participants.length; i++) {
+      if (evenement.participants[i].toString() === user._id.toString()) {
+          evenement.participants.splice(i, 1);
+          i--;
+          //changer file attente
+          if (evenement.fileAttente.length > 0) {
+            var minOrdre = -1;
+            var indexMin = -1;
+            evenement.fileAttente.map((itemAttente, index) => {
+              if (minOrdre === -1 || itemAttente.ordre < minOrdre) {
+                minOrdre = itemAttente.ordre;
+                indexMin = index;
+              }
+            })
+            //On ajoute le nouveau aux participants
+            evenement.participants.push(evenement.fileAttente[indexMin].personne);
+            sendMailInscrit(evenement.fileAttente[indexMin].personne, evenement.name + ' - ' + moment(evenement.date_debut).format('DD/MM/YYYY - HH:mm'));
+            var toDelete = evenement.fileAttente[indexMin];
+            evenement.fileAttente.splice(indexMin, 1);
+            toDelete.remove(function(err, del) {})
+          }
+      }
+    }
+    if (next) {
+      next(evenement);
+    }
+    /*
+    evenement.save(function(err, evenement) {
+        if (err) {
+          res.send(err);
+        }
+        res.json(evenement);
+    });
+    */
+  }).populate('fileAttente', '_id personne ordre');
+}
+
+exports.remove_one_from_evenement = remove_one_from_evenement;
+
+exports.remove_self_to_evenement = function(req, res) {
+   User.findOne({
       email: req.user.email
     }, function(err, user) {
-        //On vérifie qu'on ajoute pas de doublons
-        for (var i = 0; i < evenement.fileAttente.length; i++) {
-          if (evenement.fileAttente[i].personne.toString() === user._id.toString()) {
-            var toDelete = evenement.fileAttente[i];
-            evenement.fileAttente.splice(i, 1);
-            toDelete.remove(function(err, del) {})
-              i--;
-          }
-        }
-        for (var i = 0; i < evenement.participants.length; i++) {
-          if (evenement.participants[i].toString() === user._id.toString()) {
-              evenement.participants.splice(i, 1);
-              i--;
-              //changer file attente
-              if (evenement.fileAttente.length > 0) {
-                var minOrdre = -1;
-                var indexMin = -1;
-                evenement.fileAttente.map((itemAttente, index) => {
-                  if (minOrdre === -1 || itemAttente.ordre < minOrdre) {
-                    minOrdre = itemAttente.ordre;
-                    indexMin = index;
-                  }
-                })
-                //On ajoute le nouveau aux participants
-                evenement.participants.push(evenement.fileAttente[indexMin].personne);
-                sendMailInscrit(evenement.fileAttente[indexMin].personne, evenement.name + ' - ' + moment(evenement.date_debut).format('DD/MM/YYYY - HH:mm'));
-                var toDelete = evenement.fileAttente[indexMin];
-                evenement.fileAttente.splice(indexMin, 1);
-                toDelete.remove(function(err, del) {})
-              }
-          }
-        }
-
+      remove_one_from_evenement(req, res, user, req.params.evenementId, evenement => {
         evenement.save(function(err, evenement) {
-            if (err) {
-              res.send(err);
-            }
-            res.json(evenement);
-        });
+          if (err) {
+            res.send(err);
+          }
+          res.json(evenement);
       });
-  }).populate('fileAttente', '_id personne ordre');
+    });
+  });
 };
 
 function sendMailInscrit(id, infoEvents) {

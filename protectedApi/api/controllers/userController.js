@@ -14,7 +14,8 @@ var mongoose = require('mongoose'),
   Sexe = mongoose.model('Sexe'),
   Profil = mongoose.model('Profil'),
   Queue = mongoose.model('Queue'),
-  Commentaire = mongoose.model('Commentaire'),
+  Commentaire = mongoose.model('Commentaire'), 
+  evenementController = require('./evenementController'),
   Entreprise = mongoose.model('Entreprise');
 
   var {getConfig} = require('../../config');
@@ -444,6 +445,7 @@ function fill_user_data(users_db, formatDate, cb) {
     users[index]['nombreCoach'] = 0;
     users[index]['isAdmin'] = users_db[index]['isAdmin'];
     users[index]['canCreate'] = users_db[index]['canCreate'];
+    users[index]['actif'] = users_db[index]['actif'];
   }
   var minDate = new Date(Date.now());
   minDate.setDate(minDate.getDate() - GLISSEMENT_JOURS_STATS);
@@ -582,8 +584,36 @@ exports.toggle_actif = function(req, res) {
     }
     user.actif = !user.actif;
     if (!user.actif) {
+      //Désinscription des activites
+      Queue.find({personne: user}, function(err, queues) {
+      Evenement.find({$and: [{
+        date_debut: {
+            $gte: Date.now(),
+        }},{
+          $or:[{
+            participants: user
+          },
+          {
+            fileAttente: {
+              $in: queues
+            }
+          }]
+        }
+      ]}, function(err, events) {
+          
+          if (err) {
+            throw err;
+          }
+          events.map(event => {
+            evenementController.remove_one_from_evenement(req,res,user,event._id, evenement => {
+              evenement.save(function(err, evenement) {
+              });
+            
+          })
+        });
+        });
+      });
       //Envoi du mail avec raison si précisée
-      //console.log(req.body.raison);
       if (req.body.raison && req.body.raison.length > 0) {
       mailer.sendMail([user.email], 'Désactivation de votre compte ASLB', 
       'Bonjour. Votre compte ASLB à été désactivé par un admin. La raison énoncée est la suivante : "' + req.body.raison+'". Merci de prendre contact avec le bureau de l\'association si vous pensez que cette désactivation n\'est pas justifiée.');
