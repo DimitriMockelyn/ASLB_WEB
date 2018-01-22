@@ -12,7 +12,7 @@ export default React.createClass({
         <div>
             <div>
                 <label>{i18n.t('agenda.home')}</label>
-                <Calendar hasLoad={false}/>
+                <Calendar hasLoad={false} eventId={this.props.eventId}/>
             </div>
         </div>
         );

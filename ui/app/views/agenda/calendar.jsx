@@ -30,7 +30,12 @@ export default React.createClass({
     },
     afterChange(changeInfos) {
         if (changeInfos.property === 'niveauEvenements') {
-            this.loadAllEvents();
+            this.loadAllEvents().then((res) => {
+                if (this.props.eventId) {
+                    let id = this.props.eventId.toString();
+                    this.setState({selectedEvent: res.find(elt => { return elt._id.toString() === id })});
+                }
+            });
         }
     },
     onChangeView() {
@@ -78,7 +83,7 @@ export default React.createClass({
             })
             window.computeTokens();
         }
-        this.state.serviceLoad().then(res => {
+        return this.state.serviceLoad().then(res => {
             const events = []
             
             res.map((event) => {
@@ -106,6 +111,7 @@ export default React.createClass({
                 }
             })
             this.setState({events});
+            return events;
         });
     },
     onSelectEvent(event) {

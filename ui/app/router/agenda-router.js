@@ -3,7 +3,7 @@ import createRouter from 'focus-core/router';
 import AgendaView from '../views/agenda';
 import HistoriqueView from '../views/historique';
 import userHelper from 'focus-core/user';
-import history from 'focus-core/history';
+import {navigate} from 'focus-core/history';
 export default createRouter(Backbone).extend({
     log: true,
     beforeRoute() {
@@ -11,11 +11,16 @@ export default createRouter(Backbone).extend({
     },
     routes: {
         agenda: 'agenda',
+        'agenda/:id' : 'agendaId',
         historique: 'historique',
         historiqueAnimation: 'historiqueAnimation'
     },
     agenda() {
         this._pageContent(AgendaView);
+    },
+    agendaId(id) {
+        navigate('agenda', false);
+        this._pageContent(AgendaView, {props: {eventId: id}});
     },
     historique() {
         this._pageContent(HistoriqueView);
