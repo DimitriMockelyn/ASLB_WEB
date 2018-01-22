@@ -389,7 +389,7 @@ exports.create_a_evenement = function(req, res) {
       return res.status(401).json({ message: 'Les activités sportives doivent se dérouler entre 7h et 20h' });
     }
     //Enregistrement en base
-    check_evenement_conflit(new_evenement, res, () => {
+    //check_evenement_conflit(new_evenement, res, () => {
       TypeEvenement.findOne({
         _id: req.body.typeEvenement
         }, function(err, typeEvt) {
@@ -401,7 +401,7 @@ exports.create_a_evenement = function(req, res) {
           res.json(evenement);
         });
       })
-    })
+    //})
   })
 };
 
@@ -445,7 +445,7 @@ exports.update_a_evenement = function(req, res) {
     niveau: req.body.niveau
   }
   
-  check_evenement_conflit(data, res, () => {
+  //check_evenement_conflit(data, res, () => {
     TypeEvenement.findOne({
       _id: req.body.typeEvenement
       }, function(err, typeEvt) {
@@ -455,7 +455,7 @@ exports.update_a_evenement = function(req, res) {
           res.send(err);
         res.json(evenement);
       });
-    });
+  //  });
   })
 };
 
