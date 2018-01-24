@@ -715,6 +715,7 @@ exports.edit_profil = function(req, res) {
       console.log(err, user)
       return res.json({changed: false});
     }
+
     if (req.body._id && user.profil && user.profil.toString() === req.body._id.toString()) { //Le profil existe, on le mets a jour
       Profil.findOneAndUpdate({
         _id: req.body._id
@@ -734,7 +735,7 @@ exports.edit_profil = function(req, res) {
           return res.status(401).json({ message: 'Une erreur est survenue lors de votre opération.'})
         }
         user.profil = newPrf;
-        user.save(function(err, newPrf) {
+        user.save(function(err, usrSaved) {
           if (err) {
             console.log(err);
             return res.status(401).json({ message: 'Une erreur est survenue lors de votre opération.'})
