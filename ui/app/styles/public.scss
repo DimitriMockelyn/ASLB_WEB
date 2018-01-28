@@ -401,6 +401,8 @@ div[data-focus="field"][data-mode="edit"][data-domain='DO_RTE'] [data-focus="fie
 [data-focus='home-title'] {
   @include text-title();
   margin-left: 25px;
+  text-align: center;
+  font-size: 30px !important;
 }
 
 [data-focus="user-list"] {

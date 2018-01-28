@@ -50,7 +50,7 @@ export default React.createClass({
             <div>
             <HeaderActivities hasLoad={false} />
             <div data-focus='home-title'>
-                    Bienvenue sur l'interface web de l'ASLB
+            Bienvenue sur le site de l’aslb !
             </div>
             <Evenements hasLoad={false} />
             <News hasLoad={false}/>                
