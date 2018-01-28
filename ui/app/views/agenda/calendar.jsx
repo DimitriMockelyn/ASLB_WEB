@@ -18,6 +18,7 @@ export default React.createClass({
     mixins: [formMixin],
     definitionPath: 'event',
     referenceNames: ['typeEvenements', 'niveauEvenements'],
+    initialized : false,
     getInitialState() {
         return {
             events : [],
@@ -31,19 +32,22 @@ export default React.createClass({
     afterChange(changeInfos) {
         if (changeInfos.property === 'niveauEvenements') {
             this.loadAllEvents().then((res) => {
-                if (this.props.eventId) {
-                    let id = this.props.eventId.toString();
-                    let sel = res.find(elt => { return elt._id.toString() === id });
-                    //On recherche la bonne semaine
-                    //Gestion des evenements hyper loin
-                    var currentWeekNum = this.state.currentWeek-1;
-                    var currentWeekReal = moment().week(currentWeekNum);
-                    while (!(currentWeekReal.day(1).startOf('week').isBefore(sel.startDate) && currentWeekReal.day(1).endOf('week').isAfter(sel.startDate)) && currentWeekNum < this.state.currentWeek+500) {
-                        currentWeekNum++;
-                        currentWeekReal = moment().week(currentWeekNum);
-                    }
-                    this.setState({selectedEvent: sel, currentWeek : currentWeekNum});
+                if (!this.initialized) {
+                    this.initialized = true;
+                    if (this.props.eventId) {
+                        let id = this.props.eventId.toString();
+                        let sel = res.find(elt => { return elt._id.toString() === id });
+                        //On recherche la bonne semaine
+                        //Gestion des evenements hyper loin
+                        var currentWeekNum = this.state.currentWeek-1;
+                        var currentWeekReal = moment().week(currentWeekNum);
+                        while (!(currentWeekReal.day(1).startOf('week').isBefore(sel.startDate) && currentWeekReal.day(1).endOf('week').isAfter(sel.startDate)) && currentWeekNum < this.state.currentWeek+500) {
+                            currentWeekNum++;
+                            currentWeekReal = moment().week(currentWeekNum);
+                        }
+                        this.setState({selectedEvent: sel, currentWeek : currentWeekNum});
 
+                    }
                 }
             });
         }
