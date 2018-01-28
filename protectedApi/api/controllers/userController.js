@@ -375,7 +375,6 @@ exports.inscriptionTokenPossible = function(req, res, next) {
               if (err) {
                 throw err;
               }
-              console.log(events);
               if (events.length < TOKEN_NB || user.isAdmin) {
                 return next();
               } else {
