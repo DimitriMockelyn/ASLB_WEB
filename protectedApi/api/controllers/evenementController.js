@@ -236,44 +236,46 @@ exports.add_self_to_evenement = function(req, res) {
         }
         //On vérifie qu'on ajoute pas de doublons
         if (evenement.participants.indexOf(user._id) === -1) {
-          //Y a t'il encore de la place ?
-          if (evenement.limite !== undefined && evenement.limite !== null && evenement.participants.length >= evenement.limite) {
-            //On se met en file d'attente
-            var queue = new Queue();
-            queue.personne = user;
-            queue.ordre = 1;
-            var toSave = true;
-            evenement.fileAttente.map(item => {
-              if (queue.ordre <= item.ordre) {
-                queue.ordre = item.ordre +1;
-              }
-              if (user._id.toString() === item.personne.toString()) {
-                toSave = false;
-              }
-            })
-            if (toSave) {
-              queue.save(function(err, queueSaved) {
-                evenement.fileAttente.push(queueSaved);
-                evenement.save(function(err, evenement) {
-                  if (err) {
-                    res.send(err);
-                  }
-                  return res.status(200).json({ message: 'Cet evenement est complet. Vous avez été mis en file d\'attente' });
+          check_evenement_conflit(user,evenement, res,() => {
+            //Y a t'il encore de la place ?
+            if (evenement.limite !== undefined && evenement.limite !== null && evenement.participants.length >= evenement.limite) {
+              //On se met en file d'attente
+              var queue = new Queue();
+              queue.personne = user;
+              queue.ordre = 1;
+              var toSave = true;
+              evenement.fileAttente.map(item => {
+                if (queue.ordre <= item.ordre) {
+                  queue.ordre = item.ordre +1;
+                }
+                if (user._id.toString() === item.personne.toString()) {
+                  toSave = false;
+                }
+              })
+              if (toSave) {
+                queue.save(function(err, queueSaved) {
+                  evenement.fileAttente.push(queueSaved);
+                  evenement.save(function(err, evenement) {
+                    if (err) {
+                      res.send(err);
+                    }
+                    return res.status(200).json({ message: 'Cet evenement est complet. Vous avez été mis en file d\'attente' });
+                  });
+                  
                 });
-                
-              });
+              } else {
+                return res.status(401).json({ message: 'Vous etes deja en file d\'attente' }); //Deja en file d'attente
+              }
+              
             } else {
-              return res.status(401).json({ message: 'Vous etes deja en file d\'attente' }); //Deja en file d'attente
+              evenement.participants.push(user);
+              evenement.save(function(err, evenement) {
+                if (err)
+                  res.send(err);
+                res.json(evenement);
+              });
             }
-            
-          } else {
-            evenement.participants.push(user);
-            evenement.save(function(err, evenement) {
-              if (err)
-                res.send(err);
-              res.json(evenement);
-            });
-          }
+          });
         } else {
           res.json(evenement);
         }
@@ -470,18 +472,14 @@ exports.delete_a_evenement = function(req, res) {
   });
 };
 
-function check_evenement_conflit(event, res, cb) {
-  if (!event.date_debut) {
-    //Pas de date de debut précisé, donc c'est un update
-    return cb();
-  }
+function check_evenement_conflit(user, event, res, cb) {
   let dateDebut = new Date(event.date_debut.getTime());
   let dateDebutJournee = new Date(event.date_debut.getTime());
   let dateFin = new Date(event.date_debut.getTime() + event.duree*60000);
   let dateFinJournee = new Date(event.date_debut.getTime());
   dateDebutJournee.setHours(0);
   dateFinJournee.setHours(23);
-
+  //On recherche les evenements en conflit
   Evenement.find({
     date_debut: {
         $gte: dateDebutJournee,
@@ -496,11 +494,12 @@ function check_evenement_conflit(event, res, cb) {
         (dateDebutEvent <= dateDebut && dateFinEvent > dateDebut) || //Debut du nouvel evenement pendant un autre
         (dateDebutEvent < dateFin && dateFinEvent >= dateFin)  //Fin du nouvel evenement pendant un autre
       )) {
+        
         return res.status(401).json({ message: 'Cette activité entre en conflit avec une autre' });
       }
     }
     return cb();
-  })
+  }).populate('fileAttente', '_id personne ordre').populate('participants', '_id prenom nom email')
   
 }
 
