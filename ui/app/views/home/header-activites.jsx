@@ -56,11 +56,19 @@ export default React.createClass({
               padding: 20
             }
           }];
+          let eventsDesc = [];
+          if (this.state && this.state.reference && this.state.reference.typeEvenements) {
+            this.state.reference.typeEvenements.map(data => {
+              if (data.image) {
+                eventsDesc.push(data);
+              }
+            });
+          }
         return (
             <div>
             <div data-focus='header-activites'>
                 <Carousel wrapAround={true} slidesToShow={3} decorators={Decorators}>
-                {this.state && this.state.reference && this.state.reference.typeEvenements && this.state.reference.typeEvenements.map(data => {
+                {eventsDesc.map(data => {
                     if (data.image) {
                     return (<div onClick={this.togglePopinLegende(data.code)}>
                             <img src={data.image} />
