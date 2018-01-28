@@ -76,7 +76,7 @@ exports.initData = function() {
   });
 
   Entreprise.findOneAndUpdate({code: 'TOK'}, {
-    label: 'Tokheim',
+    label: 'Tokheim Services',
     code:'TOK'
   }, {upsert: true, 'new': true}, function(err, model) {
   });
