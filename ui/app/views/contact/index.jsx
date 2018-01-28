@@ -13,8 +13,8 @@ export default React.createClass({
     render() {
         return (
             <ScrollspyContainer>
-                <Presentations />
                 <Contact />
+                <Presentations />
                 <Panel title='Informations du site'>
                     <div data-focus='contact'>
                         <label>
