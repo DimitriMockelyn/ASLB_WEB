@@ -1168,17 +1168,34 @@ i.tokenValid {
   color: green !important;
   font-size: 15px !important;
   margin: 2px !important;
+  background-image: url('../assets/button-green.png');
+  background-size: 100% 100%;
+  width: 15px;
+  height: 15px;
 }
 
 i.attente {
-  color: yellow !important;
   font-size: 15px !important;
   margin: 2px !important;
+  background-image: url('../assets/button-yellow.png');
+  background-size: 100% 100%;
+  width: 15px;
+  height: 15px;
 }
 i.inscrit {
   color: red !important;
   font-size: 15px !important;
   margin: 2px !important;
+  background-image: url('../assets/button-red.png');
+  background-size: 100% 100%;
+  width: 15px;
+  height: 15px;
+}
+
+[data-focus='credit-line'] {
+  display: flex;
+  margin-right: 5px;
+  flex-direction: row;
 }
 
 

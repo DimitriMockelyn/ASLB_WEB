@@ -56,9 +56,12 @@ export default React.createClass({
         for (let index = 0; index < this.state.inscrit; index++) {
             dataToken.push({className: 'inscrit'});
         }
-        return <div>{dataToken.map(tk => {
-                return <i className={tk.className + ' material-icons'}>group_work</i>
+        return <div data-focus='credit-line'>
+            {dataToken.length > 0 && <label>Mes Crédits :</label>}
+            <div>{dataToken.map(tk => {
+                return <i className={tk.className + ' material-icons'}></i>
             })}</div>
+            </div>
     },
     componentDidMount() {
         if (userHelper.getLogin() && userHelper.getLogin().premiereConnexion) {
