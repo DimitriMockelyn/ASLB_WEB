@@ -243,6 +243,7 @@ export default React.createClass({
                 />}
                 <div data-focus='legend'>
                     <label>{i18n.t('agenda.legende')}</label>
+                    <label className='legend-star'>{i18n.t('agenda.legendeStar')}</label>
                     {this.state.reference && this.state.reference.typeEvenements && this.state.reference.typeEvenements.map((data,index) => {
                         var firstChild = index === 0 ? 'first' :'';
                         return <div data-focus='legend-item' className={firstChild} onClick={this.togglePopinLegende(data.code)}>

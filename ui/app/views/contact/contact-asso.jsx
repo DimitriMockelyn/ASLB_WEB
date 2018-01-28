@@ -17,6 +17,7 @@ export default React.createClass({
                         <label>{translate('contact.contactCourrier')}</label>
                         <label>{translate('contact.contactMail')}</label>
                         <label>{translate('contact.contactPhysique')}</label>
+                        <div data-focus='img-acces' />
                     </div>
                 </Panel>
                 

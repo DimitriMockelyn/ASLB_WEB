@@ -756,6 +756,8 @@ $lines-to-show: 3;
   padding: 10px;
   margin-top: 15px;
   width: 400px;
+  display: flex;
+  flex-direction: column;
   & > label {
   }
 
@@ -1290,4 +1292,17 @@ i.inscrit {
 
 p {
   margin-bottom: 0px;
+}
+
+.legend-star {
+  margin-top: 10px;
+  font-style: italic;
+  font-size: 11px !important;
+}
+
+[data-focus='img-acces'] {
+  background-image: url('../assets/img/plan-acces.jpg');
+  width: 694px;
+  height: 332px;
+  background-size: 100% 100%;
 }

@@ -106,6 +106,7 @@ export default {
         }
     },
     agenda: {
+        legendeStar: 'Les étoiles, si précisées, correspondent au niveau de difficulté de la séance.',
         home: 'Agenda des activités de l\'ASLB',
         evenementDetail: 'Détail de l\'évènement',
         mine: 'Mon agenda',
