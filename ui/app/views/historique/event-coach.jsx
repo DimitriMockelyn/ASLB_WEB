@@ -44,9 +44,6 @@ export default React.createClass({
     closeCommentaire() {
         this.setState({eventClicked: undefined});
     },
-    closeExplications() {
-        this.setState({togglePopinExplication: false});
-    },
     toggleGestionAbsent(id) {
         this.dontClick= true;
         this.setState({togglePopinAbsent : id});
@@ -64,14 +61,6 @@ export default React.createClass({
         }
         return (
             <div>
-                {this.state.togglePopinExplication && <Popin size='small' open={true} onPopinClose={this.closeExplications}>
-                        <div data-focus='display-column'>
-                            <label>{i18n.t('historique.notCoachYet')}</label>
-                            <label>{i18n.t('historique.howToCoach')}</label>
-                            <label>{i18n.t('historique.coachBenefits')}</label>
-                            <label>{i18n.t('historique.coachContact')}</label>
-                        </div>
-                    </Popin>}
                 {this.state.history && this.state.history.length > 0 && <div>
                     <label style={{'margin-left': '20px'}}>{i18n.t('historique.descriptionCoach')}</label>
                     <div data-focus='historique-list'>

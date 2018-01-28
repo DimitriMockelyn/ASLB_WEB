@@ -3,29 +3,48 @@ import EvenementParticipe from './event-participe';
 import EvenementCoach from './event-coach';
 import agendaServices from '../../services/agenda';
 import Tabs from '../../components/tabs';
+import {component as Popin} from 'focus-components/application/popin';
 export default React.createClass({
     displayName: 'HistoriqueView',
     /** @inheritDoc */
     componentWillMount() {
-        agendaServices.isCoach().then(res => {this.setState(res)});
+        agendaServices.isCoach().then(res => {this.setState({...res, togglePopinExplication : !res.isCoach && this.props.animation})});
     },
     getInitialState() {
-        return {isCoach: false}
+        return {isCoach: undefined}
+    },
+    closeExplications() {
+        this.setState({togglePopinExplication: false});
     },
     render() {
             var data = [];
             data.push({
-                name: 'Historique participant',
+                name: 'Mon Historique',
                 component: EvenementParticipe,
                 props: {}
             });
-            data.push({
-                name: 'Historique du coaching',
-                component: EvenementCoach,
-                props: {}
-            });
+            if (this.state.isCoach) {
+                data.push({
+                    name: 'Historique du coaching',
+                    component: EvenementCoach,
+                    props: {}
+                });
+            }
+            if (this.state.isCoach === undefined) {
+                return <div/>
+            }
             return (
-                <Tabs tabs={data} initialTab={this.props.animation ? 1 : 0}/>
+                <div>
+                <Tabs tabs={data} initialTab={this.props.animation && this.state.isCoach ? 1 : 0}/>
+                {this.state.togglePopinExplication && <Popin size='small' open={true} onPopinClose={this.closeExplications}>
+                        <div data-focus='display-column'>
+                            <label>{i18n.t('historique.notCoachYet')}</label>
+                            <label>{i18n.t('historique.howToCoach')}</label>
+                            <label>{i18n.t('historique.coachBenefits')}</label>
+                            <label>{i18n.t('historique.coachContact')}</label>
+                        </div>
+                    </Popin>}
+                </div>
             );
     }
 });
