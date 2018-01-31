@@ -1,7 +1,6 @@
 import BigCalendar from 'react-big-calendar';
 import moment from 'moment';
 import React from 'react';
-import { navigate, views } from 'react-big-calendar/lib/utils/constants';
 import {mixin as formMixin} from 'focus-components/common/form';
 import builder from 'focus-core/util/url/builder';
 import {component as Popin} from 'focus-components/application/popin';
@@ -11,6 +10,8 @@ import {component as Button} from 'focus-components/common/button/action';
 import Toggle from 'focus-components/components/input/toggle';
 import Panel from 'focus-components/components/panel';
 import RichTextEditor from '../../../components/rich-text-editor';
+import {navigate} from 'focus-core/history';
+
 export default React.createClass({
     displayName: 'NewsView',
     mixins: [formMixin],
@@ -70,7 +71,7 @@ export default React.createClass({
                     {this.state.messages && this.state.messages.map(msg => {
                         return <div data-focus='message-chat' ref='chat-view'>
                                 <div>
-                                    <div>{msg.auteur.prenom + ' ' +msg.auteur.nom}</div>
+                                    <div className='click-user-name' onClick={() => {navigate('u/'+msg.auteur._id, true)}}>{msg.auteur.prenom + ' ' +msg.auteur.nom}</div>
                                     <div dangerouslySetInnerHTML={{__html: msg.message}}/>
                                 </div>
                                 <div>
