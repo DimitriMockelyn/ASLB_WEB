@@ -10,6 +10,7 @@ import MeView from '../views/me';
 import MediaView from '../views/media';
 import InscriptionView from '../views/inscription';
 import AdminUsersView from '../views/admin/admin-users';
+import UserView from '../views/user-info';
 export default createRouter(Backbone).extend({
     log: true,
     beforeRoute() {
