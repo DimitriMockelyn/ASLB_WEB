@@ -22,7 +22,8 @@ export default createRouter(Backbone).extend({
         adminUsers: 'adminUsers',
         me: 'me',
         media: 'media',
-        inscription: 'inscription'
+        inscription: 'inscription',
+        'u/:id': 'userView'
     },
 
     partenaires() {
@@ -49,6 +50,9 @@ export default createRouter(Backbone).extend({
     },
     inscription() {
         this._pageContent(InscriptionView);
+    },
+    userView(id) {
+        this._pageContent(UserView, {props: {id}});
     }
 });
 
