@@ -1,7 +1,7 @@
 import React from 'react';
-import GeneralInfo from './general-info';
+
 export default React.createClass({
-    displayName: 'PartenairesView',
+    displayName: 'Ribbon',
     getInitialState() {
        return {id: this.props.id};
     },
@@ -10,10 +10,14 @@ export default React.createClass({
     /** @inheritDoc */
     render() {
         return (
-            <div data-focus='user-profile-info'>
-                <div data-focus='user-panel-left'>
-                    <GeneralInfo id={this.props.id} />
+            <div data-focus='user-ribbon'>
+                <div data-focus="corner-ribbon">
+                <div>
+                <div>
+                  <div><div>Web createur</div></div>
                 </div>
+              </div>
+            </div>
             </div>
         );
     }

@@ -4,6 +4,7 @@ module.exports = function(app) {
 	var eventHandler = require('../controllers/evenementController'),
 	userHandlers = require('../controllers/userController.js'),
 	homeController = require('../controllers/homeController'),
+	profileController = require('../controllers/profileController'),
 	adminHandler = require('../controllers/adminController');
 
 	// todoList Routes
@@ -156,4 +157,10 @@ module.exports = function(app) {
 
 	app.route('/loadTokens')
 		.get(userHandlers.loginRequired,  userHandlers.load_tokens);
+
+	app.route('/profil/infoGenerales/:id')
+		.get(userHandlers.userExists, profileController.infos_generales);
+
+	app.route('/profil/infoProfil/:id')
+		.get(userHandlers.userExists, profileController.infos_profil);
 };

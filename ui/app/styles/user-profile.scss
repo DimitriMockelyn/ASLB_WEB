@@ -1,0 +1,214 @@
+@import './common/_variables.scss';
+
+[data-focus="user-profile-info"] {
+    width: 100%;
+    [data-focus='user-panel-left'] {
+        position: fixed;
+        width: 30vw;
+        left: 40px;
+        height: calc( 100vh - 140px);
+        top: 100px;
+        background-color: rgba(11,7*16+7,2*16+2,38.0/255);
+        border-radius: 15px;
+        padding: 20px;
+        padding-left: 40px;
+    }
+}
+
+[data-focus='general-info'] {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    [data-focus='top-name'] {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        & > label {
+            font-weight: bold;
+            font-size: 20px !important;
+        }
+        [data-focus='picture'] {
+            margin-top: 20px;
+            [data-focus='bar'] {
+                position: absolute;
+                width: calc( 100% - 60px);
+                left: 40px;
+                top: 105px;
+            }
+            img {
+                border-radius: 1000px;
+                width: 100px;
+                height: 100px;
+                position: relative;
+            }
+            i{
+                font-size: 100px;
+                color: white;
+                background-color: #323232;
+                border-radius: 1000px;
+                position: relative;
+            }
+        }
+    }
+    [data-focus='info-membre'] {
+        margin-top: 20px;
+        display: flex;
+        flex-direction: column;
+        [data-focus='info-nominatives'] {
+            width: 100%;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            margin-bottom: 15px;    
+        }
+        [data-focus='bar'] {
+            position: initial;
+            margin-top: 20px;
+            margin-bottom: 20px;
+            width: 100%;
+        }
+    }
+    [data-focus='bar'] {
+        border: 1px solid $primary-color;
+        height: 0px;
+        padding: 0px;
+    }
+    [data-focus='info-historique'] {
+        display: flex;
+        flex-direction: row;
+        & > div {
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            align-items: center;
+            .recharts-wrapper {
+                margin-top: 20px;
+            }
+        }
+    }
+}
+
+[data-focus='user-ribbon'] {
+    position: absolute;
+    top: -50px;
+    width: 100%;
+        
+        /* ----- White Block ---------------------------------------*/ 
+            [data-focus='corner-ribbon'] > div {
+                display: block;
+                height: 200px;
+                width: 200px;
+                position: relative;
+                top: 50px;
+                left: calc( 100% - 140px);
+                margin-left: -100px;
+        
+        }
+        
+        /* ----- Ribbon Container ---------------------------------------*/ 
+            [data-focus='corner-ribbon'] > div > div {
+                background : transparent;
+                height     : 200px;
+                width      : 200px;
+                position   : absolute;
+                top        : -10px;
+                left       : 10px;
+                overflow   : hidden;
+        
+            }
+        
+        /* ----- Top Curl ---------------------------------------*/ 
+            [data-focus='corner-ribbon'] > div > div:before {
+                content               : "";
+                display               : block;
+                -webkit-border-radius : 10px 10px 0px 0px;
+                border-radius         : 10px 10px 0px 0px;
+                width                 : 50px;
+                height                : 10px;
+                position              : absolute;
+                right                 : 86px;
+        
+                background: rgb(0,138,59); /* Old browsers */
+                /* IE9 SVG, needs conditional override of 'filter' to 'none' */
+                background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgdmlld0JveD0iMCAwIDEgMSIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+CiAgPGxpbmVhckdyYWRpZW50IGlkPSJncmFkLXVjZ2ctZ2VuZXJhdGVkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjAlIiB5MT0iMCUiIHgyPSIxMDAlIiB5Mj0iMCUiPgogICAgPHN0b3Agb2Zmc2V0PSIxJSIgc3RvcC1jb2xvcj0iIzAwOGEzYiIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjQ1JSIgc3RvcC1jb2xvcj0iIzBmMzMwYSIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgPC9saW5lYXJHcmFkaWVudD4KICA8cmVjdCB4PSIwIiB5PSIwIiB3aWR0aD0iMSIgaGVpZ2h0PSIxIiBmaWxsPSJ1cmwoI2dyYWQtdWNnZy1nZW5lcmF0ZWQpIiAvPgo8L3N2Zz4=);
+                background: linear-gradient(to right,  rgba(0,138,59,1) 1%,rgba(15,51,10,1) 45%); /* W3C */
+                
+            }
+        
+        /* ----- Right Curl ---------------------------------------*/ 
+            [data-focus='corner-ribbon'] > div > div:after {
+                content               : "";
+                display               : block;
+                -webkit-border-radius : 0px 10px 10px 0px;
+                border-radius         : 0px 10px 10px 0px;
+                width                 : 10px;
+                height                : 50px;
+                position              : absolute;
+                right                 : 0px;
+                top                   : 85px;
+        
+                
+                background: linear-gradient(to bottom,  rgba(15,51,10,1) 55%,rgba(0,138,59,1) 99%); /* W3C */
+        
+        
+            }
+        
+        /* ----- Ribbon ---------------------------------------*/ 
+            [data-focus='corner-ribbon'] > div > div > div {
+                width              : 200px;
+                height             : 40px;
+                position           : relative;
+                top                : 30px;
+                right              : -50px;
+                z-index            : 1;
+                overflow           : hidden;
+                transform          :rotate(45deg);
+                
+                box-shadow         : inset 0px 0px 0px 3px rgb(0,114,45),inset 0px 0px 0px 4px rgba(0,0,0,0.5),inset 0px 0px 0px 5px rgba(255,255,255,0.4), 0px 21px 5px -18px rgba(0,0,0,0.8); 
+                          
+                background: rgb(0,114,45); /* Old browsers */
+                
+                background: linear-gradient(to right,  rgba(0,114,45,1) 0%,rgba(0,138,59,1) 51%,rgba(0,86,28,1) 100%); /* W3C */
+                div {
+                    position: absolute;
+                    top: 10px;
+                    left: 50px;
+                    color: white;
+                    width: 100px;
+                    text-align: center;
+                }
+        
+            }
+            
+        /* ----- Top Glare ---------------------------------------*/ 		
+            [data-focus='corner-ribbon'] > div > div > div:before {
+                content           : "";
+                display           : block;
+                height            : 72px;
+                width             : 13px;
+                position          : relative;
+                top               : -13px;
+                left              : 27px;
+                transform         : rotate(45deg);
+                
+               
+                background: linear-gradient(to right,  rgba(255,255,255,0) 1%,rgba(255,255,255,0.6) 50%,rgba(255,255,255,0) 100%); /* W3C */
+        
+            }
+        
+        /* ----- Right Clear ---------------------------------------*/ 
+            [data-focus='corner-ribbon'] > div > div > div:after {
+                content           : "";
+                display           : block;
+                height            : 72px;
+                width             : 13px;
+                position          : relative;
+                bottom            : 90px;
+                left              : 154px;
+                transform         : rotate(-45deg);
+
+                background: linear-gradient(to right,  rgba(255,255,255,0) 1%,rgba(255,255,255,0.6) 50%,rgba(255,255,255,0) 100%); /* W3C */
+        
+            }
+        
+}
