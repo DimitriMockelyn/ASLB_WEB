@@ -6,3 +6,4 @@ import './common/panel.scss';
 
 import './public.scss';
 import './welcome.scss';
+import './user-profile.scss';
