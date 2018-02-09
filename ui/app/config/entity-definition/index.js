@@ -27,6 +27,54 @@ export default {
             domain: 'DO_RTE',
             required: true
         },
+        email: {
+            domain: 'DO_EMAIL',
+            required: true
+        },
+        password: {
+            domain: 'DO_PASSWORD',
+            required: true
+        },
+        passwordAgain: {
+            domain: 'DO_PASSWORD',
+            required: true
+        },
+        prenom: {
+            domain: 'DO_LABEL_LONG',
+            required: true
+        },
+        nom: {
+            domain: 'DO_LABEL_LONG',
+            required: true
+        },
+        date_activation: {
+            domain: 'DO_DATE',
+            required: false
+        },
+        date_fin: {
+            domain: 'DO_DATE',
+            required: false
+        },
+        dossier_complet: {
+            domain: 'DO_YES_NO',
+            required: false
+        },
+        isAdmin: {
+            domain: 'DO_YES_NO',
+            required: false
+        },
+        canCreate: {
+            domain: 'DO_YES_NO',
+            required: false
+        },
+        dateNaissance: {
+            domain: 'DO_DATE',
+            required: true
+        },
+        telephone: {
+            domain: 'DO_TELEPHONE',
+            required: false
+        },
     },
     event: {
         created :{

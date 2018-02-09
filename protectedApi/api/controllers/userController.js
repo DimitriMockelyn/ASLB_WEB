@@ -49,6 +49,21 @@ exports.register = function(req, res) {
   });
 };
 
+exports.registerFromAdmin = function(req, res) {
+  var newUser = new User(req.body);
+  newUser.nom = newUser.nom.toUpperCase();
+  newUser.prenom = newUser.prenom.toLowerCase().replace(/\b\w/g, l => l.toUpperCase());
+  newUser.hash_password = 'a';
+  newUser.save(function(err, user) {
+    if (err) {
+      console.log(err);
+      return res.status(401).json({ message: 'Le compte n\'a pas pu être crée ou existe déjà' });
+    } else {
+      return res.json(user);
+    }
+  });
+};
+
 exports.sign_in = function(req, res) {
   User.findOne({
     email: req.body.email
@@ -90,6 +105,27 @@ exports.activate = function(req, res) {
   });
 }
 
+exports.sendMailFirst = function(req, res) {
+  User.findOne({
+    email: req.body.email
+  }, function(err, user) {
+    if (err) throw err;
+    if (!user) {
+      return res.status(401).json({ message: 'Ce compte n\'existe pas' });
+    }
+    var token = new TokenUser({
+      code: uuidv4(),
+      isCreation: false,
+      user: user
+    });
+    token.save(function(err, tokenSaved) {
+        mailer.sendMail([user.email], 'Initialisation de votre mot de passe ASLB', 
+        'Bonjour. Vous avez demandé l\'initialisation de votre mot de passe ASLB. Pour cela, veuillez cliquer sur ce lien: '+getConfig().url+'/#changePassword/'+tokenSaved.code);
+        return res.json({ mailSent: true});
+    });
+  });
+}
+
 exports.sendMailReset = function(req, res) {
   User.findOne({
     email: req.body.email
@@ -122,18 +158,16 @@ exports.changePassword = function(req, res) {
       if (err || !user) {
         return res.json({changed: false});
       }
-      if (!user.actif) {
-        return res.json({changed: false});
-      } else {
-        User.findByIdAndUpdate(token.user, {hash_password : bcrypt.hashSync(req.body.password, 10)}, function(err, userActif) {
-          if (err) {
-            return res.json({changed: false});
-          } else {
-            return res.json({changed: true});
-          }
-        });
-        token.remove(function(err, tokenDel) {});
-      }
+      
+      User.findByIdAndUpdate(token.user, {hash_password : bcrypt.hashSync(req.body.password, 10), actif: true}, function(err, userActif) {
+        if (err) {
+          return res.json({changed: false});
+        } else {
+          return res.json({changed: true});
+        }
+      });
+      token.remove(function(err, tokenDel) {});
+      
     });
   });
 }

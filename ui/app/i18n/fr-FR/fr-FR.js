@@ -73,6 +73,7 @@ export default {
 
     },
     button: {
+        createUser: 'Créer un utilisateur',
         reindexAll: 'Tout ré-indexer',
         download: 'Télécharger',
         remove: 'Supprimer',
@@ -153,7 +154,16 @@ export default {
         mailAll: 'Envoyer un mail général',
         mailCreateurs: 'Envoyer un mail aux créateurs de cours',
         mailAdmins: 'Envoyer un mail aux administrateurs',
-        addPresentation: 'Ajouter une présentation'
+        addPresentation: 'Ajouter une présentation',
+        email: 'Adresse e-mail',
+        password: 'Mot de passe',
+        passwordAgain: 'Confirmez le mot de passe',
+        prenom: 'Prénom',
+        nom: 'Nom',
+        dateNaissance: 'Date de naissance',
+        sexe: 'Sexe',
+        entreprise: 'Entreprise',
+        telephone: 'Téléphone',
     },
     detail: {
         saved: 'Les informations ont bien été enregistrées.'
@@ -204,6 +214,8 @@ export default {
         non: 'Non'
     },
     user: {
+        firstConnect: 'Première connexion',
+        askPassword: 'Initialiser mon mot de passe',
         connect : 'Se connecter',
         create: 'Créer un compte',
         connexion: 'Connexion',
@@ -229,9 +241,11 @@ export default {
         nom: 'Nom',
         badPasswords:'Les mots de passes sont différents',
         createdSuccess: 'Le compte à été crée, veuillez le valider pour vous connecter',
+        createdSuccess2: 'Le compte à été crée',
         confirmResetPassword: 'Veuillez entrer les nouvelles informations de mot de passe',
         passwordReseted: 'Votre mot de passe a été réinitialisé',
         mailResetSent: 'Un mail vous a été envoyé pour réinitialiser votre mot de passe',
+        mailFirstSent: 'Un mail vous a été envoyé pour initialiser votre mot de passe',
         date_activation: 'Date d\'adhésion',
         canCreate: 'Peut créer un événement',
         isAdmin: 'Est admin',

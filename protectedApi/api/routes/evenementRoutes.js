@@ -30,6 +30,9 @@ module.exports = function(app) {
 	app.route('/auth/register')
 		.post(userHandlers.register);
 
+	app.route('/auth/registerFromAdmin')
+		.post(userHandlers.loginRequired,  userHandlers.isAdmin, userHandlers.registerFromAdmin);
+
 	app.route('/auth/sign_in')
 		.post(userHandlers.sign_in);
 
@@ -63,6 +66,9 @@ module.exports = function(app) {
 	
 	app.route('/sendMailReset')
 		.post(userHandlers.sendMailReset);
+	
+	app.route('/sendMailFirst')
+		.post(userHandlers.sendMailFirst);
 
 	app.route('/myEvenements')
 		.get(eventHandler.list_my_evenements);

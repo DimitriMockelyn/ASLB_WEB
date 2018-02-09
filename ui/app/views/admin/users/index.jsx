@@ -14,10 +14,14 @@ import Panel from 'focus-components/components/panel';
 import Input from 'focus-components/components/input/text';
 import UserInfo from './user-info';
 import {downloadCSV} from '../../../utils/download';
+import userServices from '../../../services/user';
+import message from 'focus-core/message';
+
 export default React.createClass({
     displayName: 'UsersView',
     mixins: [formMixin],
     definitionPath: 'admin',
+    referenceNames: ['typeSexe', 'typeEntreprise'],
     getInitialState() {
         return {
             limit: 3,
@@ -43,13 +47,25 @@ export default React.createClass({
     renderActionsEdit() {
         if (!this.props.hideButtons) {
             return <div>
+                <Button type='button' label='button.createUser' handleOnClick={this.createUser} />
                 <Button type='button' label='button.exporter' handleOnClick={this.export} />
                 <Button type='button' label='button.voirPlus' handleOnClick={() => {this.setState({limit: this.state.limit+3})}}/>
             </div>
         }
     },
+    createUser() {
+        this.setState({createUser: true});
+    },
+    closePopinCreate() {
+        this.setState({createUser: false});
+    },
     onChangeInput(value) {
         this.setState({filter: value}, this.loadAllUsers);
+    },
+    create() {
+        if (this._validate()) {
+            userServices.createFromAdmin(this._getEntity()).then(() => {message.addSuccessMessage(i18n.t('person.createdSuccess2'))}, err => { console.log(err); throw err;});
+        }
     },
     /** @inheritDoc */
     renderContent() {
@@ -92,6 +108,16 @@ export default React.createClass({
             </div>
             {this.state.selectedUser && <Popin open={true} size='medium' onPopinClose={this.closePopin}>
                 <UserInfo hasLoad={false} data={this.state.selectedUser} onPopinClose={this.closePopin}/>
+            </Popin>}
+            {this.state.createUser && <Popin open={true} size='medium' onPopinClose={this.closePopinCreate}>
+                {this.fieldFor('email', {isEdit: true})}
+                {this.fieldFor('prenom', {isEdit: true})}
+                {this.fieldFor('nom', {isEdit: true})}
+                {this.fieldFor('dateNaissance', {isEdit: true})}
+                {this.fieldFor('sexe', {isEdit: true, listName: 'typeSexe', valueKey: '_id', isRequired: true})}
+                {this.fieldFor('entreprise', {isEdit: true, listName: 'typeEntreprise', valueKey: '_id', isRequired: true})}
+                {this.fieldFor('telephone', {isEdit: true})}
+                <Button label='user.creation' type='button' handleOnClick={this.create} />
             </Popin>}
         </Panel>
         );

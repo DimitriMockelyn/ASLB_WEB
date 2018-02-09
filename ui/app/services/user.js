@@ -19,6 +19,9 @@ export default {
     create(data) {
         return fetch(userUrl.create({data}));
     },
+    createFromAdmin(data) {
+        return fetch(userUrl.createFromAdmin({data}), utils.computeHeaders());
+    },
     connect(data) {
         return fetch(userUrl.connect({data}));
     },
@@ -36,6 +39,9 @@ export default {
     },
     sendMailReset(data) {
         return fetch(userUrl.sendMailReset({data}));
+    },
+    sendMailFirst(data) {
+        return fetch(userUrl.sendMailFirst({data}));
     },
     loadUserAutocomplete(data) {
         return fetch(userUrl.loadUserAutocomplete({data}), utils.computeHeaders());

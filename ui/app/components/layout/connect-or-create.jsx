@@ -7,6 +7,7 @@ import userHelper from 'focus-core/user';
 import userServices from '../../services/user';
 import {component as Popin} from 'focus-components/application/popin';
 import message from 'focus-core/message';
+import {navigate} from 'focus-core/history';
 
 export default React.createClass({
     displayName: 'HomeView',
@@ -29,13 +30,14 @@ export default React.createClass({
             userServices.connect(this._getEntity()).then((res) => {
                 userHelper.setLogin({...userHelper.getLogin(), ...res});
                 document.cookie = "tokenJWT=" + res.token;
+                navigate('/', false);
                 window.location.reload();
             }, err => { console.log(err); throw err;});
         }
     },
-    create() {
+    sendMailFirst() {
         if (this._validate()) {
-            userServices.create(this._getEntity()).then(() => {message.addSuccessMessage(i18n.t('person.createdSuccess'))}, err => { console.log(err); throw err;});
+            userServices.sendMailFirst(this._getEntity()).then(() => {message.addSuccessMessage(i18n.t('person.mailFirstSent'))}, err => { console.log(err); throw err;});
         }
     },
     sendMailReset() {
@@ -59,24 +61,17 @@ export default React.createClass({
         <div>
             <div data-scope='button-bar-compte'>
             <Button label='user.connect' className={this.state.tab === 0 ? 'active' : ''} type='button' handleOnClick={() => {this.setState({tab: 0})} } />
-            <Button label='user.create' className={this.state.tab === 1 ? '' : 'active'} type='button' handleOnClick={() => {this.setState({tab: 1})} } />
+            <Button label='user.firstConnect' className={this.state.tab === 1 ? '' : 'active'} type='button' handleOnClick={() => {this.setState({tab: 1})} } />
             <Button label='user.forgot' className={this.state.tab === 2 ? '' : 'active'} type='button' handleOnClick={() => {this.setState({tab: 2})} } />
             </div>
             {this.fieldFor('email', {isEdit: true})}
-            {this.state.tab !== 2 && this.fieldFor('password', {isEdit: true, options: { _handleKeyPress: function(e) {
+            {this.state.tab === 0 && this.fieldFor('password', {isEdit: true, options: { _handleKeyPress: function(e) {
                 if (e.key === 'Enter') {
                 console.log('do validate');
                 }
             }}})}
-            {this.state.tab === 1 && this.fieldFor('passwordAgain', {isEdit: true})}
-            {this.state.tab === 1 && this.fieldFor('prenom', {isEdit: true})}
-            {this.state.tab === 1 && this.fieldFor('nom', {isEdit: true})}
-            {this.state.tab === 1 && this.fieldFor('dateNaissance', {isEdit: true})}
-            {this.state.tab === 1 && this.fieldFor('sexe', {isEdit: true, listName: 'typeSexe', valueKey: '_id', isRequired: true})}
-            {this.state.tab === 1 && this.fieldFor('entreprise', {isEdit: true, listName: 'typeEntreprise', valueKey: '_id', isRequired: true})}
-            {this.state.tab === 1 && this.fieldFor('telephone', {isEdit: true})}
             {this.state.tab === 0 && <Button label='user.connexion' handleOnClick={this.connect} />}
-            {this.state.tab === 1 && <Button label='user.creation' type='button' handleOnClick={this.create} />}
+            {this.state.tab === 1 && <Button label='user.askPassword' type='button' handleOnClick={this.sendMailFirst} />}
             {this.state.tab === 2 && <Button label='user.reset' type='button' handleOnClick={this.sendMailReset} />}
         </div>
         );
