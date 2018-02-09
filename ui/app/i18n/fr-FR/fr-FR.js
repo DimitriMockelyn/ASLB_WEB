@@ -269,7 +269,12 @@ export default {
         raisonSport: 'Pour toi, le sport c\'est ... ?',
         activitesVoulues: 'Parmis les activités proposées, quelles sont celles qui t\'intéressent ?',
         autreActivites: 'Y-a-t\'il des activités sportives (non proposées) que tu aimerais voir dans cette liste?',
-        records: 'Des records, titres, accomplissements personnels que tu veux partager avec nous ?'
+        records: 'Des records, titres, accomplissements personnels que tu veux partager avec nous ?',
+        adhesion: 'Adhésion',
+        decharge: 'Décharge',
+        reglement: 'Réglement',
+        certificat: 'Certificat',
+        cotisation: 'Cotisation'
     },
     confirmAddDroits: {
         create: 'Voulez vous vraiment changer les droits de création d\'activité a cette personne ?',

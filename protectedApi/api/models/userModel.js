@@ -84,6 +84,26 @@ var User = new Schema({
   profil: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Profil'
+  },
+  adhesion: {
+    type: Boolean,
+    default: false
+  },
+  decharge: {
+    type: Boolean,
+    default: false
+  },
+  reglement: {
+    type: Boolean,
+    default: false
+  },
+  certificat: {
+    type: Boolean,
+    default: false
+  },
+  cotisation: {
+    type: Boolean,
+    default: false
   }
 });
 

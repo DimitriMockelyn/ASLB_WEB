@@ -171,6 +171,26 @@ export default {
             domain: 'DO_YES_NO',
             required: false
         },
+        adhesion: {
+            domain: 'DO_YES_NO',
+            required: false
+        },
+        decharge: {
+            domain: 'DO_YES_NO',
+            required: false
+        },
+        reglement: {
+            domain: 'DO_YES_NO',
+            required: false
+        },
+        certificat: {
+            domain: 'DO_YES_NO',
+            required: false
+        },
+        cotisation: {
+            domain: 'DO_YES_NO',
+            required: false
+        },
         isAdmin: {
             domain: 'DO_YES_NO',
             required: false

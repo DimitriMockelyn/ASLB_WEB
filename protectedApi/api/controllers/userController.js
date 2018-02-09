@@ -467,6 +467,11 @@ function fill_user_data(users_db, formatDate, cb) {
     users[index]['sexe'] = users_db[index]['sexe'];
     users[index]['entreprise'] = users_db[index]['entreprise'];
     users[index]['dossier_complet'] = users_db[index].dossier_complet ? 'Oui' : 'Non';
+    users[index]['adhesion'] = users_db[index].adhesion ? 'Oui' : 'Non';
+    users[index]['decharge'] = users_db[index].decharge ? 'Oui' : 'Non';
+    users[index]['reglement'] = users_db[index].reglement ? 'Oui' : 'Non';
+    users[index]['certificat'] = users_db[index].certificat ? 'Oui' : 'Non';
+    users[index]['cotisation'] = users_db[index].cotisation ? 'Oui' : 'Non';
     users[index]['date_activation'] = formatDate ? (users_db[index]['date_activation'] ? moment(users_db[index]['date_activation'], moment.ISO_8601).format('DD/MM/YYYY') : '') : users_db[index]['date_activation'];
     users[index]['date_fin'] = formatDate ? ( users_db[index]['date_fin'] ? moment(users_db[index]['date_fin'], moment.ISO_8601).format('DD/MM/YYYY') : '')  : users_db[index]['date_fin'];
     users[index]['nombreInscription'] = 0;
@@ -668,7 +673,16 @@ exports.toggle_actif = function(req, res) {
 
 
 exports.update_date_activation = function(req, res) {
-  User.findByIdAndUpdate(req.params.id, {date_activation : req.body.date_activation, date_fin: req.body.date_fin, dossier_complet: req.body.dossier_complet }, function(err, userActif) {
+  User.findByIdAndUpdate(req.params.id, {
+    date_activation : req.body.date_activation, 
+    date_fin: req.body.date_fin, 
+    dossier_complet: req.body.dossier_complet,
+    adhesion: req.body.adhesion,
+    decharge: req.body.decharge,
+    reglement: req.body.reglement,
+    certificat: req.body.certificat,
+    cotisation: req.body.cotisation
+  }, function(err, userActif) {
     if (err) {
       return res.json({updated: false});
     } else {

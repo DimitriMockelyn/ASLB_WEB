@@ -34,7 +34,14 @@ export default React.createClass({
     componentWillMount() {
     },
     getInitialState() {
-        return {...this.props.data, dossier_complet: (this.props.data.dossier_complet === 'Oui') };
+        return {...this.props.data, 
+            dossier_complet: (this.props.data.dossier_complet === 'Oui'), 
+            adhesion: (this.props.data.adhesion === 'Oui'), 
+            decharge: (this.props.data.decharge === 'Oui'), 
+            reglement: (this.props.data.reglement === 'Oui'), 
+            certificat: (this.props.data.certificat === 'Oui'), 
+            cotisation: (this.props.data.cotisation === 'Oui'), 
+        };
     },
     canCreateToggle() {
         confirm(i18n.t('confirmAddDroits.create')).then( () => {
@@ -68,8 +75,10 @@ export default React.createClass({
             if (momentFin.get('year') === 2018) {
                 momentFin.set('year', momentFin.get('year') +1);
             }
-            this.setState({date_fin: momentFin, date_activation: dateAdhesion});
+            return  momentFin;
+            //this.setState({date_fin: momentFin, date_activation: dateAdhesion});
         }
+        
     },
     onRaisonChange(value) {
         this.state.raisonChange = value;
@@ -79,6 +88,23 @@ export default React.createClass({
             adminServices.toggleActif({ id: this.state._id, raison: this.state.raisonChange}).then(this.props.onPopinClose);
         });
     },
+    onChangeInfo(field) {
+        let that = this;
+        return (value) => {
+            let data = that._getEntity();
+            data[field] = value;
+            if (data.adhesion && data.decharge && data.reglement && data.certificat && data.cotisation) {
+                data.dossier_complet = true;
+                data.date_activation = moment();
+                data.date_fin = this.computeDateFin(moment());
+            } else {
+                data.dossier_complet = false;
+                data.date_activation = undefined;
+                data.date_fin = undefined;
+            }
+            that.setState(data);
+        }
+    },
     /** @inheritDoc */
     renderContent() {
         return (
@@ -87,11 +113,17 @@ export default React.createClass({
                 {this.fieldFor('nom', {isEdit: false})}
                 {this.fieldFor('prenom', {isEdit: false})}
                 {this.fieldFor('email', {isEdit: false})}
-                {this.fieldFor('date_activation', {onChange: this.computeDateFin})}
-                {this.fieldFor('date_fin')}
-                {this.fieldFor('dossier_complet')}
+                {this.fieldFor('date_activation', {isEdit: false})}
+                {this.fieldFor('date_fin', {isEdit: false})}
+                {this.fieldFor('dossier_complet', {isEdit: false})}
+                {this.fieldFor('adhesion', {onChange: this.onChangeInfo('adhesion')})}
+                {this.fieldFor('decharge', {onChange: this.onChangeInfo('decharge')})}
+                {this.fieldFor('reglement', {onChange: this.onChangeInfo('reglement')})}
+                {this.fieldFor('certificat', {onChange: this.onChangeInfo('certificat')})}
+                {this.fieldFor('cotisation', {onChange: this.onChangeInfo('cotisation')})}
                 {this.fieldFor('canCreate', {isEdit: false})}
                 {this.fieldFor('isAdmin', {isEdit: false})}
+
                 <div>  
                     <Button label='person.toggleCanCreate' type='button' handleOnClick={this.canCreateToggle} />
                     <Button label='person.setAdmin' type='button' handleOnClick={this.toggleAdmin} />
