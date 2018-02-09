@@ -18,7 +18,7 @@ export default React.createClass({
                
                 if (event) {
                     //get by id
-                    let title = event.typeEvenement.name + ' - ' + event.name ;
+                    let title = (event.typeEvenement ? event.typeEvenement.name : '') + ' - ' + event.name ;
                     var endDate = new Date(event.date_debut);
                     endDate.setMinutes(endDate.getMinutes() + event.duree);
                     events.push({

@@ -43,7 +43,7 @@ export default React.createClass({
         <div>
             <div data-focus='commentaire-coach'>
                 <div>
-                    {this.props.data.typeEvenement.name + ' - ' + this.props.data.name}
+                    {(this.props.data.typeEvenement ? this.props.data.typeEvenement.name : '') + ' - ' + this.props.data.name}
                 </div>
                 <div>
                     {this.props.data.description}

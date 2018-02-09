@@ -13,7 +13,7 @@ export default React.createClass({
         var limitString = this.props.data.limite ?  '/' + this.props.data.limite : '';
         return (
         <div data-focus='panel-into-panel'>
-            <Panel title={this.props.data.typeEvenement.name + ' - ' + this.props.data.name}>
+            <Panel title={(this.props.data.typeEvenement ? this.props.data.typeEvenement.name : '') + ' - ' + this.props.data.name}>
                 <div>
                     {this.props.data.description}
                 </div>

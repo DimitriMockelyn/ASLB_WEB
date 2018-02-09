@@ -37,7 +37,7 @@ export default React.createClass({
         return (
         <div>
                             <div>
-                    {this.props.data.typeEvenement.name + ' - ' + this.props.data.name}
+                    {(this.props.data.typeEvenement ? this.props.data.typeEvenement.name : '') + ' - ' + this.props.data.name}
                 </div>
             <div>
                     {this.props.data.description}

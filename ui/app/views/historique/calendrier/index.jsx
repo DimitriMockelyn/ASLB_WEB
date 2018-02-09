@@ -33,7 +33,7 @@ export default React.createClass({
         var myId = userHelper.getLogin() && userHelper.getLogin()._id ? userHelper.getLogin()._id.toString() : '';
         var className = '';
         //Detection de la couleur pour le type d'evenement
-        className = className + ' ' + event.typeEvenement.code + ' ';
+        className = className + ' ' + (event.typeEvenement ? event.typeEvenement.code : '') + ' ';
         return {
             className: className
         }
