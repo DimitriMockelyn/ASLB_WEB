@@ -19,14 +19,14 @@ export default React.createClass({
             return '';
         }
 
-        return this.state.reference[listName].find(data => { return data._id === id}).name;
+        return (this.state.reference[listName].find(data => { return data._id === id}) || {name: ''}).name;
     },
     computeCode(id, listName) {
         if (!id || !this.state.reference || !this.state.reference[listName]) {
             return '';
         }
 
-        return this.state.reference[listName].find(data => { return data._id === id}).code;
+        return (this.state.reference[listName].find(data => { return data._id === id}) || {code: ''}).code;
     },
     /** @inheritDoc */
     renderContent() {
