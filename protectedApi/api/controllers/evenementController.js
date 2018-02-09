@@ -492,9 +492,14 @@ function check_evenement_conflit(user, event, res, cb) {
       let dateFinEvent = new Date(existingEvent.date_debut.getTime() + existingEvent.duree*60000);
       if ( existingEvent._id.toString() !== event._id.toString() && (
         (dateDebutEvent <= dateDebut && dateFinEvent > dateDebut) || //Debut du nouvel evenement pendant un autre
-        (dateDebutEvent < dateFin && dateFinEvent >= dateFin)  //Fin du nouvel evenement pendant un autre
+        (dateDebutEvent < dateFin && dateFinEvent >= dateFin) || //Fin du nouvel evenement pendant un autre
+        (dateDebut <= dateDebutEvent && dateFin > dateFinEvent) || //Debut du nouvel evenement pendant un autre
+        (dateDebut < dateFinEvent && dateFin >= dateFinEvent) //Fin du nouvel evenement pendant un autre
       )) {
         //Cette activité est en conflit, on vérifie la liste des participants
+        if (existingEvent.animateur.toString() === user._id.toString()) {
+          return res.status(401).json({ message: 'Cette activité entre en conflit avec une autre' });
+        }
         if (existingEvent.participants.length > 0) {
           for (let index2  = 0; index2 < existingEvent.participants.length; index2++) {
             let ptp = existingEvent.participants[index2];
