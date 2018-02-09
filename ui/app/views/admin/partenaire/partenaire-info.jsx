@@ -34,6 +34,7 @@ export default React.createClass({
                 {this.fieldFor('url', {isEdit: true})}
                 {this.fieldFor('logo', {isEdit: true})}
                 {this.fieldFor('description', {isEdit: true})}
+                {this.fieldFor('ordre', {isEdit: true})}
                 <div>
                     <Button label='button.save' type='button' handleOnClick={this.create} />
                 </div>

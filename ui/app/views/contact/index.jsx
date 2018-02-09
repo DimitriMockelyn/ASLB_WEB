@@ -30,8 +30,8 @@ export default React.createClass({
                             La prestation étant réalisée sur le temps libre et au bon vouloir des contributeurs, il est possible que le site rencontre des problèmes.
                         </label>
                         <label>Vous pouvez les rapporter <a href='https://github.com/DimitriMockelyn/ASLB_WEB/issues'>ici</a> ou <a href="mailto:dimitri.mockelyn@gmail.com?subject=Il marche pô ton site lol"> ici </a></label>
-                        <label>Toutes les suggestions sont les bienvenues. Si vous avez une idée d'amélioration, n'hésitez pas a nous contacter <a href="mailto:dimitri.mockelyn@gmail.com?subject=[ASLB] Idée ou remarque">par ici</a></label>
-                        <label>Si vous voulez juste laisser un commentaire sur le site proposé, vous pouvez le faire <a href="mailto:dimitri.mockelyn@gmail.com?subject=<3">ici</a> s'il est positif, <a href="mailto:noreply-junk@aslb.com?subject=Pas content">ici</a> sinon</label>
+                        <label>Toutes les suggestions sont les bienvenues. Si vous avez une idée d'amélioration, n'hésitez pas a nous contacter <a href="mailto:aslb@laboursidiere.com?subject=[ASLB] Idée ou remarque">par ici</a></label>
+                        <label>Si vous voulez juste laisser un commentaire sur le site proposé, vous pouvez le faire <a href="mailto:aslb@laboursidiere.com?subject=<3">ici</a> s'il est positif, <a href="mailto:noreply-junk@laboursidiere.com?subject=Pas content">ici</a> sinon :)</label>
                     </div>
                 </Panel>
             </ScrollspyContainer>

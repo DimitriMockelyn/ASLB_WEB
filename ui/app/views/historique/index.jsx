@@ -42,6 +42,7 @@ export default React.createClass({
                             <label>{i18n.t('historique.howToCoach')}</label>
                             <label>{i18n.t('historique.coachBenefits')}</label>
                             <label>{i18n.t('historique.coachContact')}</label>
+                            <label>{i18n.t('historique.signature')}</label>
                         </div>
                     </Popin>}
                 </div>

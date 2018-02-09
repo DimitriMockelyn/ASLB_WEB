@@ -12,6 +12,10 @@ export default {
         },
         description: {
             domain: 'DO_RTE'
+        },
+        ordre: {
+            domain: 'DO_NUMBER',
+            required: true
         }
     },
     admin: {

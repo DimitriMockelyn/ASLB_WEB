@@ -17,20 +17,21 @@ export default React.createClass({
                 </div>
                 <Panel title='Conditions'>
                     <div data-focus='column'>
-                        <label>L'inscription est réservée aux employés du Centre d'Affaires La Boursidière.</label>
-                        <label>Le prix de l'inscription, valable jusqu'au prochain 31 août à compter de la date d'inscription, est fixé à 30€</label>
-                        <label>Les inscriptions enregistrées de janvier à août 2018, seront valables, exceptionnellements, jusqu'au 31 août 2019</label>
+                    <label>L'inscription est réservée aux employés du Centre d'Affaires La Boursidière et est valable du 1er septembre au 31 août. Le prix de la cotisation est de 30€ à renouveler chaque année.</label>
+                    <label>Exceptionnellement, toutes inscriptions réglées avant le 1er septembre 2018 sera valable jusqu’au 31 août<div style={{'font-weight':'bold'}}>2019</div></label>
                     </div>
                 </Panel>
                 <Panel title='Nous rejoindre'>
                     <div data-focus='column'>
-                        <label>Les pièces justificatives à présenter pour votre inscription sont les suivantes</label>
+                        <label>Un dossier d’inscription doit être retiré au bureau ou téléchargé et doit être rendu dûment rempli et signé.</label>
+                        <label>Il comporte les documents ci-dessous :</label>
                         <ul>
-                            <li><label>Fiche d'adhésion complétée</label></li>
-                            <li><label>Certificat médical</label></li>
-                            <li><label>Décharge de responsabilité</label></li>
+                            <li><label>Fiche d'adhésion (à compléter et signer)</label></li>
+                            <li><label>Certificat médical (à faire remplir par son médecin traitant - valable 3 ans)</label></li>
+                            <li><label>Décharge de responsabilité (à compléter et signer)</label></li>
+                            <li><label>Règlement intérieur (à signer)</label></li>
                         </ul>
-                        <label>Vous pouvez télécharger votre dossier d'inscription a compléter <div className='link' onClick={() => {window.location.href = './Inscription_ASLB.zip'}}>içi</div> </label>
+                        <label>Vous pouvez télécharger votre dossier d'inscription <div className='link' onClick={() => {window.location.href = './Inscription_ASLB.zip'}}>içi</div> </label>
                     </div>
                 </Panel>
             </ScrollspyContainer>

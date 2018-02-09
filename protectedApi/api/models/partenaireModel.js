@@ -17,6 +17,9 @@ var Partenaire = new Schema({
   },
   description: {
     type: String
+  },
+  ordre: {
+    type: Number
   }
 });
 

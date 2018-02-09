@@ -268,10 +268,11 @@ export default {
         description: 'Historique de mes événements. Laissez un commentaire sur un événement en le selectionnant.',
         eventsParticipant: ' événement(s) terminé(s)',
         descriptionCoach: 'Historique de mon coaching événements. Cliquer sur un événement pour voir les commentaires laissés',
-        notCoachYet: 'Vous n\'avez pas encore animé de séances.',
-        howToCoach: 'Si l\'animation d\'activités vous intéresse, nous sommes la pour vous aider a concretiser votre projet !',
-        coachBenefits: 'L\'association fonctionne grace a vous, et aux animateurs qui proposent des activités de groupe pour tout le monde. Toutes les idées sont les bienvenues.',
-        coachContact: 'Pour vous lancer dans cette aventure avec nous, prenez directement contact avec un animateur pendant les heures d\'ouverture, ou envoyez nous un petit mail :) Nous vous répondrons dans les plus brefs délais'
+        notCoachYet: 'Vous souhaitez rejoindre l’équipe des animateurs ? Bien ! Nous sommes là pour vous accompagner.',
+        howToCoach: 'L\'association fonctionne grâce à vous et aux animateurs qui proposent des activités de groupe pour tout le monde. Toutes les idées sont les bienvenues, elles seront étudiées et si toutes les conditions sont réunies pour que l’on puisse les proposer, on se lance !',
+        coachBenefits: 'N’hésitez plus, prenez contact avec un animateur pendant les heures d\'ouverture ou envoyez nous un petit mail :) Nous vous répondrons dans les plus brefs délais !',
+        coachContact: 'A très bientôt !',
+        signature: 'Le bureau'
     },
     sexe: {
         label: 'sexe'
@@ -283,7 +284,8 @@ export default {
         name: 'Nom',
         url: 'URL',
         logo: 'Logo (url)',
-        description: 'Description'
+        description: 'Description',
+        ordre: 'Ordre'
     },
     presentation: {
         name: 'Titre',
@@ -306,7 +308,7 @@ export default {
     contact: {
         contactAsso: 'Contacter l\'association',
         contactCourrier: 'Si vous voulez contacter l\'association par courrier, vous pouvez adresser votre courrier à l\'adresse suivante : ASSOCIATION SPORTIVE LA BOURSIDIÈRE, LA BOURSIDIERE, 92350 Plessis-Robinson.',
-        contactMail: 'Pour un contact par e-mail, vous pouvez contacter la boite mail suivante :',
+        contactMail: 'Pour un contact par e-mail, vous pouvez contacter la boite mail suivante : aslb@laboursidiere.com',
         contactPhysique: 'Pour venir nous voir pendant les heures d\'activités, c\'est ici !',
         presentationMembres: 'Présentation des membres',
         presentationTitre: 'Qui suis-je ?',
