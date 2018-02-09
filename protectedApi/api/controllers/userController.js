@@ -441,10 +441,11 @@ exports.export_users = function(req, res) {
       res.send(err);
     }
     fill_user_data(users_db, true, users => {      
-      var fields = ['nom', 'prenom', 'email','sexe.label', 'entreprise.label', 
-      'date_activation', 'date_fin', 'dossier_complet', 'nombreInscription',
+      var fields = ['nom', 'prenom', 'email','numero','sexe.label', 'entreprise.label', 
+      'date_activation', 'date_fin', 'dossier_complet', 'adhesion', 'decharge', 'reglement', 'certificat', 'cotisation', 'nombreInscription',
        'noteMoyenneDonnee', 'noteMoyenneRecue' , 'nombreAbsences', 'nombreCoach']
-      var fieldNames  = ['person.nom', 'person.prenom', 'person.email','sexe.label', 'entreprise.label', 'person.date_activation', 'person.date_fin', 'person.dossier_complet', 
+      var fieldNames  = ['person.nom', 'person.prenom', 'person.email','Numéro d\'adhérent','sexe.label', 'entreprise.label', 'person.date_activation', 'person.date_fin', 'person.dossier_complet',
+      'Adhésion', 'Décharge', 'Règlement', 'Certificat', 'Côtisation', 
       'Nombre d\'inscriptions dans les '+GLISSEMENT_JOURS_STATS+' derniers jours', 'Note moyenne donnée sur '+GLISSEMENT_JOURS_STATS+' jours', 
       'Note moyenne recue sur '+GLISSEMENT_JOURS_STATS+' jours', 'Nombre d\'absences sur '+GLISSEMENT_JOURS_STATS+' jours', 'Nombre d\'activités données sur '+GLISSEMENT_JOURS_STATS+' jours']
       json2csv({ data: users, fields: fields, fieldNames:fieldNames, quotes:'', del: ';' }, function(err, csv) {
@@ -464,6 +465,7 @@ function fill_user_data(users_db, formatDate, cb) {
     users[index]['nom'] = users_db[index]['nom'];
     users[index]['prenom'] = users_db[index]['prenom'];
     users[index]['email'] = users_db[index]['email'];
+    users[index]['numero'] = users_db[index]['numero'];
     users[index]['sexe'] = users_db[index]['sexe'];
     users[index]['entreprise'] = users_db[index]['entreprise'];
     users[index]['dossier_complet'] = users_db[index].dossier_complet ? 'Oui' : 'Non';
@@ -681,7 +683,8 @@ exports.update_date_activation = function(req, res) {
     decharge: req.body.decharge,
     reglement: req.body.reglement,
     certificat: req.body.certificat,
-    cotisation: req.body.cotisation
+    cotisation: req.body.cotisation,
+    numero: req.body.numero
   }, function(err, userActif) {
     if (err) {
       return res.json({updated: false});

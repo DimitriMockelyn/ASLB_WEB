@@ -274,7 +274,8 @@ export default {
         decharge: 'Décharge',
         reglement: 'Réglement',
         certificat: 'Certificat',
-        cotisation: 'Cotisation'
+        cotisation: 'Cotisation',
+        numero: 'Numéro d\'adhérent'
     },
     confirmAddDroits: {
         create: 'Voulez vous vraiment changer les droits de création d\'activité a cette personne ?',

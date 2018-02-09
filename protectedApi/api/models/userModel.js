@@ -74,6 +74,9 @@ var User = new Schema({
     ref: 'Entreprise',
     required: true
   },
+  numero: {
+    type: String
+  },
   telephone: {
     type: String
   },

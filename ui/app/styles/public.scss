@@ -414,7 +414,6 @@ div[data-focus="field"][data-mode="edit"][data-domain='DO_RTE'] [data-focus="fie
     flex-direction: row;
     justify-content: center;
     align-items: center;
-    height: 42px;
     & > div {
       width: 100%;
       display: flex;
@@ -426,6 +425,8 @@ div[data-focus="field"][data-mode="edit"][data-domain='DO_RTE'] [data-focus="fie
     }
     & > div:first-of-type {
       word-break: initial;
+      
+    overflow: auto;
     }
     & > div:last-of-type {
       word-break: initial;

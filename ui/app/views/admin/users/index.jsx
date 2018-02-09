@@ -78,11 +78,17 @@ export default React.createClass({
                         Nom
                     </div>
                     <div>E-mail</div>
+                    <div>Numéro d'adhérent</div>
                     <div>Sexe</div>
                     <div>Entreprise</div>
                     <div>Date de début d'adhésion</div>
                     <div>Date de fin d'adhésion</div>
                     <div>Dossier complet</div>
+                    <div>Adhésion</div>
+                    <div>Décharge</div>
+                    <div>Règlement</div>
+                    <div>Certificat</div>
+                    <div>Côtisation</div>
                     <div>Nombre d'inscriptions dans les 30 derniers jours</div>
                     <div></div>
                 </div>
@@ -95,11 +101,17 @@ export default React.createClass({
                                 {value.isAdmin && <i className='material-icons' >build</i>}
                             </div>
                             <div>{value.email}</div>
+                            <div>{value.numero}</div>
                             <div>{value.sexe && value.sexe.label}</div>
                             <div>{value.entreprise && value.entreprise.label}</div>
                             <div>{value.date_activation && moment(value.date_activation, moment.ISO_8601).format('DD/MM/YYYY')}</div>
                             <div>{value.date_fin && moment(value.date_fin, moment.ISO_8601).format('DD/MM/YYYY')}</div>
                             <div>{value.dossier_complet}</div>
+                            <div>{value.adhesion}</div>
+                            <div>{value.decharge}</div>
+                            <div>{value.reglement}</div>
+                            <div>{value.certificat}</div>
+                            <div>{value.cotisation}</div>
                             <div>{value.nombreInscription}</div>
                             <div><Button type='button' icon='edit' shape='fav' handleOnClick={() => {this.openPopin(value)}}/></div>
                         </div>
