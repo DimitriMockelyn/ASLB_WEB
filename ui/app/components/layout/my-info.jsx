@@ -13,7 +13,7 @@ export default React.createClass({
     render() {
         var me = userHelper.getLogin();
         return <div data-focus='me-panel'>
-            <label>{me.prenom + ' '+ me.nom + ' (' + me.email + ')'}</label>
+            <label className='click-user-name' onClick={() => {navigate('u/'+me._id, true); this.props.closePopin();}}>{me.prenom + ' '+ me.nom + ' (' + me.email + ')'}</label>
             {me.date_activation && <label>{i18n.t('person.adherentDepuis') + ' ' + moment(me.date_activation, moment.ISO_8601).format('DD/MM/YYYY')}</label>}
             {!me.date_activation && <label>{i18n.t('person.nonAdherent')}</label>}
             <Button type='button' label='person.modifierInformations' handleOnClick={() => {this.props.closePopin(); navigate('me', true)}}/>

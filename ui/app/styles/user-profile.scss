@@ -19,10 +19,24 @@
         left: calc( 120px + 30vw );
         height: calc( 100vh - 140px);
         top: 100px;
+    }
+}
+
+[data-focus='info-profil'] {
+    & > div {
         background-color: rgba(11, 119, 34, 0.14902);
         border-radius: 15px;
         padding: 20px;
         padding-left: 40px;
+        margin-top: 10px;
+        margin-bottom: 10px;
+    }
+    & > div:first-of-type {
+        margin-top: 0px;
+    }
+    .user-info-desc {
+        font-style: italic;
+        font-size: 11px;
     }
 }
 

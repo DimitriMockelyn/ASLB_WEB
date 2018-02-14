@@ -37,18 +37,26 @@ export default React.createClass({
         return (
             <div data-focus='info-profil'>
                <div>
+               <div className='user-info-desc'>Qui suis-je ?</div>
                    <div dangerouslySetInnerHTML={{__html: this.state.profil.description}} />
                 </div>
                 <div>
+                    <div className='user-info-desc'>Pour moi, le sport, c'est :</div>
                     <div dangerouslySetInnerHTML={{__html: this.state.profil.raisonSport}} />
                 </div>
                 <div>
+                    <div className='user-info-desc'>Mes records :</div>
                     <div dangerouslySetInnerHTML={{__html: this.state.profil.records}} />
                 </div>
                 <div>
+                    <div className='user-info-desc'>Mes préférences :</div>
                     {this.state.profil.activitesVoulues && this.state.profil.activitesVoulues.map(id => {
                         return <div>{this.computeLabel(id)}</div>;
                     })}
+                    {this.state.profil.autreActivites && this.state.profil.autreActivites !== '<p><br></p>' && <div>
+                        <div className='user-info-desc'>Mais aussi</div>
+                        <div dangerouslySetInnerHTML={{__html: this.state.profil.autreActivites}} />
+                    </div>}
                 </div>
             </div>
         );
