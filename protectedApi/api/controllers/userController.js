@@ -59,7 +59,17 @@ exports.registerFromAdmin = function(req, res) {
       console.log(err);
       return res.status(401).json({ message: 'Le compte n\'a pas pu être crée ou existe déjà' });
     } else {
-      return res.json(user);
+      var token = new TokenUser({
+        code: uuidv4(),
+        isCreation: false,
+        user: user
+      });
+      token.save(function(err, tokenSaved) {
+          mailer.sendMail([user.email], 'Initialisation de votre mot de passe ASLB', 
+          'Bonjour. Vous avez demandé l\'initialisation de votre mot de passe ASLB. Pour cela, veuillez cliquer sur ce lien: '+getConfig().url+'/#changePassword/'+tokenSaved.code);
+          return res.json(user);
+      });
+      
     }
   });
 };
