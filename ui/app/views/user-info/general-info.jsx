@@ -5,12 +5,13 @@ import {BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, Cell} from 
 
 import agendaService from '../../services/agenda';
 import Ribbon from './ribbon';
+import {navigate} from 'focus-core/history';
+import userHelper from 'focus-core/user';
 
 const CustomTooltip  = React.createClass({
   
     render() {
       const { active } = this.props;
-        console.log(this.props);
       if (active) {
         const { payload, label } = this.props;
         return (
@@ -50,7 +51,6 @@ export default React.createClass({
         return res;
     },
     renderTooltip(data) {
-        console.log('data', data);
         return 'abc';
     },
     computeDataBar(evenements) {
@@ -63,7 +63,7 @@ export default React.createClass({
         })
         evenements.map(evt => {
             res.map((resultItem, index) => {
-                if (resultItem.name === evt.typeEvenement.name) {
+                if (evt.typeEvenement && resultItem.name === evt.typeEvenement.name) {
                     res[index].count = res[index].count+1;
                 }
             })
@@ -78,21 +78,13 @@ export default React.createClass({
         }
         const data30j = this.computeDataBar(evenements30j);
         const dataTot = this.computeDataBar(this.state.evenementsPasses);
-        /* [
-            {name: 'Page A', uv: 4000, pv: 2400, amt: 2400},
-            {name: 'Page B', uv: 3000, pv: 1398, amt: 2210},
-            {name: 'Page C', uv: 2000, pv: 9800, amt: 2290},
-            {name: 'Page D', uv: 2780, pv: 3908, amt: 2000},
-            {name: 'Page E', uv: 1890, pv: 4800, amt: 2181},
-            {name: 'Page F', uv: 2390, pv: 3800, amt: 2500},
-            {name: 'Page G', uv: 3490, pv: 4300, amt: 2100},
-      ];*/
         
         return (
             <div data-focus='general-info'>
-                <Ribbon />
+                {false && <Ribbon />}
                 <div data-focus='top-name'>
-                    <label>{this.state.prenom + ' ' + this.state.nom}</label>
+                    <label>{this.state.prenom + ' ' + this.state.nom} {userHelper.getLogin() && userHelper.getLogin()._id === this.props.id && <i className='material-icons edit-icon' title='Modifier mes informations' onClick={() => {navigate('me', true)}}>edit</i>}</label>
+                    
                     <div data-focus='picture'>
                         <div data-focus='bar' />
                     {!this.state.avatar &&<i className='material-icons'>person</i>}
@@ -106,21 +98,21 @@ export default React.createClass({
                         {this.state.dateNaissance && <label> {moment().diff(this.state.dateNaissance, 'years')+ ' ans'} </label>}
                         {this.state.entreprise && <label>{this.state.entreprise.label}</label>} 
                     </div>
-                    <div>
+                    <div data-focus='info-nominatives'>
                         {this.state.date_creation && <label>{'Membre depuis le '+moment(this.state.date_creation).format('DD/MM/YYYY')}</label>}
+                        {this.state.numero && <label>n° {this.state.numero}</label>}
                     </div>
                     <div data-focus='bar' />
                 </div>
                 <div data-focus='info-historique'>
                     <div data-focus='historique-30j'>
                         {evenements30j && <label>{evenements30j.length + ' activités dans les 30 derniers jours'}</label>}
-                        <BarChart width={150} height={100} data={data30j}>
+                        <BarChart width={150} height={100} data={data30j} fill='#00000000'>
 
                             <Tooltip content={<CustomTooltip order={this.state.typeEvenements}/>}/>
                             <Bar dataKey="count">
                             {
               data30j.map((entry, index) => {
-                  console.log(entry);
 
                 return <Cell cursor="pointer" fill={entry.color } key={`cell-${index}`}/>;
               })
@@ -130,7 +122,7 @@ export default React.createClass({
                     </div>
                     <div data-focus='history-all-time'>
                         {this.state.evenementsPasses && <label>{this.state.evenementsPasses.length + ' activités au total'}</label>}
-                        <BarChart width={150} height={100} data={dataTot}>
+                        <BarChart width={150} height={100} data={dataTot} fill='#00000000'>
 
                             <Tooltip content={<CustomTooltip order={this.state.typeEvenements}/>}/>
                             <Bar dataKey="count">

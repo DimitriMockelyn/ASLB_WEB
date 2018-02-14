@@ -7,5 +7,8 @@ export default {
     
     getInfoGenerales(id) {
         return fetch(profileUrl.getInfoGenerales({urlData: {id}}));
-    }
+    },
+    getInfoProfil(id) {
+        return fetch(profileUrl.getInfoProfil({urlData: {id}}));
+    },
 };

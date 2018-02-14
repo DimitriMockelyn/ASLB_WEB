@@ -13,9 +13,23 @@
         padding: 20px;
         padding-left: 40px;
     }
+    [data-focus='user-panel-right'] {
+        position: fixed;
+        width: 55vw;
+        left: calc( 120px + 30vw );
+        height: calc( 100vh - 140px);
+        top: 100px;
+        background-color: rgba(11, 119, 34, 0.14902);
+        border-radius: 15px;
+        padding: 20px;
+        padding-left: 40px;
+    }
 }
 
 [data-focus='general-info'] {
+    .edit-icon {
+        cursor: pointer;
+    }
     display: flex;
     flex-direction: column;
     width: 100%;
@@ -33,7 +47,7 @@
                 position: absolute;
                 width: calc( 100% - 60px);
                 left: 40px;
-                top: 105px;
+                top: 115px;
             }
             img {
                 border-radius: 1000px;
@@ -83,6 +97,11 @@
             align-items: center;
             .recharts-wrapper {
                 margin-top: 20px;
+                svg {
+                    & > path {
+                        fill: rgba(0,0,0,0);
+                    }
+                }
             }
         }
     }
