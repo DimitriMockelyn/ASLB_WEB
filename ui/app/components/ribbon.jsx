@@ -37,6 +37,15 @@ export default React.createClass({
                     }
                 
                 `}}/>
+                {this.props.isNone && <style dangerouslySetInnerHTML={{__html: `
+                    
+                    [id='${this.state._id || 'new_ribbon'}'][data-focus='corner-ribbon'] > div > div > div {
+                        box-shadow         : none; 
+                    }
+                    [id='${this.state._id || 'new_ribbon'}'][data-focus='corner-ribbon'] > div > div > div > div {
+                        color        : black; 
+                    }
+                `}}/>}
                 <div data-focus="corner-ribbon" id={this.state._id || 'new_ribbon'}>
                 <div>
                 <div>

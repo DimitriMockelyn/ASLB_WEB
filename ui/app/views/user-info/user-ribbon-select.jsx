@@ -42,7 +42,7 @@ export default React.createClass({
             <label>Selectionnez un ruban pour l'activer</label>
             <div data-focus='display-row'>
             <div onClick={this.toggleRibbon({_id: 'none'})} className={'to-select'}>
-                    <Ribbon text='Aucun' />
+                    <Ribbon text='Aucun' isNone={true} color_ribbon='' color_ribbon_light='' color_ribbon_dark='' color_ribbon_darker='' />
                 </div>
             {this.state.ribbons && this.state.ribbons.map(rib => {
                 const isOwned = this.isOwned(rib);
