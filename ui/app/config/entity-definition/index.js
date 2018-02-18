@@ -245,5 +245,19 @@ export default {
             domain: 'DO_COLOR'
         }
     },
+    ribbon: {
+        color_ribbon: {
+            domain: 'DO_COLOR'
+        },
+        color_ribbon_light: {
+            domain: 'DO_COLOR'
+        },
+        color_ribbon_dark: {
+            domain: 'DO_COLOR'
+        },
+        color_ribbon_darker: {
+            domain: 'DO_COLOR'
+        }
+    }
 };
 

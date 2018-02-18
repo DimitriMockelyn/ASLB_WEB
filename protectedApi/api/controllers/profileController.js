@@ -70,3 +70,15 @@ exports.infos_profil = function(req, res) {
       return res.json(data);
   }).populate('profil', '_id description activitesVoulues raisonSport autreActivites records');
 }
+
+exports.my_ribbon = function(req, res) {
+  User.findById(req.params.id, function(err,user) {
+    if (!user.profil || !user.profil._id) {
+      return res.json({ribbon: undefined});
+    } else {
+      Profil.findById(user.profil._id, function(err, prf) {
+            return res.json({ribbon:prf.ribbon});
+      }).populate('ribbon');
+    }
+  }).populate('profil', '_id');
+}

@@ -274,6 +274,19 @@ exports.userExists = function(req, res, next) {
   }
 }
 
+exports.userIsMe = function(req, res, next) {
+  if (req.params.id) {
+    User.findById(req.params.id, function(err, user) {
+      if (err || !req.user || req.user.email !== user.email) {
+        return res.status(401).json({ message: 'Utilisateur non trouvé' });
+      }
+        return next();
+    })
+  } else {
+    return res.status(401).json({ message: 'Aucun utilisateur n\'est demandé' });
+  }
+}
+
 exports.isMembreActif = function(req, res, next) {
   if (req.user) {
     User.findOne({

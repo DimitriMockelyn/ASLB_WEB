@@ -62,5 +62,26 @@ export default {
     },
     createTypeEvenement(data) {
         return fetch(adminUrl.createTypeEvenement({data}), utils.computeHeaders());
-    }
+    },
+    loadAllRibbons() {
+        return fetch(adminUrl.loadAllRibbons(), utils.computeHeaders());
+    },
+    editRibbon(data) {
+        return fetch(adminUrl.editRibbon({urlData: {id: data.id}, data: data}), utils.computeHeaders());
+    },
+    deleteRibbon(data) {
+        return fetch(adminUrl.deleteRibbon({urlData: {id: data.id}}), utils.computeHeaders());
+    },
+    createRibbon(data) {
+        return fetch(adminUrl.createRibbon({data}), utils.computeHeaders());
+    },
+    loadUserRibbons(id) {
+        return fetch(adminUrl.loadUserRibbons({urlData: {id: id}}), utils.computeHeaders());
+    },
+    toggleRibbon(data) {
+        return fetch(adminUrl.toggleRibbon({urlData: data}), utils.computeHeaders());
+    },
+    toggleActiveRibbon(data) {
+        return fetch(adminUrl.toggleActiveRibbon({urlData: data}), utils.computeHeaders());
+    },
 };

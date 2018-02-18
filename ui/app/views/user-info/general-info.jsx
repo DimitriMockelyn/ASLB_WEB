@@ -4,9 +4,12 @@ import moment from 'moment';
 import {BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, Cell} from 'recharts';
 
 import agendaService from '../../services/agenda';
-import Ribbon from './ribbon';
+import Ribbon from '../../components/ribbon';
 import {navigate} from 'focus-core/history';
 import userHelper from 'focus-core/user';
+
+import {component as Popin} from 'focus-components/application/popin';
+import UserRibbonSelect from './user-ribbon-select';
 
 const CustomTooltip  = React.createClass({
   
@@ -35,6 +38,10 @@ export default React.createClass({
             this.setState({typeEvenements: types});
             profileServices.getInfoGenerales(this.props.id).then((res) => {
                 this.setState(res);
+            })
+            profileServices.getRibbon(this.props.id).then((res) => {
+
+                this.setState({ribbon: undefined, ...res});
             })
         })
     },
@@ -70,6 +77,15 @@ export default React.createClass({
         })
         return res;
     },
+    togglePopinRibbon() {
+        this.setState({togglePopinRibbon: true});
+    },
+    reloadRibbon() {
+        profileServices.getRibbon(this.props.id).then((res) => {
+            
+            this.setState({ribbon: undefined, ...res});
+        })
+    },
     /** @inheritDoc */
     render() {
         var evenements30j = undefined;
@@ -81,9 +97,16 @@ export default React.createClass({
         
         return (
             <div data-focus='general-info'>
-                {false && <Ribbon />}
+                {this.state.ribbon && <Ribbon {...this.state.ribbon} />}
                 <div data-focus='top-name'>
-                    <label>{this.state.prenom + ' ' + this.state.nom} {userHelper.getLogin() && userHelper.getLogin()._id === this.props.id && <i className='material-icons edit-icon' title='Modifier mes informations' onClick={() => {navigate('me', true)}}>edit</i>}</label>
+                    <label>{this.state.prenom + ' ' + this.state.nom} 
+                    {userHelper.getLogin() && userHelper.getLogin()._id === this.props.id && 
+                        <i className='material-icons edit-icon' title='Modifier mes informations' onClick={() => {navigate('me', true)}}>edit</i>
+                    }
+                    {userHelper.getLogin() && userHelper.getLogin()._id === this.props.id && 
+                        <i className='material-icons edit-icon' title='Modifier mon ruban' onClick={this.props.togglePopinRibbon}>fitness_center</i>
+                    }
+                    </label>
                     
                     <div data-focus='picture'>
                         <div data-focus='bar' />

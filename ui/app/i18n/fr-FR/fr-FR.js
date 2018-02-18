@@ -155,6 +155,7 @@ export default {
         mailCreateurs: 'Envoyer un mail aux créateurs de cours',
         mailAdmins: 'Envoyer un mail aux administrateurs',
         addPresentation: 'Ajouter une présentation',
+        addRibbon: 'Ajouter un ruban',
         email: 'Adresse e-mail',
         password: 'Mot de passe',
         passwordAgain: 'Confirmez le mot de passe',
@@ -164,6 +165,7 @@ export default {
         sexe: 'Sexe',
         entreprise: 'Entreprise',
         telephone: 'Téléphone',
+        ribbons: 'Ruban'
     },
     detail: {
         saved: 'Les informations ont bien été enregistrées.'
@@ -324,6 +326,9 @@ export default {
         description: 'Description',
         color: 'Couleur rgba',
         image: 'Image (URL)'
+    },
+    ribbon: {
+        text: 'Texte'
     },
     contact: {
         contactAsso: 'Contacter l\'association',

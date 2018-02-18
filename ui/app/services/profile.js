@@ -11,4 +11,7 @@ export default {
     getInfoProfil(id) {
         return fetch(profileUrl.getInfoProfil({urlData: {id}}));
     },
+    getRibbon(id) {
+        return fetch(profileUrl.getRibbon({urlData: {id}}));
+    },
 };

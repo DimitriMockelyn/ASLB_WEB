@@ -13,6 +13,7 @@ import Toggle from 'focus-components/components/input/toggle';
 import Panel from 'focus-components/components/panel';
 import Input from 'focus-components/components/input/text';
 import UserInfo from './user-info';
+import UserRibbon from './user-ribbon';
 import {downloadCSV} from '../../../utils/download';
 import userServices from '../../../services/user';
 import message from 'focus-core/message';
@@ -42,6 +43,13 @@ export default React.createClass({
     },
     closePopin() {
         this.setState({selectedUser : undefined});
+        this.loadAllUsers();
+    },
+    openPopinRibbon(user) {
+        this.setState({selectedUserRibbon : user});
+    },
+    closePopinRibbon() {
+        this.setState({selectedUserRibbon : undefined});
         this.loadAllUsers();
     },
     renderActionsEdit() {
@@ -113,13 +121,17 @@ export default React.createClass({
                             <div>{value.certificat}</div>
                             <div>{value.cotisation}</div>
                             <div>{value.nombreInscription}</div>
-                            <div><Button type='button' icon='edit' shape='fav' handleOnClick={() => {this.openPopin(value)}}/></div>
+                            <div><Button type='button' icon='edit' shape='fav' handleOnClick={() => {this.openPopin(value)}}/>
+                            <Button type='button' icon='fitness_center' shape='fav' handleOnClick={() => {this.openPopinRibbon(value)}}/></div>
                         </div>
                     }
                 })}
             </div>
             {this.state.selectedUser && <Popin open={true} size='medium' onPopinClose={this.closePopin}>
                 <UserInfo hasLoad={false} data={this.state.selectedUser} onPopinClose={this.closePopin}/>
+            </Popin>}
+            {this.state.selectedUserRibbon && <Popin open={true} size='medium' onPopinClose={this.closePopinRibbon}>
+                <UserRibbon hasLoad={false} data={this.state.selectedUserRibbon} onPopinClose={this.closePopinRibbon}/>
             </Popin>}
             {this.state.createUser && <Popin open={true} size='medium' onPopinClose={this.closePopinCreate}>
                 {this.fieldFor('email', {isEdit: true})}

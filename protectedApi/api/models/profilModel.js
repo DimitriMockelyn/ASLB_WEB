@@ -23,7 +23,15 @@ var Profil = new Schema({
   },
   records: {
     type: String
-  }
+  },
+  ribbon: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Ribbon'
+  },
+  ribbonDisponible: [{
+    type: mongoose.Schema.Types.ObjectId,
+		ref: 'Ribbon'
+  }]
 });
 
 

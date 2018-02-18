@@ -163,4 +163,24 @@ module.exports = function(app) {
 
 	app.route('/profil/infoProfil/:id')
 		.get(userHandlers.userExists, profileController.infos_profil);
+
+	app.route('/ribbons')
+		.get(userHandlers.loginRequired,  userHandlers.isAdmin, adminHandler.list_all_ribbons)
+		.put(userHandlers.loginRequired,  userHandlers.isAdmin, adminHandler.create_ribbons)
+
+	app.route('/ribbons/:id')
+		.post(userHandlers.loginRequired,  userHandlers.isAdmin, adminHandler.edit_ribbons)
+		.delete(userHandlers.loginRequired,  userHandlers.isAdmin, adminHandler.delete_ribbons)
+
+	app.route('/toggleAddRibbon/:usrId/:ribId')
+		.post(userHandlers.loginRequired,  userHandlers.isAdmin, adminHandler.toggle_ribbon_user)
+
+	app.route('/getRibbons/:usrId')
+		.post(userHandlers.loginRequired, adminHandler.get_ribbon_user)
+
+	app.route('/toggleActifRibbon/:ribId')
+		.post(userHandlers.loginRequired, adminHandler.toggle_actif_ribbon_user)
+
+	app.route('/profil/ribbonUser/:id')
+		.get(userHandlers.userExists, profileController.my_ribbon);
 };

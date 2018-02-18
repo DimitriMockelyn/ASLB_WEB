@@ -15,6 +15,7 @@ import Partenaires from './partenaire';
 import Mails from './mails';
 import Presentations from './presentations';
 import TypeActivites from './typeActivites';
+import Ribbons from './ribbons';
 import {navigate} from 'focus-core/history';
 import {component as Button} from 'focus-components/common/button/action';
 export default React.createClass({
@@ -49,6 +50,7 @@ export default React.createClass({
                     <Partenaires hasLoad={false} />
                     <Presentations hasLoad={false} />
                     <TypeActivites hasLoad={false} />
+                    <Ribbons hasLoad={false} />
                 </ScrollspyContainer>
             </div>
         </div>

@@ -19,6 +19,7 @@
         left: calc( 120px + 30vw );
         height: calc( 100vh - 140px);
         top: 100px;
+        z-index: -1;
     }
 }
 
@@ -121,10 +122,15 @@
     }
 }
 
+$color-ribbon : rgba(0,138,59,1);
+$color-ribbon-light : rgba(0,114,45,1);
+$color-ribbon-dark: rgba(0,86,28,1);
+$color-ribbon-darker: rgba(15,51,10,1);
+
 [data-focus='user-ribbon'] {
     position: absolute;
     top: -50px;
-    width: 100%;
+    right: -40px;
         
         /* ----- White Block ---------------------------------------*/ 
             [data-focus='corner-ribbon'] > div {
@@ -161,10 +167,10 @@
                 position              : absolute;
                 right                 : 86px;
         
-                background: rgb(0,138,59); /* Old browsers */
+                //background: rgb(0,138,59); /* Old browsers */
                 /* IE9 SVG, needs conditional override of 'filter' to 'none' */
-                background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgdmlld0JveD0iMCAwIDEgMSIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+CiAgPGxpbmVhckdyYWRpZW50IGlkPSJncmFkLXVjZ2ctZ2VuZXJhdGVkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjAlIiB5MT0iMCUiIHgyPSIxMDAlIiB5Mj0iMCUiPgogICAgPHN0b3Agb2Zmc2V0PSIxJSIgc3RvcC1jb2xvcj0iIzAwOGEzYiIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjQ1JSIgc3RvcC1jb2xvcj0iIzBmMzMwYSIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgPC9saW5lYXJHcmFkaWVudD4KICA8cmVjdCB4PSIwIiB5PSIwIiB3aWR0aD0iMSIgaGVpZ2h0PSIxIiBmaWxsPSJ1cmwoI2dyYWQtdWNnZy1nZW5lcmF0ZWQpIiAvPgo8L3N2Zz4=);
-                background: linear-gradient(to right,  rgba(0,138,59,1) 1%,rgba(15,51,10,1) 45%); /* W3C */
+                //background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgdmlld0JveD0iMCAwIDEgMSIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+CiAgPGxpbmVhckdyYWRpZW50IGlkPSJncmFkLXVjZ2ctZ2VuZXJhdGVkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjAlIiB5MT0iMCUiIHgyPSIxMDAlIiB5Mj0iMCUiPgogICAgPHN0b3Agb2Zmc2V0PSIxJSIgc3RvcC1jb2xvcj0iIzAwOGEzYiIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjQ1JSIgc3RvcC1jb2xvcj0iIzBmMzMwYSIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgPC9saW5lYXJHcmFkaWVudD4KICA8cmVjdCB4PSIwIiB5PSIwIiB3aWR0aD0iMSIgaGVpZ2h0PSIxIiBmaWxsPSJ1cmwoI2dyYWQtdWNnZy1nZW5lcmF0ZWQpIiAvPgo8L3N2Zz4=);
+                //background: linear-gradient(to right,  $color-ribbon 1%,$color-ribbon-darker 45%); /* W3C */
                 
             }
         
@@ -181,7 +187,7 @@
                 top                   : 85px;
         
                 
-                background: linear-gradient(to bottom,  rgba(15,51,10,1) 55%,rgba(0,138,59,1) 99%); /* W3C */
+                //background: linear-gradient(to bottom,  $color-ribbon-darker 55%,$color-ribbon 99%); /* W3C */
         
         
             }
@@ -197,11 +203,11 @@
                 overflow           : hidden;
                 transform          :rotate(45deg);
                 
-                box-shadow         : inset 0px 0px 0px 3px rgb(0,114,45),inset 0px 0px 0px 4px rgba(0,0,0,0.5),inset 0px 0px 0px 5px rgba(255,255,255,0.4), 0px 21px 5px -18px rgba(0,0,0,0.8); 
+                //box-shadow         : inset 0px 0px 0px 3px $color-ribbon-light ,inset 0px 0px 0px 4px rgba(0,0,0,0.5),inset 0px 0px 0px 5px rgba(255,255,255,0.4), 0px 21px 5px -18px rgba(0,0,0,0.8); 
                           
-                background: rgb(0,114,45); /* Old browsers */
+                //background: rgb(0,114,45); /* Old browsers */
                 
-                background: linear-gradient(to right,  rgba(0,114,45,1) 0%,rgba(0,138,59,1) 51%,rgba(0,86,28,1) 100%); /* W3C */
+                //background: linear-gradient(to right,  $color-ribbon-light  0%,$color-ribbon 51%,$color-ribbon-dark 100%); /* W3C */
                 div {
                     position: absolute;
                     top: 10px;
@@ -244,4 +250,42 @@
         
             }
         
+}
+
+.mega-large {
+    [data-focus='popin'][data-type='full'][data-size='large'] > div > [data-focus='popin-window'] {
+        min-height: 76.66667vh;
+        top: 10%;
+        & > div { 
+            max-height: 76.66667vh;
+        }
+    }
+}
+
+[data-focus='panel'] {
+    [data-focus='user-ribbon'] {
+        position: initial;
+    }
+}
+
+.color-line {
+    display: flex;
+    flex-direction: row;
+    [data-domain="DO_COLOR"] {
+        width: 25%;
+    }
+}
+
+.owned-ribbon {
+    border: 1px solid $primary-color;
+}
+
+.to-select {
+    cursor: pointer;
+    width: 200px;
+    [data-focus='user-ribbon'] {
+        position: initial;
+        width: 200px;
+        overflow: hidden;
+    }
 }

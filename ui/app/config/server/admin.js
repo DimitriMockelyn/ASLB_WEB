@@ -23,4 +23,11 @@ export default {
     editTypeEvenement:  builder(url + 'typeEvenements/${id}', 'POST'),
     deleteTypeEvenement:  builder(url + 'typeEvenements/${id}', 'DELETE'),
     createTypeEvenement:  builder(url + 'typeEvenements', 'PUT'),
+    loadAllRibbons: builder(url + 'ribbons', 'GET'),
+    editRibbon:  builder(url + 'ribbons/${id}', 'POST'),
+    deleteRibbon:  builder(url + 'ribbons/${id}', 'DELETE'),
+    createRibbon:  builder(url + 'ribbons', 'PUT'),
+    loadUserRibbons:  builder(url + 'getRibbons/${id}', 'POST'),
+    toggleRibbon: builder(url + 'toggleAddRibbon/${usrId}/${ribId}', 'POST'),
+    toggleActiveRibbon: builder(url + 'toggleActifRibbon/${ribId}', 'POST')
 };

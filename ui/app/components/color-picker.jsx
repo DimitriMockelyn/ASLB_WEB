@@ -23,7 +23,11 @@ export default React.createClass({
         }
     },
     handleChange(key) {
-        this.setState({color: key.rgb});
+        this.setState({color: key.rgb}, () => {
+        if (this.props.onChange) {
+            this.props.onChange(this.getValue())
+        }
+    });
     },
     render() {
         return (
