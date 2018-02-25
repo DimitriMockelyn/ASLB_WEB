@@ -183,4 +183,10 @@ module.exports = function(app) {
 
 	app.route('/profil/ribbonUser/:id')
 		.get(userHandlers.userExists, profileController.my_ribbon);
+
+	app.route('/notifications')
+		.get(userHandlers.loginRequired, profileController.load_notifications);
+
+	app.route('/readNotification/:id')
+		.post(userHandlers.loginRequired, profileController.read_notification);
 };

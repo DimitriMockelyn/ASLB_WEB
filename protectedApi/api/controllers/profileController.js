@@ -6,6 +6,7 @@ var mongoose = require('mongoose'),
   User = mongoose.model('User'),
   Evenement = mongoose.model('Evenement'),
   TokenUser = mongoose.model('TokenUser'),
+  Notifications=  mongoose.model('Notifications'),
   mailer = require('../utils/mailer'),
   json2csv = require('json2csv'),
   uuidv4 = require('uuid/v4'),
@@ -81,4 +82,40 @@ exports.my_ribbon = function(req, res) {
       }).populate('ribbon');
     }
   }).populate('profil', '_id');
+}
+
+exports.load_notifications = function(req, res) {
+  User.findOne({
+    email: req.user.email
+  }, function(err,user) {
+    Notifications.find({ destinataire: user}, function(err, notifs) {
+        if (err) {
+          res.send(err);
+        }
+        res.json({notifications: notifs});
+      })
+  });
+}
+
+exports.read_notification = function(req, res) {
+  User.findOne({
+    email: req.user.email
+  }, function(err,user) {
+    Notifications.findById(req.params.id ,function(err, notif) {
+        if (err) {
+          res.send(err);
+        }
+        if (notif.destinataire.toString() !== user._id.toString()) {
+          return res.json({error: 'error'});
+        } else {
+          notif.lu = true;
+          notif.save(function(err, data) {
+            if (err) {
+              res.send(err);
+            }
+            res.json({updated: true});
+          })
+        }
+      })
+  });
 }

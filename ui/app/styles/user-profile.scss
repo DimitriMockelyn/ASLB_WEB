@@ -291,3 +291,55 @@ $color-ribbon-darker: rgba(15,51,10,1);
         overflow: hidden;
     }
 }
+
+[data-focus='notification-center'] {
+    right: 400px;
+    position: absolute;
+    & > div {
+        
+        & > i {
+            font-size: 30px;
+            background-color: transparent;
+            color: #AAAAAA;
+            cursor: pointer;
+        }
+        & > i.news {
+            color: $primary-color;
+        }
+        .notif-count {
+            position: absolute;
+            bottom: -5px;
+            right: 0px;
+            color: white;
+            background-color: green;
+            border-radius: 50%;
+            height: 12px;
+            width: 12px;
+            font-size: 10px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-weight: bold;
+            cursor: pointer;
+        }
+    }
+    .notif-list {
+        position: absolute;
+        width: 350px;
+        left: -150px;
+        top: 43px;
+        background-color: white;
+        cursor: initial;
+        box-shadow: 0 4px 5px 0 rgba(0, 0, 0, 0.14), 0 1px 10px 0 rgba(0, 0, 0, 0.12), 0 2px 4px -1px rgba(0, 0, 0, 0.2);
+        max-height: 600px;
+        overflow: auto;
+        & > div {
+            background-color: rgba(234, 234, 234, 0.7);
+            padding: 5px;
+            border-bottom: 1px solid black;
+        }
+    }
+    .unread {
+        background-color: rgba(11, 119, 34, 0.14902) !important;
+    }
+}

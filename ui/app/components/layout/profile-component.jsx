@@ -10,6 +10,7 @@ import {component as Popin} from 'focus-components/application/popin';
 import ConnectOrCreate from './connect-or-create';
 import MyInfo from './my-info';
 import Bienvenue from './bienvenue';
+import NotificationCenter from './notification-center';
 export default React.createClass({
     displayName: 'HomeView',
     mixins: [formMixin],
@@ -63,6 +64,9 @@ export default React.createClass({
             })}</div>
             </div>
     },
+    renderNotifs() {
+        return <NotificationCenter />
+    },
     componentDidMount() {
         if (userHelper.getLogin() && userHelper.getLogin().premiereConnexion) {
             //Toggle de la popin de bienvenue
@@ -77,7 +81,8 @@ export default React.createClass({
     renderContent() {
         return (
         <div data-scope='profile-top' >
-            <div data-scope='user-info' onClick={this.togglePopin}>
+             {userHelper.getLogin() && this.renderNotifs()}
+            <div data-scope='user-info' onClick={this.togglePopin}>           
             {userHelper.getLogin() && 
                 this.renderTokens()}
             {userHelper.getLogin() && 

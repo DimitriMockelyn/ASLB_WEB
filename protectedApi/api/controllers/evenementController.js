@@ -2,6 +2,7 @@
 
 var mongoose = require('mongoose'),
   Evenement = mongoose.model('Evenement'),
+  Notifications=  mongoose.model('Notifications'),
   Commentaire = mongoose.model('Commentaire'),
   TypeEvenement = mongoose.model('TypeEvenement'),
   NiveauEvenement= mongoose.model('NiveauEvenement'),
@@ -360,6 +361,13 @@ exports.remove_self_to_evenement = function(req, res) {
 
 function sendMailInscrit(id, infoEvents) {
   User.findById(id, function(err, user) {
+      let notif = new Notifications();
+      notif.destinataire = user;
+      notif.lien = ''; //TODO mettre un lien ? est-ce necessaire ?
+      notif.message = 'Tu étais en file d\'attente pour l\'évenement suivant : ' + infoEvents + '. Une personne s\'est désinscrite, et tu fais partie des participants a présent. N\'oublie pas tes affaires !';
+      notif.save(function(err, not) {
+        console.log(not);
+      })
       mailer.sendMail([user.email], 
         '[aslb] Inscription automatique à un événement', 
         'Bonjour. Tu étais en file d\'attente pour l\'évenement suivant : ' + infoEvents + '. Une personne s\'est désinscrite, et tu fais partie des participants a présent. N\'oublie pas tes affaires !. Ce message est envoyé automatiquement, merci de ne pas y répondre.');

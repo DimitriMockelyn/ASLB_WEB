@@ -14,4 +14,10 @@ export default {
     getRibbon(id) {
         return fetch(profileUrl.getRibbon({urlData: {id}}));
     },
+    loadNotifications() {
+        return fetch(profileUrl.loadNotifications(), utils.computeHeaders());
+    },
+    readNotification(id) {
+        return fetch(profileUrl.readNotification({urlData: {id}}), utils.computeHeaders());
+    }
 };
