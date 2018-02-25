@@ -9,13 +9,16 @@ export default React.createClass({
     componentWillMount() {
         this.setState({});
     },
+    toggleMail() {
+        window.location.href = 'mailto:aslb@laboursidiere.com';
+    },
     /** @inheritDoc */
     render() {
         return (
                 <Panel title="contact.contactAsso">
                     <div data-focus='display-column'>
-                        <label>{translate('contact.contactCourrier')}</label>
-                        <label>{translate('contact.contactMail')}</label>
+                        <label>{translate('contact.contactCourrier')} <div className='bold'>ASSOCIATION SPORTIVE LA BOURSIDIÈRE, LA BOURSIDIERE, 92350 Plessis-Robinson.</div></label>
+                        <label>{translate('contact.contactMail')} <div className='link bold' onClick={this.toggleMail}>aslb@laboursidiere.com</div></label>
                         <label>{translate('contact.contactPhysique')}</label>
                         <div data-focus='img-acces' />
                     </div>

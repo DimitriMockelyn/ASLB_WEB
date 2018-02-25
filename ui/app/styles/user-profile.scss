@@ -52,6 +52,7 @@
         display: flex;
         flex-direction: column;
         align-items: center;
+        z-index: 1;
         & > label {
             font-weight: bold;
             font-size: 20px !important;
@@ -105,13 +106,14 @@
     [data-focus='info-historique'] {
         display: flex;
         flex-direction: row;
+        height: 200px;
         & > div {
             display: flex;
             flex-direction: column;
             width: 100%;
             align-items: center;
             .recharts-wrapper {
-                margin-top: 20px;
+                margin-top: auto;
                 svg {
                     & > path {
                         fill: rgba(0,0,0,0);

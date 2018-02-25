@@ -27,7 +27,7 @@ export default React.createClass({
     },
     sendMail(field) {
         let users = this.state.mail[field];
-        window.location.href = 'mailto:'+userHelper.getLogin().email+'?cc='+users.join(",");
+        window.location.href = 'mailto:'+userHelper.getLogin().email+'?cc='+users.join(";");
     },
     /** @inheritDoc */
     renderContent() {

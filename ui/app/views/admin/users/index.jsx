@@ -21,7 +21,7 @@ import message from 'focus-core/message';
 export default React.createClass({
     displayName: 'UsersView',
     mixins: [formMixin],
-    definitionPath: 'admin',
+    definitionPath: 'person',
     referenceNames: ['typeSexe', 'typeEntreprise'],
     getInitialState() {
         return {
@@ -72,7 +72,43 @@ export default React.createClass({
     },
     create() {
         if (this._validate()) {
-            userServices.createFromAdmin(this._getEntity()).then(() => {message.addSuccessMessage(i18n.t('person.createdSuccess2'))}, err => { console.log(err); throw err;});
+            userServices.createFromAdmin(this._getEntity()).then(() => {
+                this.closePopinCreate();
+                message.addSuccessMessage(i18n.t('person.createdSuccess2'))
+            }, err => { console.log(err); throw err;});
+        }
+    },
+    computeDateFin(dateAdhesion) {
+        var momentFin = moment('31/08/2018','DD/MM/YYYY');
+        var momentDebut = moment(dateAdhesion, [moment.ISO_8601,'DD/MM/YYYY', 'DDMMYYYY']);
+        if (momentDebut.isValid()) {
+            momentFin.set('year', momentDebut.get('year'));
+            if (momentFin.isBefore(momentDebut)) {
+                momentFin.set('year', momentFin.get('year') +1);
+            }
+            if (momentFin.get('year') === 2018) {
+                momentFin.set('year', momentFin.get('year') +1);
+            }
+            return  momentFin;
+            //this.setState({date_fin: momentFin, date_activation: dateAdhesion});
+        }
+        
+    },
+    onChangeInfo(field) {
+        let that = this;
+        return (value) => {
+            let data = that._getEntity();
+            data[field] = value;
+            if (data.adhesion && data.decharge && data.reglement && data.certificat && data.cotisation) {
+                data.dossier_complet = true;
+                data.date_activation = moment();
+                data.date_fin = this.computeDateFin(moment());
+            } else {
+                data.dossier_complet = false;
+                data.date_activation = undefined;
+                data.date_fin = undefined;
+            }
+            that.setState(data);
         }
     },
     /** @inheritDoc */
@@ -137,10 +173,19 @@ export default React.createClass({
                 {this.fieldFor('email', {isEdit: true})}
                 {this.fieldFor('prenom', {isEdit: true})}
                 {this.fieldFor('nom', {isEdit: true})}
+                {this.fieldFor('numero', {isEdit: true})}
                 {this.fieldFor('dateNaissance', {isEdit: true})}
                 {this.fieldFor('sexe', {isEdit: true, listName: 'typeSexe', valueKey: '_id', isRequired: true})}
                 {this.fieldFor('entreprise', {isEdit: true, listName: 'typeEntreprise', valueKey: '_id', isRequired: true})}
                 {this.fieldFor('telephone', {isEdit: true})}
+                {this.fieldFor('date_activation', {isEdit: false})}
+                {this.fieldFor('date_fin', {isEdit: false})}
+                {this.fieldFor('dossier_complet', {isEdit: false})}
+                {this.fieldFor('adhesion', {isEdit: true, onChange: this.onChangeInfo('adhesion')})}
+                {this.fieldFor('decharge', {isEdit: true, onChange: this.onChangeInfo('decharge')})}
+                {this.fieldFor('reglement', {isEdit: true, onChange: this.onChangeInfo('reglement')})}
+                {this.fieldFor('certificat', {isEdit: true, onChange: this.onChangeInfo('certificat')})}
+                {this.fieldFor('cotisation', {isEdit: true, onChange: this.onChangeInfo('cotisation')})}
                 <Button label='user.creation' type='button' handleOnClick={this.create} />
             </Popin>}
         </Panel>

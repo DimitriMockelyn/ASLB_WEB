@@ -205,13 +205,15 @@ export default React.createClass({
         return (
         <div>
             { userHelper.getLogin() && userHelper.getLogin()._id && <label>Vous pouvez encore vous inscrire à {this.state.tokensRestant} activités. Ce compteur reviendra a son maximum lorsque les activités où vous êtes inscrit seront passées</label>}
-            { userHelper.getLogin() && userHelper.getLogin()._id && <div data-focus='toggle-bar'>
-                <label onClick={this.onChangeViewFromLabel}>{i18n.t('agenda.all')}</label>
-                <Toggle ref='toggle' value={this.state.fullView} label={i18n.t('agenda.mine')} onChange={this.onChangeView} />
-            </div>}
-            <div data-focus='toggle-bar'>
-                <label onClick={this.onChangeCalendarFromLabel}>{i18n.t('agenda.tile')}</label>
-                <Toggle ref='toggle-cal' value={this.state.calendarView} label={i18n.t('agenda.calendar')} onChange={this.onChangeCalendar} />
+            <div data-focus='display-row'>
+                { userHelper.getLogin() && userHelper.getLogin()._id && <div data-focus='toggle-bar'>
+                    <label onClick={this.onChangeViewFromLabel}>{i18n.t('agenda.all')}</label>
+                    <Toggle ref='toggle' value={this.state.fullView} label={i18n.t('agenda.mine')} onChange={this.onChangeView} />
+                </div>}
+                <div data-focus='toggle-bar'>
+                    <label onClick={this.onChangeCalendarFromLabel}>{i18n.t('agenda.tile')}</label>
+                    <Toggle ref='toggle-cal' value={this.state.calendarView} label={i18n.t('agenda.calendar')} onChange={this.onChangeCalendar} />
+                </div>
             </div>
             {this.state.calendarView &&
             <BigCalendar

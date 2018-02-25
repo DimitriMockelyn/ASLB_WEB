@@ -332,8 +332,8 @@ export default {
     },
     contact: {
         contactAsso: 'Contacter l\'association',
-        contactCourrier: 'Si vous voulez contacter l\'association par courrier, vous pouvez adresser votre courrier à l\'adresse suivante : ASSOCIATION SPORTIVE LA BOURSIDIÈRE, LA BOURSIDIERE, 92350 Plessis-Robinson.',
-        contactMail: 'Pour un contact par e-mail, vous pouvez contacter la boite mail suivante : aslb@laboursidiere.com',
+        contactCourrier: 'Si vous voulez contacter l\'association par courrier, vous pouvez adresser votre courrier à l\'adresse suivante : ',
+        contactMail: 'Pour un contact par e-mail, vous pouvez contacter la boite mail suivante :',
         contactPhysique: 'Pour venir nous voir pendant les heures d\'activités, c\'est ici !',
         presentationMembres: 'Présentation des membres',
         presentationTitre: 'Qui suis-je ?',

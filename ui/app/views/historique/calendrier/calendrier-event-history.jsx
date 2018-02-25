@@ -25,7 +25,7 @@ export default React.createClass({
     render() {
         return (
         <div>
-            <div>{this.props.title}</div>
+            <div title={this.props.title} className='ellipsis'>{this.props.title}</div>
             <div><Note isConsult={true} value={(this.state.noteComm && this.state.noteComm.note) || 0} /></div>
         </div>
         );

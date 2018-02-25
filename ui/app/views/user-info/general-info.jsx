@@ -75,7 +75,9 @@ export default React.createClass({
                 }
             })
         })
-        return res;
+        return res.filter(item => {
+            return item.count  > 0;
+        });
     },
     togglePopinRibbon() {
         this.setState({togglePopinRibbon: true});
@@ -130,7 +132,7 @@ export default React.createClass({
                 <div data-focus='info-historique'>
                     <div data-focus='historique-30j'>
                         {evenements30j && <label>{evenements30j.length + ' activités dans les 30 derniers jours'}</label>}
-                        <BarChart width={150} height={100} data={data30j} fill='#00000000'>
+                        {data30j && data30j.length > 0 && <BarChart width={150} height={100} data={data30j} fill='#00000000'>
 
                             <Tooltip content={<CustomTooltip order={this.state.typeEvenements}/>}/>
                             <Bar dataKey="count">
@@ -141,11 +143,11 @@ export default React.createClass({
               })
             }
                                 </Bar>
-                        </BarChart>
+                        </BarChart>}
                     </div>
                     <div data-focus='history-all-time'>
                         {this.state.evenementsPasses && <label>{this.state.evenementsPasses.length + ' activités au total'}</label>}
-                        <BarChart width={150} height={100} data={dataTot} fill='#00000000'>
+                        {dataTot && dataTot.length > 0 &&<BarChart width={150} height={100} data={dataTot} fill='#00000000'>
 
                             <Tooltip content={<CustomTooltip order={this.state.typeEvenements}/>}/>
                             <Bar dataKey="count">
@@ -156,7 +158,7 @@ export default React.createClass({
               })
             }
                                 </Bar>
-                        </BarChart>
+                        </BarChart>}
                     </div>
                 </div>
             </div>

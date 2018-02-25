@@ -269,9 +269,14 @@ button.mdl-button:not(.mdl-button--icon) {
   background-color: inherit;
 }
 
+i {
+  font-feature-settings: 'liga';
+}
+
 [data-focus='toggle-bar'] {
   display:flex;
   flex-direction: row;
+  width: 100%;
   label {
     width: 100%;
   }
@@ -328,7 +333,7 @@ button.mdl-button:not(.mdl-button--icon) {
   label {
     display: flex;
     flex-direction: row;
-    white-space: pre;
+    white-space: pre-wrap;
   }
   li {
     label {
@@ -1311,4 +1316,22 @@ p {
 .click-user-name {
   cursor: pointer;
   text-decoration: underline;
+}
+
+.bold {      
+  font-weight: bold;
+}
+
+[data-focus="historique-list"] .rbc-row .rbc-event-content .ellipsis {
+
+}
+
+.ellipsis {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.rbc-row-content {
+  overflow: auto;
 }
