@@ -50,6 +50,13 @@ export default React.createClass({
             })
         }
     },
+    onClickLink(link) {
+        return () => {
+            if (link) {
+                navigate(link, true);
+            }
+        }
+    },
     render() {  
         let count = this.hasNews();
         return <div data-focus='notification-center'>
@@ -60,7 +67,7 @@ export default React.createClass({
             {this.state.opened && this.state.notifications.length > 0 && <div className='notif-list'>
                 {this.state.notifications.map(data => {
                     return <div className={data.lu ? 'read' : 'unread'} onMouseOver={!data.lu && this.onFocusNotif(data._id)} onMouseOut={!data.lu && this.onBlurNotif(data._id)}>
-                        <div>
+                        <div className={data.lien ? 'clickable' : ''} onClick={this.onClickLink(data.lien)}>
                             {data.message}
                         </div>
                     </div>

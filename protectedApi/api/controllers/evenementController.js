@@ -321,7 +321,7 @@ exports.add_self_to_evenement = function(req, res) {
             })
             //On ajoute le nouveau aux participants
             evenement.participants.push(evenement.fileAttente[indexMin].personne);
-            sendMailInscrit(evenement.fileAttente[indexMin].personne, evenement.name + ' - ' + moment(evenement.date_debut).format('DD/MM/YYYY - HH:mm'));
+            sendMailInscrit(evenement.fileAttente[indexMin].personne, evenement.name + ' - ' + moment(evenement.date_debut).format('DD/MM/YYYY - HH:mm'), evenement._id);
             var toDelete = evenement.fileAttente[indexMin];
             evenement.fileAttente.splice(indexMin, 1);
             toDelete.remove(function(err, del) {})
@@ -359,12 +359,13 @@ exports.remove_self_to_evenement = function(req, res) {
   });
 };
 
-function sendMailInscrit(id, infoEvents) {
+function sendMailInscrit(id, infoEvents, idEvent) {
   User.findById(id, function(err, user) {
       let notif = new Notifications();
       notif.destinataire = user;
-      notif.lien = ''; //TODO mettre un lien ? est-ce necessaire ?
+      notif.lien = 'agenda/'+idEvent;
       notif.message = 'Tu étais en file d\'attente pour l\'évenement suivant : ' + infoEvents + '. Une personne s\'est désinscrite, et tu fais partie des participants a présent. N\'oublie pas tes affaires !';
+
       notif.save(function(err, not) {
         console.log(not);
       })

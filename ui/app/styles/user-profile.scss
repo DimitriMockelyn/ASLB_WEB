@@ -342,4 +342,10 @@ $color-ribbon-darker: rgba(15,51,10,1);
     .unread {
         background-color: rgba(11, 119, 34, 0.14902) !important;
     }
+    .clickable {
+        cursor: pointer;
+    }
+    .clickable:hover {
+        text-decoration: underline;
+    }
 }
