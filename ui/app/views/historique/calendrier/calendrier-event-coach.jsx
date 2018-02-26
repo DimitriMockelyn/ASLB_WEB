@@ -43,7 +43,7 @@ export default React.createClass({
         return (
         <div>
             <div data-focus='display-row' title={this.props.title}><div className='ellipsis'>{this.props.title}</div><i className='material-icons' onClick={this.togglePopin}>person_outline</i> </div>
-            <div data-focus='display-row'><Note value={notes.noteMoyenne} /> <div>{'('+notes.nbNote+')'}</div></div>
+            <div data-focus='display-row'><Note value={notes.noteMoyenne}  isConsult={true}/> <div>{'('+notes.nbNote+')'}</div></div>
         </div>
         );
     }

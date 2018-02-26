@@ -36,7 +36,7 @@ export default React.createClass({
     },
     onClickEvent(value) {
         if (this.dontClick) {
-            this.dontClick = true;
+            this.dontClick = false;
         } else {
             this.setState({eventClicked: value});
         }
