@@ -189,4 +189,10 @@ module.exports = function(app) {
 
 	app.route('/readNotification/:id')
 		.post(userHandlers.loginRequired, profileController.read_notification);
+
+	app.route('/historique/exportMyHistory')
+		.post(userHandlers.loginRequired, eventHandler.export_my_history);
+
+	app.route('/historique/exportMyCoachHistory')
+		.post(userHandlers.loginRequired, eventHandler.export_my_coach_history);
 };

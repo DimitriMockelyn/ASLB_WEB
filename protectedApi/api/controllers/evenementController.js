@@ -10,6 +10,7 @@ var mongoose = require('mongoose'),
   Queue = mongoose.model("Queue"),
   Partenaire = mongoose.model('Partenaire'),
   moment = require('moment'),
+  json2csv = require('json2csv'),
   mailer = require('../utils/mailer');
 
 
@@ -83,6 +84,144 @@ exports.list_my_history = function(req, res) {
       res.json(evenements);
     }).populate('createur', '_id prenom nom').populate('participants', '_id prenom nom sexe email').populate('fileAttente', '_id personne ordre').populate('typeEvenement', '_id code name').populate('animateur', '_id prenom nom').sort({date_debut: -1});
   })
+}
+
+exports.export_my_history = function(req, res) {
+  User.findOne({
+    email: req.user.email
+  }, function(err, user) {
+    if (err) {
+      res.send(err);
+    }
+    Evenement.find({$and: [
+        {participants: user}, 
+        { date_debut: {$lt: Date.now()}}]}, function(err, evenements) {
+      if (err) {
+        res.send(err);
+      }
+      evenements.forEach(function(evenement) { 
+          evenement.createur = evenement.createur;
+          evenement.participants = evenement.participants;
+      });
+    }).populate('createur', '_id prenom nom').populate('participants', '_id prenom nom sexe email').populate('fileAttente', '_id personne ordre').populate('typeEvenement', '_id code name').populate('animateur', '_id prenom nom').sort({date_debut: -1}).lean().exec(function(err, events) {
+      Commentaire.find({$and : [
+        { evenement : { $in : events } },
+        { auteur : user}
+      ]}, function(err, commentaires) {
+        events.forEach(function(event) {
+          event.commentaires = [];
+        });
+        commentaires.forEach(function(commentaire) {
+          let evenementFound = events.find(function(event) {
+            return event._id.toString() === commentaire.evenement._id.toString();
+          });
+          evenementFound.commentaires.push(commentaire);
+        });
+        return exportMyHistoryForEvents(res, user, events);
+      }).populate('auteur', '_id prenom nom').populate('evenement', '_id');
+    })
+  })
+}
+
+const exportMyHistoryForEvents = function(res, user, events) {
+  let data = [];
+  events.map(evt => {
+    let obj = {};
+    obj['date_debut'] = moment(evt['date_debut'], moment.ISO_8601).format('DD/MM/YYYY');
+    obj['type'] = evt.typeEvenement ? evt.typeEvenement.name : '';
+    obj['titre'] = evt.name.replace(/;/g,',');
+    obj['description'] = evt.description ? evt.description.replace(/;/g,',') : '';
+    obj['duree'] = evt.duree;
+    obj['animateur'] = evt.animateur.prenom + ' ' + evt.animateur.nom;
+    obj['nbParticipants'] = evt.participants.length;
+    obj['note'] = evt.commentaires.length === 1 ? evt.commentaires[0].note : '';
+    obj['commentaire'] = evt.commentaires.length === 1 && evt.commentaires[0].commentaire ? evt.commentaires[0].commentaire.replace(/;/g,',') : '';
+    data.push(obj);
+  })
+  var fieldNames = ['Date', 'Type', 'Nom', 'Description', 'Durée','Animateur','Nombre de participants','Note', 'Commentaire']
+  var fields  = ['date_debut', 'type', 'titre', 'description', 'duree', 'animateur','nbParticipants','note', 'commentaire']
+  
+  json2csv({ data: data, fields: fields, fieldNames:fieldNames, quotes:'', del: ';' }, function(err, csv) {
+    res.setHeader('Content-disposition', 'attachment; filename=data.csv');
+    res.set('Content-Type', 'text/csv');
+    return res.status(200).send(csv);
+  });
+}
+
+
+exports.export_my_coach_history = function(req,res) {
+  User.findOne({
+    email: req.user.email
+  }, function(err, user) {
+    if (err) {
+      res.send(err);
+    }
+    Evenement.find({$and: [
+        { animateur: user}, 
+        { date_debut: {$lt: Date.now()}}]}, function(err, evenements) {
+      if (err) {
+        res.send(err);
+      }
+      evenements.forEach(function(evenement) { 
+          evenement.createur = evenement.createur;
+          evenement.participants = evenement.participants;
+      });
+    }).populate('createur', '_id prenom nom').populate('participants', '_id prenom nom sexe email').populate('typeEvenement', '_id code name').populate('animateur', '_id prenom nom').sort({date_debut: -1}).lean().exec(function(err, events) {
+      Commentaire.find({ evenement : { $in : events } }, function(err, commentaires) {
+        events.forEach(function(event) {
+          event.commentaires = [];
+        });
+        commentaires.forEach(function(commentaire) {
+          let evenementFound = events.find(function(event) {
+            return event._id.toString() === commentaire.evenement._id.toString();
+          });
+          evenementFound.commentaires.push(commentaire);
+        });
+        return exportGlobalHistoryForEvents(res, user, events);
+      }).populate('auteur', '_id prenom nom').populate('evenement', '_id');
+    });
+  })
+}
+
+const emptyObject = function(fields) {
+  let obj = {};
+  fields.map(field => {
+    obj[field] = ''
+  });
+  return obj;
+}
+
+const exportGlobalHistoryForEvents = function(res, user, events) {
+  var fieldNames = ['Date', 'Type', 'Nom', 'Description', 'Durée','Nombre de participants','Note', 'Commentaire', 'Auteur']
+  var fields  = ['date_debut', 'type', 'titre', 'description', 'duree','nbParticipants','note', 'commentaire', 'auteur']
+  let data = [];
+  data.push({});
+  events.map(evt => {
+    if (evt.commentaires.length === 0) {
+      evt.commentaires.push(emptyObject(fields));
+    }
+    evt.commentaires.map(comm => {
+      let obj = {};
+      obj['date_debut'] = moment(evt['date_debut'], moment.ISO_8601).format('DD/MM/YYYY');
+      obj['type'] = evt.typeEvenement ? evt.typeEvenement.name : '';
+      obj['titre'] = evt.name.replace(/;/g,',');
+      obj['description'] = evt.description ? evt.description.replace(/;/g,',') : '';
+      obj['duree'] = evt.duree;
+      obj['nbParticipants'] = evt.participants.length;
+      obj['note'] = comm.note;
+      obj['commentaire'] = comm.commentaire ? comm.commentaire.replace(/;/g,',') : '';
+      obj['auteur'] = comm.auteur ? comm.auteur.prenom + ' ' + comm.auteur.nom : '';
+      data.push(obj);
+    })
+    data.push(emptyObject(fields));
+  })
+
+  
+  json2csv({ data: data, fields: fields, fieldNames:fieldNames, quotes:'', del: ';' }, function(err, csv) {
+    res.setHeader('Content-disposition', 'attachment; filename=data.csv');
+    res.set('Content-Type', 'text/csv');
+    return res.status(200).send(csv);
+  });
 }
 
 exports.list_my_coach_history = function(req, res) {

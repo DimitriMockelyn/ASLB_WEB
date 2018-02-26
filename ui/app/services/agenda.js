@@ -63,4 +63,10 @@ export default {
     setPresent(data) {
         return fetch(agendaUrl.setPresent({urlData: {eventId:data.id}, data: data}), utils.computeHeaders());
     },
+    exportMyHistory() {
+        return fetch(agendaUrl.exportMyHistory(), utils.computeHeaders());
+    },
+    exportMyCoachHistory() {
+        return fetch(agendaUrl.exportMyCoachHistory(), utils.computeHeaders());
+    }
 };

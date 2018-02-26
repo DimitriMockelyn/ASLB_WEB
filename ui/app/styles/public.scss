@@ -1339,3 +1339,8 @@ p {
 [data-focus="historique-list"] + [data-focus='popin'][data-type='from-right'] > [data-focus='popin-overlay'] {
  z-index: 1002;
 }
+
+.display-center {
+  justify-content: space-around;
+  align-items: center;
+}

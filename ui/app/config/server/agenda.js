@@ -23,4 +23,6 @@ export default {
     loadAbsents: builder(url + 'loadAbsents/${eventId}', 'GET'),
     setAbsent: builder(url + 'setAbsent/${eventId}', 'POST'),
     setPresent: builder(url + 'setPresent/${eventId}', 'POST'),
+    exportMyHistory: builder(url + 'historique/exportMyHistory', 'POST'),
+    exportMyCoachHistory: builder(url + 'historique/exportMyCoachHistory', 'POST'),
 };

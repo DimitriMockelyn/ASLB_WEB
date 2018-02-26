@@ -6,9 +6,15 @@ import Calendar from './calendrier';
 import {component as Popin} from 'focus-components/application/popin';
 import MyEventCoach from './calendrier/calendrier-event-coach';
 import Absents from './absents';
+import {downloadCSV} from '../../utils/download';
+import {component as Button} from 'focus-components/common/button/action';
+import userHelper from 'focus-core/user';
 export default React.createClass({
     displayName: 'HistoriqueView',
     dontClick: false,
+    export() {
+        agendaServices.exportMyCoachHistory().then(res => {downloadCSV(res, 'historique_coach.csv')});;
+    },
     componentWillMount() {
         this.setState({});
         agendaServices.loadMyCoachingHistory().then(res => {
@@ -49,6 +55,7 @@ export default React.createClass({
         this.setState({togglePopinAbsent : id});
     },
     closePopin() {
+        this.dontClick= false;
         this.setState({togglePopinAbsent : undefined});
     },
     /** @inheritDoc */
@@ -62,7 +69,10 @@ export default React.createClass({
         return (
             <div>
                 {this.state.history && this.state.history.length > 0 && <div>
+                    <div data-focus='display-row' className='display-center'>
                     <label style={{'margin-left': '20px'}}>{i18n.t('historique.descriptionCoach')}</label>
+                    {userHelper.getLogin() && this.state.history && this.state.history.length > 0 && <Button label='Exporter' icon='file_download' handleOnClick={this.export} type='button'/>}
+                    </div>
                     <div data-focus='historique-list'>
                         {this.state.history && <label>{this.state.history.length + i18n.t('historique.eventsParticipant')} </label> }
                         <Calendar canSelect={this.state.eventClicked === undefined} hasLoad={false} hasForm={false} events={this.state.historyCal || []} onClickEvent={this.onClickEvent} components={components} />
