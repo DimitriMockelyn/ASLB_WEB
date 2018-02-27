@@ -1344,3 +1344,15 @@ p {
   justify-content: space-around;
   align-items: center;
 }
+
+[data-focus='popin-window'] h1 {
+  font-size: 56px !important;
+  margin: none; }
+[data-focus='popin-window'] h3 {
+  font-size: 1.17em !important;
+  color: rgba(0,0,0, 0.54); }
+
+
+  [data-focus='header-top-row'] > div [data-focus^='header-top-row'] {
+    padding: 0 25px;
+  }

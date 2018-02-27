@@ -3,7 +3,7 @@ import React, {PropTypes} from 'react';
 
 import {component as BackButton} from 'focus-components/common/button/back';
 import {navigate} from 'focus-core/history';
-
+import userHelper from 'focus-core/user';
 export default React.createClass({
 
     render() {
@@ -27,7 +27,7 @@ export default React.createClass({
                         Nous contacter
                     </label>
                 </div>
-                <div className='header-tile-click' onClick={() => {navigate('historiqueAnimation', true)}}>
+                <div className='header-tile-click' onClick={() => {userHelper.getLogin() && navigate('historiqueAnimation', true)}}>
                     <label>
                         Rejoindre l'équipe d'animation ?
                     </label>

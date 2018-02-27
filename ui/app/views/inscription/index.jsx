@@ -18,7 +18,7 @@ export default React.createClass({
                 <Panel title='Conditions'>
                     <div data-focus='column'>
                     <label>L'inscription est réservée aux employés du Centre d'Affaires La Boursidière et est valable du 1er septembre au 31 août. Le prix de la cotisation est de 30€ à renouveler chaque année.</label>
-                    <label>Exceptionnellement, toutes inscriptions réglées avant le 1er septembre 2018 sera valable jusqu’au 31 août<div style={{'font-weight':'bold'}}>2019</div></label>
+                    <label>Exceptionnellement, tout inscription réglé avant le 1er septembre 2018 sera valable jusqu’au 31 août<div style={{'font-weight':'bold'}}>2019</div></label>
                     </div>
                 </Panel>
                 <Panel title='Nous rejoindre'>

@@ -376,7 +376,7 @@ exports.add_self_to_evenement = function(req, res) {
         }
         //On vérifie qu'on ajoute pas de doublons
         if (evenement.participants.indexOf(user._id) === -1) {
-          return check_evenement_conflit(user,evenement, res,() => {
+          return check_evenement_conflit(user,evenement, res, '', () => {
             //Y a t'il encore de la place ?
             if (evenement.limite !== undefined && evenement.limite !== null && evenement.participants.length >= evenement.limite) {
               //On se met en file d'attente
@@ -539,19 +539,21 @@ exports.create_a_evenement = function(req, res) {
       return res.status(401).json({ message: 'Les activités sportives doivent se dérouler entre 7h et 20h' });
     }
     //Enregistrement en base
-    //check_evenement_conflit(new_evenement, res, () => {
-      TypeEvenement.findOne({
-        _id: req.body.typeEvenement
-        }, function(err, typeEvt) {
-          
-          new_evenement.typeEvenement = typeEvt;
-          new_evenement.save(function(err, evenement) {
-          if (err)
-            res.send(err);
-          res.json(evenement);
-        });
+    User.findById(req.body.animateur, function(err,animateur) {
+      check_evenement_conflit(animateur,new_evenement, res, 'pour l\'animateur', () => {
+        TypeEvenement.findOne({
+          _id: req.body.typeEvenement
+          }, function(err, typeEvt) {
+            
+            new_evenement.typeEvenement = typeEvt;
+            new_evenement.save(function(err, evenement) {
+            if (err)
+              res.send(err);
+            res.json(evenement);
+          });
+        })
       })
-    //})
+    })
   })
 };
 
@@ -594,8 +596,8 @@ exports.update_a_evenement = function(req, res) {
     animateur: req.body.animateur,
     niveau: req.body.niveau
   }
-  
-  //check_evenement_conflit(data, res, () => {
+  User.findById(req.body.animateur, function(err,animateur) {
+    check_evenement_conflit(animateur,data, res, 'pour l\'animateur', () => {
     TypeEvenement.findOne({
       _id: req.body.typeEvenement
       }, function(err, typeEvt) {
@@ -605,7 +607,8 @@ exports.update_a_evenement = function(req, res) {
           res.send(err);
         res.json(evenement);
       });
-  //  });
+    });
+    })
   })
 };
 
@@ -620,7 +623,7 @@ exports.delete_a_evenement = function(req, res) {
   });
 };
 
-function check_evenement_conflit(user, event, res, cb) {
+function check_evenement_conflit(user, event, res, complement_msg, cb) {
   let dateDebut = new Date(event.date_debut.getTime());
   let dateDebutJournee = new Date(event.date_debut.getTime());
   let dateFin = new Date(event.date_debut.getTime() + event.duree*60000);
@@ -646,13 +649,13 @@ function check_evenement_conflit(user, event, res, cb) {
       )) {
         //Cette activité est en conflit, on vérifie la liste des participants
         if (existingEvent.animateur.toString() === user._id.toString()) {
-          return res.status(401).json({ message: 'Cette activité entre en conflit avec une autre' });
+          return res.status(401).json({ message: 'Cette activité entre en conflit avec une autre '+complement_msg });
         }
         if (existingEvent.participants.length > 0) {
           for (let index2  = 0; index2 < existingEvent.participants.length; index2++) {
             let ptp = existingEvent.participants[index2];
             if (ptp && ptp._id.toString() === user._id.toString()) {
-              return res.status(401).json({ message: 'Cette activité entre en conflit avec une autre' });
+              return res.status(401).json({ message: 'Cette activité entre en conflit avec une autre '+complement_msg });
             }
           };
         }
@@ -660,7 +663,7 @@ function check_evenement_conflit(user, event, res, cb) {
           for (let index2  = 0; index2 < existingEvent.fileAttente.length; index2++) {
             let ptp = existingEvent.fileAttente[index2];
             if (ptp && ptp.personne.toString() === user._id.toString()) {
-              return res.status(401).json({ message: 'Cette activité entre en conflit avec une autre' });
+              return res.status(401).json({ message: 'Cette activité entre en conflit avec une autre '+complement_msg });
             }
           };
         }

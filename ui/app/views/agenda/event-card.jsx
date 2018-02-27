@@ -2,6 +2,7 @@ import React from 'react';
 import moment from 'moment';
 import {translate} from 'focus-core/translation';
 import {mixin as formMixin} from 'focus-components/common/form';
+import {navigate} from 'focus-core/history';
 
 export default React.createClass({
     displayName: 'TileView',
@@ -39,7 +40,7 @@ export default React.createClass({
                     <div>{this.state.name}</div>
                     <div className='red'>{this.computeLabel(this.state.niveau, 'niveauEvenements')}</div>
                     <div>{translate('event.animePar')}</div>
-                    <div>{this.props.animateur.prenom}</div>
+                    <div className='click-user-name'onClick={() => {setTimeout(() => {navigate('u/'+this.props.animateur._id, true)},10)}}>{this.props.animateur.prenom}</div>
                 </div>
                 <div className='description'>
                     {this.state.description}
@@ -61,7 +62,7 @@ export default React.createClass({
                 </div>
                 <div className='participants'>
                     {this.state.participants && this.state.participants.length > 0 && this.state.participants.map(value => {
-                        return <div>{value.nom + ' ' + value.prenom}<div>{this.props.computeSexeData(value)}</div></div>
+                        return <div className='click-user-name' onClick={() => {setTimeout(() => {navigate('u/'+value._id, true)},10)}}>{value.nom + ' ' + value.prenom}<div>{this.props.computeSexeData(value)}</div></div>
                     })}
                 </div>
 

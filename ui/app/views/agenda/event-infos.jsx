@@ -106,8 +106,9 @@ export default React.createClass({
         return userHelper.getLogin() && this.props.event.animateur._id === userHelper.getLogin()._id;
     },
     update() {
-        agendaServices.updateEvent(this._getEntity());
-        this.setState({...this._getEntity(),isEdit: !this.state.isEdit});
+        agendaServices.updateEvent(this._getEntity()).then(() => {
+            this.setState({...this._getEntity(),isEdit: !this.state.isEdit});
+        })
     },
     renderActionsUpdate() {
         var buttonEdit = <div/>;
