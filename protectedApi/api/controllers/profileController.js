@@ -93,7 +93,7 @@ exports.load_notifications = function(req, res) {
           res.send(err);
         }
         res.json({notifications: notifs});
-      })
+      }).sort({date: -1})
   });
 }
 

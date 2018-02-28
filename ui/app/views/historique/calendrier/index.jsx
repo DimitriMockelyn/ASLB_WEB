@@ -48,6 +48,7 @@ export default React.createClass({
                 endAccessor='endDate'
                 views={[views.MONTH]}
                 defaultView={views.MONTH}
+                popup={true}
                 onSelectEvent={this.onSelectEvent}
                 culture='fr-FR'
                 selectable={true}

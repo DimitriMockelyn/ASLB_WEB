@@ -75,7 +75,7 @@ export default React.createClass({
                     </div>
                     <div data-focus='historique-list'>
                         {this.state.history && <label>{this.state.history.length + i18n.t('historique.eventsParticipant')} </label> }
-                        <Calendar canSelect={this.state.eventClicked === undefined} hasLoad={false} hasForm={false} events={this.state.historyCal || []} onClickEvent={this.onClickEvent} components={components} />
+                        <Calendar  canSelect={this.state.eventClicked === undefined} hasLoad={false} hasForm={false} events={this.state.historyCal || []} onClickEvent={this.onClickEvent} components={components} />
                     </div>
                     {this.state.eventClicked && <Popin open={true}  onPopinClose={this.closeCommentaire}>
                         <CommentairesNoteEvenement data={this.state.eventClicked} onPopinClose={this.closeCommentaire} hasLoad={false} hasForm={false}/>
