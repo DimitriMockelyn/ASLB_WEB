@@ -49,9 +49,6 @@ export default React.createClass({
         <div data-focus='home-chat-display'>
             <div>
             <HeaderActivities hasLoad={false} />
-            <div data-focus='home-title'>
-            Bienvenue sur le site de l’aslb !
-            </div>
             <Evenements hasLoad={false} />
             <News hasLoad={false}/>                
             </div>

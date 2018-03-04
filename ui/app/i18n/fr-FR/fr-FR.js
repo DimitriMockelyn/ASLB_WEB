@@ -332,7 +332,7 @@ export default {
     },
     contact: {
         contactAsso: 'Contacter l\'association',
-        contactCourrier: 'Si vous voulez contacter l\'association par courrier, vous pouvez adresser votre courrier à l\'adresse suivante : ',
+        contactCourrier: 'Pour nous écrire, vous pouvez adresser votre courrier à l\'adresse suivante : ',
         contactMail: 'Pour un contact par e-mail, vous pouvez contacter la boite mail suivante :',
         contactPhysique: 'Pour venir nous voir pendant les heures d\'activités, c\'est ici !',
         presentationMembres: 'Présentation des membres',

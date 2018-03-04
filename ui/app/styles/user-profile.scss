@@ -293,8 +293,8 @@ $color-ribbon-darker: rgba(15,51,10,1);
 }
 
 [data-focus='notification-center'] {
-    right: calc( 100vw - 300px);
-    position: absolute;
+    left: 300px;
+    position: fixed;
     & > div {
         
         & > i {

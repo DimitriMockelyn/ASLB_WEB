@@ -56,7 +56,12 @@ export default React.createClass({
                 onNavigate={this.onNavigateCalendar}
                 selectable='ignoreEvents'
                 eventPropGetter={this.detectPropsEvent}
-                messages={{next: 'Mois suivant', today: 'Aujourd\'hui', previous: 'Mois précédent'}}
+                messages={{next: 'Mois suivant', today: 'Aujourd\'hui', previous: 'Mois précédent', showMore: (nb) => { 
+                    if (nb === 1 ) {
+                        return nb + ' autre activité';
+                    } 
+                    return nb + ' autres activités';
+                    }}}
                 components={this.props.components}
                 />
         </div>
