@@ -332,9 +332,10 @@ export default {
     },
     contact: {
         contactAsso: 'Contacter l\'association',
-        contactCourrier: 'Pour nous écrire, vous pouvez adresser votre courrier à l\'adresse suivante : ',
-        contactMail: 'Pour un contact par e-mail, vous pouvez contacter la boite mail suivante :',
-        contactPhysique: 'Pour venir nous voir pendant les heures d\'activités, c\'est ici !',
+        contactGeneral: 'Pour nous contacter, 3 possibilités:',
+        contactCourrier: 'Courrier : ',
+        contactMail: 'Courriel : ',
+        contactPhysique: 'Venez nous voir directement :',
         presentationMembres: 'Présentation des membres',
         presentationTitre: 'Qui suis-je ?',
         interview: {
