@@ -48,30 +48,6 @@ exports.initData = function() {
   }, {upsert: true, 'new': true}, function(err, model) {
   });
 
-  Entreprise.findOneAndUpdate({code: 'KLEE'}, {
-    label: 'Klee Group',
-    code:'KLEE'
-  }, {upsert: true, 'new': true}, function(err, model) {
-  });
-
-  Entreprise.findOneAndUpdate({code: 'TOK'}, {
-    label: 'Tokheim Services',
-    code:'TOK'
-  }, {upsert: true, 'new': true}, function(err, model) {
-  });
-
-  Entreprise.findOneAndUpdate({code: 'MIS'}, {
-    label: 'MISCO',
-    code:'MIS'
-  }, {upsert: true, 'new': true}, function(err, model) {
-  });
-
-  Entreprise.findOneAndUpdate({code: 'AUT'}, {
-    label: 'Autre',
-    code:'AUT'
-  }, {upsert: true, 'new': true}, function(err, model) {
-  });    
-
 }
 
 exports.list_all_partenaires = function(req, res) {
