@@ -132,6 +132,7 @@ export default {
 
     },
     admin: {
+        detailActivites: 'Détails des activités',
         adminUsers: 'Administrer les utilisateurs',
         typeEvenement: 'Type d\'évènements',
         addType: 'Ajouter un type',

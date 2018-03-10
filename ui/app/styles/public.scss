@@ -1356,3 +1356,8 @@ p {
   [data-focus='header-top-row'] > div [data-focus^='header-top-row'] {
     padding: 0 25px;
   }
+
+  .top-header-act {
+    margin-top: -60px;
+    margin-bottom: 70px;
+  }

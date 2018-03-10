@@ -10,6 +10,8 @@ import {component as Button} from 'focus-components/common/button/action';
 import Toggle from 'focus-components/components/input/toggle';
 import Panel from 'focus-components/components/panel';
 import Carousel from 'nuka-carousel';
+import {translate} from 'focus-core/translation';
+
 export default React.createClass({
     displayName: 'HeaderView',
     mixins: [formMixin],
@@ -66,7 +68,8 @@ export default React.createClass({
           }
         return (
             <div>
-            <div data-focus='header-activites'>
+              <div className='center-text top-header-act'>{translate('admin.detailActivites')}</div>
+            <div data-focus='header-activites'>           
                 <Carousel wrapAround={true} slidesToShow={3} decorators={Decorators}>
                 {eventsDesc.map(data => {
                     if (data.image) {
