@@ -1142,6 +1142,7 @@ div[data-focus="field"] [data-focus="field-label-container"].mdl-cell--12-col {
     min-height: 40px;
     margin-top: 5px;
     margin-bottom: 5px;
+    white-space: pre;
   }
   .line-info {
     & > *:nth-child(1) {

@@ -40,7 +40,11 @@ export default React.createClass({
                     <div>{this.state.name}</div>
                     <div className='red'>{this.computeLabel(this.state.niveau, 'niveauEvenements')}</div>
                     <div>{translate('event.animePar')}</div>
-                    <div className='click-user-name'onClick={() => {setTimeout(() => {navigate('u/'+this.props.animateur._id, true)},10)}}>{this.props.animateur.prenom}</div>
+                    <div>
+                        <i style={{    'float': 'right', 'cursor': 'pointer'}} className='material-icons' onClick={() => {window.location.href='mailto:'+this.props.animateur.email}}>mail</i>
+                        <div className='click-user-name'onClick={() => {setTimeout(() => {navigate('u/'+this.props.animateur._id, true)},10)}}>{this.props.animateur.prenom}</div>
+                        
+                    </div>
                 </div>
                 <div className='description'>
                     {this.state.description}

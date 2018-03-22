@@ -24,7 +24,7 @@ exports.list_all_evenements = function(req, res) {
         evenement.participants = evenement.participants;
     });
     res.json(evenements);
-  }).populate('createur', '_id prenom nom').populate('participants', '_id prenom nom sexe email').populate('fileAttente', '_id personne ordre').populate('animateur', '_id prenom nom').sort({date_debut: 1});
+  }).populate('createur', '_id prenom nom').populate('participants', '_id prenom nom sexe email').populate('fileAttente', '_id personne ordre').populate('animateur', '_id prenom nom email').sort({date_debut: 1});
 };
 
 exports.list_all_incoming_evenements = function(req, res) {
@@ -41,7 +41,7 @@ exports.list_all_incoming_evenements = function(req, res) {
         evenement.participants = evenement.participants;
     });
     res.json(evenements);
-  }).populate('createur', '_id prenom nom').populate('participants', '_id prenom nom sexe email').populate('typeEvenement', '_id code name').populate('fileAttente', '_id personne ordre').populate('animateur', '_id prenom nom').sort({date_debut: 1});
+  }).populate('createur', '_id prenom nom').populate('participants', '_id prenom nom sexe email').populate('typeEvenement', '_id code name').populate('fileAttente', '_id personne ordre').populate('animateur', '_id prenom nom email').sort({date_debut: 1});
 }
 
 exports.list_my_evenements = function(req,res) {
@@ -60,7 +60,7 @@ exports.list_my_evenements = function(req,res) {
           evenement.participants = evenement.participants;
       });
       res.json(evenements);
-    }).populate('createur', '_id prenom nom').populate('participants', '_id prenom nom sexe email').populate('animateur', '_id prenom nom').populate('fileAttente', '_id personne ordre').sort({date_debut: 1});
+    }).populate('createur', '_id prenom nom').populate('participants', '_id prenom nom sexe email').populate('animateur', '_id prenom nom email').populate('fileAttente', '_id personne ordre').sort({date_debut: 1});
   })
 }
 
@@ -82,7 +82,7 @@ exports.list_my_history = function(req, res) {
           evenement.participants = evenement.participants;
       });
       res.json(evenements);
-    }).populate('createur', '_id prenom nom').populate('participants', '_id prenom nom sexe email').populate('fileAttente', '_id personne ordre').populate('typeEvenement', '_id code name').populate('animateur', '_id prenom nom').sort({date_debut: -1});
+    }).populate('createur', '_id prenom nom').populate('participants', '_id prenom nom sexe email').populate('fileAttente', '_id personne ordre').populate('typeEvenement', '_id code name').populate('animateur', '_id prenom nom email').sort({date_debut: -1});
   })
 }
 

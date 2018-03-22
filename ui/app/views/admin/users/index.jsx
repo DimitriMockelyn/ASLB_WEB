@@ -33,6 +33,7 @@ export default React.createClass({
         this.loadAllUsers();
     },
     loadAllUsers() {
+        adminServices.loadAllUsers({filter: ''}).then(res => {this.setState({total: res.length})});
         adminServices.loadAllUsers({filter: this.state.filter}).then(res => {this.setState({users: res})});
     },
     export() {
@@ -62,10 +63,11 @@ export default React.createClass({
         }
     },
     createUser() {
-        this.setState({createUser: true});
+        this.setState({createUser: true, numero: ("000000" + (this.state.total+1)).slice(-6)});
     },
     closePopinCreate() {
         this.setState({createUser: false});
+        this.loadAllUsers();
     },
     onChangeInput(value) {
         this.setState({filter: value}, this.loadAllUsers);

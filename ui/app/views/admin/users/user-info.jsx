@@ -113,7 +113,7 @@ export default React.createClass({
                 {this.fieldFor('nom', {isEdit: false})}
                 {this.fieldFor('prenom', {isEdit: false})}
                 {this.fieldFor('email', {isEdit: false})}
-                {this.fieldFor('numero')}
+                {this.fieldFor('numero', {isEdit: false})}
                 {this.fieldFor('date_activation', {isEdit: false})}
                 {this.fieldFor('date_fin', {isEdit: false})}
                 {this.fieldFor('dossier_complet', {isEdit: false})}

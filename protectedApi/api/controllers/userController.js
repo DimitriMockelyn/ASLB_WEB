@@ -764,7 +764,7 @@ exports.list_all_entreprises = function(req,res) {
       res.send(err);
     }
     res.json(types);
-  }).sort({label: 1});
+  }).sort({code: 1});
 }
 
 function base64_encode(file) {
