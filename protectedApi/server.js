@@ -20,6 +20,8 @@ var express = require('express'),
   Message = require('./api/models/messageModel'),
   Profil = require('./api/models/profilModel'),
   Queue = require('./api/models/queueModel'),
+  Badge = require('./api/models/badgeModel'),
+  BadgeRecu = require('./api/models/badgeRecuModel'),
   bodyParser = require('body-parser'),
   jsonwebtoken = require("jsonwebtoken");
 
