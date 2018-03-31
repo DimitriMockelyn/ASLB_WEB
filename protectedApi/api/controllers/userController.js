@@ -16,7 +16,8 @@ var mongoose = require('mongoose'),
   Queue = mongoose.model('Queue'),
   Commentaire = mongoose.model('Commentaire'), 
   evenementController = require('./evenementController'),
-  Entreprise = mongoose.model('Entreprise');
+  Entreprise = mongoose.model('Entreprise'),
+  badgeController = require('./badgeController');
 
   var {getConfig} = require('../../config');
 
@@ -82,7 +83,9 @@ exports.sign_in = function(req, res) {
     if (!user || !user.comparePassword(req.body.password) || !user.actif) {
       return res.status(401).json({ message: 'Mauvais compte / mot de passe ou compte inactif' });
     }
+    badgeController.initBadges(user);
     return res.json({ token: jwt.sign({ email: user.email, nom: user.nom, prenom: user.prenom, _id: user._id }, 'RESTFULAPIs', {expiresIn: 3600*12}) });
+
   });
 };
 
