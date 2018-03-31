@@ -19,6 +19,7 @@ var mongoose = require('mongoose'),
   mailer = require('../utils/mailer'),
   moment = require('moment');
 
+
 exports.initData = function() {
   
   NiveauEvenement.findOneAndUpdate({code: 'NIV1'}, {
