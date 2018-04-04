@@ -192,7 +192,7 @@ export default React.createClass({
             if (users === '') {
                 users = this.state.participants[index].email;
             } else {
-                users = users + ';'+ this.state.participants[index].email
+                users = users + ';'+ this.state.participants[index].email 
             }
         }
         window.location.href = 'mailto:'+users;

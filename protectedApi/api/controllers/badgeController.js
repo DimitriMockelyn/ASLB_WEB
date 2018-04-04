@@ -53,6 +53,21 @@ function createBadgeForEvenements(badge, user, evenements, expectedSize) {
   }
 }
 
+function createBadgeForEvenementsNotes(badge, user, commentaires, evenements, expectedSize) {
+  if (evenements && evenements.length === expectedSize) {
+    var brecu = new BadgeRecu();
+    brecu.badge = badge;
+    brecu.user = user;
+    brecu.evenements = evenements;
+    brecu.save(function(err,rsfinal){
+      if (badge.isMultiple) {
+        checkBadge(badge,user);
+      }
+    });
+
+  }
+}
+
 function createBadgeForEvenementsInMonth(badge, user, evenements, expectedSize) {
   if (evenements && evenements.length >= expectedSize) {
     //On recherche les evenements dans le meme mois

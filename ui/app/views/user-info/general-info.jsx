@@ -10,6 +10,7 @@ import userHelper from 'focus-core/user';
 
 import {component as Popin} from 'focus-components/application/popin';
 import UserRibbonSelect from './user-ribbon-select';
+import InfosBadges from './infos-badges';
 
 const CustomTooltip  = React.createClass({
   
@@ -128,6 +129,9 @@ export default React.createClass({
                         {this.state.numero && <label>n° {this.state.numero}</label>}
                     </div>
                     <div data-focus='bar' />
+                </div>
+                <div>
+                    <InfosBadges id={this.props.id} />
                 </div>
                 <div data-focus='info-historique'>
                     <div data-focus='historique-30j'>

@@ -247,4 +247,8 @@ module.exports = function(app) {
 
 	app.route('/toggleSelfForMachine/:id')
 		.post(userHandlers.loginRequired, userHandlers.isMembreActif, machinesController.toggle_self_for_machine);
+
+	app.route('/profil/infoBadgesRecu/:id')
+		.get(userHandlers.userExists, profileController.my_badges);
+
 };
