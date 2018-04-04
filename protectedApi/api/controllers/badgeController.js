@@ -68,6 +68,7 @@ function createBadgeForEvenementsNotes(badge, user, commentaires, evenements, ex
   }
 }
 
+
 function createBadgeForEvenementsInMonth(badge, user, evenements, expectedSize) {
   if (evenements && evenements.length >= expectedSize) {
     //On recherche les evenements dans le meme mois
