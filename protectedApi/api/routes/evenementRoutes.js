@@ -195,4 +195,7 @@ module.exports = function(app) {
 
 	app.route('/historique/exportMyCoachHistory')
 		.post(userHandlers.loginRequired, eventHandler.export_my_coach_history);
+
+	app.route('/profil/infoBadgesRecu/:id')
+		.get(userHandlers.userExists, profileController.my_badges);
 };

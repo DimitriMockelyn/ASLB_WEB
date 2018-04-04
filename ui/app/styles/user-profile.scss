@@ -12,6 +12,7 @@
         border-radius: 15px;
         padding: 20px;
         padding-left: 40px;
+        z-index: 1001;
     }
     [data-focus='user-panel-right'] {
         position: fixed;
@@ -347,5 +348,37 @@ $color-ribbon-darker: rgba(15,51,10,1);
     }
     .clickable:hover {
         text-decoration: underline;
+    }
+}
+
+[data-focus="badges-line"] {
+    [data-focus="round-line"] {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        margin-bottom: 10px;
+        & > div {
+            margin-right: 5px;
+            display: flex;
+            flex-direction: row;
+            & > div {
+                width: 15px;
+                height: 15px;
+                border-radius: 50px;
+                margin-right: 3px;
+            }
+        }
+    }
+    .Bronze {
+        background-color: rgb(150,90,56);
+    }
+    .Argent {
+        background-color: rgb(168,168,168);
+    }
+    .Or {
+        background-color: rgb(217,164,65);
+    }
+    .Platinium {
+        background-color: rgb(229, 228, 226);
     }
 }

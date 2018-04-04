@@ -9,7 +9,7 @@ var Badge = new Schema({
       type: String,
       required: true
     },
-    type: {
+    code: {
       type: String,
       required: true
     },

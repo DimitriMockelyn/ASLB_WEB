@@ -76,7 +76,7 @@ exports.initData = function() {
   +'  var commsIds = [];'
   +'  comms.map(comm => {commsIds.push(comm.evenement)});'
   +'    Evenement.find({$and:[{ date_debut: {$lt: Date.now()}},{_id: {$in: commsIds}},{_id: {$nin: existingIds}}]}, function(err,res) {'
-  +'      createBadgeForEvenements(badge, user,res, #LIMIT#);'
+  +'      createBadgeForEvenementsNotes(badge, user, comms, res, #LIMIT#);'
   +'    }).populate(\'typeEvenement\',\'_id code\').sort({date_debut: 1}).limit(#LIMIT#)'
   +'  })'
   +' })';
@@ -122,7 +122,7 @@ exports.initData = function() {
 
   Badge.findOneAndUpdate({titre: '5 Evenements en un mois'}, {
     titre: '5 Evenements en un mois',
-    code:'Bronze',
+    code:'Argent',
     isMultiple: true,
     requestCheck: requestBadgeEvenementInMonthCount.replace(/#LIMIT#/g, '4').replace(/#FILTER_EVENEMENTS#/g,'{participants: user}')
   }, {upsert: true, 'new': true}, function(err, model) {
@@ -138,7 +138,7 @@ exports.initData = function() {
 
   Badge.findOneAndUpdate({titre: 'Animer 3 Evenements en un mois'}, {
     titre: 'Animer 3 Evenements en un mois',
-    code:'Bronze',
+    code:'Or',
     isMultiple: true,
     requestCheck: requestBadgeEvenementInMonthCount.replace(/#LIMIT#/g, '2').replace(/#FILTER_EVENEMENTS#/g,'{animateur: user}')
   }, {upsert: true, 'new': true}, function(err, model) {

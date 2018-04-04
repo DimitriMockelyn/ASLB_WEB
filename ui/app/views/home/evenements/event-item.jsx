@@ -16,7 +16,7 @@ export default React.createClass({
         return (
         <div className={'rbc-event event-caroussel ' + (this.props.data.typeEvenement ? this.props.data.typeEvenement.code : '') } onClick={() => {setTimeout(() => {navigate('agenda/'+this.props.data._id,true)},10)}}>
                 <div>
-                    {(this.props.data.typeEvenement ? this.props.data.typeEvenement.name : '') + ' - ' + this.props.data.name}
+                    {(this.props.data.typeEvenement ?  this.props.data.typeEvenement.name : '') + ' - ' + this.props.data.name}
                 </div>
                 <div>{moment(this.props.data.date_debut, moment.ISO_8601).format('DD/MM/YYYY - HH:mm') }</div>
                 <div>
