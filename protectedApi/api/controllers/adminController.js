@@ -49,21 +49,30 @@ exports.initData = function() {
   }, {upsert: true, 'new': true}, function(err, model) {
   });
 
-  BlocAdministrables.findOneAndUpdate({type: 'espaces', ordre: 1}, {
-    type: 'espaces', 
-    ordre: 1,
-    titre:'Les espaces de l\'aassociations',
-    contenu: 'Vous trouverez les espaces de l asso'
-  }, {upsert: true, 'new': true}, function(err, model) {
-  });
+  BlocAdministrables.find({type: 'espaces', ordre: 1}, function(err, exists) {
+    if (!exists || exists.length === 0) {
+      BlocAdministrables.findOneAndUpdate({type: 'espaces', ordre: 1}, {
+        type: 'espaces', 
+        ordre: 1,
+        titre:'Les espaces de l\'aassociations',
+        contenu: 'Vous trouverez les espaces de l asso'
+      }, {upsert: true, 'new': true}, function(err, model) {
+      });
+    }
+  })
+  
 
-  BlocAdministrables.findOneAndUpdate({type: 'espaces', ordre: 2}, {
-    type: 'espaces', 
-    ordre: 2,
-    titre:'Le matériel',
-    contenu: 'Vous trouverez le matos de l asso'
-  }, {upsert: true, 'new': true}, function(err, model) {
-  });
+  BlocAdministrables.find({type: 'espaces', ordre: 2}, function(err, exists) {
+    if (!exists  || exists.length === 0) {
+    BlocAdministrables.findOneAndUpdate({type: 'espaces', ordre: 2}, {
+      type: 'espaces', 
+      ordre: 2,
+      titre:'Le matériel',
+      contenu: 'Vous trouverez le matos de l asso'
+    }, {upsert: true, 'new': true}, function(err, model) {
+    });
+  }
+  })
 
 }
 
