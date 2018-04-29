@@ -26,8 +26,8 @@ export default {
         print: 'Imprimer',
         forward: 'Transmettre',
         forwardSRC: 'Valider',
-        forwardSRCDone:'Le BPF a bien été validé',
-        forwardDone : 'Le BPF a bien été transmis',
+        forwardSRCDone: 'Le BPF a bien été validé',
+        forwardDone: 'Le BPF a bien été transmis',
         send: 'Envoyer',
         number: 'n°',
         consult: 'Consulter',
@@ -44,7 +44,7 @@ export default {
     },
     domain: {
         error: {
-            telephone :' Le numéro de téléphone n\'est pas valide',
+            telephone: ' Le numéro de téléphone n\'est pas valide',
             date: 'La date doit être au format JJ/MM/AAAA'
         }
     },
@@ -52,24 +52,24 @@ export default {
         required: 'Ce champ est obligatoire'
     },
     live: {
-      filter: {
-          title : 'Filtres de résultats'
-      }
+        filter: {
+            title: 'Filtres de résultats'
+        }
     },
     result: {
-      for: 'Résultat(s) trouvé(s)'
+        for: 'Résultat(s) trouvé(s)'
     },
     search: {
-      scope: {
-          all: ' Tous'
-      },
+        scope: {
+            all: ' Tous'
+        },
         cartridge: {
             title: 'Que recherchez vous ?'
         },
         bar: {
             placeholder: 'Entrez votre recherche ...'
         },
-        empty : 'La recherche n\'a pas retourné de résultats'
+        empty: 'La recherche n\'a pas retourné de résultats'
 
     },
     button: {
@@ -92,44 +92,57 @@ export default {
         voirPlus: 'Voir plus',
         exporter: 'Exporter',
         sendMailParticipants: 'Contacter les participants',
-        cancelQueue: 'Je ne veux pas etre mis en attente',
+        cancelQueue: 'Je ne veux pas être mis en attente',
         acceptQueue: 'Je me mets en file d’attente :)'
+
     },
     home: {
         message: {
             0: 'Bienvenue sur l\'interface web de l\'ASLB ! \n (Cliquez sur la fenêtre pour continuer)',
-            1: 'Vous pouvez voir l\'ensemble des activités proposées dans ce menu',
-            2: 'Vous pourrez aussi voir votre historique d\'activité et les commenter',
+            1: 'Le planning des activités proposées',
+            2: 'Ici votre historique, vous pouvez commenter et noter vos séances !',
             3: 'Si vous voulez en savoir plus sur nous, c\'est ici',
-            4: 'Nos partenaires sont la',
-            5: 'Pour apprendre a mieux vous connaitre, vous pouvez personnaliser votre profil en cliquant ici ↗',
-            6: 'L\'association est la pour vous. N\'hésitez pas a nous soumettre vos idées et critiques, a nous poser toutes les questions qui vous viennent ...  Nous sommes la pour vous aider. \n Laissez nous un petit message a l\'occasion, ça nous fait toujours plaisir :) \n \n Bon sport a vous, et on se retrouve à la salle !'
+            4: 'Nos partenaires sont là',
+            5: 'Personnalisez votre profil en cliquant ici ↗',
+            6: 'L\'association est là pour vous. N\'hésitez pas à nous soumettre vos idées et critiques, à nous poser vos questions ...  Nous sommes là pour vous. \n Laissez-nous un petit message à l\'occasion, ça fait toujours plaisir :) \n \n Bon sport à vous, et on se retrouve à la salle !'
         }
+
     },
     agenda: {
         legendeStar: 'Les étoiles, si précisées, correspondent au niveau de difficulté de la séance.',
         home: 'Agenda des activités de l\'ASLB',
         evenementDetail: 'Détail de l\'évènement',
         mine: 'Mon agenda',
-        all: 'Tous les évenements',
+        all: 'Tous les évènements',
         calendar: 'Vue calendrier',
         tile: 'Vue condensée',
         legende: 'Légende',
-        messageQueue: 'Salut ! \n'+
-'Tu souhaites t’inscrire à cette activité mais malheureusement elle est complète ! Bouhouhou…\n'+
-'Aucun problème ! Tu peux te mettre en file d’attente dans le cas ou une place se libère.\n'+
-'Comment ça fonctionne ? Rien de plus simple !\n'+
-'Si tu as encore des jetons disponibles, tu t’y inscris et ta position dans la la file te seras précisée, elle est attribuée par ordre d’arrivée. Tu peux te retirer de la file d’attente à tout moment pour récupérer ton jeton et t’inscrire à une autre activité.\n'+
-'Une place se libère et tu es celle/celui qui peut en bénéficier ?  Super ! Tu seras avertis par mail, il faut donc que tu ais tes affaires au cas ou :)\n'+
-'Tu ne peux pas y participer ? Merci de te désinscrire afin de laisser la place à celles et ceux qui sont derrière toi, en attentes d’une place. Si tu ne procèdes pas à la désincription, tu seras considéré comme absent(e).\n',
-        messageQueueImpossible: 'Salut ! \n'+
-'Tu souhaites t’inscrire à cette activité mais malheureusement elle est complète ! Bouhouhou…\n'+
-'Aucun problème ! Tu peux te mettre en file d’attente dans le cas ou une place se libère.\n'+
-'Comment ça fonctionne ? Rien de plus simple !\n'+
-'Tu n\'as plus de jetons disponibles actuellement, mais si tu participe bientot a un événement, tu en récupereras un. Sinon, si tu te désinscris d\'un événement, tu pourras alors t’y inscrire et ta position dans la la file te seras précisée, elle est attribuée par ordre d’arrivée. Tu peux te retirer de la file d’attente à tout moment pour récupérer ton jeton et t’inscrire à une autre activité.\n'+
-'Une place se libère et tu es celle/celui qui peut en bénéficier ?  Super ! Tu seras avertis par mail, il faut donc que tu ais tes affaires au cas ou :)\n'+
-'Tu ne peux pas y participer ? Merci de te désinscrire afin de laisser la place à celles et ceux qui sont derrière toi, en attentes d’une place. Si tu ne procèdes pas à la désincription, tu seras considéré comme absent(e).\n',
+        messageQueue: 'Salut ! \n' +
 
+        'Tu souhaites t’inscrire à cette activité mais malheureusement elle est complète !\n' +
+
+        'Aucun problème ! Tu peux te mettre en file d’attente dans le cas où une place se libère.\n' +
+
+        'Comment ça fonctionne ? Rien de plus simple !\n' +
+
+        'Tu as encore des jetons disponibles, tu t’y inscris et ta position dans la file te sera précisée, elle est attribuée par ordre d’arrivée. Tu peux te retirer de la file d’attente à tout moment pour récupérer ton jeton et t’inscrire à une autre activité.\n' +
+
+        'Si une place se libère et que tu es celle/celui qui peut en bénéficier, tu seras avertis par mail, il faut donc que tu ais tes affaires au cas où !\n' +
+
+        'Tu ne peux pas y participer ? Merci de te désinscrire afin de laisser la place à celles et ceux qui sont derrière toi, en attentes d’une place.\n',
+        messageQueueImpossible: 'Salut ! \n' +
+
+        'Tu souhaites t’inscrire à cette activité mais malheureusement elle est complète !\n' +
+
+
+
+        'Tu n\'as plus de jeton disponible actuellement, mais si tu participes bientôt a un événement, tu en récupéreras un. Sinon, si tu te désinscris d\'un événement, tu pourras alors t’y inscrire et ta position dans la file te sera précisée, elle est attribuée par ordre d’arrivée. Tu peux te retirer de la file d’attente à tout moment pour récupérer ton jeton et t’inscrire à une autre activité.\n' +
+
+
+
+        'Si une place se libère et que tu es celle/celui qui peut en bénéficier, tu seras avertis par mail, il faut donc que tu ais tes affaires au cas où !\n' +
+
+        'Tu ne peux pas y participer ? Merci de te désinscrire afin de laisser la place à celles et ceux qui sont derrière toi, en attentes d’une place.\n',
     },
     blocs: {
         titre: 'Titre',
@@ -155,9 +168,9 @@ export default {
         eventAt: 'Début de l\'activité :',
         nbInscrits: 'Inscrits :',
         noMoreNews: 'Pas de news plus ancienne',
-        noMoreEvents: 'Pas plus d\'événements prévu',
+        noMoreEvents: 'Pas d\'événements prévu',
         personDetail: 'Détail du compte',
-        partenaire: 'Partenaire',
+        partenaire: 'Partenaires',
         addPartenaire: 'Ajouter un partenaire',
         mailAll: 'Envoyer un mail général',
         mailCreateurs: 'Envoyer un mail aux créateurs de cours',
@@ -174,59 +187,63 @@ export default {
         entreprise: 'Entreprise',
         telephone: 'Téléphone',
         ribbons: 'Ruban'
+
     },
     detail: {
         saved: 'Les informations ont bien été enregistrées.'
+
     },
     event: {
         minutes: 'minutes',
         nbInscrits: 'Inscrits :',
         dateHeure: 'Date/Heure ',
         participantsPlace: 'Participants/Places',
-        animePar: 'Animé par', 
+        animePar: 'Animé par',
         niveau: 'Niveau',
         created: 'Crée le',
         creator: 'Crée par',
         start: 'Débute le',
         end: 'Termine à',
         description: 'Description',
-        addSelf: 'S\'inscrire à cet évenement',
-        removeSelf: 'Se désinscrire de cet évenement',
-        removeSelfConfirm: 'Voulez-vous vous désinscrire de cet évenement ?',
-        deleteEvent: 'Supprimer cet évenement',
-        deleteEventConfirm: 'Voulez-vous supprimer cet évenement ?',
+        addSelf: 'S\'inscrire à cet évènement',
+        removeSelf: 'Se désinscrire de cet évènement',
+        removeSelfConfirm: 'Voulez-vous vous désinscrire de cet évènement ?',
+        deleteEvent: 'Supprimer cet évènement',
+        deleteEventConfirm: 'Voulez-vous supprimer cet évènement ?',
         name: 'Nom',
         date_debut: 'Débute le',
         duree: 'Durée (minutes)',
         limite: 'Limite de places',
-        create: 'Créer l\'évenement',
+        create: 'Créer l\'évènement',
         participantsList: 'Liste des participants',
         typeEvenement: 'Type',
         animateur: 'Animateur',
         commentaireVide: 'Veuillez renseigner un des champs du commentaire',
-        commentairePoste: 'Votre commentaire à bien été enregistré',
+        commentairePoste: 'Votre commentaire a bien été enregistré',
         editComment: 'Editer mon commentaire',
         createComment: 'Envoyer mon commentaire',
         note: 'Note',
         commentaire: 'Commentaire',
         noteMoyenne: 'Note moyenne',
         noNotes: 'Pas de notes'
+
     },
     confirmDelete: {
         news: 'Etes-vous sur de vouloir supprimer cette news ?',
         partenaire: 'Etes-vous sur de vouloir supprimer ce partenaire ?',
-        presentation:'Etes-vous sur de vouloir supprimer cette présentation ?',
+        presentation: 'Etes-vous sur de vouloir supprimer cette présentation ?',
         typeEvenement: 'Etes-vous sur de vouloir supprimer ce type d\'évènement ?',
     },
     select: {
         unSelected: '-',
         oui: 'Oui',
         non: 'Non'
+
     },
     user: {
         firstConnect: 'Première connexion',
         askPassword: 'Initialiser mon mot de passe',
-        connect : 'Se connecter',
+        connect: 'Se connecter',
         create: 'Créer un compte',
         connexion: 'Connexion',
         creation: 'Créer son compte',
@@ -237,11 +254,12 @@ export default {
         reset: 'Envoyer un mail de réinitialisation',
         performReset: 'Changer mon mot de passe',
         notChanged: 'Ce token est invalide ou n\'est associé a aucun compte',
-        changed: 'Le mot de passe à été changé.'
+        changed: 'Le mot de passe a été changé.'
+
     },
     person: {
-        confirmDesactiver: 'Etes vous sur de vouloir désactiver ce compte ? Vous pouvez indiquer la raison dans le champ ci-dessous',
-        confirmActiver: 'Etes vous sur de vouloir activer ce compte ?',
+        confirmDesactiver: 'Etes-vous sur de vouloir désactiver ce compte ? Vous pouvez indiquer la raison dans le champ ci-dessous',
+        confirmActiver: ' Etes-vous sur de vouloir activer ce compte ?',
         inactiver: 'Inactiver',
         activer: 'Activer',
         email: 'Adresse e-mail',
@@ -249,9 +267,9 @@ export default {
         passwordAgain: 'Confirmez le mot de passe',
         prenom: 'Prénom',
         nom: 'Nom',
-        badPasswords:'Les mots de passes sont différents',
-        createdSuccess: 'Le compte à été crée, veuillez le valider pour vous connecter',
-        createdSuccess2: 'Le compte à été crée',
+        badPasswords: 'Les mots de passes sont différents',
+        createdSuccess: 'Le compte a été créé, veuillez le valider pour vous connecter',
+        createdSuccess2: 'Le compte a été créé',
         confirmResetPassword: 'Veuillez entrer les nouvelles informations de mot de passe',
         passwordReseted: 'Votre mot de passe a été réinitialisé',
         mailResetSent: 'Un mail vous a été envoyé pour réinitialiser votre mot de passe',
@@ -259,8 +277,8 @@ export default {
         date_activation: 'Date d\'adhésion',
         canCreate: 'Peut créer un événement',
         isAdmin: 'Est admin',
-        toggleCanCreate: 'Toggle de la création d\'événements',
-        setAdmin: 'Toggle du rôle d\'administration de la personne',
+        toggleCanCreate: 'Est créateur d’évènements',
+        setAdmin: 'Est administrateur',
         nonAdherent: 'Adhésion non validée',
         adherentDepuis: 'Adhérent depuis le',
         changeAvatar: 'Changer mon avatar',
@@ -277,32 +295,35 @@ export default {
         changePassword: 'Changer mon mot de passe',
         description: 'Un petit mot pour te présenter ?',
         raisonSport: 'Pour toi, le sport c\'est ... ?',
-        activitesVoulues: 'Parmis les activités proposées, quelles sont celles qui t\'intéressent ?',
+        activitesVoulues: 'Parmi les activités proposées, quelles sont celles qui t\'intéressent ?',
         autreActivites: 'Y-a-t\'il des activités sportives (non proposées) que tu aimerais voir dans cette liste?',
         records: 'Des records, titres, accomplissements personnels que tu veux partager avec nous ?',
         adhesion: 'Adhésion',
         decharge: 'Décharge',
-        reglement: 'Réglement',
+        reglement: 'Règlement',
         certificat: 'Certificat',
         cotisation: 'Cotisation',
         numero: 'Numéro d\'adhérent'
+
     },
     confirmAddDroits: {
-        create: 'Voulez vous vraiment changer les droits de création d\'activité a cette personne ?',
-        admin: 'Voulez vous vraiment changer les droits d\'administrateur a cette personne ?'
+        create: 'Voulez-vous vraiment changer les droits de création d\'activité a cette personne ?',
+        admin: 'Voulez-vous vraiment changer les droits d\'administrateur a cette personne ?'
+
     },
     partenaires: {
         description: 'Vous trouverez ci-dessous la liste des partenaires de l\'association',
     },
     historique: {
-        description: 'Historique de mes événements. Laissez un commentaire sur un événement en le selectionnant.',
+        description: 'Historique de mes événements. Laissez un commentaire sur un événement en le sélectionnant.',
         eventsParticipant: ' événement(s) terminé(s)',
         descriptionCoach: 'Historique de mon coaching événements. Cliquer sur un événement pour voir les commentaires laissés',
         notCoachYet: 'Vous souhaitez rejoindre l’équipe des animateurs ? Bien ! Nous sommes là pour vous accompagner.',
         howToCoach: 'L\'association fonctionne grâce à vous et aux animateurs qui proposent des activités de groupe pour tout le monde. Toutes les idées sont les bienvenues, elles seront étudiées et si toutes les conditions sont réunies pour que l’on puisse les proposer, on se lance !',
-        coachBenefits: 'N’hésitez plus, prenez contact avec un animateur pendant les heures d\'ouverture ou envoyez nous un petit mail :) Nous vous répondrons dans les plus brefs délais !',
+        coachBenefits: 'N’hésitez plus, prenez contact avec un animateur pendant les heures d\'ouverture ou envoyez-nous un petit mail :) Nous vous répondrons dans les plus brefs délais !',
         coachContact: 'A très bientôt !',
         signature: 'Le bureau'
+
     },
     sexe: {
         label: 'sexe'
@@ -321,7 +342,7 @@ export default {
         name: 'Titre',
         image: 'Image (URL)',
         isBureau: 'Membre du bureau ?',
-        description : 'Description',
+        description: 'Description',
         ordre: 'Ordre d\'affichage',
         fonction: 'Fonction'
     },
@@ -347,7 +368,7 @@ export default {
         presentationMembres: 'Présentation des membres',
         presentationTitre: 'Qui suis-je ?',
         interview: {
-            quest1 : 'En deux lignes, fais-nous une petite présentation de toi (sérieuse celle-là, les bêtises c’est pour après !).',
+            quest1: 'En deux lignes, fais-nous une petite présentation de toi (sérieuse celle-là, les bêtises c’est pour après !).',
             quest2: 'As-tu un surnom ?',
             quest3: 'Ton ou tes sports ? Tes performances ?',
             quest4: 'Si un génie t\'offre de réaliser 3 vœux, quels seraient-ils ?',
@@ -395,8 +416,8 @@ export default {
         quest20: 'Déjà c’est un samedi ou un dimanche, pas parce que c’est chaumé mais car je la passe avec ma famille et que j’adore ça. Réveil sans réveil, un ciné, une balade, aller voir des amis, bref tout ce qu’on peut faire ensemble sans se prendre la tête !',
         quest21: 'J’adore regarder des films, autant je ne regarde pas la télé et je ne m\'intéresse pas à l’actualité, autant je peux regarder 4 films à la suite. J’adore jouer à Football Manager aussi, bah ouais...pas facile de gommer les parasites de jeunesse :)',
         quest22: 'Be yourself, no matter what they say \\nSoyons désinvoltes, n’ayons l’air de rien !'
-   },
-   guillaumeBlanchard: {
+    },
+    guillaumeBlanchard: {
         titre: 'Guillaume BLANCHARD - Trésorier ASLB',
         quest1: 'Guillaume, 41 ans, marié, 2 filles de 6 et 8 ans. \\nJe bosse chez Klee Group en tant que Directeur de Projets en informatique. \\nJe suis à la Boursidière depuis mars 2013.',
         quest2: 'Je n’ai pas cette chance. J’ai toujours détesté les “Guigui” et autre “Yoyo” que je trouve laids.',
@@ -420,8 +441,8 @@ export default {
         quest20: 'C’est une journée lors de laquelle on s’est senti utile, tout en s\'épanouissant, tout en rendant les gens heureux autour de toi, tout en ayant appris quelque chose d’important dont on se souviendra dans 10 ans',
         quest21: 'Les voyages en totale liberté pendant les vacances, quand on peut s’émerveiller de tout, et s’étonner soi-même.',
         quest22: 'Ma stratégie de course : au départ, tu fonces, au milieu, tu accélères, et à la fin, tu sprintes'
-   },
-   dimitriMockelyn: {
+    },
+    dimitriMockelyn: {
         titre: 'Dimitri MOCKELYN - Secrétaire ASLB',
         quest1: 'Dimitri, 24 ans, trop jeune pour le mariage et les enfants. Ingénieur en développement chez Klee Group depuis novembre 2014, globetrotter et geek à mes heures perdues',
         quest2: 'Arnitri. C’est une longue histoire … je vous l’expliquerai à l’occasion :)',
@@ -445,7 +466,7 @@ export default {
         quest20: 'Je me lève, et les croissants sont déjà la. Après un petit déjeuner pris en mode relax, devant une série, je pars rejoindre des amis pour aller faire des jeux, ou un escape game, ou un resto, ou n’importe quoi qui nous fait passer du temps ensemble en fait. Puis arrive rapidement la fin d\'après midi ou on se pose dans un bar, avec un peu de musique mais pas trop de bruit quand même pour pouvoir s’entendre parler. On discute autour de 2,3,4,5,7 bières, on rigole ensemble, on parle de tout et de rien, et au fur et à mesure des verres, on se souvient pas de la fin de la journée parfaite',
         quest21: 'J’aime voyager, découvrir de nouveaux coins. J’aime aussi rester chez moi et jouer à des jeux ou rester planté dans mon canapé à regarder la télé. Faut juste doser pour pas faire une overdose de tout ca :)',
         quest22: '“Go hard, then go home” \\n“Et si, plus tard, on voulait connaître mes histoires, combien vaudront vraiment la peine d\'être racontées ?”'
-   },
+    },
     template: {
         titre: '',
         quest1: '',
