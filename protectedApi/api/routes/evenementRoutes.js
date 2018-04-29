@@ -195,4 +195,13 @@ module.exports = function(app) {
 
 	app.route('/historique/exportMyCoachHistory')
 		.post(userHandlers.loginRequired, eventHandler.export_my_coach_history);
+
+	app.route('/blocsByType/:type')
+		.get(homeController.blocsByType);
+	
+	app.route('/allBlocs')
+		.get(userHandlers.loginRequired, userHandlers.isAdmin, homeController.loadAllBlocs);
+	
+	app.route('/saveBloc/:id')
+		.post(userHandlers.loginRequired, userHandlers.isAdmin, homeController.editBloc)
 };

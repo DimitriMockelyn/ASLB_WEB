@@ -18,6 +18,8 @@ import TypeActivites from './typeActivites';
 import Ribbons from './ribbons';
 import {navigate} from 'focus-core/history';
 import {component as Button} from 'focus-components/common/button/action';
+import Blocs from './blocs';
+
 export default React.createClass({
     displayName: 'HomeView',
     mixins: [cartridgeBehaviour],
@@ -46,11 +48,13 @@ export default React.createClass({
             <div>
                 <ScrollspyContainer>
                     <Button icon='person' type='button' shape='' label='admin.adminUsers' handleOnClick={() => {navigate('adminUsers', true)}} />
+                    <Button icon='data_usage' type='button' shape='' label='admin.adminBlocs' handleOnClick={() => {navigate('adminBlocs', true)}} />
                     <News hasLoad={false} />
                     <Partenaires hasLoad={false} />
                     <Presentations hasLoad={false} />
                     <TypeActivites hasLoad={false} />
                     <Ribbons hasLoad={false} />
+                    <Blocs hasLoad={false} />
                 </ScrollspyContainer>
             </div>
         </div>

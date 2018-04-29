@@ -20,6 +20,7 @@ var express = require('express'),
   Message = require('./api/models/messageModel'),
   Profil = require('./api/models/profilModel'),
   Queue = require('./api/models/queueModel'),
+  BlocAdministrables = require('./api/models/blocsAdministrable'),
   bodyParser = require('body-parser'),
   jsonwebtoken = require("jsonwebtoken");
 

@@ -14,5 +14,8 @@ export default {
     },
     addMessageChat(data) {
         return fetch(homeUrl.addMessageChat({data}), utils.computeHeaders());
+    },
+    loadBlocs(type) {
+        return fetch(homeUrl.loadBlocs({urlData: {type}}));
     }
 };

@@ -29,5 +29,7 @@ export default {
     createRibbon:  builder(url + 'ribbons', 'PUT'),
     loadUserRibbons:  builder(url + 'getRibbons/${id}', 'POST'),
     toggleRibbon: builder(url + 'toggleAddRibbon/${usrId}/${ribId}', 'POST'),
-    toggleActiveRibbon: builder(url + 'toggleActifRibbon/${ribId}', 'POST')
+    toggleActiveRibbon: builder(url + 'toggleActifRibbon/${ribId}', 'POST'),
+    allBlocs: builder(url + 'allBlocs', 'GET'),
+    saveBloc: builder(url + 'saveBloc/${id}', 'POST'),
 };

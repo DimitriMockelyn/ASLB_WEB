@@ -84,4 +84,10 @@ export default {
     toggleActiveRibbon(data) {
         return fetch(adminUrl.toggleActiveRibbon({urlData: data}), utils.computeHeaders());
     },
+    allBlocs() {
+        return fetch(adminUrl.allBlocs(), utils.computeHeaders());
+    },
+    saveBloc(data) {
+        return fetch(adminUrl.saveBloc({urlData: {id: data._id}, data: data}), utils.computeHeaders());
+    },
 };

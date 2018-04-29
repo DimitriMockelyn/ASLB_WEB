@@ -12,6 +12,7 @@ var mongoose = require('mongoose'),
   NiveauEvenement= mongoose.model('NiveauEvenement'),
   Ribbon=mongoose.model('Ribbon'),
   Profil = mongoose.model('Profil'),
+  BlocAdministrables = mongoose.model('BlocAdministrables'),
   mailer = require('../utils/mailer');
 
 
@@ -45,6 +46,22 @@ exports.initData = function() {
   Sexe.findOneAndUpdate({code: 'F'}, {
     label: 'Femme',
     code:'F'
+  }, {upsert: true, 'new': true}, function(err, model) {
+  });
+
+  BlocAdministrables.findOneAndUpdate({type: 'espaces', ordre: 1}, {
+    type: 'espaces', 
+    ordre: 1,
+    titre:'Les espaces de l\'aassociations',
+    contenu: 'Vous trouverez les espaces de l asso'
+  }, {upsert: true, 'new': true}, function(err, model) {
+  });
+
+  BlocAdministrables.findOneAndUpdate({type: 'espaces', ordre: 2}, {
+    type: 'espaces', 
+    ordre: 2,
+    titre:'Le matériel',
+    contenu: 'Vous trouverez le matos de l asso'
   }, {upsert: true, 'new': true}, function(err, model) {
   });
 

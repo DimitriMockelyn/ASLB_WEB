@@ -131,7 +131,14 @@ export default {
 'Tu ne peux pas y participer ? Merci de te désinscrire afin de laisser la place à celles et ceux qui sont derrière toi, en attentes d’une place. Si tu ne procèdes pas à la désincription, tu seras considéré comme absent(e).\n',
 
     },
+    blocs: {
+        titre: 'Titre',
+        type: 'Type (page)',
+        contenu: 'Contenu',
+        ordre: 'Ordre'
+    },
     admin: {
+        adminBlocs: 'Administrer les blocs',
         detailActivites: 'Détails des activités',
         adminUsers: 'Administrer les utilisateurs',
         typeEvenement: 'Type d\'évènements',

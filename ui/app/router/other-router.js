@@ -10,6 +10,8 @@ import MeView from '../views/me';
 import MediaView from '../views/media';
 import InscriptionView from '../views/inscription';
 import AdminUsersView from '../views/admin/admin-users';
+import AdminBlocsView from '../views/admin/admin-blocs';
+import EspacesView from '../views/espaces';
 import UserView from '../views/user-info';
 export default createRouter(Backbone).extend({
     log: true,
@@ -21,8 +23,10 @@ export default createRouter(Backbone).extend({
         contact: 'contact',
         admin: 'admin',
         adminUsers: 'adminUsers',
+        adminBlocs: 'adminBlocs',
         me: 'me',
         media: 'media',
+        espaces: 'espaces',
         inscription: 'inscription',
         'u/:id': 'userView'
     },
@@ -33,6 +37,9 @@ export default createRouter(Backbone).extend({
     contact() {
         this._pageContent(ContactView, {props: {hasLoad: false}});
     },
+    espaces() {
+        this._pageContent(EspacesView, {props: {hasLoad: false}});
+    },
     admin() {
         if (userHelper.getLogin() && userHelper.getLogin().isAdmin) {
             this._pageContent(AdminView, {props: {hasLoad: false}});
@@ -41,6 +48,11 @@ export default createRouter(Backbone).extend({
     adminUsers() {
         if (userHelper.getLogin() && userHelper.getLogin().isAdmin) {
             this._pageContent(AdminUsersView, {props: {hasLoad: false}});
+        }
+    },
+    adminBlocs() {
+        if (userHelper.getLogin() && userHelper.getLogin().isAdmin) {
+            this._pageContent(AdminBlocsView, {props: {hasLoad: false}});
         }
     },
     me() {

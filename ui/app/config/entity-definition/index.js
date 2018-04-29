@@ -6,6 +6,24 @@
 import userHelper from 'focus-core/user';
 export default {
     home:{},
+    blocs: {
+        titre: {
+            domain: 'DO_LABEL_LONG',
+            required: true
+        },
+        type: {
+            domain: 'DO_LABEL_LONG',
+            required: true
+        },
+        contenu: {
+            domain: 'DO_RTE',
+            required: true
+        },
+        ordre: {
+            domain: 'DO_NUMBER',
+            required: true
+        }
+    },
     partenaire: {
         url: {
             domain: 'DO_URL'

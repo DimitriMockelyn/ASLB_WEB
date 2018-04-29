@@ -7,4 +7,5 @@ export default {
     loadPresentations:  builder(url + 'presentations', 'GET'),
     loadChat: builder(url + 'chat', 'GET'),
     addMessageChat: builder(url + 'chat', 'POST'),
+    loadBlocs: builder(url + 'blocsByType/${type}', 'GET'),
 };

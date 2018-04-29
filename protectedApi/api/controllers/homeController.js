@@ -12,6 +12,7 @@ var mongoose = require('mongoose'),
   fs =  require('fs'),
   moment = require('moment'),
   Sexe = mongoose.model('Sexe'),
+  BlocAdministrables = mongoose.model('BlocAdministrables'),
   Message = mongoose.model('Message');
 
   var {getConfig} = require('../../config');
@@ -41,4 +42,38 @@ exports.add_message = function(req, res) {
             res.json(result);
         })
     })
+}
+
+exports.blocsByType = function(req, res) {
+  BlocAdministrables.find({
+      type: req.params.type
+    }, function(err, blocs) {
+      if (err) {
+        res.send(err);
+      }
+      res.json(blocs);
+  }).sort({ordre: 1});
+}
+
+exports.loadAllBlocs = function(req, res) {
+  BlocAdministrables.find({}, function(err, blocs) {
+      if (err) {
+        res.send(err);
+      }
+      res.json(blocs);
+  }).sort({ordre: 1});
+}
+
+exports.editBloc = function(req, res) {
+  var data = {
+    titre: req.body.titre,
+    type: req.body.type,
+    contenu: req.body.contenu,
+    ordre: req.body.ordre
+  }
+  BlocAdministrables.findOneAndUpdate({_id:req.params.id}, data, {new: true}, function(err, news) {
+    if (err)
+      res.send(err);
+    res.json({updated: true});
+  });
 }
