@@ -25,7 +25,7 @@ export default React.createClass({
     renderContent() {
         return (
         <div>
-            <Panel title='admin.partenaire'>
+            <Panel title='Bloc'>
                 {this.fieldFor('titre', {isEdit: true})}
                 {this.fieldFor('contenu', {isEdit: true})}
                 {this.fieldFor('type', {isEdit: true})}

@@ -54,7 +54,7 @@ export default React.createClass({
                     <Presentations hasLoad={false} />
                     <TypeActivites hasLoad={false} />
                     <Ribbons hasLoad={false} />
-                    <Blocs hasLoad={false} />
+                    
                 </ScrollspyContainer>
             </div>
         </div>

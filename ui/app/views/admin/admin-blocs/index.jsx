@@ -39,7 +39,7 @@ export default React.createClass({
     /** @inheritDoc */
     renderContent() {
         return (
-        <Panel  title='Présentations'>
+        <Panel  title='Blocs administrables'>
             <div data-focus='news-list'>
                 {this.state.ptn && this.state.ptn.length > 0 && this.state.ptn.map((value, pos) => {
                         return <PresentationPanel value={value} editAction={this.openPopin} />

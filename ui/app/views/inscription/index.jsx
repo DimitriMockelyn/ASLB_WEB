@@ -31,7 +31,7 @@ export default React.createClass({
                             <li><label>Décharge de responsabilité (à compléter et signer)</label></li>
                             <li><label>Règlement intérieur (à signer)</label></li>
                         </ul>
-                        <label>Vous pouvez télécharger votre dossier d'inscription <div className='link' onClick={() => {window.location.href = './Inscription_ASLB.zip'}}>içi</div> </label>
+                        <label>Vous pouvez télécharger votre dossier d'inscription <div className='link boldbig' onClick={() => {window.location.href = './Inscription_ASLB.zip'}}>içi</div> </label>
                         <label>Pour les paiement par virement ou PayPal, veuillez a bien lire la fiche d'adhésion.</label>
                     </div>
                 </Panel>

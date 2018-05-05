@@ -29,7 +29,7 @@ export default React.createClass({
     renderContent() {
         return (
         <div>
-            <Panel title='admin.partenaire'>
+            <Panel title='Présentations'>
                 {this.fieldFor('name', {isEdit: true})}
                 {this.fieldFor('image', {isEdit: true})}
                 {this.fieldFor('isBureau', {isEdit: true})}
