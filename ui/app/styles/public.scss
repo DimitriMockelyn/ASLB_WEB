@@ -160,6 +160,10 @@ button.mdl-button:not(.mdl-button--icon) {
   }
 }
 
+[data-focus="menu-left"] [data-focus="menu-items"] li.active-menu {
+  background-color: $primary-color-light;
+}
+
 [data-focus="menu-left"] [data-focus="menu-items"] li:hover {
   width: 200px;
   background-color: $primary-color-dark;
@@ -174,6 +178,10 @@ button.mdl-button:not(.mdl-button--icon) {
     position: inherit;
     margin-left: 25px;
   }
+}
+
+[data-focus="menu-left"] [data-focus="menu-items"] li.active-menu:hover {
+  background: linear-gradient(to right, $primary-color-light, $primary-color);
 }
 
 .rbc-time-header {

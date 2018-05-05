@@ -2,64 +2,66 @@ import React, {Component, PropTypes} from 'react';
 import {navigate} from 'focus-core/history';
 import {component as Button} from 'focus-components/common/button/action';
 
-function MenuItems(props) {
-    const {items, LinkComponent, navigate} = props;
-    return (
-        <div>{_renderItemsList(items, LinkComponent, navigate)}</div>
-    );
-}
-MenuItems.propTypes = {
-    items: PropTypes.array
-}
+const MenuItems = React.createClass({
+    getInitialState() {
+        return {};
+    },
+    _renderButton(menuButton, LinkComponent, navigate) {
+        menuButton.shape = 'icon';
+        menuButton.type = 'button';
 
-function _renderItemsList(items, LinkComponent, navigate) {
-    return items.map((link, idx) => {
-        return (
-            <li key={idx} onClick={_computeLink(link, LinkComponent, navigate)}>
-                {_renderButton(link, LinkComponent, navigate)}
-                <span>{link.name}</span>
-            </li>
-        );
-    });
-}
-
-function _computeLink(menuButton, LinkComponent, navigate) {
-    return () => {
-        navigate(menuButton.route, true);
-    }
-}
-
-//Todo: refactor into component
-function _renderButton(menuButton, LinkComponent, navigate) {
-    menuButton.shape = 'icon';
-    menuButton.type = 'button';
-
-    const buttonProps = {
-        shape: 'icon',
-        type: 'button'
-    }
-
-    const {route, option, ...otherProps} = menuButton;
-    const menuButtonProps = {...buttonProps, ...otherProps};
-    let clickHandler;
-
-    if(menuButton.route !== undefined) {
-        //React router case
-        if(LinkComponent){
-            //Todo: check menButton onClick use
-            return <LinkComponent to={menuButton.route} style={{color: 'white'}}><Button  {...menuButtonProps}/></LinkComponent>
+        const buttonProps = {
+            shape: 'icon',
+            type: 'button'
         }
-        //Backbone case
-        clickHandler = () => {
-            if(menuButton.onClick) menuButton.onClick();
-            navigate(menuButton.route, true);
-        };
-        return <Button {...menuButtonProps} onClick={clickHandler}/>
 
+        const {route, option, ...otherProps} = menuButton;
+        const menuButtonProps = {...buttonProps, ...otherProps};
+        let clickHandler;
+
+        if(menuButton.route !== undefined) {
+            //React router case
+            if(LinkComponent){
+                //Todo: check menButton onClick use
+                return <LinkComponent to={menuButton.route} style={{color: 'white'}}><Button  {...menuButtonProps}/></LinkComponent>
+            }
+            //Backbone case
+            clickHandler = () => {
+                if(menuButton.onClick) menuButton.onClick();
+                navigate(menuButton.route, true);
+            };
+            return <Button {...menuButtonProps} onClick={clickHandler}/>
+
+        }
+        //No route => Both the same treatement.
+        return <Button {...menuButtonProps} onClick={menuButton.onClick}/>
+    },
+    _computeLink(menuButton, LinkComponent, navigate, idx) {
+        const that = this;
+        return () => {
+            that.setState({active: idx});
+            navigate(menuButton.route, true);
+        }
+    },
+    _renderItemsList(items, LinkComponent, navigate) {
+        const that = this;
+        return items.map((link, idx) => {
+            return (
+                <li key={idx} className={that.state.active === idx ? 'active-menu' : ''} onClick={this._computeLink(link, LinkComponent, navigate, idx)}>
+                    {this._renderButton(link, LinkComponent, navigate)}
+                    <span>{link.name}</span>
+                </li>
+            );
+        })
+    },
+    render() {
+        const {items, LinkComponent, navigate} = this.props;
+        return (
+            <div>{this._renderItemsList(items, LinkComponent, navigate)}</div>
+        );
     }
-    //No route => Both the same treatement.
-    return <Button {...menuButtonProps} onClick={menuButton.onClick}/>
-}
+});
+
 
 // default props
 const defaultProps = {
