@@ -63,10 +63,30 @@ export default React.createClass({
         }
     },
     createUser() {
-        this.setState({createUser: true, numero: ("000000" + (this.state.total+1)).slice(-6)});
+        this.setState({createUser: true, canCreate: false, isAdmin: false, numero: ("000000" + (this.state.total+1)).slice(-6)});
     },
     closePopinCreate() {
-        this.setState({createUser: false});
+        this.setState({
+            createUser: false,
+            email: undefined,
+            prenom: undefined,
+            nom: undefined,
+            numero: undefined,
+            dateNaissance: undefined,
+            sexe: undefined,
+            entreprise: undefined,
+            telephone: undefined,
+            date_activation: undefined,
+            date_fin: undefined,
+            dossier_complet: undefined,
+            adhesion: undefined,
+            decharge: undefined,
+            reglement: undefined,
+            certificat: undefined,
+            cotisation: undefined,
+            isAdmin: undefined,
+            canCreate: undefined
+        });
         this.loadAllUsers();
     },
     onChangeInput(value) {
@@ -188,6 +208,8 @@ export default React.createClass({
                 {this.fieldFor('reglement', {isEdit: true, onChange: this.onChangeInfo('reglement')})}
                 {this.fieldFor('certificat', {isEdit: true, onChange: this.onChangeInfo('certificat')})}
                 {this.fieldFor('cotisation', {isEdit: true, onChange: this.onChangeInfo('cotisation')})}
+                {this.fieldFor('isAdmin', {isEdit: true})}
+                {this.fieldFor('canCreate', {isEdit: true})}
                 <Button label='user.creation' type='button' handleOnClick={this.create} />
             </Popin>}
         </Panel>
