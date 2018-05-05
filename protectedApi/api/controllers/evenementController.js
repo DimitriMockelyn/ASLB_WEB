@@ -571,7 +571,7 @@ exports.list_all_type_evenements = function(req,res) {
       res.send(err);
     }
     res.json(types);
-  });
+  }).sort({ordre:1});
 }
 
 exports.list_all_niveau_evenements = function(req,res) {

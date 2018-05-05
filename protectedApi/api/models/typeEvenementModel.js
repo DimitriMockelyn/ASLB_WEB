@@ -22,6 +22,9 @@ var TypeEvenement = new Schema({
   },
   image: {
     type: String
+  },
+  ordre : {
+    type: Number
   }
 });
 

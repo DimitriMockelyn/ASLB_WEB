@@ -354,7 +354,8 @@ export default {
         code: 'Code',
         description: 'Description',
         color: 'Couleur rgba',
-        image: 'Image (URL)'
+        image: 'Image (URL)',
+        ordre: 'Ordre'
     },
     ribbon: {
         text: 'Texte'
