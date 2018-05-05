@@ -80,19 +80,27 @@ const propTypes = {
     MenuItems: PropTypes.func
 };
 
-function MenuLeft(props) {
-    const {direction, handleBrandClick, position, children, items, LinkComponent, navigate, MenuItems, ...otherProps} = props;
-    const itemRenderProps = {LinkComponent, navigate};
-    const hasBrandClickHandler = !!handleBrandClick;
-
-    return (
-        <nav data-focus='menu-left' {...otherProps}>
-            <div data-focus='menu-brand' data-click={hasBrandClickHandler} onClick={() => handleBrandClick && handleBrandClick()} />
-            <ul data-focus='menu-items'><MenuItems items={items} {...itemRenderProps}/></ul>
-            {children}
-        </nav>
-    );
-}
+const MenuLeft = React.createClass({
+    render() {
+        const props = this.props;
+        const {direction, handleBrandClick, position, children, items, LinkComponent, navigate, MenuItems, ...otherProps} = props;
+        const itemRenderProps = {LinkComponent, navigate};
+        const hasBrandClickHandler = !!handleBrandClick;
+        const that = this;
+        return (
+            <nav data-focus='menu-left' {...otherProps}>
+                <div data-focus='menu-brand' data-click={hasBrandClickHandler} onClick={() => {
+                    if (handleBrandClick) { 
+                        handleBrandClick();
+                        that.refs['menu-items'].setState({active: undefined}); 
+                    }
+                    }} />
+                <ul data-focus='menu-items'><MenuItems ref='menu-items' items={items} {...itemRenderProps}/></ul>
+                {children}
+            </nav>
+        );
+    }
+});
 
 // Static props.
 MenuLeft.defaultProps = defaultProps;
