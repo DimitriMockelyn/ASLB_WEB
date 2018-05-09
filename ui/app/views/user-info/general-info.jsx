@@ -131,7 +131,7 @@ export default React.createClass({
                     <div data-focus='bar' />
                 </div>
                 <div>
-                    <InfosBadges id={this.props.id} />
+                    <InfosBadges id={this.props.id} togglePopinBadge={this.props.togglePopinBadge}/>
                 </div>
                 <div data-focus='info-historique'>
                     <div data-focus='historique-30j'>
