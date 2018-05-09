@@ -1376,3 +1376,14 @@ p {
     font-weight: bold;
     font-size: 20px;
   }
+
+  
+  .ql-container {
+    height: auto;
+    max-height: 300px;
+    overflow: auto;
+  }
+
+  .ql-editor {
+    height: auto;
+  }
