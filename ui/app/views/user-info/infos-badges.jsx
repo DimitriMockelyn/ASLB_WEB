@@ -52,7 +52,7 @@ export default React.createClass({
         }
     },
     togglePopin() {
-        this.setState({showPopin: true});
+        this.props.togglePopinBadge(this.state);
     },
     closePopin() {
         this.setState({showPopin: false});
@@ -67,24 +67,6 @@ export default React.createClass({
                     {this.computeBadgeFor(this.state.or, 'Or')}
                     {this.computeBadgeFor(this.state.platinium, 'Platinium')}
                 </div>
-                {this.state.showPopin && <Popin open={true} onPopinClose={this.closePopin}>
-                        {this.state.allBadges.map(bd => {
-                            return <div>
-                                    <div className={bd.code} />
-                                    <div>
-                                        <div>
-                                            {bd.titre}
-                                        </div>
-                                        <div>
-                                            {bd.description} 
-                                        </div>
-                                        <div>
-                                            {' x'+this.state.mapCount[bd._id]}
-                                        </div>
-                                    </div>
-                                </div>
-                        })}
-                    </Popin>}
             </div>
         );
     }
