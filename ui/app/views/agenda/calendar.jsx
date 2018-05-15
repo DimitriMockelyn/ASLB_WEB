@@ -154,7 +154,7 @@ export default React.createClass({
         if (this.state && this.state.reference && this.state.reference.typeEvenements) {
             for (let index in this.state.reference.typeEvenements) {
                 let typeEvt = this.state.reference.typeEvenements[index];
-                if  (typeEvt._id.toString() === event.typeEvenement.toString()) {
+                if  (event.typeEvenement && typeEvt._id.toString() === event.typeEvenement.toString()) {
                     className = className + ' ' + typeEvt.code + ' ';
                 }
             }

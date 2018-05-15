@@ -112,12 +112,12 @@ export default React.createClass({
     },
     renderActionsUpdate() {
         var buttonEdit = <div/>;
-        if (this.isOwner()) {
+        if (this.isOwner() || this.isAnimateur()) {
             if (this.state.isEdit) {
                 buttonEdit = <Button label='button.save' type='button' handleOnClick={this.update} />
             } else {
                 buttonEdit = <Button label='button.edit' type='button' handleOnClick={ () => this.setState({isEdit: !this.state.isEdit})} />;
-            }
+            }  
         }
         var buttonMail = <div/>
         if (this.isAnimateur()) {

@@ -33,7 +33,7 @@ export default React.createClass({
         return {value: value};
     },
     resetInput() {
-        this.setState({value: RichTextEditor.createEmptyValue()});
+        this.setState({value: undefined});
     },
     onChangeValue(value) {
         console.log(value);
@@ -48,11 +48,14 @@ export default React.createClass({
         }
       },
     componentWillReceiveProps(newProps) {
-        this.setState({value :  newProps.value ? RichTextEditor.createValueFromString(newProps.value, 'html') : RichTextEditor.createEmptyValue()})
+        this.setState({value :  newProps.value})
     },
     render() {
         
         if (!this.props.isEdit) {
+            if (!this.state.value) {
+                return <div/>
+            }
             return  <div dangerouslySetInnerHTML={{ __html: this.state.value.toString('html') }} />
         }
         return (

@@ -52,7 +52,7 @@ exports.register = function(req, res) {
 exports.registerFromAdmin = function(req, res) {
   var newUser = new User(req.body);
   newUser.nom = newUser.nom.toUpperCase();
-  newUser.prenom = newUser.prenom.toLowerCase().replace(/\b\w/g, l => l.toUpperCase());
+  newUser.prenom = newUser.prenom.charAt(0).toUpperCase() + newUser.prenom.slice(1);
   newUser.hash_password = 'a';
   newUser.save(function(err, user) {
     if (err) {
@@ -331,12 +331,12 @@ exports.isEvenementOwner = function(req, res, next) {
       if (err) {
         return res.status(401).json({ message: 'Evenement non trouvé' });
       }
-      if (evenement.createur._id.toString() === req.user._id.toString()) {
+      if (evenement.createur._id.toString() === req.user._id.toString() || evenement.animateur._id.toString() === req.user._id.toString()) {
         return next();
       } else {
       return res.status(401).json({ message: 'Vous n\'êtes pas le propriétaire de cet évenement' });
       }
-    }).populate('createur');
+    }).populate('createur').populate('animateur');
   } else {
     return res.status(401).json({ message: 'Vous n\'êtes pas le propriétaire de cet évenement' });
   }
