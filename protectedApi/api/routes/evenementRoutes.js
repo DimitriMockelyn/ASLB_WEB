@@ -165,7 +165,7 @@ module.exports = function(app) {
 		.get(userHandlers.userExists, profileController.infos_profil);
 
 	app.route('/ribbons')
-		.get(userHandlers.loginRequired,  userHandlers.isAdmin, adminHandler.list_all_ribbons)
+		.get(userHandlers.loginRequired, adminHandler.list_all_ribbons)
 		.put(userHandlers.loginRequired,  userHandlers.isAdmin, adminHandler.create_ribbons)
 
 	app.route('/ribbons/:id')
