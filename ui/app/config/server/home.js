@@ -4,6 +4,7 @@ import {getConfig} from '../../config';
 const url = getConfig().API_ROOT;
 export default {
     loadPartenaires:  builder(url + 'partenaires', 'GET'),
+    loadMedias:  builder(url + 'medias', 'GET'),
     loadPresentations:  builder(url + 'presentations', 'GET'),
     loadChat: builder(url + 'chat', 'GET'),
     addMessageChat: builder(url + 'chat', 'POST'),

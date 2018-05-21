@@ -151,6 +151,8 @@ export default {
         ordre: 'Ordre'
     },
     admin: {
+        addMedia: 'Ajouter un média',
+        media: 'Média',
         adminBlocs: 'Administrer les blocs',
         detailActivites: 'Détails des activités',
         adminUsers: 'Administrer les utilisateurs',
@@ -231,6 +233,7 @@ export default {
     confirmDelete: {
         news: 'Etes-vous sur de vouloir supprimer cette news ?',
         partenaire: 'Etes-vous sur de vouloir supprimer ce partenaire ?',
+        media: 'Etes-vous sur de vouloir supprimer ce média ?',
         presentation: 'Etes-vous sur de vouloir supprimer cette présentation ?',
         typeEvenement: 'Etes-vous sur de vouloir supprimer ce type d\'évènement ?',
     },

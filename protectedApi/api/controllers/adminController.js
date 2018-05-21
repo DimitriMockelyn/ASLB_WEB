@@ -11,6 +11,7 @@ var mongoose = require('mongoose'),
   Presentation= mongoose.model('Presentation'),
   NiveauEvenement= mongoose.model('NiveauEvenement'),
   Ribbon=mongoose.model('Ribbon'),
+  Media= mongoose.model('Media'),
   Profil = mongoose.model('Profil'),
   BlocAdministrables = mongoose.model('BlocAdministrables'),
   mailer = require('../utils/mailer');
@@ -352,3 +353,45 @@ exports.toggle_actif_ribbon_user = function(req, res) {
       }
   }).populate('profil', '_id')
 }
+
+//Partie media
+
+exports.list_all_medias = function(req, res) {
+  Media.find({}, function(err, ptns) {
+    if (err) {
+      res.send(err);
+    }
+    res.json(ptns);
+  }).sort({date: -1});
+};
+
+exports.create_media = function(req, res) {
+  var new_ptn = new Media(req.body);
+  new_ptn.save(function(err, news) {
+    if (err)
+      res.send(err);
+    res.json({created: true});
+  });
+};
+
+exports.delete_media = function(req, res) {
+  Media.remove({_id:req.params.id}, function(err, news) {
+    if (err)
+      res.send(err);
+    res.json({removed: true});
+  });
+};
+
+exports.edit_media = function(req, res) {
+  var data = {
+    name: req.body.name,
+    logo: req.body.logo,
+    url: req.body.url,
+    description: req.body.description
+  }
+  Media.findOneAndUpdate({_id:req.params.id}, data, {new: true}, function(err, news) {
+    if (err)
+      res.send(err);
+    res.json({updated: true});
+  });
+};
