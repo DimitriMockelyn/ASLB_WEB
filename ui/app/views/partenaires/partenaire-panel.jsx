@@ -18,7 +18,7 @@ export default React.createClass({
         return (
         <div className={this.props.value.url ? 'clickable' : ''} data-focus='panel-partenaire'>
             <Panel title={this.props.value.name} onClick={this.gotoUrl}>
-                {this.props.value.logo && <img src={this.props.value.logo} alt={this.props.value.name}/>}
+                {this.props.value.logo && <div className='img' style={{'background-image':'url('+this.props.value.logo+')'}} title={this.props.value.name}/>}
                 <div dangerouslySetInnerHTML={{ __html: this.props.value.description }} />
             </Panel>
         </div>
