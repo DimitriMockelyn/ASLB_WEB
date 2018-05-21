@@ -1390,3 +1390,10 @@ p {
   .ql-editor {
     height: auto;
   }
+
+  .clickable-msg {
+    position: absolute;
+    right: 4px;
+    margin-top: 17px;
+    cursor: pointer;
+  }

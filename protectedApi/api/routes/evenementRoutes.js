@@ -151,6 +151,9 @@ module.exports = function(app) {
 		.get(homeController.load_chat)
 		.post(userHandlers.loginRequired, homeController.add_message)
 
+	app.route('/toggleChat/:id')
+		.post(userHandlers.loginRequired, userHandlers.isAdmin, homeController.toggle_message)
+
 	app.route('/monProfil')
 		.get(userHandlers.loginRequired,  userHandlers.load_profil)
 		.post(userHandlers.loginRequired, userHandlers.edit_profil)

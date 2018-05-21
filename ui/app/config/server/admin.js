@@ -35,4 +35,5 @@ export default {
     editMedia:  builder(url + 'medias/${id}', 'POST'),
     deleteMedia:  builder(url + 'medias/${id}', 'DELETE'),
     createMedia:  builder(url + 'medias', 'PUT'),
+    toggleChat: builder(url + 'toggleChat/${id}', 'POST')
 };

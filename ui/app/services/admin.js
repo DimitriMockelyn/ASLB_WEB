@@ -99,4 +99,7 @@ export default {
     createMedia(data) {
         return fetch(adminUrl.createMedia({data}), utils.computeHeaders());
     },
+    toggleChat(data) {
+        return fetch(adminUrl.toggleChat({urlData: {id: data._id}}), utils.computeHeaders());
+    },
 };

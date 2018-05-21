@@ -97,6 +97,7 @@ export default {
 
     },
     home: {
+        messageDeleted: '** message supprimé **',
         message: {
             0: 'Bienvenue sur l\'interface web de l\'ASLB ! \n (Cliquez sur la fenêtre pour continuer)',
             1: 'Le planning des activités proposées',

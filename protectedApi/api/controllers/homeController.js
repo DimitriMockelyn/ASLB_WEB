@@ -44,6 +44,23 @@ exports.add_message = function(req, res) {
     })
 }
 
+exports.toggle_message = function(req, res) {
+  Message.findById(
+    req.params.id
+  , function(err, msg) {
+      if (err) {
+        res.send(err);
+      }
+      msg.deleted = !msg.deleted;
+      msg.save(function(err, result) {
+        if (err) {
+          res.send(err);
+        }
+        res.json(result);
+      })
+  })
+}
+
 exports.blocsByType = function(req, res) {
   BlocAdministrables.find({
       type: req.params.type

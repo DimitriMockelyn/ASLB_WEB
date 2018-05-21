@@ -11,6 +11,8 @@ import Toggle from 'focus-components/components/input/toggle';
 import Panel from 'focus-components/components/panel';
 import RichTextEditor from '../../../components/rich-text-editor';
 import {navigate} from 'focus-core/history';
+import adminServices from '../../../services/admin';
+import {translate} from 'focus-core/translation';
 
 export default React.createClass({
     displayName: 'NewsView',
@@ -60,6 +62,9 @@ export default React.createClass({
             this.refs.input.resetInput();
         }
     },
+    toggleMessage(data) {
+        adminServices.toggleChat(data).then(this.loadChat);
+    },
     /** @inheritDoc */
     renderContent() {
         return (
@@ -72,11 +77,15 @@ export default React.createClass({
                         return <div data-focus='message-chat' ref='chat-view'>
                                 <div>
                                     <div className='click-user-name' onClick={() => {navigate('u/'+msg.auteur._id, true)}}>{msg.auteur.prenom + ' ' +msg.auteur.nom}</div>
-                                    <div dangerouslySetInnerHTML={{__html: msg.message}}/>
+                                    {!msg.deleted && <div dangerouslySetInnerHTML={{__html: msg.message}}/>}
+                                    {msg.deleted && <div style={{'color': 'red'}}>{translate('home.messageDeleted')}</div>}
                                 </div>
                                 <div>
                                     {moment(msg.date, moment.ISO_8601).format('DD/MM/YYYY - HH:mm')}
                                 </div>
+                                {userHelper.getLogin() && userHelper.getLogin().isAdmin && 
+                                        <i className='material-icons clickable-msg' onClick={() => {this.toggleMessage(msg)} }>{!msg.deleted ? 'clear' : 'check'}</i>
+                                    }
                             </div>;
                     })}
                 </div>
