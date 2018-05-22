@@ -399,11 +399,17 @@ exports.load_tokens = function(req, res) {
               }
             }]
           }
-        ]}, function(err, events) {
+        ]}, function(err, eventsIn) {
             
             if (err) {
               throw err;
             }
+            let events = [];
+            eventsIn.map(evt => {
+              if (evt.typeEvenement && evt.typeEvenement.code !== 'ASLB') {
+                events.push(evt);
+              }
+            })
             let countInscrit = 0;
             let countAttente = 0;
             events.map(evt => {
@@ -416,7 +422,7 @@ exports.load_tokens = function(req, res) {
               found ? countInscrit++ : countAttente++;
             });
             return res.json({count:TOKEN_NB - events.length, countAttente, countInscrit});
-        })
+        }).populate('typeEvenement', '_id code')
       })
     }
     })
@@ -427,32 +433,53 @@ exports.inscriptionTokenPossible = function(req, res, next) {
     User.findOne({
       email: req.user.email
     }, function(err, user) {
-      Queue.find({personne: user}, function(err, queues) {
-        Evenement.find({$and: [{
-          date_debut: {
-              $gte: Date.now(),
-          }},{
-            $or:[{
-              participants: user
-            },
-            {
-              fileAttente: {
-                 $in: queues
-              }
-            }]
+      //On vérifie si l;evenement est de typ ASLB
+      if (req.params.evenementId) {
+        Evenement.findById(req.params.evenementId, function(err, evenement) {
+          if (err) {
+            return res.status(401).json({ message: 'Evenement non trouvé' });
           }
-        ]}, function(err, events) {
-              if (err) {
-                throw err;
+          if (evenement.typeEvenement && evenement.typeEvenement.code === 'ASLB') {
+            return next();
+          } else {
+          Queue.find({personne: user}, function(err, queues) {
+            Evenement.find({$and: [{
+              date_debut: {
+                  $gte: Date.now(),
+              }},{
+                $or:[{
+                  participants: user
+                },
+                {
+                  fileAttente: {
+                    $in: queues
+                  }
+                }]
               }
-              if (events.length < TOKEN_NB || user.isAdmin) {
-                return next();
-              } else {
-                return res.status(401).json({ message: 'Vous ne pouvez pas vous inscrire a plus de '+TOKEN_NB.toString()+' cours à la fois' });
-              }
-          }).populate('fileAttente', '_id personne');
-        })
-      })
+            ]}, function(err, eventsIn) {
+                  let events = [];
+                  eventsIn.map(evt => {
+                    if (evt.typeEvenement && evt.typeEvenement.code !== 'ASLB') {
+                      events.push(evt);
+                    }
+                  })
+                  if (err) {
+                    throw err;
+                  }
+                  if (events.length < TOKEN_NB || user.isAdmin) {
+                    return next();
+                  } else {
+                    return res.status(401).json({ message: 'Vous ne pouvez pas vous inscrire a plus de '+TOKEN_NB.toString()+' cours à la fois' });
+                  }
+              }).populate('typeEvenement', '_id code').populate('fileAttente', '_id personne');
+            })
+          }
+        }).populate('typeEvenement', '_id code')
+      } else {
+        return res.status(401).json({ message: 'L\'évenement n\'existe pas' });
+      }
+    })
+      
   } else {
     return res.status(401).json({ message: 'Il faut être connecté pour réaliser cette action' });
   }
@@ -721,7 +748,10 @@ exports.update_date_activation = function(req, res) {
     reglement: req.body.reglement,
     certificat: req.body.certificat,
     cotisation: req.body.cotisation,
-    numero: req.body.numero
+    numero: req.body.numero,
+    nom: req.body.nom,
+    prenom: req.body.prenom,
+    email: req.body.email
   }, function(err, userActif) {
     if (err) {
       return res.json({updated: false});

@@ -25,7 +25,7 @@ export default React.createClass({
         'color', 'background', 'font'
       ],
     getValue(){
-        return this.state.value.toString('html');
+        return this.state.value ? this.state.value.toString('html') : '<p></p>';
     },
     getInitialState() {
         let value = this.props.value;
@@ -63,7 +63,7 @@ export default React.createClass({
             theme='snow'
             modules={this.modules}
                     formats={this.formats}
-                value={this.state.value}
+                value={this.state.value || ''}
                 onChange={this.onChangeValue}
                 />);
     }

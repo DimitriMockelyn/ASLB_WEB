@@ -9,6 +9,7 @@ var express = require('express'),
   TypeEvenement = require('./api/models/typeEvenementModel'),
   TokenUser = require('./api/models/tokenUserModel'),
   Partenaire = require('./api/models/partenaireModel'),
+  Media = require('./api/models/mediaModel'),
   Ribbon = require('./api/models/ribbonModel'),
   Sexe = require('./api/models/sexeModel'),
   Entreprise = require('./api/models/entrepriseModel'),
@@ -30,8 +31,8 @@ mongoose.connect('mongodb://localhost/ASLBDB');
 var adminController = require('./api/controllers/adminController');
 var {getConfig} = require('./config');
 
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({limit: '50mb',  extended: true }));
+app.use(bodyParser.json({limit: '50mb'}));
 
 //Set CORS header and intercept "OPTIONS" preflight call from AngularJS
 var allowCrossDomain = function(req, res, next) {

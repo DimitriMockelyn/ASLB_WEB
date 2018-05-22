@@ -19,6 +19,7 @@ import Ribbons from './ribbons';
 import {navigate} from 'focus-core/history';
 import {component as Button} from 'focus-components/common/button/action';
 import Blocs from './blocs';
+import Medias from './medias';
 
 export default React.createClass({
     displayName: 'HomeView',
@@ -51,6 +52,7 @@ export default React.createClass({
                     <Button icon='data_usage' type='button' shape='' label='admin.adminBlocs' handleOnClick={() => {navigate('adminBlocs', true)}} />
                     <News hasLoad={false} />
                     <Partenaires hasLoad={false} />
+                    <Medias hasLoad={false} />
                     <Presentations hasLoad={false} />
                     <TypeActivites hasLoad={false} />
                     <Ribbons hasLoad={false} />

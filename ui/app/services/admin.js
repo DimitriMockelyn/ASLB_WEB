@@ -90,4 +90,16 @@ export default {
     saveBloc(data) {
         return fetch(adminUrl.saveBloc({urlData: {id: data._id}, data: data}), utils.computeHeaders());
     },
+    editMedia(data) {
+        return fetch(adminUrl.editMedia({urlData: {id: data.id}, data: data}), utils.computeHeaders());
+    },
+    deleteMedia(data) {
+        return fetch(adminUrl.deleteMedia({urlData: {id: data.id}}), utils.computeHeaders());
+    },
+    createMedia(data) {
+        return fetch(adminUrl.createMedia({data}), utils.computeHeaders());
+    },
+    toggleChat(data) {
+        return fetch(adminUrl.toggleChat({urlData: {id: data._id}}), utils.computeHeaders());
+    },
 };

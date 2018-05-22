@@ -151,6 +151,9 @@ module.exports = function(app) {
 		.get(homeController.load_chat)
 		.post(userHandlers.loginRequired, homeController.add_message)
 
+	app.route('/toggleChat/:id')
+		.post(userHandlers.loginRequired, userHandlers.isAdmin, homeController.toggle_message)
+
 	app.route('/monProfil')
 		.get(userHandlers.loginRequired,  userHandlers.load_profil)
 		.post(userHandlers.loginRequired, userHandlers.edit_profil)
@@ -203,5 +206,13 @@ module.exports = function(app) {
 		.get(userHandlers.loginRequired, userHandlers.isAdmin, homeController.loadAllBlocs);
 	
 	app.route('/saveBloc/:id')
-		.post(userHandlers.loginRequired, userHandlers.isAdmin, homeController.editBloc)
+		.post(userHandlers.loginRequired, userHandlers.isAdmin, homeController.editBloc);
+
+	app.route('/medias')
+		.get(adminHandler.list_all_medias)
+		.put(userHandlers.loginRequired,  userHandlers.isAdmin, adminHandler.create_media)
+
+	app.route('/medias/:id')
+		.post(userHandlers.loginRequired,  userHandlers.isAdmin, adminHandler.edit_media)
+		.delete(userHandlers.loginRequired,  userHandlers.isAdmin, adminHandler.delete_media)
 };

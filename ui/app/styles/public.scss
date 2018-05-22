@@ -303,17 +303,20 @@ i {
   [data-focus="panel-content"] {
     display: flex;
     flex-direction: row;
-    & > img {
+    & > .img {
       background-color: transparent;
       max-width: 250px;
       display: block;
       max-width: 250px;
       max-height: 250px;
       width: 250px;
-      height: auto;
-      object-fit: scale-down;
+      height: 250px;
+      object-fit: contain;
+      background-size: contain;
+      background-repeat: no-repeat;
+      background-position: center center;
     }
-    & > div {
+    & > div:not(.img) {
       margin: 15px;
       width: 80%;
     }
@@ -1386,4 +1389,8 @@ p {
 
   .ql-editor {
     height: auto;
+  }
+
+  .clickable-msg {
+    cursor: pointer;
   }

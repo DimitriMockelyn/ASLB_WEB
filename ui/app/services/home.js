@@ -6,6 +6,9 @@ export default {
     loadPartenaires() {
         return fetch(homeUrl.loadPartenaires());
     },
+    loadMedias() {
+        return fetch(homeUrl.loadMedias());
+    },
     loadPresentations() {
         return fetch(homeUrl.loadPresentations());
     },

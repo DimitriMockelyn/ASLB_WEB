@@ -110,9 +110,9 @@ export default React.createClass({
         return (
         <div>
             <Panel title='admin.personDetail' actions={this.renderActionsUpdate}>
-                {this.fieldFor('nom', {isEdit: false})}
-                {this.fieldFor('prenom', {isEdit: false})}
-                {this.fieldFor('email', {isEdit: false})}
+                {this.fieldFor('nom')}
+                {this.fieldFor('prenom')}
+                {this.fieldFor('email')}
                 {this.fieldFor('numero', {isEdit: false})}
                 {this.fieldFor('date_activation', {isEdit: false})}
                 {this.fieldFor('date_fin', {isEdit: false})}

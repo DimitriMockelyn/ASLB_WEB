@@ -97,6 +97,7 @@ export default {
 
     },
     home: {
+        messageDeleted: '** message supprimé **',
         message: {
             0: 'Bienvenue sur l\'interface web de l\'ASLB ! \n (Cliquez sur la fenêtre pour continuer)',
             1: 'Le planning des activités proposées',
@@ -151,6 +152,8 @@ export default {
         ordre: 'Ordre'
     },
     admin: {
+        addMedia: 'Ajouter un média',
+        media: 'Média',
         adminBlocs: 'Administrer les blocs',
         detailActivites: 'Détails des activités',
         adminUsers: 'Administrer les utilisateurs',
@@ -231,6 +234,7 @@ export default {
     confirmDelete: {
         news: 'Etes-vous sur de vouloir supprimer cette news ?',
         partenaire: 'Etes-vous sur de vouloir supprimer ce partenaire ?',
+        media: 'Etes-vous sur de vouloir supprimer ce média ?',
         presentation: 'Etes-vous sur de vouloir supprimer cette présentation ?',
         typeEvenement: 'Etes-vous sur de vouloir supprimer ce type d\'évènement ?',
     },
