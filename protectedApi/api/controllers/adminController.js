@@ -14,6 +14,7 @@ var mongoose = require('mongoose'),
   Media= mongoose.model('Media'),
   Profil = mongoose.model('Profil'),
   BlocAdministrables = mongoose.model('BlocAdministrables'),
+  Machine = mongoose.model('Machine'),
   mailer = require('../utils/mailer');
 
 
@@ -47,6 +48,42 @@ exports.initData = function() {
   Sexe.findOneAndUpdate({code: 'F'}, {
     label: 'Femme',
     code:'F'
+  }, {upsert: true, 'new': true}, function(err, model) {
+  });
+
+  Machine.findOneAndUpdate({nom: 'Vélo 1'}, {
+    nom: 'Vélo 1',
+    type:'Vélo'
+  }, {upsert: true, 'new': true}, function(err, model) {
+  });
+
+  Machine.findOneAndUpdate({nom: 'Vélo 2'}, {
+    nom: 'Vélo 2',
+    type:'Vélo'
+  }, {upsert: true, 'new': true}, function(err, model) {
+  });
+
+  Machine.findOneAndUpdate({nom: 'Vélo 3'}, {
+    nom: 'Vélo 3',
+    type:'Vélo'
+  }, {upsert: true, 'new': true}, function(err, model) {
+  });
+
+  Machine.findOneAndUpdate({nom: 'Rameur 1'}, {
+    nom: 'Rameur 1',
+    type:'Rameur'
+  }, {upsert: true, 'new': true}, function(err, model) {
+  });
+
+  Machine.findOneAndUpdate({nom: 'Elliptique 1'}, {
+    nom: 'Elliptique 1',
+    type:'Elliptique'
+  }, {upsert: true, 'new': true}, function(err, model) {
+  });
+
+  Machine.findOneAndUpdate({nom: 'Elliptique 2'}, {
+    nom: 'Elliptique 2',
+    type:'Elliptique'
   }, {upsert: true, 'new': true}, function(err, model) {
   });
 

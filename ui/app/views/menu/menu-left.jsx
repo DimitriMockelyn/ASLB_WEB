@@ -10,6 +10,7 @@ function computeMenuItem() {
         { icon: 'home', name: 'Accueil', route: '' },
         { icon: 'date_range', name: 'Agenda', route: 'agenda'},
         { icon: 'fitness_center', name: 'Espaces et matériel', route: 'espaces'},
+        { icon: 'rowing', name: 'Machines', route: 'machines'},
         { icon: 'call', name: 'Contacts et informations', route: 'contact'},
         { icon: 'business', name: 'Partenaires', route: 'partenaires'},
         { icon: 'camera', name: 'Média', route: 'media'}

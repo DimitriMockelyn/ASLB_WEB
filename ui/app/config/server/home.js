@@ -9,4 +9,6 @@ export default {
     loadChat: builder(url + 'chat', 'GET'),
     addMessageChat: builder(url + 'chat', 'POST'),
     loadBlocs: builder(url + 'blocsByType/${type}', 'GET'),
+    loadMachinesForDay: builder(url + 'listMachinesForDay', 'POST'),
+    toggleSelfForMachine: builder(url + 'toggleSelfForMachine/${id}', 'POST'),
 };

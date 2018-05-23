@@ -20,5 +20,11 @@ export default {
     },
     loadBlocs(type) {
         return fetch(homeUrl.loadBlocs({urlData: {type}}));
+    },
+    loadMachinesForDay(data) {
+        return fetch(homeUrl.loadMachinesForDay({data}));
+    },
+    toggleSelfForMachine(id) {
+        return fetch(homeUrl.toggleSelfForMachine({urlData: {id}}), utils.computeHeaders());
     }
 };

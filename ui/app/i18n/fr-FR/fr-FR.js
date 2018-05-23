@@ -151,6 +151,9 @@ export default {
         contenu: 'Contenu',
         ordre: 'Ordre'
     },
+    machines: {
+        warning: 'Les machines sont en libre accès. Cependant, pour permettre à tout le monde d\'en profiter, il est possible de les réserver à l\'avance. Il n\'est pas possible de réserver deux creneaux d\'une même machine à la suite, mais si personne ne l\'utilise, vous pourrez bien évidemment continuer.'
+    },
     admin: {
         addMedia: 'Ajouter un média',
         media: 'Média',

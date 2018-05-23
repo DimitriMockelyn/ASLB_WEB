@@ -1394,3 +1394,50 @@ p {
   .clickable-msg {
     cursor: pointer;
   }
+
+  [data-focus='tile-machine'] {
+    padding: 10px;
+    width: 90%;
+    border-radius: 5px;
+    margin: 5px;
+    height: 15px;
+  }
+
+  .array-like {
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+  }
+
+  [data-focus='tile-machine'].canClick:hover {
+    opacity: 0.7;
+}
+
+[data-focus='big-tiles-monitoring'] {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  margin-top: 20px;
+  & > div {
+    width: 30%;
+    height: 250px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    text-align: center;
+    border: 1px solid black;
+    margin: 20px;
+    border-radius: 20px;
+    background-color: rgba(35, 123, 76, 0.52);
+    & > div {
+      font-size: 30px;
+      color: white;
+    }
+  }
+}
+
+.horaires-salle {
+  text-align: center;
+  font-size: 50px;
+}

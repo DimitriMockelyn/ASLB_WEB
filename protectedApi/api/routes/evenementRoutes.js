@@ -5,7 +5,8 @@ module.exports = function(app) {
 	userHandlers = require('../controllers/userController.js'),
 	homeController = require('../controllers/homeController'),
 	profileController = require('../controllers/profileController'),
-	adminHandler = require('../controllers/adminController');
+	adminHandler = require('../controllers/adminController'),
+	machinesController = require('../controllers/machinesController');
 
 	// todoList Routes
 	app.route('/evenements')
@@ -215,4 +216,10 @@ module.exports = function(app) {
 	app.route('/medias/:id')
 		.post(userHandlers.loginRequired,  userHandlers.isAdmin, adminHandler.edit_media)
 		.delete(userHandlers.loginRequired,  userHandlers.isAdmin, adminHandler.delete_media)
+
+	app.route('/listMachinesForDay')
+		.post(machinesController.load_list_machine)
+
+	app.route('/toggleSelfForMachine/:id')
+		.post(userHandlers.loginRequired, userHandlers.isMembreActif, machinesController.toggle_self_for_machine);
 };
