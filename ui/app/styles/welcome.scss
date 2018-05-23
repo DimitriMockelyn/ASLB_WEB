@@ -45,11 +45,11 @@
 }
 
 .step3 {
-    background: radial-gradient(circle at 30px 380px, transparent 0%, transparent 40px, rgba(0, 0, 0, 0.3) 50px, rgba(0, 0, 0, 0.3));
+    background: radial-gradient(circle at 30px 440px, transparent 0%, transparent 40px, rgba(0, 0, 0, 0.3) 50px, rgba(0, 0, 0, 0.3));
 }
 
 .step4 {
-    background: radial-gradient(circle at 30px 440px, transparent 0%, transparent 40px, rgba(0, 0, 0, 0.3) 50px, rgba(0, 0, 0, 0.3));
+    background: radial-gradient(circle at 30px 500px, transparent 0%, transparent 40px, rgba(0, 0, 0, 0.3) 50px, rgba(0, 0, 0, 0.3));
 }
 
 .step5 {
@@ -170,7 +170,7 @@
         top: 200px;
         width: 200px;
         height: 70px;
-        transform:  rotate(-50deg) translateX(250px) rotate(50deg) translateY(342px);
+        transform:  rotate(-50deg) translateX(250px) rotate(50deg) translateY(402px);
     }
 }
 
@@ -181,14 +181,14 @@
             top: 200px;
             width: 200px;
             height: 70px;
-            transform:  rotate(-50deg) translateX(250px) rotate(50deg) translateY(342px);
+            transform:  rotate(-50deg) translateX(250px) rotate(50deg) translateY(402px);
     }
     to {
         right: calc( 100vw - 100px);
         top: 200px;
         width: 200px;
         height: 70px;
-        transform:  rotate(-50deg) translateX(250px) rotate(50deg) translateY(410px);
+        transform:  rotate(-50deg) translateX(250px) rotate(50deg) translateY(460px);
     }
 }
 
@@ -198,7 +198,7 @@
         top: 200px;
         width: 200px;
         height: 70px;
-        transform:  rotate(-50deg) translateX(250px) rotate(50deg) translateY(410px);
+        transform:  rotate(-50deg) translateX(250px) rotate(50deg) translateY(460px);
     }
     to {
       right: 300px;
