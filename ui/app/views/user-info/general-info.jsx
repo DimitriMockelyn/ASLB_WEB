@@ -15,7 +15,6 @@ const CustomTooltip  = React.createClass({
   
     render() {
       const { active } = this.props;
-      console.log(this.props);
       if (active) {
         const { payload, label } = this.props;
         return (
