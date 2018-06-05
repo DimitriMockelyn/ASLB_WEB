@@ -1441,3 +1441,11 @@ p {
   text-align: center;
   font-size: 50px;
 }
+
+.news-content img {
+	max-width: 100%;
+}
+
+[data-focus="home-chat-display"] [data-focus="list-home"] > [data-focus="panel"] {
+  width: calc( 100vw - 350px - 70px - 60px) !important;
+}
