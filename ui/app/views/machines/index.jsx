@@ -59,6 +59,19 @@ export default React.createClass({
     /** @inheritDoc */
     render() {
         moment.locale('fr');
+		let machineNames = [];
+		if (this.state.creneaux && keys(this.state.creneaux).length > 0) {
+			machineNames = keys(this.state.creneaux);
+			machineNames.sort(function (a,b) {
+				if(a < b) {
+					return -1;
+				}
+				if(a > b) {
+					return 1;
+				}
+				return 0;
+			});
+		}
         return (
         <div>
             {translate('machines.warning')}
@@ -81,7 +94,7 @@ export default React.createClass({
                         </div>
                 })}
                 </div>
-                {this.state.creneaux && keys(this.state.creneaux).length > 0 && keys(this.state.creneaux).map((keyName, indexName) => {
+                {machineNames.length > 0 && machineNames.map((keyName, indexName) => {
                     let obj = this.state.creneaux[keyName];
                     let index = keyName;
 

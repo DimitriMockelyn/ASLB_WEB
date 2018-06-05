@@ -39,6 +39,15 @@ export default React.createClass({
                 data.push(creneau);
             }
         });
+		data.sort(function (a,b) {
+				if(a.machine.nom < b.machine.nom) {
+					return -1;
+				}
+				if(a.machine.nom > b.machine.nom) {
+					return 1;
+				}
+				return 0;
+			});
         return data;
     },
     /** @inheritDoc */

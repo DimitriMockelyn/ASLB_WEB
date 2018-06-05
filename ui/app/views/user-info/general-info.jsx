@@ -19,7 +19,7 @@ const CustomTooltip  = React.createClass({
         const { payload, label } = this.props;
         return (
           <div className="custom-tooltip">
-            <p className="label">{`${this.props.order[label].name} : ${payload[0] ? payload[0].value : 0}`}</p>
+            <p className="label">{`${payload[0] && payload[0].payload ? payload[0].payload.name : ''} : ${payload[0] ? payload[0].value : 0}`}</p>
           </div>
         );
       }
