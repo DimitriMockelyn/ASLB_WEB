@@ -443,17 +443,20 @@ div[data-focus="field"][data-mode="edit"][data-domain='DO_RTE'] [data-focus="fie
       display: flex;
       flex-direction: row;
       word-break: break-word;
+      overflow: hidden;
       & > div {
         margin-right: 30px;
       }
     }
     & > div:first-of-type {
       word-break: initial;
+      width: 150%;
       
     overflow: auto;
     }
     & > div:last-of-type {
       word-break: initial;
+      flex-wrap: wrap;
     }
   }
   [data-focus='user-line']:first-of-type {

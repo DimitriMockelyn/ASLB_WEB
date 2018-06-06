@@ -487,14 +487,19 @@ exports.inscriptionTokenPossible = function(req, res, next) {
 
 exports.load_users = function(req, res) {
   var filter = new RegExp(req.body.filter, 'i');
-  User.find({ $or: [{'nom': filter}, {'email': filter}, {'prenom':filter}]}, function(err, users_db) {
-    if (err) {
-      res.send(err);
-    }
-    fill_user_data(users_db, false,  (users_res) => {
-      return res.json(users_res);
-    })
-  }).populate('sexe', '_id label').populate('entreprise', '_id label');
+  Entreprise.find({label: filter}, function(err, entreprises) {
+    User.find({ $or: [{'nom': filter}, {'email': filter}, {'prenom':filter}, { "entreprise" : {
+      $in: entreprises
+    }}, {'numero': filter}]}, function(err, users_db) {
+      if (err) {
+        console.log(err);
+        res.send(err);
+      }
+      fill_user_data(users_db, false,  (users_res) => {
+        return res.json(users_res);
+      })
+    }).populate('sexe', '_id label').populate('entreprise', '_id label');
+  })
 }
 
 exports.export_users = function(req, res) {

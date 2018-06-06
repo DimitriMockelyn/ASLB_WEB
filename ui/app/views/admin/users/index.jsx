@@ -25,7 +25,7 @@ export default React.createClass({
     referenceNames: ['typeSexe', 'typeEntreprise'],
     getInitialState() {
         return {
-            limit: 3,
+            limit: 5,
             filter: ''
         }
     },
@@ -58,7 +58,7 @@ export default React.createClass({
             return <div>
                 <Button type='button' label='button.createUser' handleOnClick={this.createUser} />
                 <Button type='button' label='button.exporter' handleOnClick={this.export} />
-                <Button type='button' label='button.voirPlus' handleOnClick={() => {this.setState({limit: this.state.limit+3})}}/>
+                <Button type='button' label='button.voirPlus' handleOnClick={() => {this.setState({limit: this.state.limit+5})}}/>
             </div>
         }
     },
