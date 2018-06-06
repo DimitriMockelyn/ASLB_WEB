@@ -26,7 +26,7 @@ export default React.createClass({
     },
     sendMessage() {
         var valueMessage = this.refs.input.getValue();
-        if (valueMessage !== '<p><br></p>') {
+        if (valueMessage !== '<p><br></p>' && valueMessage !== '<p></p>') {
             homeServices.addMessageChat({message: valueMessage}).then(this.refs.history.loadChat);
             this.setState({messageInput: undefined});
             this.refs.input.resetInput();

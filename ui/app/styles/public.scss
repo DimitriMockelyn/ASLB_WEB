@@ -27,6 +27,14 @@ button.mdl-button:not(.mdl-button--icon) {
 .rbc-btn-group button {
   @include button-general();
   color: $primary-color;
+  font-weight: bold;
+  border-bottom: 2px solid;
+  margin-left: 10px;
+  cursor: pointer;
+}
+
+.rbc-btn-group button + button {
+  margin-left: 10px;
 }
 
 [data-focus='menu-left'] {
