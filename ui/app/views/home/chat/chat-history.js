@@ -15,9 +15,6 @@ import adminServices from '../../../services/admin';
 import {translate} from 'focus-core/translation';
 
 export default React.createClass({
-    displayName: 'NewsView',
-    mixins: [formMixin],
-    definitionPath: 'admin',
     getInitialState() {
         return {
             
@@ -58,7 +55,7 @@ export default React.createClass({
         adminServices.toggleChat(data).then(this.loadChat);
     },
     /** @inheritDoc */
-    renderContent() {
+    render() {
         return (
                 <div data-focus='chat-history'>
                     {this.state.messages && this.state.messages.map(msg => {
