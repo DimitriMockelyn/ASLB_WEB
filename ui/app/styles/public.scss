@@ -1449,3 +1449,9 @@ p {
 [data-focus="home-chat-display"] [data-focus="list-home"] > [data-focus="panel"] {
   width: calc( 100vw - 350px - 70px - 60px) !important;
 }
+
+.machine-scroll {
+  max-height: calc( 100% - 300px);
+  overflow: auto;
+  align-items: flex-start;
+}
