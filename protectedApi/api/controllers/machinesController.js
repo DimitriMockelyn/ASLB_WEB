@@ -11,7 +11,7 @@ var mongoose = require('mongoose'),
   mailer = require('../utils/mailer');
 
 
-const heureDebut = 8;
+const heureDebut = 7;
 const minuteDebut = 0;
 const duree = 30;
 const heureDernier = 19;
