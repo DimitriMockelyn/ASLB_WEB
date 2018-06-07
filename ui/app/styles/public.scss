@@ -27,6 +27,14 @@ button.mdl-button:not(.mdl-button--icon) {
 .rbc-btn-group button {
   @include button-general();
   color: $primary-color;
+  font-weight: bold;
+  border-bottom: 2px solid;
+  margin-left: 10px;
+  cursor: pointer;
+}
+
+.rbc-btn-group button + button {
+  margin-left: 10px;
 }
 
 [data-focus='menu-left'] {
@@ -435,17 +443,20 @@ div[data-focus="field"][data-mode="edit"][data-domain='DO_RTE'] [data-focus="fie
       display: flex;
       flex-direction: row;
       word-break: break-word;
+      overflow: hidden;
       & > div {
         margin-right: 30px;
       }
     }
     & > div:first-of-type {
       word-break: initial;
+      width: 150%;
       
     overflow: auto;
     }
     & > div:last-of-type {
       word-break: initial;
+      flex-wrap: wrap;
     }
   }
   [data-focus='user-line']:first-of-type {
@@ -1444,4 +1455,18 @@ p {
 
 [data-focus="input-chat"] {
 	flex-shrink: 0;
+}
+
+.news-content img {
+	max-width: 100%;
+}
+
+[data-focus="home-chat-display"] [data-focus="list-home"] > [data-focus="panel"] {
+  width: calc( 100vw - 350px - 70px - 60px) !important;
+}
+
+.machine-scroll {
+  max-height: calc( 100% - 300px);
+  overflow: auto;
+  align-items: flex-start;
 }

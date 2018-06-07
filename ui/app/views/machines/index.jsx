@@ -88,8 +88,13 @@ export default React.createClass({
             <div data-focus='display-row' style={{'width':'100%'}}>
                 <div data-focus='display-column' className='array-like' style={{'width': 'auto'}}>
                     <div>Heure</div>
-                {this.state.creneaux && keys(this.state.creneaux).length > 0 && this.state.creneaux[keys(this.state.creneaux)[0]].map(cren => {
-                    return <div data-focus='tile-machine' style={{'width': 'auto'}}>
+                    {this.state.creneaux && keys(this.state.creneaux).length > 0 && this.state.creneaux[keys(this.state.creneaux)[0]].map(cren => {
+                    return <div data-focus='tile-machine' style={{'width': 'auto', "height":"0px",
+                            'padding-top': '0px',
+                            'padding-bottom': '0px',
+                            'margin-top': '0',
+                            'margin-bottom': '0',
+                            'overflow': 'hidden'}}>
                             {moment(cren.dateDebut).format('HH:mm')}
                         </div>
                 })}
@@ -102,6 +107,21 @@ export default React.createClass({
                         <div>
                             {index}
                         </div>
+                </div>})}
+            </div>
+            <div data-focus='display-row' className='machine-scroll' style={{'width':'100%'}}>
+                <div data-focus='display-column' className='array-like' style={{'width': 'auto'}}>
+                {this.state.creneaux && keys(this.state.creneaux).length > 0 && this.state.creneaux[keys(this.state.creneaux)[0]].map(cren => {
+                    return <div data-focus='tile-machine' style={{'width': 'auto'}}>
+                            {moment(cren.dateDebut).format('HH:mm')}
+                        </div>
+                })}
+                </div>
+                {machineNames.length > 0 && machineNames.map((keyName, indexName) => {
+                    let obj = this.state.creneaux[keyName];
+                    let index = keyName;
+
+                    return <div data-focus='display-column' className='array-like'>
                         {obj.map(creneau => {
                             return <TileMachine data={creneau}/>
                         })}
