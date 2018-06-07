@@ -1441,3 +1441,7 @@ p {
   text-align: center;
   font-size: 50px;
 }
+
+[data-focus="input-chat"] {
+	flex-shrink: 0;
+}
