@@ -120,7 +120,7 @@ export default React.createClass({
                 <div data-focus='info-membre'>
                     <div data-focus='info-nominatives'>
                         {this.state.sexe && <label>{this.state.sexe.label}</label>} 
-                        {this.state.dateNaissance && <label> {moment().diff(this.state.dateNaissance, 'years')+ ' ans'} </label>}
+                        {this.state.dateNaissance && <label style={{'display': 'none'}}> {moment().diff(this.state.dateNaissance, 'years')+ ' ans'} </label>}
                         {this.state.entreprise && <label>{this.state.entreprise.label}</label>} 
                     </div>
                     <div data-focus='info-nominatives'>
