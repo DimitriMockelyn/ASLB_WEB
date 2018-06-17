@@ -1453,6 +1453,10 @@ p {
   font-size: 50px;
 }
 
+[data-focus="input-chat"] {
+	flex-shrink: 0;
+}
+
 .news-content img {
 	max-width: 100%;
 }
