@@ -509,10 +509,10 @@ exports.export_users = function(req, res) {
       res.send(err);
     }
     fill_user_data(users_db, true, users => {      
-      var fields = ['nom', 'prenom', 'email','numero','sexe.label', 'entreprise.label', 'numeroTelephone',
+      var fields = ['nom', 'prenom', 'email','numero','sexe.label', 'entreprise.label', 'dateNaissance', 'telephone',
       'date_activation', 'date_fin', 'dossier_complet', 'adhesion', 'decharge', 'reglement', 'certificat', 'cotisation', 'nombreInscription',
        'noteMoyenneDonnee', 'noteMoyenneRecue' , 'nombreAbsences', 'nombreCoach']
-      var fieldNames  = ['person.nom', 'person.prenom', 'person.email','Numéro d\'adhérent','sexe.label', 'entreprise.label', 'person.telephone', 'person.date_activation', 'person.date_fin', 'person.dossier_complet',
+      var fieldNames  = ['person.nom', 'person.prenom', 'person.email','Numéro d\'adhérent','sexe.label', 'entreprise.label','person.dateNaissance', 'person.telephone', 'person.date_activation', 'person.date_fin', 'person.dossier_complet',
       'Adhésion', 'Décharge', 'Règlement', 'Certificat', 'Côtisation', 
       'Nombre d\'inscriptions dans les '+GLISSEMENT_JOURS_STATS+' derniers jours', 'Note moyenne donnée sur '+GLISSEMENT_JOURS_STATS+' jours', 
       'Note moyenne recue sur '+GLISSEMENT_JOURS_STATS+' jours', 'Nombre d\'absences sur '+GLISSEMENT_JOURS_STATS+' jours', 'Nombre d\'activités données sur '+GLISSEMENT_JOURS_STATS+' jours']
@@ -551,7 +551,8 @@ function fill_user_data(users_db, formatDate, cb) {
     users[index]['noteMoyenneRecue'] = 0.0;
     users[index]['nombreAbsences'] = 0;
     users[index]['nombreCoach'] = 0;
-    users[index]['numeroTelephone'] = users_db[index]['telephone'];
+    users[index]['dateNaissance'] = users_db[index]['dateNaissance'];
+    users[index]['telephone'] = users_db[index]['telephone'];
     users[index]['isAdmin'] = users_db[index]['isAdmin'];
     users[index]['canCreate'] = users_db[index]['canCreate'];
     users[index]['actif'] = users_db[index]['actif'];
@@ -756,7 +757,9 @@ exports.update_date_activation = function(req, res) {
     numero: req.body.numero,
     nom: req.body.nom,
     prenom: req.body.prenom,
-    email: req.body.email
+    email: req.body.email,
+    telephone: req.body.telephone,
+    dateNaissance: req.body.dateNaissance
   }, function(err, userActif) {
     if (err) {
       return res.json({updated: false});
