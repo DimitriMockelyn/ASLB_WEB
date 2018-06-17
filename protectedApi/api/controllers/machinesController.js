@@ -185,6 +185,9 @@ function check_evenement_conflit_machine(res, creneau, user, next) {
         if (existingEvent.animateur.toString() === user._id.toString()) {
           return res.status(401).json({ message: 'Vous êtes déjà inscrit à une autre activité sur cet horaire. Veuillez choisir un autre créneau.' });
         }
+        if (existingEvent.coanimateurs.indexOf(user._id.toString()) > -1 ) {
+          return res.status(401).json({ message: 'Vous êtes déjà inscrit à une autre activité sur cet horaire. Veuillez choisir un autre créneau.' });
+        }
         if (existingEvent.participants.length > 0) {
           for (let index2  = 0; index2 < existingEvent.participants.length; index2++) {
             let ptp = existingEvent.participants[index2];
