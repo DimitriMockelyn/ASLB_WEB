@@ -9,6 +9,8 @@ var mongoose = require('mongoose'),
   User= mongoose.model("User"),
   Queue = mongoose.model("Queue"),
   Partenaire = mongoose.model('Partenaire'),
+  CreneauMachine= mongoose.model('CreneauMachine'),
+  Machine = mongoose.model('Machine'),
   moment = require('moment'),
   json2csv = require('json2csv'),
   mailer = require('../utils/mailer');
@@ -670,7 +672,36 @@ function check_evenement_conflit(user, event, res, complement_msg, cb) {
         
       }
     }
-    return cb();
+    // Il n'y a pas d'evenements en conflit, on vérifie l'inscription aux machines
+    CreneauMachine.find({
+      $and:[{dateDebut: {
+        $lt:  dateFinJournee
+      }},
+      {dateDebut: {
+        $gte: dateDebutJournee
+      }},
+      {
+        membre: user
+      }]
+    }, function(err, creneaux) {
+      console.log(creneaux);
+      for (let index in creneaux) {
+        const cren = creneaux[index];
+        let dateDebutCreneau = moment(cren.dateDebut).clone();
+        let dateFinCreneau = moment(cren.dateDebut).clone();
+        dateFinCreneau.add(30,'minutes');
+        if (
+          (dateDebutCreneau <= dateDebut && dateFinCreneau > dateDebut) || //Debut du nouvel evenement pendant un autre
+          (dateDebutCreneau < dateFin && dateFinCreneau >= dateFin) || //Fin du nouvel evenement pendant un autre
+          (dateDebut <= dateDebutCreneau && dateFin > dateFinCreneau) || //Debut du nouvel evenement pendant un autre
+          (dateDebut < dateFinCreneau && dateFin >= dateFinCreneau) //Fin du nouvel evenement pendant un autre
+        ) {
+          return res.status(401).json({ message: 'Vous avez déjà réservé une machine sur cet horaire. Veuillez retirer votre réservation pour vous inscrire à cette activité' });
+        }
+      }
+      return cb();
+    })
+    
   }).populate('fileAttente', '_id personne ordre').populate('participants', '_id prenom nom email')
   
 }

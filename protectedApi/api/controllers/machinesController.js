@@ -136,11 +136,13 @@ exports.toggle_self_for_machine = function(req, res) {
           } else {
             creneau.membre = user;
           }
-  
-          creneau.save(function(err, crn) {
-            CreneauMachine.findById(crn._id, function(err, result) {
-              res.json(result);
-            }).populate('machine', '_id nom type').populate('membre', '_id nom prenom')
+          //Avant d'enregistrer, on vérifie si il n'y a pas conflit d'evenement
+          check_evenement_conflit_machine(res,creneau,user, () => {
+            creneau.save(function(err, crn) {
+              CreneauMachine.findById(crn._id, function(err, result) {
+                res.json(result);
+              }).populate('machine', '_id nom type').populate('membre', '_id nom prenom')
+            })
           })
 
         }).populate('machine', '_id nom type')
@@ -150,4 +152,60 @@ exports.toggle_self_for_machine = function(req, res) {
       }
     }).populate('machine', '_id nom type')
   })
+}
+
+function check_evenement_conflit_machine(res, creneau, user, next) {
+  if (!creneau.membre) {
+    return next();
+  }
+  //Si l'utilisateur a reservé une activité au meme moment il faut lancer une erreur
+  let dateDebutJournee = new Date(creneau.dateDebut.getTime());
+  let dateFinJournee = new Date(creneau.dateDebut.getTime());
+  let dateDebut = new Date(creneau.dateDebut.getTime());
+  let dateFin = new Date(creneau.dateDebut.getTime() + duree*60000);
+  dateDebutJournee.setHours(0);
+  dateFinJournee.setHours(23);
+  Evenement.find({
+    date_debut: {
+        $gte: dateDebutJournee,
+        $lt:  dateFinJournee
+    }
+  }, function(err, events) {
+    for (let index in events) {
+      let existingEvent = events[index];
+      let dateDebutEvent = new Date(existingEvent.date_debut.getTime());
+      let dateFinEvent = new Date(existingEvent.date_debut.getTime() + existingEvent.duree*60000);
+      if (
+        (dateDebutEvent <= dateDebut && dateFinEvent > dateDebut) || //Debut du nouvel evenement pendant un autre
+        (dateDebutEvent < dateFin && dateFinEvent >= dateFin) || //Fin du nouvel evenement pendant un autre
+        (dateDebut <= dateDebutEvent && dateFin > dateFinEvent) || //Debut du nouvel evenement pendant un autre
+        (dateDebut < dateFinEvent && dateFin >= dateFinEvent) //Fin du nouvel evenement pendant un autre
+      ) {
+        //Cette activité est en conflit, on vérifie la liste des participants
+        if (existingEvent.animateur.toString() === user._id.toString()) {
+          return res.status(401).json({ message: 'Vous êtes déjà inscrit à une autre activité sur cet horaire. Veuillez choisir un autre créneau.' });
+        }
+        if (existingEvent.participants.length > 0) {
+          for (let index2  = 0; index2 < existingEvent.participants.length; index2++) {
+            let ptp = existingEvent.participants[index2];
+            if (ptp && ptp._id.toString() === user._id.toString()) {
+              return res.status(401).json({ message: 'Vous êtes déjà inscrit à une autre activité sur cet horaire. Veuillez choisir un autre créneau.' });
+            }
+          };
+        }
+        if (existingEvent.fileAttente.length > 0) {
+          for (let index2  = 0; index2 < existingEvent.fileAttente.length; index2++) {
+            let ptp = existingEvent.fileAttente[index2];
+            if (ptp && ptp.personne.toString() === user._id.toString()) {
+              return res.status(401).json({ message: 'Vous êtes déjà inscrit à une autre activité sur cet horaire. Veuillez choisir un autre créneau.' });
+            }
+          };
+        }
+        
+      }
+    }
+    return next();
+    
+  }).populate('fileAttente', '_id personne ordre').populate('participants', '_id prenom nom email');
+
 }
