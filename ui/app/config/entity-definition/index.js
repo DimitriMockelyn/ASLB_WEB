@@ -147,6 +147,10 @@ export default {
             domain: 'DO_AUTOCOMPLETE',
             required: true
         },
+        coanimateurs: {
+            domain: 'DO_AUTOCOMPLETE_MULTI',
+            required: false
+        },
         note: {
             domain: 'DO_NOTE',
             required: true

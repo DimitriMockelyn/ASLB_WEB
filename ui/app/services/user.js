@@ -44,6 +44,9 @@ export default {
         return fetch(userUrl.sendMailFirst({data}));
     },
     loadUserAutocomplete(data) {
+        if (!data.data || !data.data.criteria) {
+            data = {data: {criteria: data}, urlData: {skip: 0, top: 30}}
+        }
         return fetch(userUrl.loadUserAutocomplete({data}), utils.computeHeaders());
     },
     loadMesInformations() {

@@ -11,6 +11,7 @@ import userServices from '../../services/user';
 import message from 'focus-core/message';
 import EventCard from './event-card';
 import {translate} from 'focus-core/translation';
+import Autocomplete from '../../components/autocomplete-field';
 
 const ConfirmPopup = React.createClass({
     render() {
@@ -35,7 +36,16 @@ export default React.createClass({
 
     },
     getInitialState() {
-        return {...this.props.event, date_debut : moment(this.props.event.date_debut), animateur: this.props.event && this.props.event.animateur && this.props.event.animateur._id};
+        let complement = {};
+        if (this.props.event.coanimateurs && this.props.event.coanimateurs.length > 0) {
+            this.props.event.coanimateurs.map((data,index) => {
+                complement['coanimateur'+index] = data;
+            })
+        }
+        return {...this.props.event, ...complement,
+            date_debut : moment(this.props.event.date_debut), 
+            animateur: this.props.event && this.props.event.animateur && this.props.event.animateur._id
+        };
     },
     addSelf() {
         if (this.validate()) {
@@ -106,8 +116,20 @@ export default React.createClass({
         return userHelper.getLogin() && this.props.event.animateur._id === userHelper.getLogin()._id;
     },
     update() {
-        agendaServices.updateEvent(this._getEntity()).then(() => {
-            this.setState({...this._getEntity(),isEdit: !this.state.isEdit});
+        let entity = this._getEntity();
+        if (entity.coanimateurs && entity.coanimateurs.length > 0) {
+            let newArray = [];
+            entity.coanimateurs.map((anim, index) => {
+                if (entity['coanimateur'+index]) {
+                    newArray.push(entity['coanimateur'+index]);
+                }
+            });
+            entity.coanimateurs = newArray;
+        } else {
+            entity.coanimateurs = [];
+        }
+        agendaServices.updateEvent(entity).then(() => {
+            this.setState({...entity,isEdit: !this.state.isEdit});
         })
     },
     renderActionsUpdate() {
@@ -146,6 +168,47 @@ export default React.createClass({
         }
         return <i className='fa fa-venus'></i>; 
     },
+    addCoAnim() {
+        let state = this.state;
+        let entity = this._getEntity();
+        state.coanimateurs.map((data,index) => {
+            state.coanimateurs[index] = entity['coanimateur'+index];
+        })
+        state.coanimateurs.push(undefined);
+        this.setState(state);
+    },
+    removeCoAnim(index) {
+        let that = this;
+        return () => {
+            let state = that.state;
+            let entity = this._getEntity();
+            state.coanimateurs.map((data,index2) => {
+                let initStr = that.refs['event.coanimateur'+index2].refs.input.refs.autocompleteComponent.refs.autocomplete.state.inputValue;
+                if (!entity['coanimateur'+index2] || entity['coanimateur'+index2]._id) {
+                    state.coanimateurs[index2] = entity['coanimateur'+index2];
+                } else {
+                    state.coanimateurs[index2] = {_id :entity['coanimateur'+index2], nom: initStr, prenom: ''};
+                }
+            })
+            for (let index2 in that.state.coanimateurs) {
+                state['coanimateur'+index2] = undefined;
+            }
+            
+            state.coanimateurs.splice(index, 1);
+            let complement = {};
+            state.coanimateurs.map((data,index2) => {
+                complement['coanimateur'+index2] = data ? data._id : undefined;
+            })
+            that.setState({...state, ...complement});
+        }
+    },
+    /*
+                        {this.fieldFor('coanimateur1', {label: 'Co-Animateur',options: {
+                        FieldComponent: Autocomplete,
+                        querySearcherCs: userServices.loadUserAutocomplete, 
+                        initialString: this.props.event && this.props.event.coanimateur && this.props.event.coanimateur.length > 0 && this.props.event.coanimateur[0].nom + ' ' + this.props.event.coanimateur[0].prenom}})}
+    */
+
     /** @inheritDoc */
     renderContent() {
         return (
@@ -160,6 +223,16 @@ export default React.createClass({
                     {this.fieldFor('duree')}
                     {this.fieldFor('limite')}
                     {this.fieldFor('animateur',{options: {querySearcherCs: userServices.loadUserAutocomplete, initialString: this.props.event && this.props.event.animateur && this.props.event.animateur.nom + ' ' + this.props.event.animateur.prenom}})}
+                    {this.state.coanimateurs && this.state.coanimateurs.length > 0 && this.state.coanimateurs.map( (coanim,index) => {
+                        return <div data-focus='display-row'>{this.fieldFor('coanimateur'+index, {label: 'Co-Animateur '+index,options: {
+                            FieldComponent: Autocomplete,
+                            querySearcherCs: userServices.loadUserAutocomplete, 
+                            initialString: coanim && coanim.nom + ' ' + coanim.prenom}})}
+                                <Button type='button' icon='clear' label='Supprimer' handleOnClick={this.removeCoAnim(index)} />
+                            </div>    
+                    })}
+                    <Button type='button' icon='add' label='Ajouter un co animateur' handleOnClick={this.addCoAnim} />
+
                     {this.fieldFor('description', {value: this.state.description})}
                     {this.fieldFor('typeEvenement', {listName: 'typeEvenements', isRequired: true, valueKey: '_id', labelKey: 'name'})}
                     {this.fieldFor('niveau', {listName: 'niveauEvenements', valueKey: '_id', labelKey: 'name'})}

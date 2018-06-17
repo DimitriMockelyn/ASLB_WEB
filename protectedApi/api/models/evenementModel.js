@@ -46,6 +46,10 @@ var Evenement = new Schema({
     type: mongoose.Schema.Types.ObjectId,
 		ref: 'User'
   },
+  coanimateurs: [{
+    type: mongoose.Schema.Types.ObjectId,
+		ref: 'User'
+  }],
   typeEvenement: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'TypeEvenement',

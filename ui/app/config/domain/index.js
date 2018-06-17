@@ -33,6 +33,7 @@ import DO_RTE from './do-rte';
 import DO_NOTE from './do-note';
 import DO_COLOR from './do-color';
 import DO_CHECKBOX_SELECT from './do-checkbox-select';
+import DO_AUTOCOMPLETE_MULTI from './do-autocomplete-multi';
 export default {
     DO_CHECKBOX_SELECT,
     DO_CODE,
@@ -68,5 +69,6 @@ export default {
     DO_ETAT_WITH_NAME,
     DO_RTE,
     DO_NOTE,
-    DO_COLOR
+    DO_COLOR,
+    DO_AUTOCOMPLETE_MULTI
 };

@@ -26,7 +26,12 @@ exports.list_all_evenements = function(req, res) {
         evenement.participants = evenement.participants;
     });
     res.json(evenements);
-  }).populate('createur', '_id prenom nom').populate('participants', '_id prenom nom sexe email').populate('fileAttente', '_id personne ordre').populate('animateur', '_id prenom nom email').sort({date_debut: 1});
+  }).populate('createur', '_id prenom nom')
+  .populate('participants', '_id prenom nom sexe email')
+  .populate('fileAttente', '_id personne ordre')
+  .populate('animateur', '_id prenom nom email')
+  .populate('coanimateurs', '_id prenom nom email')
+  .sort({date_debut: 1});
 };
 
 exports.list_all_incoming_evenements = function(req, res) {
@@ -43,7 +48,13 @@ exports.list_all_incoming_evenements = function(req, res) {
         evenement.participants = evenement.participants;
     });
     res.json(evenements);
-  }).populate('createur', '_id prenom nom').populate('participants', '_id prenom nom sexe email').populate('typeEvenement', '_id code name').populate('fileAttente', '_id personne ordre').populate('animateur', '_id prenom nom email').sort({date_debut: 1});
+  }).populate('createur', '_id prenom nom')
+  .populate('participants', '_id prenom nom sexe email')
+  .populate('typeEvenement', '_id code name')
+  .populate('fileAttente', '_id personne ordre')
+  .populate('animateur', '_id prenom nom email')
+  .populate('coanimateurs', '_id prenom nom email')
+  .sort({date_debut: 1});
 }
 
 exports.list_my_evenements = function(req,res) {
@@ -53,7 +64,7 @@ exports.list_my_evenements = function(req,res) {
     if (err) {
       res.send(err);
     }
-    Evenement.find({$or: [{participants: user}, {animateur: user}]}, function(err, evenements) {
+    Evenement.find({$or: [{participants: user}, {animateur: user}, {coanimateurs: user}]}, function(err, evenements) {
       if (err) {
         res.send(err);
       }
@@ -62,7 +73,12 @@ exports.list_my_evenements = function(req,res) {
           evenement.participants = evenement.participants;
       });
       res.json(evenements);
-    }).populate('createur', '_id prenom nom').populate('participants', '_id prenom nom sexe email').populate('animateur', '_id prenom nom email').populate('fileAttente', '_id personne ordre').sort({date_debut: 1});
+    }).populate('createur', '_id prenom nom')
+    .populate('participants', '_id prenom nom sexe email')
+    .populate('animateur', '_id prenom nom email')
+    .populate('fileAttente', '_id personne ordre')
+    .populate('coanimateurs', '_id prenom nom email')
+    .sort({date_debut: 1});
   })
 }
 
@@ -84,7 +100,13 @@ exports.list_my_history = function(req, res) {
           evenement.participants = evenement.participants;
       });
       res.json(evenements);
-    }).populate('createur', '_id prenom nom').populate('participants', '_id prenom nom sexe email').populate('fileAttente', '_id personne ordre').populate('typeEvenement', '_id code name').populate('animateur', '_id prenom nom email').sort({date_debut: -1});
+    }).populate('createur', '_id prenom nom')
+    .populate('participants', '_id prenom nom sexe email')
+    .populate('fileAttente', '_id personne ordre')
+    .populate('typeEvenement', '_id code name')
+    .populate('animateur', '_id prenom nom email')
+    .populate('coanimateurs', '_id prenom nom email')
+    .sort({date_debut: -1});
   })
 }
 
@@ -105,7 +127,13 @@ exports.export_my_history = function(req, res) {
           evenement.createur = evenement.createur;
           evenement.participants = evenement.participants;
       });
-    }).populate('createur', '_id prenom nom').populate('participants', '_id prenom nom sexe email').populate('fileAttente', '_id personne ordre').populate('typeEvenement', '_id code name').populate('animateur', '_id prenom nom').sort({date_debut: -1}).lean().exec(function(err, events) {
+    }).populate('createur', '_id prenom nom')
+    .populate('participants', '_id prenom nom sexe email')
+    .populate('fileAttente', '_id personne ordre')
+    .populate('typeEvenement', '_id code name')
+    .populate('animateur', '_id prenom nom')
+    .populate('coanimateurs', '_id prenom nom email')
+    .sort({date_debut: -1}).lean().exec(function(err, events) {
       Commentaire.find({$and : [
         { evenement : { $in : events } },
         { auteur : user}
@@ -135,6 +163,11 @@ const exportMyHistoryForEvents = function(res, user, events) {
     obj['description'] = evt.description ? evt.description.replace(/;/g,',') : '';
     obj['duree'] = evt.duree;
     obj['animateur'] = evt.animateur.prenom + ' ' + evt.animateur.nom;
+    if (evt.coanimateurs && evt.coanimateurs.length > 0) {
+      evt.coanimateurs.map(anim => {
+        obj['animateur'] = obj['animateur'] + ' - ' + anim.prenom + ' ' + anim.nom;
+      })
+    }
     obj['nbParticipants'] = evt.participants.length;
     obj['note'] = evt.commentaires.length === 1 ? evt.commentaires[0].note : '';
     obj['commentaire'] = evt.commentaires.length === 1 && evt.commentaires[0].commentaire ? evt.commentaires[0].commentaire.replace(/;/g,',') : '';
@@ -159,7 +192,10 @@ exports.export_my_coach_history = function(req,res) {
       res.send(err);
     }
     Evenement.find({$and: [
-        { animateur: user}, 
+        {$or: [
+          { animateur: user},
+          {coanimateurs: user}
+        ]}, 
         { date_debut: {$lt: Date.now()}}]}, function(err, evenements) {
       if (err) {
         res.send(err);
@@ -168,7 +204,12 @@ exports.export_my_coach_history = function(req,res) {
           evenement.createur = evenement.createur;
           evenement.participants = evenement.participants;
       });
-    }).populate('createur', '_id prenom nom').populate('participants', '_id prenom nom sexe email').populate('typeEvenement', '_id code name').populate('animateur', '_id prenom nom').sort({date_debut: -1}).lean().exec(function(err, events) {
+    }).populate('createur', '_id prenom nom')
+    .populate('participants', '_id prenom nom sexe email')
+    .populate('typeEvenement', '_id code name')
+    .populate('animateur', '_id prenom nom')
+    .populate('coanimateurs', '_id prenom nom email')
+    .sort({date_debut: -1}).lean().exec(function(err, events) {
       Commentaire.find({ evenement : { $in : events } }, function(err, commentaires) {
         events.forEach(function(event) {
           event.commentaires = [];
@@ -234,7 +275,10 @@ exports.list_my_coach_history = function(req, res) {
       res.send(err);
     }
     Evenement.find({$and: [
-        { animateur: user}, 
+      {$or: [
+        { animateur: user},
+        {coanimateurs: user}
+      ]},
         { date_debut: {$lt: Date.now()}}]}, function(err, evenements) {
       if (err) {
         res.send(err);
@@ -243,7 +287,12 @@ exports.list_my_coach_history = function(req, res) {
           evenement.createur = evenement.createur;
           evenement.participants = evenement.participants;
       });
-    }).populate('createur', '_id prenom nom').populate('participants', '_id prenom nom sexe email').populate('typeEvenement', '_id code name').populate('animateur', '_id prenom nom').sort({date_debut: -1}).lean().exec(function(err, events) {
+    }).populate('createur', '_id prenom nom')
+    .populate('participants', '_id prenom nom sexe email')
+    .populate('typeEvenement', '_id code name')
+    .populate('animateur', '_id prenom nom')
+    .populate('coanimateurs', '_id prenom nom email')
+    .sort({date_debut: -1}).lean().exec(function(err, events) {
       Commentaire.find({ evenement : { $in : events } }, function(err, commentaires) {
         events.forEach(function(event) {
           event.commentaires = [];
@@ -268,7 +317,10 @@ exports.is_user_coach = function(req, res) {
       res.send(err);
     }
     Evenement.find({$and: [
-        {animateur: user}, 
+      {$or: [
+        { animateur: user},
+        {coanimateurs: user}
+      ]},
         { date_debut: {$lt: Date.now()}}]}, function(err, evenements) {
       if (err) {
         res.send(err);
@@ -374,6 +426,9 @@ exports.add_self_to_evenement = function(req, res) {
            return res.status(401).json({ message: 'Cet évenement est apres votre fin d\'ashésion' });
         }
         if (evenement.animateur.toString() === user._id.toString()) {
+          return res.status(401).json({ message: 'Vous ne pouvez pas vous inscrire a un événement dont vous etes deja l\'animateur' });
+        }
+        if (evenement.coanimateurs.indexOf(user._id) > -1) {
           return res.status(401).json({ message: 'Vous ne pouvez pas vous inscrire a un événement dont vous etes deja l\'animateur' });
         }
         //On vérifie qu'on ajoute pas de doublons
@@ -508,7 +563,6 @@ function sendMailInscrit(id, infoEvents, idEvent) {
       notif.message = 'Tu étais en file d\'attente pour l\'évenement suivant : ' + infoEvents + '. Une personne s\'est désinscrite, et tu fais partie des participants a présent. N\'oublie pas tes affaires !';
 
       notif.save(function(err, not) {
-        console.log(not);
       })
       mailer.sendMail([user.email], 
         '[aslb] Inscription automatique à un événement', 
@@ -540,24 +594,37 @@ exports.create_a_evenement = function(req, res) {
     if (heure_debut < 7 || heure_fin > 19) {
       return res.status(401).json({ message: 'Les activités sportives doivent se dérouler entre 7h et 20h' });
     }
-    //Enregistrement en base
-    User.findById(req.body.animateur, function(err,animateur) {
-      check_evenement_conflit(animateur,new_evenement, res, 'pour l\'animateur', () => {
-        TypeEvenement.findOne({
-          _id: req.body.typeEvenement
-          }, function(err, typeEvt) {
-            
-            new_evenement.typeEvenement = typeEvt;
-            new_evenement.save(function(err, evenement) {
-            if (err)
-              res.send(err);
-            res.json(evenement);
+    TypeEvenement.findOne({
+      _id: req.body.typeEvenement
+      }, function(err, typeEvt) {    
+      new_evenement.typeEvenement = typeEvt;
+      //Enregistrement en base
+      //On enregistre les nouveau coanimateurs a verifier
+      let index = 0;
+      User.findById(req.body.animateur, function(err,animateur) {
+        check_evenement_conflit(animateur,new_evenement, res, 'pour l\'animateur', () => {
+            check_coanims_conflit_or_save(new_evenement, res, 'pour l\'animateur', 0);
           });
-        })
+        });
       })
-    })
   })
 };
+
+function check_coanims_conflit_or_save(new_evenement, res, complementString, index) {
+  if (index >= new_evenement.coanimateurs.length) {
+    new_evenement.save(function(err, evenement) {
+      if (err)
+        res.send(err);
+      res.json(evenement);
+    });
+  } else {
+    User.findById(new_evenement.coanimateurs[index], function(err,animateur) {
+      check_evenement_conflit(animateur,new_evenement, res, 'pour l\'animateur', () => {
+        check_coanims_conflit_or_save(new_evenement, res, complementString, index+1);
+      })
+    })
+  }
+}
 
 exports.read_a_evenement = function(req, res) {
   Evenement.findById(req.params.evenementId, function(err, evenement) {
@@ -596,23 +663,38 @@ exports.update_a_evenement = function(req, res) {
     limite: req.body.limite,
     description: req.body.description,
     animateur: req.body.animateur,
+    coanimateurs: req.body.coanimateurs || [], 
     niveau: req.body.niveau
   }
-  User.findById(req.body.animateur, function(err,animateur) {
-    check_evenement_conflit(animateur,data, res, 'pour l\'animateur', () => {
-    TypeEvenement.findOne({
-      _id: req.body.typeEvenement
-      }, function(err, typeEvt) {
-        data.typeEvenement = typeEvt;
-        Evenement.findOneAndUpdate({_id:req.params.evenementId}, data, {new: true}, function(err, evenement) {
-        if (err)
-          res.send(err);
-        res.json(evenement);
+  TypeEvenement.findOne({
+    _id: req.body.typeEvenement
+    }, function(err, typeEvt) {
+      data.typeEvenement = typeEvt;
+      User.findById(req.body.animateur, function(err,animateur) {
+        check_evenement_conflit(animateur,data, res, 'pour l\'animateur', () => {
+          check_coanims_conflit_or_update(data, res, req, 'pour l\'animateur', 0);
+        });
+      })
+    }
+  )
+}; 
+
+function check_coanims_conflit_or_update(new_evenement, res, req, complementString, index) {
+  if (index >= new_evenement.coanimateurs.length) {
+    Evenement.findOneAndUpdate({_id:req.params.evenementId}, new_evenement, {new: true}, function(err, evenement) {
+      if (err)
+        res.send(err);
+      res.json(evenement);
       });
-    });
+  } else {
+    User.findById(new_evenement.coanimateurs[index], function(err,animateur) {
+
+      check_evenement_conflit(animateur,new_evenement, res, 'pour l\'animateur', () => {
+        check_coanims_conflit_or_update(new_evenement, res, req, complementString, index+1);
+      })
     })
-  })
-};
+  }
+}
 
 exports.delete_a_evenement = function(req, res) {
 
@@ -626,6 +708,7 @@ exports.delete_a_evenement = function(req, res) {
 };
 
 function check_evenement_conflit(user, event, res, complement_msg, cb) {
+  console.log(user);
   let dateDebut = new Date(event.date_debut.getTime());
   let dateDebutJournee = new Date(event.date_debut.getTime());
   let dateFin = new Date(event.date_debut.getTime() + event.duree*60000);
@@ -651,6 +734,9 @@ function check_evenement_conflit(user, event, res, complement_msg, cb) {
       )) {
         //Cette activité est en conflit, on vérifie la liste des participants
         if (existingEvent.animateur.toString() === user._id.toString()) {
+          return res.status(401).json({ message: 'Cette activité entre en conflit avec une autre '+complement_msg });
+        }
+        if (existingEvent.coanimateurs.indexOf(user._id.toString()) > -1 ) {
           return res.status(401).json({ message: 'Cette activité entre en conflit avec une autre '+complement_msg });
         }
         if (existingEvent.participants.length > 0) {
@@ -684,7 +770,6 @@ function check_evenement_conflit(user, event, res, complement_msg, cb) {
         membre: user
       }]
     }, function(err, creneaux) {
-      console.log(creneaux);
       for (let index in creneaux) {
         const cren = creneaux[index];
         let dateDebutCreneau = moment(cren.dateDebut).clone();
@@ -714,7 +799,8 @@ exports.loadAbsents = function(req, res) {
       if (err) {
         res.send(err);
       }
-      if (evenement.animateur.toString() !== user._id.toString()) {
+      if (evenement.animateur.toString() !== user._id.toString()
+          && evenement.coanimateurs.indexOf(user._id.toString()) === -1) {
         return res.status(401).json({ message: 'Vous n\'etes pas l\'animateur de la séance' });
       }
       return res.json(evenement);
@@ -731,7 +817,7 @@ exports.setAbsent = function(req, res) {
       if (err) {
         res.send(err);
       }
-      if (evenement.animateur.toString() !== user._id.toString()) {
+      if (evenement.animateur.toString() !== user._id.toString() && evenement.coanimateurs.indexOf(user._id.toString()) === -1) {
         return res.status(401).json({ message: 'Vous n\'etes pas l\'animateur de la séance' });
       }
       if (evenement.absents.indexOf(req.body.user) < 0) {
@@ -755,7 +841,7 @@ exports.setPresent = function(req, res) {
       if (err) {
         res.send(err);
       }
-      if (evenement.animateur.toString() !== user._id.toString()) {
+      if (evenement.animateur.toString() !== user._id.toString() && evenement.coanimateurs.indexOf(user._id.toString()) === -1) {
         return res.status(401).json({ message: 'Vous n\'etes pas l\'animateur de la séance' });
       }
       var index = -1;

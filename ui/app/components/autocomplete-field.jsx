@@ -12,7 +12,6 @@ export default React.createClass({
         return newProps && newProps.options && newProps.options.initialString;
     },
     shouldReinit(newProps) {
-        console.log(this.props, newProps);
       return !this.initialized || (this.wasConsult === true && newProps.isEdit === true) || (this.props.initialString !== newProps.initialString);
     },
     componentWillReceiveProps(newProps) {
@@ -24,6 +23,9 @@ export default React.createClass({
                 this.setState({value: newProps.value});
             });
 
+        }
+        if (!this.hasPropsInitialString(newProps) && !newProps.value) {
+            this.setState({value: 0});
         }
         this.wasConsult = !newProps.isEdit;
 
@@ -105,7 +107,17 @@ export default React.createClass({
         }
     },
     render() {
-        return <div>
+        const { error } = this.state;
+        const { FieldComponent, InputLabelComponent, domain, codeResolver, searcher, keyResolver, querySearcher, isRequired, values, hasLabel, isEdit } = this.props;
+        const isCustomComponent = FieldComponent || InputLabelComponent;
+        const { autocomplete, autocompleteSelect, autocompleteText, label, input, select, display } = this;
+        return <div style={{'width':'100%',    'display': 'flex',
+        'flex-direction': 'row'}}>
+        <div className="mdl-cell mdl-cell--top mdl-cell--4-col" data-focus="field-label-container">
+            <label data-focus='label'>{this.props.label}</label>
+        </div>
+        <div className="mdl-cell mdl-cell--top mdl-cell--8-col" data-focus='field-value-container'>
+        <div>
             <AutocompleteSelect
                 ref='autocompleteComponent'
                 isEdit={this.props.isEdit}
@@ -114,7 +126,10 @@ export default React.createClass({
                 value={this.state.value}
                 onChange={this.onChange}
                 error={this.state.customError}
+                options={this.props.options}
             />
+        </div>
+        </div>
         </div>;
     }
 });
