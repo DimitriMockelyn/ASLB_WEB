@@ -43,7 +43,9 @@ export default React.createClass({
                     <div>
                         <i style={{    'float': 'right', 'cursor': 'pointer'}} className='material-icons' onClick={() => {window.location.href='mailto:'+this.props.animateur.email}}>mail</i>
                         <div className='click-user-name'onClick={() => {setTimeout(() => {navigate('u/'+this.props.animateur._id, true)},10)}}>{this.props.animateur.prenom}</div>
-                        
+                        {this.props.coanimateurs && this.props.coanimateurs.length > 0 && this.props.coanimateurs.map(anim => {
+                            return <div className='click-user-name'onClick={() => {setTimeout(() => {navigate('u/'+anim._id, true)},10)}}>{anim.prenom}</div>
+                        })}
                     </div>
                 </div>
                 <div className='description'>

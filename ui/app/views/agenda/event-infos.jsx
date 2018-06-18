@@ -214,7 +214,7 @@ export default React.createClass({
         return (
         <div>
             <Panel title='agenda.evenementDetail' actions={this.renderActionsUpdate} >
-                {!this.state.isEdit && <EventCard hasForm={false} hasLoad={false} data={this.state} computeSexeData={this.computeSexeData} animateur={this.props.event.animateur}/>}
+                {!this.state.isEdit && <EventCard hasForm={false} hasLoad={false} data={this.state} computeSexeData={this.computeSexeData} animateur={this.props.event.animateur} coanimateurs={this.props.event.coanimateurs}/>}
                 {this.state.isEdit && <div>
                     {this.fieldFor('name')}
                     {this.fieldFor('created', {value: this.state.created_date, isEdit: false})}
