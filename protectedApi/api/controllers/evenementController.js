@@ -28,7 +28,8 @@ exports.list_all_evenements = function(req, res) {
     res.json(evenements);
   }).populate('createur', '_id prenom nom')
   .populate('participants', '_id prenom nom sexe email')
-  .populate('fileAttente', '_id personne ordre')
+  .populate({path:'fileAttente', populate:{ path:'personne', select: '_id prenom nom email sexe'}})
+  .populate('personne', '_id prenom nom email')
   .populate('animateur', '_id prenom nom email')
   .populate('coanimateurs', '_id prenom nom email')
   .sort({date_debut: 1});
@@ -51,7 +52,7 @@ exports.list_all_incoming_evenements = function(req, res) {
   }).populate('createur', '_id prenom nom')
   .populate('participants', '_id prenom nom sexe email')
   .populate('typeEvenement', '_id code name')
-  .populate('fileAttente', '_id personne ordre')
+  .populate({path:'fileAttente', populate:{ path:'personne', select: '_id prenom nom email sexe'}})
   .populate('animateur', '_id prenom nom email')
   .populate('coanimateurs', '_id prenom nom email')
   .sort({date_debut: 1});
@@ -76,7 +77,7 @@ exports.list_my_evenements = function(req,res) {
     }).populate('createur', '_id prenom nom')
     .populate('participants', '_id prenom nom sexe email')
     .populate('animateur', '_id prenom nom email')
-    .populate('fileAttente', '_id personne ordre')
+    .populate({path:'fileAttente', populate:{ path:'personne', select: '_id prenom nom email sexe'}})
     .populate('coanimateurs', '_id prenom nom email')
     .sort({date_debut: 1});
   })

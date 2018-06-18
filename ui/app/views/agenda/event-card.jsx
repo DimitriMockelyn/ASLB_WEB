@@ -71,7 +71,12 @@ export default React.createClass({
                         return <div className='click-user-name' onClick={() => {setTimeout(() => {navigate('u/'+value._id, true)},10)}}>{value.nom + ' ' + value.prenom}<div>{this.props.computeSexeData(value)}</div></div>
                     })}
                 </div>
-
+                {this.state.fileAttente && this.state.fileAttente.length > 0 && <div>Liste d'attente</div>}
+                {this.state.fileAttente && this.state.fileAttente.length > 0 && <div className='participants'>
+                    {this.state.fileAttente.map(value => {
+                        return <div className='click-user-name' onClick={() => {setTimeout(() => {navigate('u/'+value.personne._id, true)},10)}}>{value.personne.nom + ' ' + value.personne.prenom}<div>{this.props.computeSexeData(value.personne)}</div></div>
+                    })}
+                </div>}
             </div>
         );
     }

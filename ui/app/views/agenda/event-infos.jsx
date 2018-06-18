@@ -80,7 +80,7 @@ export default React.createClass({
             }
         }
         for (let index in this.props.event.fileAttente) {
-            if (this.props.event.fileAttente[index].personne.toString() === id.toString()) {
+            if (this.props.event.fileAttente[index].personne._id.toString() === id.toString()) {
                 return true;
             }
         }
@@ -88,7 +88,7 @@ export default React.createClass({
     },
     isInFile(id) {
         for (let index in this.props.event.fileAttente) {
-            if (this.props.event.fileAttente[index].personne.toString() === id.toString()) {
+            if (this.props.event.fileAttente[index].personne._id.toString() === id.toString()) {
                 return true;
             }
         }
@@ -98,7 +98,7 @@ export default React.createClass({
         var position = 1;
         var indexOrdre = -1;
         for (let index in this.props.event.fileAttente) {
-            if (this.props.event.fileAttente[index].personne.toString() === id.toString()) {
+            if (this.props.event.fileAttente[index].personne._id.toString() === id.toString()) {
                 indexOrdre = index;
             }
         }
