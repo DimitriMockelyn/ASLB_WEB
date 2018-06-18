@@ -164,6 +164,22 @@ export default React.createClass({
             if (event.participants[index]._id.toString() === myId) {
                 className = className + ' participant ';
             }
+
+        }
+        if (event.animateur._id.toString() === myId) {
+            className = className + ' participant ';
+        }
+        for (let index in event.coanimateurs) {
+            if (event.coanimateurs[index]._id.toString() === myId) {
+                className = className + ' participant ';
+            }
+
+        }
+        for (let index in event.fileAttente) {
+            if (event.fileAttente[index].personne._id.toString() === myId) {
+                className = className + ' attente ';
+            }
+
         }
         return {
             className: className

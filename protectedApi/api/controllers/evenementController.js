@@ -65,21 +65,23 @@ exports.list_my_evenements = function(req,res) {
     if (err) {
       res.send(err);
     }
-    Evenement.find({$or: [{participants: user}, {animateur: user}, {coanimateurs: user}]}, function(err, evenements) {
-      if (err) {
-        res.send(err);
-      }
-      evenements.forEach(function(evenement) { 
-          evenement.createur = evenement.createur;
-          evenement.participants = evenement.participants;
-      });
-      res.json(evenements);
-    }).populate('createur', '_id prenom nom')
-    .populate('participants', '_id prenom nom sexe email')
-    .populate('animateur', '_id prenom nom email')
-    .populate({path:'fileAttente', populate:{ path:'personne', select: '_id prenom nom email sexe'}})
-    .populate('coanimateurs', '_id prenom nom email')
-    .sort({date_debut: 1});
+    Queue.find({personne: user}, function(err, files) {
+      Evenement.find({$or: [{participants: user}, {animateur: user}, {coanimateurs: user}, {fileAttente: {$in: files}}]}, function(err, evenements) {
+        if (err) {
+          res.send(err);
+        }
+        evenements.forEach(function(evenement) { 
+            evenement.createur = evenement.createur;
+            evenement.participants = evenement.participants;
+        });
+        res.json(evenements);
+      }).populate('createur', '_id prenom nom')
+      .populate('participants', '_id prenom nom sexe email')
+      .populate('animateur', '_id prenom nom email')
+      .populate({path:'fileAttente', populate:{ path:'personne', select: '_id prenom nom email sexe'}})
+      .populate('coanimateurs', '_id prenom nom email')
+      .sort({date_debut: 1});
+    })
   })
 }
 

@@ -285,6 +285,15 @@ button.mdl-button:not(.mdl-button--icon) {
   background-color: inherit;
 }
 
+.rbc-event.attente:after {
+  content: '\003F';
+  position: absolute;
+  right: 0;
+  top: 0;
+  z-index: 3;
+  background-color: inherit;
+}
+
 i {
   font-feature-settings: 'liga';
 }
