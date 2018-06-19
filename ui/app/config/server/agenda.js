@@ -12,6 +12,7 @@ export default {
     addSelfToEvent: builder(url + 'evenements/addSelf/${eventId}', 'POST'),
     removeSelfToEvent: builder(url + 'evenements/removeSelf/${eventId}', 'POST'),
     deleteEvent: builder(url + 'evenements/${eventId}', 'DELETE'),
+    loadEvent: builder(url + 'evenements/${eventId}', 'GET'),
     createEvent: builder(url + 'evenements', 'POST'),
     updateEvent: builder(url + 'evenements/${eventId}', 'PUT'),
     loadTypeEvenements: builder(url + 'typeEvenements', 'GET'),

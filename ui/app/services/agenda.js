@@ -18,6 +18,9 @@ export default {
     loadAttendees(id) {
         return fetch(agendaUrl.loadAttendees({urlData: {eventId:id}}), utils.computeHeaders());
     },
+    loadEvent(id) {
+        return fetch(agendaUrl.loadEvent({urlData: {eventId:id}}));
+    },
     addSelfToEvent(data){
         return fetch(agendaUrl.addSelfToEvent({urlData: {eventId: data._id}}), utils.computeHeaders());        
     },

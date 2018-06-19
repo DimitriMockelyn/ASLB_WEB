@@ -590,6 +590,21 @@ function sendMailInscrit(id, infoEvents, idEvent) {
   });
 };
 
+function sendMailDesinscrit(id, infoEvents, idEvent) {
+  User.findById(id, function(err, user) {
+      let notif = new Notifications();
+      notif.destinataire = user;
+      notif.lien = 'agenda/'+idEvent;
+      notif.message = 'Un changement de capacité à été éffectué pour l\'évenement suivant : ' + infoEvents + '. Tu es passé en file d\'attente. N \'hésites pas à contacter l\'animateur pour plus d\'informations';
+
+      notif.save(function(err, not) {
+      })
+      mailer.sendMail([user.email], 
+        '[aslb] Inscription automatique à un événement', 
+        'Un changement de capacité à été éffectué pour l\'évenement suivant : ' + infoEvents + '. Tu es passé en file d\'attente. N \'hésites pas à contacter l\'animateur pour plus d\'informations. Ce message est envoyé automatiquement, merci de ne pas y répondre.');
+  });
+};
+
 exports.create_a_evenement = function(req, res) {
   User.findOne({
     email: req.user.email
@@ -705,18 +720,16 @@ function check_coanims_conflit_or_update(new_evenement, res, req, complementStri
       if (err) {
         res.send(err);
       }
-      Evenement.findById(evenement._id, function(err, evenements) {
-        if (err) {
-          res.send(err);
-        }
-        res.json(evenements);
-      }).populate('createur', '_id prenom nom')
-      .populate('participants', '_id prenom nom sexe email')
-      .populate({path:'fileAttente', populate:{ path:'personne', select: '_id prenom nom email sexe'}})
-      .populate('personne', '_id prenom nom email')
-      .populate('animateur', '_id prenom nom email')
-      .populate('coanimateurs', '_id prenom nom email')
-      });
+      compute_new_file_attente(evenement, 
+        evt => {
+          evt.save(function(err, evt2) {
+            if (err) {
+              res.send(err);
+            }
+            res.json(evt2);
+        });
+      })
+    });
   } else {
     User.findById(new_evenement.coanimateurs[index], function(err,animateur) {
 
@@ -725,6 +738,74 @@ function check_coanims_conflit_or_update(new_evenement, res, req, complementStri
       })
     })
   }
+}
+
+function compute_new_file_attente(evenementIn, next) {
+  Evenement.findById(evenementIn._id, function(err, evenement) {
+    if (err) {
+      res.send(err);
+    }
+    if (!evenement.participants) {
+      evenement.participants = [];
+    }
+    //On vérifie si on doit bouger la file d'attente
+    //Si pas d'attente et capacité correcte, on quitte
+    let limite = evenement.limite === 0 ? 0 : evenement.limite || 99999;
+    if (evenement.fileAttente.length === 0 && evenement.participants.length <= limite) {
+      return next(evenement);
+    } else 
+    // Si on a + de places que d'utilisateurs, mais des gens en attente
+    if (evenement.fileAttente.length > 0 && evenement.participants.length < limite) {
+      while (evenement.fileAttente.length > 0 && evenement.participants.length < limite) {
+        //changer file attente
+        var minOrdre = -1;
+        var indexMin = -1;
+        evenement.fileAttente.map((itemAttente, index) => {
+          if (minOrdre === -1 || itemAttente.ordre < minOrdre) {
+            minOrdre = itemAttente.ordre;
+            indexMin = index;
+          }
+        })
+        //On ajoute le nouveau aux participants
+        evenement.participants.push(evenement.fileAttente[indexMin].personne);
+        sendMailInscrit(evenement.fileAttente[indexMin].personne, evenement.name + ' - ' + moment(evenement.date_debut).format('DD/MM/YYYY - HH:mm'), evenement._id);
+        var toDelete = evenement.fileAttente[indexMin];
+        evenement.fileAttente.splice(indexMin, 1);
+        toDelete.remove(function(err, del) {});
+      }
+      return next(evenement);
+    } else
+    //Si on a - de places que d'utilisateurs, on doit retirer les derniers ?
+    if (evenement.participants.length > limite) {
+      //On décale les files d'attente
+      evenement.fileAttente.map((itemAttente, index) => {
+        minOrdre = itemAttente.ordre;
+        indexMin = index;
+        itemAttente.ordre=itemAttente.ordre + evenement.participants.length-limite;
+        itemAttente.save(function(err, itm) {});
+      });
+      return add_to_queue_or_save(evenement,limite,next);
+    } else {
+      return next(evenement);
+    }
+    
+  }).populate('fileAttente', '_id personne ordre');
+}
+
+function add_to_queue_or_save(evenement, limite, next) {
+  var user = evenement.participants.pop();
+  var queue = new Queue();
+  queue.personne = user;
+  queue.ordre = 1+evenement.participants.length - limite;
+  sendMailDesinscrit(user, evenement.name + ' - ' + moment(evenement.date_debut).format('DD/MM/YYYY - HH:mm'), evenement._id);
+  queue.save(function(err, queueSaved) {
+    evenement.fileAttente.push(queueSaved);
+    if (evenement.participants.length > limite) {
+      return add_to_queue_or_save(evenement,limite,next);
+    } else {
+      return next(evenement);
+    }
+  });
 }
 
 exports.delete_a_evenement = function(req, res) {
@@ -739,7 +820,6 @@ exports.delete_a_evenement = function(req, res) {
 };
 
 function check_evenement_conflit(user, event, res, complement_msg, cb) {
-  console.log(user);
   let dateDebut = new Date(event.date_debut.getTime());
   let dateDebutJournee = new Date(event.date_debut.getTime());
   let dateFin = new Date(event.date_debut.getTime() + event.duree*60000);

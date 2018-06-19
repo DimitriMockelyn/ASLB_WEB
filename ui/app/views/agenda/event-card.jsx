@@ -83,7 +83,7 @@ export default React.createClass({
                 </div>
                 {this.state.fileAttente && this.state.fileAttente.length > 0 && <div>Liste d'attente</div>}
                 {this.state.fileAttente && this.state.fileAttente.length > 0 && <div className='participants'>
-                    {this.state.fileAttente.map(value => {
+                    {this.state.fileAttente.sort((a,b) => {return a.ordre - b.ordre;}).map(value => {
                         return <div className='click-user-name' onClick={() => {setTimeout(() => {navigate('u/'+value.personne._id, true)},10)}}>{value.personne.nom + ' ' + value.personne.prenom}<div>{this.props.computeSexeData(value.personne)}</div></div>
                     })}
                 </div>}
