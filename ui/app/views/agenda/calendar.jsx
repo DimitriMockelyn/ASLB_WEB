@@ -131,9 +131,19 @@ export default React.createClass({
     onSelectEvent(event) {
         this.setState({selectedEvent : event});
     },
-    closePopin() {
+    closePopin(data) {
         this.setState({selectedEvent : undefined});
-        this.loadAllEvents();
+        if (data && data.reopen) {
+            this.loadAllEvents().then(evts => {
+                evts.map(evt => {
+                    if (evt._id === data.reopen) {
+                        this.onSelectEvent(evt);
+                    }
+                })
+            });
+        } else {
+            this.loadAllEvents();
+        }
     },
     createEvent(slotInfo) {
         if (userHelper.getLogin() && userHelper.getLogin().canCreate) {

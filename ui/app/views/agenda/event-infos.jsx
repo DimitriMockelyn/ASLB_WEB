@@ -35,6 +35,9 @@ export default React.createClass({
         this.setState({});
 
     },
+    componentWillReceiveProps() {
+        this.setState({updated: !this.state.updated});
+    },
     getInitialState() {
         let complement = {};
         if (this.props.event.coanimateurs && this.props.event.coanimateurs.length > 0) {
@@ -128,8 +131,8 @@ export default React.createClass({
         } else {
             entity.coanimateurs = [];
         }
-        agendaServices.updateEvent(entity).then(() => {
-            this.setState({...entity,isEdit: !this.state.isEdit});
+        agendaServices.updateEvent(entity).then((res) => {
+            this.props.onPopinClose({reopen: this.props.event._id});
         })
     },
     renderActionsUpdate() {
@@ -214,7 +217,7 @@ export default React.createClass({
         return (
         <div>
             <Panel title='agenda.evenementDetail' actions={this.renderActionsUpdate} >
-                {!this.state.isEdit && <EventCard hasForm={false} hasLoad={false} data={this.state} computeSexeData={this.computeSexeData} animateur={this.props.event.animateur} coanimateurs={this.props.event.coanimateurs}/>}
+                {!this.state.isEdit && <EventCard hasForm={false} hasLoad={false} data={this.state} computeSexeData={this.computeSexeData} animateur={this.state.animateurUpdate || this.props.event.animateur} coanimateurs={this.state.coanimateursUpdate || this.props.event.coanimateurs}/>}
                 {this.state.isEdit && <div>
                     {this.fieldFor('name')}
                     {this.fieldFor('created', {value: this.state.created_date, isEdit: false})}

@@ -685,9 +685,20 @@ exports.update_a_evenement = function(req, res) {
 function check_coanims_conflit_or_update(new_evenement, res, req, complementString, index) {
   if (index >= new_evenement.coanimateurs.length) {
     Evenement.findOneAndUpdate({_id:req.params.evenementId}, new_evenement, {new: true}, function(err, evenement) {
-      if (err)
+      if (err) {
         res.send(err);
-      res.json(evenement);
+      }
+      Evenement.findById(evenement._id, function(err, evenements) {
+        if (err) {
+          res.send(err);
+        }
+        res.json(evenements);
+      }).populate('createur', '_id prenom nom')
+      .populate('participants', '_id prenom nom sexe email')
+      .populate({path:'fileAttente', populate:{ path:'personne', select: '_id prenom nom email sexe'}})
+      .populate('personne', '_id prenom nom email')
+      .populate('animateur', '_id prenom nom email')
+      .populate('coanimateurs', '_id prenom nom email')
       });
   } else {
     User.findById(new_evenement.coanimateurs[index], function(err,animateur) {
