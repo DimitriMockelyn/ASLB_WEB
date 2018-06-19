@@ -586,6 +586,13 @@ function fill_user_data(users_db, formatDate, cb) {
             if (event.animateur && event.animateur.toString() === user._id.toString()) {
               user.nombreCoach += 1;
             }
+            if (event.coanimateurs && event.coanimateurs.length > 0) {
+              event.coanimateurs.map(anim => {
+                if (anim.toString() === user._id.toString()) {
+                  user.nombreCoach += 1;
+                }
+              })
+            }
           })
         });
         Commentaire.find({
@@ -615,7 +622,7 @@ function fill_user_data(users_db, formatDate, cb) {
             }
           })
           cb(users);
-        }).populate('evenement', '_id animateur');
+        }).populate('evenement', '_id animateur coanimateurs');
     });
 }
 

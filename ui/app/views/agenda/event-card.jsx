@@ -29,6 +29,16 @@ export default React.createClass({
 
         return (this.state.reference[listName].find(data => { return data._id === id}) || {code: ''}).code;
     },
+    mailToAnims()  {
+        let newUrl = 'mailto:'+this.props.animateur.email;
+        if (this.props.coanimateurs && this.props.coanimateurs.length > 0) {
+            newUrl = newUrl+'?cc=';
+            this.props.coanimateurs.map(anim => {
+                newUrl = newUrl + anim.email + ';';
+            })
+        }
+        window.location.href=newUrl;
+    },
     /** @inheritDoc */
     renderContent() {
         console.log(this.state);
@@ -41,7 +51,7 @@ export default React.createClass({
                     <div className='red'>{this.computeLabel(this.state.niveau, 'niveauEvenements')}</div>
                     <div>{translate('event.animePar')}</div>
                     <div>
-                        <i style={{    'float': 'right', 'cursor': 'pointer'}} className='material-icons' onClick={() => {window.location.href='mailto:'+this.props.animateur.email}}>mail</i>
+                        <i style={{    'float': 'right', 'cursor': 'pointer'}} className='material-icons' onClick={this.mailToAnims}>mail</i>
                         <div className='click-user-name'onClick={() => {setTimeout(() => {navigate('u/'+this.props.animateur._id, true)},10)}}>{this.props.animateur.prenom}</div>
                         {this.props.coanimateurs && this.props.coanimateurs.length > 0 && this.props.coanimateurs.map(anim => {
                             return <div className='click-user-name'onClick={() => {setTimeout(() => {navigate('u/'+anim._id, true)},10)}}>{anim.prenom}</div>
