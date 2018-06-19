@@ -3,11 +3,17 @@ import agendaUrl from '../config/server/agenda';
 
 import utils from './utils';
 export default {
-    loadAll() {
-        return fetch(agendaUrl.loadAll());
+    loadAll(week) {
+        if (!week && week !== 0) {
+            return fetch(agendaUrl.loadAll());
+        }
+        return fetch(agendaUrl.loadAllWeek({urlData: {numWeek:week}}));
     },
-    loadMine() {
-        return fetch(agendaUrl.loadMine(), utils.computeHeaders());
+    loadMine(week) {
+        if (!week && week !== 0) {
+            return fetch(agendaUrl.loadMine(), utils.computeHeaders());
+        }
+        return fetch(agendaUrl.loadMineWeek({urlData: {numWeek:week}}), utils.computeHeaders());
     },
     loadAttendees(id) {
         return fetch(agendaUrl.loadAttendees({urlData: {eventId:id}}), utils.computeHeaders());

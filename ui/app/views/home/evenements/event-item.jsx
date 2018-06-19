@@ -10,11 +10,17 @@ import {navigate} from 'focus-core/history';
 
 export default React.createClass({
     displayName: 'NewsPanel',
+    onClickTile() {
+        let mom = moment();
+        let momentDebut = moment(this.props.data.date_debut, moment.ISO_8601);
+        let diff = Math.abs(mom.clone().startOf('isoWeek').diff(momentDebut.clone().startOf('isoWeek'), 'week'));
+        setTimeout(() => {navigate('agenda/'+this.props.data._id+'/'+diff,true)},10)
+    },
     /** @inheritDoc */
     render() {
         var limitString = this.props.data.limite ?  '/' + this.props.data.limite : '';
         return (
-        <div className={'rbc-event event-caroussel ' + (this.props.data.typeEvenement ? this.props.data.typeEvenement.code : '') } onClick={() => {setTimeout(() => {navigate('agenda/'+this.props.data._id,true)},10)}}>
+        <div className={'rbc-event event-caroussel ' + (this.props.data.typeEvenement ? this.props.data.typeEvenement.code : '') } onClick={this.onClickTile}>
                 <div>
                     {(this.props.data.typeEvenement ? this.props.data.typeEvenement.name : '') + ' - ' + this.props.data.name}
                 </div>

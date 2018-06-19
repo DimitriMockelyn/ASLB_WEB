@@ -11,16 +11,16 @@ export default createRouter(Backbone).extend({
     },
     routes: {
         agenda: 'agenda',
-        'agenda/:id' : 'agendaId',
+        'agenda/:id/:week' : 'agendaId',
         historique: 'historique',
         historiqueAnimation: 'historiqueAnimation'
     },
     agenda() {
         this._pageContent(AgendaView);
     },
-    agendaId(id) {
+    agendaId(id, week) {
         navigate('agenda', false);
-        this._pageContent(AgendaView, {props: {eventId: id}});
+        this._pageContent(AgendaView, {props: {eventId: id, week: week}});
     },
     historique() {
         this._pageContent(HistoriqueView);

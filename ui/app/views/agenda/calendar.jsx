@@ -20,13 +20,14 @@ export default React.createClass({
     referenceNames: ['typeEvenements', 'niveauEvenements'],
     initialized : false,
     getInitialState() {
+        let weeks = this.props.week ? parseInt(this.props.week, 10) : 0;
         return {
             events : [],
             selectedEvent : undefined,
             serviceLoad: agendaServices.loadAll,
             fullView: false,
             calendarView: false,
-            currentWeek : moment().isoWeek()
+            currentWeek : moment().isoWeek() + weeks
         }
     },
     afterChange(changeInfos) {
@@ -97,7 +98,7 @@ export default React.createClass({
             })
             window.computeTokens();
         }
-        return this.state.serviceLoad().then(res => {
+        return this.state.serviceLoad(this.state.currentWeek -  moment().isoWeek()).then(res => {
             const events = []
             
             res.map((event) => {
@@ -197,11 +198,11 @@ export default React.createClass({
     },
     onNavigateCalendar(data, data2, type) {
         if (type === 'TODAY') {
-            this.setState({currentWeek : moment().week()})
+            this.setState({currentWeek : moment().week()}, this.loadAllEvents)
         } else if (type === 'PREV') {
-            this.setState({currentWeek : this.state.currentWeek -1})
+            this.setState({currentWeek : this.state.currentWeek -1}, this.loadAllEvents)
         } else if (type === 'NEXT') {
-            this.setState({currentWeek : this.state.currentWeek +1})
+            this.setState({currentWeek : this.state.currentWeek +1}, this.loadAllEvents)
         }
     },
     sendEmail() {

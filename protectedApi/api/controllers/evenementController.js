@@ -17,7 +17,24 @@ var mongoose = require('mongoose'),
 
 
 exports.list_all_evenements = function(req, res) {
-  Evenement.find({}, function(err, evenements) {
+  let filter = {};
+  if (req.params.numWeek) {
+    let mom = moment();
+    mom.add(req.params.numWeek, 'w');
+    filter={$and: [
+      {
+        date_debut: {
+          $gte: mom.clone().startOf('isoWeek')
+        }
+      },
+      {
+        date_debut: {
+          $lte: mom.clone().endOf('isoWeek')
+        }
+      }
+    ]}
+  }
+  Evenement.find(filter, function(err, evenements) {
     if (err) {
       res.send(err);
     }

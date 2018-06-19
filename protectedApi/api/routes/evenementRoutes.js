@@ -13,6 +13,9 @@ module.exports = function(app) {
 		.get(eventHandler.list_all_evenements)
 		.post(userHandlers.loginRequired, userHandlers.isMembreActif, userHandlers.canMembreCreerCours, eventHandler.create_a_evenement); 
 
+	app.route('/evenementsWeek/:numWeek')
+		.get(eventHandler.list_all_evenements)
+
 	app.route('/evenements/next')
 		.get(eventHandler.list_all_incoming_evenements)
 
@@ -73,7 +76,10 @@ module.exports = function(app) {
 		.post(userHandlers.sendMailFirst);
 
 	app.route('/myEvenements')
-		.get(eventHandler.list_my_evenements);
+		.get(userHandlers.loginRequired, eventHandler.list_my_evenements);
+
+	app.route('/myEvenementsWeek/:weekEnd')
+		.get(userHandlers.loginRequired, eventHandler.list_my_evenements);
 		
 	app.route('/partenaires')
 		.get(adminHandler.list_all_partenaires)
