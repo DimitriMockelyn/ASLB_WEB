@@ -12,7 +12,7 @@ import message from 'focus-core/message';
 import EventCard from './event-card';
 import {translate} from 'focus-core/translation';
 import Autocomplete from '../../components/autocomplete-field';
-
+import {download} from '../../utils/download';
 const ConfirmPopup = React.createClass({
     render() {
         return <div data-focus='display-column' className={this.props.tokensRestant === 0 ? 'no-actions' : ''}>
@@ -148,7 +148,20 @@ export default React.createClass({
         if (this.isAnimateur()) {
             buttonMail = <Button label='button.sendMailParticipants' icon='mail' type='button' handleOnClick={this.sendMailParticipants} />;
         }
-        return <div>{buttonEdit} {buttonMail}</div>
+        var buttonInvite = <div />;
+        if (userHelper.getLogin() && this.isInEvent(userHelper.getLogin()._id) ) {
+            buttonInvite = <div>
+            <Button label='event.generateAppointment' type='button' shape='icon' icon='add_alarm' handleOnClick={this.generateAppointment} />
+        </div>
+        }
+
+        var buttonMailAppoint = <div/>;
+        if (userHelper.getLogin() && this.isInEvent(userHelper.getLogin()._id)) {
+            buttonMailAppoint = <div>
+            <Button label='event.sendMailAppointment' type='button' shape='icon' icon='move_to_inbox' handleOnClick={this.sendMailAppointment} />
+        </div>
+        }
+        return <div data-focus='display-row'>{buttonInvite} {buttonMailAppoint} {buttonEdit} {buttonMail} </div>
     },
     sendMailParticipants() {
         var users =''
@@ -204,6 +217,12 @@ export default React.createClass({
             })
             that.setState({...state, ...complement});
         }
+    },
+    generateAppointment() {
+        agendaServices.generateAppointment(this.props.event).then(res => {download(res.iCal, 'aslb.ics', 'text/calendar')});
+    },
+    sendMailAppointment() {
+        agendaServices.sendMailAppointment(this.props.event).then( res => {message.addSuccessMessage(translate('event.appointmentSent'));});
     },
     /*
                         {this.fieldFor('coanimateur1', {label: 'Co-Animateur',options: {

@@ -32,5 +32,6 @@ let download = function(data, fileName, typeResponse) {
 }
 
 export default {
-    downloadCSV: downloadCSV
+    downloadCSV: downloadCSV,
+    download: download
 }

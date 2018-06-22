@@ -34,6 +34,7 @@
     "express": "^4.14.0",
     "forever": "^0.15.3",
     "formidable": "^1.1.1",
+    "ical-generator": "^0.2.10",
     "json2csv": "^3.11.5",
     "jsonwebtoken": "^7.3.0",
     "mongoose": "^4.7.2",

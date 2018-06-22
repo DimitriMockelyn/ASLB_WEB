@@ -27,6 +27,12 @@ export default {
     removeSelfToEvent(data){
         return fetch(agendaUrl.removeSelfToEvent({urlData: {eventId: data._id}, data: {test: true}}), utils.computeHeaders());        
     },
+    generateAppointment(data){
+        return fetch(agendaUrl.generateAppointment({urlData: {eventId: data._id}, data: {test: true}}), utils.computeHeaders());        
+    },
+    sendMailAppointment(data){
+        return fetch(agendaUrl.sendMailAppointment({urlData: {eventId: data._id}, data: {test: true}}), utils.computeHeaders());        
+    },
     deleteEvent(data){
         return fetch(agendaUrl.deleteEvent({urlData: {eventId: data._id}}), utils.computeHeaders());        
     },

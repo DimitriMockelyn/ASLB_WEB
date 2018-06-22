@@ -13,6 +13,7 @@ var mongoose = require('mongoose'),
   Machine = mongoose.model('Machine'),
   moment = require('moment'),
   json2csv = require('json2csv'),
+  ical = require('ical-generator'),
   mailer = require('../utils/mailer');
 
 
@@ -593,6 +594,53 @@ exports.remove_self_to_evenement = function(req, res) {
     });
   });
 };
+
+exports.generate_appointment = function(req, res) {
+  Evenement.findById(req.params.evenementId, function(err, evenement) {
+      // Create new Calendar and set optional fields
+    var cal = ical({
+        domain: 'sport.laboursidiere.com',
+        name: 'iCal',
+        timezone: 'Europe/Paris'
+    });
+    // create a new event
+    var event = cal.createEvent({
+      start: new Date(evenement.date_debut.getTime()),
+      end: new Date(evenement.date_debut.getTime() + evenement.duree*60000),
+      timestamp: new Date(),
+      summary: evenement.name,
+      description: evenement.description,
+      organizer: evenement.animateur.prenom + ' ' + evenement.animateur.nom +' <'+evenement.animateur.email+'>'
+    });
+    res.json({iCal: cal.toString()})
+  }).populate('animateur', '_id nom prenom email');
+}
+
+exports.generate_mail_appointment = function(req,res) {
+  User.findOne({
+      email: req.user.email
+    }, function(err, user) {
+    Evenement.findById(req.params.evenementId, function(err, evenement) {
+      // Create new Calendar and set optional fields
+      var cal = ical({
+          domain: 'sport.laboursidiere.com',
+          name: 'iCal',
+          timezone: 'Europe/Paris'
+      });
+      // create a new event
+      var event = cal.createEvent({
+        start: new Date(evenement.date_debut.getTime()),
+        end: new Date(evenement.date_debut.getTime() + evenement.duree*60000),
+        timestamp: new Date(),
+        summary: evenement.name,
+        description: evenement.description,
+        organizer: evenement.animateur.prenom + ' ' + evenement.animateur.nom +' <'+evenement.animateur.email+'>'
+      });
+      mailer.sendMailWithAppointment([user.email], 'Invitation : '+evenement.name, evenement.description, cal.toString());
+      res.json({success: true});
+    }).populate('animateur', '_id nom prenom email');
+  })
+}
 
 function sendMailInscrit(id, infoEvents, idEvent) {
   User.findById(id, function(err, user) {

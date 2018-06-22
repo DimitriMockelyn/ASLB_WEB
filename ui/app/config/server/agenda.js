@@ -11,6 +11,8 @@ export default {
     loadMineWeek:  builder(url + 'myEvenementsWeek/${numWeek}', 'GET'),
     addSelfToEvent: builder(url + 'evenements/addSelf/${eventId}', 'POST'),
     removeSelfToEvent: builder(url + 'evenements/removeSelf/${eventId}', 'POST'),
+    generateAppointment: builder(url + 'evenements/generateAppointment/${eventId}', 'POST'),
+    sendMailAppointment: builder(url + 'evenements/sendMailAppointment/${eventId}', 'POST'),
     deleteEvent: builder(url + 'evenements/${eventId}', 'DELETE'),
     loadEvent: builder(url + 'evenements/${eventId}', 'GET'),
     createEvent: builder(url + 'evenements', 'POST'),

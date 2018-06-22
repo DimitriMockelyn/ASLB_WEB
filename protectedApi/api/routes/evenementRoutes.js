@@ -32,6 +32,12 @@ module.exports = function(app) {
 	app.route('/evenements/removeSelf/:evenementId')
 		.post(userHandlers.loginRequired, userHandlers.isEvenementFutur, eventHandler.remove_self_to_evenement);
 
+	app.route('/evenements/generateAppointment/:evenementId')
+		.post(userHandlers.loginRequired, userHandlers.isEvenementFutur, eventHandler.generate_appointment);
+
+	app.route('/evenements/sendMailAppointment/:evenementId')
+		.post(userHandlers.loginRequired, userHandlers.isEvenementFutur, eventHandler.generate_mail_appointment);
+
 	app.route('/auth/register')
 		.post(userHandlers.register);
 
