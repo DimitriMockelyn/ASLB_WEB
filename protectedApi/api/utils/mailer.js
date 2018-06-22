@@ -37,7 +37,7 @@ let transporter = nodemailer.createTransport({
 exports.sendMail = function(dests, objet, message) {
     
   let mailOptions = {
-      from: 'email.aslb@gmail.com', // sender address
+      from: 'aslb@laboursidiere.com', // sender address
       to: dests.join(", "), 
       subject: objet,
       html: message
@@ -47,6 +47,27 @@ exports.sendMail = function(dests, objet, message) {
           return console.log(error);
       }
       console.log('Message sent: %s', info); 
+  });
+}
+
+exports.sendMailWithAppointment = function(dests, objet, message, content) {
+    
+  let mailOptions = {
+      from: 'aslb@laboursidiere.com', // sender address
+      to: dests.join(", "), 
+      subject: objet,
+      html: message,
+      attachments: [{
+        contentType: 'text/calendar; charset="utf-8"; method=REQUEST',
+        content: content,
+        filename: 'invitation.ics'
+      }]
+  };
+  transporter.sendMail(mailOptions, (error, info) => {
+      if (error) {
+          return console.log(error);
+      }
+      console.log( info); 
   });
 }
 
