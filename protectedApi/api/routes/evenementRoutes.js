@@ -78,7 +78,7 @@ module.exports = function(app) {
 	app.route('/myEvenements')
 		.get(userHandlers.loginRequired, eventHandler.list_my_evenements);
 
-	app.route('/myEvenementsWeek/:weekEnd')
+	app.route('/myEvenementsWeek/:numWeek') 
 		.get(userHandlers.loginRequired, eventHandler.list_my_evenements);
 		
 	app.route('/partenaires')

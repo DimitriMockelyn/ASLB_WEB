@@ -24,12 +24,12 @@ exports.list_all_evenements = function(req, res) {
     filter={$and: [
       {
         date_debut: {
-          $gte: mom.clone().startOf('isoWeek')
+          $gte: mom.clone().startOf('week')
         }
       },
       {
         date_debut: {
-          $lte: mom.clone().endOf('isoWeek')
+          $lte: mom.clone().endOf('week')
         }
       }
     ]}
@@ -76,6 +76,7 @@ exports.list_all_incoming_evenements = function(req, res) {
 }
 
 exports.list_my_evenements = function(req,res) {
+  
   User.findOne({
     email: req.user.email
   }, function(err, user) {
@@ -83,7 +84,25 @@ exports.list_my_evenements = function(req,res) {
       res.send(err);
     }
     Queue.find({personne: user}, function(err, files) {
-      Evenement.find({$or: [{participants: user}, {animateur: user}, {coanimateurs: user}, {fileAttente: {$in: files}}]}, function(err, evenements) {
+      let filter = {$or: [{participants: user}, {animateur: user}, {coanimateurs: user}, {fileAttente: {$in: files}}]};
+      if (req.params.numWeek) {
+        let mom = moment();
+        mom.add(req.params.numWeek, 'w');
+        filter={$and: [
+          filter,
+          {
+            date_debut: {
+              $gte: mom.clone().startOf('week')
+            }
+          },
+          {
+            date_debut: {
+              $lte: mom.clone().endOf('week')
+            }
+          }
+        ]}
+      }
+      Evenement.find(filter, function(err, evenements) {
         if (err) {
           res.send(err);
         }
