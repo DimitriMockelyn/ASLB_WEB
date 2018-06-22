@@ -611,6 +611,14 @@ function fill_user_data(users_db, formatDate, cb) {
                 user.nombreNotesRecue +=1;
                 user.noteMoyenneRecue += comm.note;
               }
+              if (event.coanimateurs && event.coanimateurs.length > 0) {
+                event.coanimateurs.map(anim => {
+                  if (anim.toString() === user._id.toString()) {
+                    user.nombreNotesRecue +=1;
+                    user.noteMoyenneRecue += comm.note;
+                  }
+                })
+              }
             })
           })
           users.map(user => {

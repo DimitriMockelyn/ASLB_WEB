@@ -25,6 +25,6 @@ export default {
         return fetch(homeUrl.loadMachinesForDay({data}));
     },
     toggleSelfForMachine(id) {
-        return fetch(homeUrl.toggleSelfForMachine({urlData: {id}}), utils.computeHeaders());
+        return fetch(homeUrl.toggleSelfForMachine({urlData: {id}, data: {}}), utils.computeHeaders());
     }
 };

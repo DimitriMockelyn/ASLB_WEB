@@ -22,10 +22,10 @@ export default {
         return fetch(agendaUrl.loadEvent({urlData: {eventId:id}}));
     },
     addSelfToEvent(data){
-        return fetch(agendaUrl.addSelfToEvent({urlData: {eventId: data._id}}), utils.computeHeaders());        
+        return fetch(agendaUrl.addSelfToEvent({urlData: {eventId: data._id}, data: {}}), utils.computeHeaders());        
     },
     removeSelfToEvent(data){
-        return fetch(agendaUrl.removeSelfToEvent({urlData: {eventId: data._id}}), utils.computeHeaders());        
+        return fetch(agendaUrl.removeSelfToEvent({urlData: {eventId: data._id}, data: {}}), utils.computeHeaders());        
     },
     deleteEvent(data){
         return fetch(agendaUrl.deleteEvent({urlData: {eventId: data._id}}), utils.computeHeaders());        
