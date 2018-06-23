@@ -1044,7 +1044,7 @@ exports.setPresent = function(req, res) {
 
 exports.export_event = function(req, res) {
   
-  Evenement.find({}, function(err, events_db) {
+  Evenement.find({ date_debut: {$lt: Date.now()}}, function(err, events_db) {
     if (err) {
       res.send(err);
     }
