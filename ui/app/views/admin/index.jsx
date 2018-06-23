@@ -20,6 +20,8 @@ import {navigate} from 'focus-core/history';
 import {component as Button} from 'focus-components/common/button/action';
 import Blocs from './blocs';
 import Medias from './medias';
+import {downloadCSV} from '../../utils/download';
+import adminServices from '../../services/admin';
 
 export default React.createClass({
     displayName: 'HomeView',
@@ -42,6 +44,9 @@ export default React.createClass({
         this._registerCartridge();
         this.setState({});
     },
+    exportEvents() {
+        adminServices.exportAllEvents().then(res => {downloadCSV(res, 'evenements.csv')});;
+    },
     /** @inheritDoc */
     render() {
         return (
@@ -50,6 +55,7 @@ export default React.createClass({
                 <ScrollspyContainer>
                     <Button icon='person' type='button' shape='' label='admin.adminUsers' handleOnClick={() => {navigate('adminUsers', true)}} />
                     <Button icon='data_usage' type='button' shape='' label='admin.adminBlocs' handleOnClick={() => {navigate('adminBlocs', true)}} />
+                    <Button icon='bar_chart' type='button' shape='' label='admin.exportEvents' handleOnClick={this.exportEvents} />
                     <News hasLoad={false} />
                     <Partenaires hasLoad={false} />
                     <Medias hasLoad={false} />

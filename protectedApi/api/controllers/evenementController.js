@@ -14,6 +14,7 @@ var mongoose = require('mongoose'),
   moment = require('moment'),
   json2csv = require('json2csv'),
   ical = require('ical-generator'),
+  json2csv = require('json2csv'),
   mailer = require('../utils/mailer');
 
 
@@ -647,13 +648,13 @@ function sendMailInscrit(id, infoEvents, idEvent) {
       let notif = new Notifications();
       notif.destinataire = user;
       notif.lien = 'agenda/'+idEvent;
-      notif.message = 'Tu étais en file d\'attente pour l\'évenement suivant : ' + infoEvents + '. Une personne s\'est désinscrite, et tu fais partie des participants a présent. N\'oublie pas tes affaires !';
+      notif.message = 'Tu étais en file d\'attente pour l\'évenement suivant : ' + infoEvents + '. Une place s\'est libérée, et tu fais partie des participants a présent. N\'oublie pas tes affaires !';
 
       notif.save(function(err, not) {
       })
       mailer.sendMail([user.email], 
         '[aslb] Inscription automatique à un événement', 
-        'Bonjour. Tu étais en file d\'attente pour l\'évenement suivant : ' + infoEvents + '. Une personne s\'est désinscrite, et tu fais partie des participants a présent. N\'oublie pas tes affaires !. Ce message est envoyé automatiquement, merci de ne pas y répondre.');
+        'Bonjour. Tu étais en file d\'attente pour l\'évenement suivant : ' + infoEvents + '. Une place s\'est libérée, et tu fais partie des participants a présent. N\'oublie pas tes affaires !. Ce message est envoyé automatiquement, merci de ne pas y répondre.');
   });
 };
 
@@ -1040,3 +1041,79 @@ exports.setPresent = function(req, res) {
     });
   });
 };
+
+exports.export_event = function(req, res) {
+  
+  Evenement.find({}, function(err, events_db) {
+    if (err) {
+      res.send(err);
+    }
+    fill_event_data(events_db, true, events => {      
+      var fields = ['name', 'description', 'typeEvenement','date_debut','duree', 'nbParticipants', 'limite', 'niveau',
+      'nbAttente', 'nbAbsents', 'animateur', 'coanimateurs', 'nombreNotesRecue', 'noteMoyenneRecue']
+      var fieldNames  = ['Nom', 'Description', 'Type d\'evenement', 'Date de debut', 'Duree', 'Nombre de participants', 'Limite', 'Niveau',
+      'Nombre de gens en file d\'attente', 'Nombre d\'absents', 'Animateur', 'Co-animateurs', 'Nombre de notes recues', 'Note moyenne recue']
+      json2csv({ data: events, fields: fields, fieldNames:fieldNames, quotes:'', del: ';' }, function(err, csv) {
+        res.setHeader('Content-disposition', 'attachment; filename=data.csv');
+        res.set('Content-Type', 'text/csv');
+        return res.status(200).send(csv);
+      });
+    })
+  }).populate('createur', '_id prenom nom')
+  .populate('niveau', '_id name code')
+  .populate('participants', '_id prenom nom sexe email')
+  .populate('typeEvenement', '_id code name')
+  .populate({path:'fileAttente', populate:{ path:'personne', select: '_id prenom nom email sexe'}})
+  .populate('animateur', '_id prenom nom email')
+  .populate('coanimateurs', '_id prenom nom email')
+  .sort({date_debut: 1});
+}
+
+function fill_event_data(events_db, formatDate, cb) {
+  var events = [];
+  for (let index in events_db) {
+    events.push({});
+    events[index]['_id'] = events_db[index]['_id'];
+    events[index]['name'] = events_db[index]['name'].replace(/;/g,',');
+    events[index]['description'] = events_db[index]['description'] ? events_db[index]['description'].replace(/;/g,',') : '';
+    events[index]['typeEvenement'] = events_db[index]['typeEvenement'] ? events_db[index]['typeEvenement'].name : '';
+    events[index]['date_debut'] = moment(events_db[index]['date_debut'], moment.ISO_8601).format('DD/MM/YYYY');
+    events[index]['duree'] = events_db[index]['duree'];
+    events[index]['nbParticipants'] = events_db[index]['participants'].length;
+    events[index]['limite'] = events_db[index]['limite'];
+    events[index]['niveau'] = events_db[index]['niveau'] ? events_db[index]['niveau'].name : '';
+    events[index]['nbAttente'] = events_db[index]['fileAttente'] ? events_db[index]['fileAttente'].length : 0; 
+    events[index]['nbAbsents'] = events_db[index]['nbAbsents'] ? events_db[index]['nbAbsents'].length : 0;
+    events[index]['animateur'] = events_db[index]['animateur'] ? events_db[index]['animateur'].prenom + ' ' + events_db[index]['animateur'].nom : '';
+    let coanims = '';
+    if (events_db[index]['coanimateurs'] && events_db[index]['coanimateurs'].length > 0) {
+      events_db[index]['coanimateurs'].map(anim => {
+        coanims = coanims + ' ' + anim.prenom + ' ' + anim.nom + ' || '
+      });
+    }
+    events[index]['coanimateurs'] = coanims;
+    events[index]['nombreNotesRecue'] = 0;
+    events[index]['noteMoyenneRecue'] = 0.0;
+  }
+  Commentaire.find({
+    evenement: events_db
+  }, function(err, comms) {
+    if (err) {
+      throw err;
+    }
+    comms.map(comm => {
+      events.map(evt => {
+        if (comm.evenement._id.toString() === evt._id.toString()) {
+          evt.nombreNotesRecue +=1;
+          evt.noteMoyenneRecue += comm.note;
+        }
+      })
+    })
+    events.map(evt => {
+      if (evt.nombreNotesRecue > 0) {
+        evt.noteMoyenneRecue = evt.noteMoyenneRecue / evt.nombreNotesRecue;
+      }
+    })
+    cb(events);
+  }).populate('evenement', '_id animateur coanimateurs');
+}

@@ -21,6 +21,9 @@ export default {
     exportAllUsers(data) {
         return fetch(adminUrl.exportAllUsers({data}), utils.computeHeaders());
     },
+    exportAllEvents(data) {
+        return fetch(adminUrl.exportAllEvents({data}), utils.computeHeaders());
+    },
     canCreateToggle(data) {
         return fetch(adminUrl.canCreateToggle({urlData: {id: data.id}}), utils.computeHeaders());
     },

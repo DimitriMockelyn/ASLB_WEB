@@ -551,7 +551,7 @@ function fill_user_data(users_db, formatDate, cb) {
     users[index]['noteMoyenneRecue'] = 0.0;
     users[index]['nombreAbsences'] = 0;
     users[index]['nombreCoach'] = 0;
-    users[index]['dateNaissance'] = users_db[index]['dateNaissance'];
+    users[index]['dateNaissance'] = formatDate ? ( users_db[index]['dateNaissance'] ? moment(users_db[index]['dateNaissance'], moment.ISO_8601).format('DD/MM/YYYY') : '')  :  users_db[index]['dateNaissance'];
     users[index]['telephone'] = users_db[index]['telephone'];
     users[index]['isAdmin'] = users_db[index]['isAdmin'];
     users[index]['canCreate'] = users_db[index]['canCreate'];

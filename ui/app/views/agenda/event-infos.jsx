@@ -156,7 +156,7 @@ export default React.createClass({
         }
 
         var buttonMailAppoint = <div/>;
-        if (userHelper.getLogin() && this.isInEvent(userHelper.getLogin()._id)) {
+        if (false && userHelper.getLogin() && this.isInEvent(userHelper.getLogin()._id)) {
             buttonMailAppoint = <div>
             <Button label='event.sendMailAppointment' type='button' shape='icon' icon='move_to_inbox' handleOnClick={this.sendMailAppointment} />
         </div>

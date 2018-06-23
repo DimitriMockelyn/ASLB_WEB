@@ -109,6 +109,9 @@ module.exports = function(app) {
 	app.route('/usersExport')
 		.post(userHandlers.loginRequired,  userHandlers.isAdmin, userHandlers.export_users)
 
+	app.route('/eventExport')
+		.post(userHandlers.loginRequired,  userHandlers.isAdmin, eventHandler.export_event)
+
 	app.route('/usersAutocomplete')
 		.post(userHandlers.load_users_autocomplete)
 
