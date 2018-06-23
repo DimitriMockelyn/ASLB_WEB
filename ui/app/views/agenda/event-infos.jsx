@@ -138,6 +138,17 @@ export default React.createClass({
             this.props.onPopinClose({reopen: this.props.event._id});
         })
     },
+    isCoAnimateur() {
+        if (!userHelper.getLogin() || !this.props.event.coanimateurs || this.props.event.coanimateurs.length === 0 ) {
+            return false;
+        }
+        for (let index in this.props.event.coanimateurs) {
+            if (this.props.event.coanimateurs[index] && this.props.event.coanimateurs[index]._id === userHelper.getLogin()._id) {
+                return true;
+            }
+        }
+        return false;
+    },
     renderActionsUpdate() {
         if (this.isPasse()) {
             return <div />;
@@ -155,7 +166,7 @@ export default React.createClass({
             buttonMail = <Button label='button.sendMailParticipants' icon='mail' type='button' handleOnClick={this.sendMailParticipants} />;
         }
         var buttonInvite = <div />;
-        if (userHelper.getLogin() && this.isInEvent(userHelper.getLogin()._id) ) {
+        if (userHelper.getLogin() && (this.isInEvent(userHelper.getLogin()._id) || this.isAnimateur() || this.isCoAnimateur())) {
             buttonInvite = <div>
             <Button label='event.generateAppointment' type='button' shape='icon' icon='add_alarm' handleOnClick={this.generateAppointment} />
         </div>
