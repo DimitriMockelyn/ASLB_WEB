@@ -1077,7 +1077,7 @@ function fill_event_data(events_db, formatDate, cb) {
     events[index]['name'] = events_db[index]['name'].replace(/;/g,',');
     events[index]['description'] = events_db[index]['description'] ? events_db[index]['description'].replace(/;/g,',') : '';
     events[index]['typeEvenement'] = events_db[index]['typeEvenement'] ? events_db[index]['typeEvenement'].name : '';
-    events[index]['date_debut'] = moment(events_db[index]['date_debut'], moment.ISO_8601).format('DD/MM/YYYY');
+    events[index]['date_debut'] = moment(events_db[index]['date_debut'], moment.ISO_8601).format('DD/MM/YYYY HH:mm');
     events[index]['duree'] = events_db[index]['duree'];
     events[index]['nbParticipants'] = events_db[index]['participants'].length;
     events[index]['limite'] = events_db[index]['limite'];
