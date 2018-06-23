@@ -50,6 +50,9 @@ export default React.createClass({
             animateur: this.props.event && this.props.event.animateur && this.props.event.animateur._id
         };
     },
+    isPasse() {
+        return moment(this.props.event.date_debut).isBefore(moment());
+    },
     addSelf() {
         if (this.validate()) {
             if (this.props.event.participants.length === this.props.event.limite) {
@@ -136,6 +139,9 @@ export default React.createClass({
         })
     },
     renderActionsUpdate() {
+        if (this.isPasse()) {
+            return <div />;
+        }
         var buttonEdit = <div/>;
         if (this.isOwner() || this.isAnimateur()) {
             if (this.state.isEdit) {
@@ -271,14 +277,14 @@ export default React.createClass({
                         {this.computeInfoFile(userHelper.getLogin()._id)}
                     </div>}
                 
-                {userHelper.getLogin() && !this.isInEvent(userHelper.getLogin()._id) && <div>
+                {userHelper.getLogin() && !this.isInEvent(userHelper.getLogin()._id) && !this.isPasse() &&  <div>
                     <Button label='event.addSelf' type='button' handleOnClick={this.addSelf} />
                 </div>}
 
-                {userHelper.getLogin() && this.isInEvent(userHelper.getLogin()._id) && <div>
+                {userHelper.getLogin() && this.isInEvent(userHelper.getLogin()._id) && !this.isPasse() && <div>
                     <Button label='event.removeSelf' type='button' handleOnClick={this.removeSelf} />
                 </div>}
-                {this.isOwner() && <div>
+                {this.isOwner() && !this.isPasse() && <div>
                     <Button label='event.deleteEvent' type='button' handleOnClick={this.deleteEvent} />
                 </div>}
             </Panel>
