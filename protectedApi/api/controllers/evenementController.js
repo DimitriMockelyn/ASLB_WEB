@@ -1083,7 +1083,7 @@ function fill_event_data(events_db, formatDate, cb) {
     events[index]['limite'] = events_db[index]['limite'];
     events[index]['niveau'] = events_db[index]['niveau'] ? events_db[index]['niveau'].name : '';
     events[index]['nbAttente'] = events_db[index]['fileAttente'] ? events_db[index]['fileAttente'].length : 0; 
-    events[index]['nbAbsents'] = events_db[index]['nbAbsents'] ? events_db[index]['nbAbsents'].length : 0;
+    events[index]['nbAbsents'] = events_db[index]['absents'] ? events_db[index]['absents'].length : 0;
     events[index]['animateur'] = events_db[index]['animateur'] ? events_db[index]['animateur'].prenom + ' ' + events_db[index]['animateur'].nom : '';
     let coanims = '';
     if (events_db[index]['coanimateurs'] && events_db[index]['coanimateurs'].length > 0) {

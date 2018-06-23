@@ -112,6 +112,19 @@ exports.initData = function() {
   }
   })
 
+  BlocAdministrables.find({type: 'partenaire', ordre: 1}, function(err, exists) {
+    if (!exists  || exists.length === 0) {
+    BlocAdministrables.findOneAndUpdate({type: 'partenaire', ordre: 1}, {
+      type: 'partenaire', 
+      ordre: 1,
+      titre:'Devenir partenaire',
+      contenu: 'Si votre entreprise souhaite contribuer à notre projet et nous aider à faire vivre ces activités sportives au sein de la Boursidière, n’hésitez pas à nous contacter à l’adresse suivante : aslb@laboursidiere.com.'+
+      'Notre besoin est principalement financier. Votre aide, et ce quelle que soit sa nature (numéraire, matériel, etc.), nous permettra de faire face au frais récurrents (tenue de compte, hébergement), au frais d’entretien du matériel et à son renouvellement, à l’achat d’équipements tels que les t-shirts que nous offrons à l’ensemble des adhérents lors de l’inscription, à l’organisation d’événements autour du sport. Tout simplement à faire vivre notre association.'
+    }, {upsert: true, 'new': true}, function(err, model) {
+    });
+  }
+  })
+
 }
 
 exports.list_all_partenaires = function(req, res) {
