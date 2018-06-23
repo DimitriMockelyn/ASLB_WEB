@@ -201,6 +201,7 @@ export default {
 
     },
     event: {
+        gestionAbsent: 'Gestion des absences',
         generateAppointment: 'Télécharger un rappel de séance',
         sendMailAppointment: 'M\'envoyer la séance par e-mail',
         appointmentSent: 'Vous allez recevoir un e-mail avec une invitation calendrier à la séance',

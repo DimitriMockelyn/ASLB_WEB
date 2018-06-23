@@ -13,6 +13,7 @@ import CreateEvent from './create-event';
 import userHelper from 'focus-core/user';
 import Toggle from 'focus-components/components/input/toggle';
 import TileView from './tile-view';
+
 export default React.createClass({
     displayName: 'CalendarView',
     mixins: [formMixin],
@@ -283,7 +284,7 @@ export default React.createClass({
                 </div>
 
             {this.state.selectedEvent && <Popin open={true}  onPopinClose={this.closePopin}>
-                <EventInfos tokensRestant={this.state.tokensRestant} event={this.state.selectedEvent} onPopinClose={this.closePopin} isEdit={false} hasLoad={false} hasForm={false}/>
+                <EventInfos toggleGestionAbsent={this.toggleGestionAbsent} tokensRestant={this.state.tokensRestant} event={this.state.selectedEvent} onPopinClose={this.closePopin} isEdit={false} hasLoad={false} hasForm={false}/>
             </Popin>}
             {this.state.creerEvent && <Popin open={true}  onPopinClose={this.closeCreerEvent}>
                 <CreateEvent data={this.state.creerEvent} onPopinClose={this.closeCreerEvent} hasLoad={false} hasForm={false}/>

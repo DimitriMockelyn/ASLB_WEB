@@ -13,6 +13,8 @@ import EventCard from './event-card';
 import {translate} from 'focus-core/translation';
 import Autocomplete from '../../components/autocomplete-field';
 import {download} from '../../utils/download';
+import Absents from '../historique/absents';
+import {component as Popin} from 'focus-components/application/popin';
 const ConfirmPopup = React.createClass({
     render() {
         return <div data-focus='display-column' className={this.props.tokensRestant === 0 ? 'no-actions' : ''}>
@@ -241,6 +243,12 @@ export default React.createClass({
     sendMailAppointment() {
         agendaServices.sendMailAppointment(this.props.event).then( res => {message.addSuccessMessage(translate('event.appointmentSent'));});
     },
+    toggleGestionAbsent(id) {
+        this.setState({togglePopinAbsent : id});
+    },
+    closePopinAbsent() {
+        this.setState({togglePopinAbsent : undefined});
+    },
     /*
                         {this.fieldFor('coanimateur1', {label: 'Co-Animateur',options: {
                         FieldComponent: Autocomplete,
@@ -295,10 +303,16 @@ export default React.createClass({
                 {userHelper.getLogin() && this.isInEvent(userHelper.getLogin()._id) && !this.isPasse() && <div>
                     <Button label='event.removeSelf' type='button' handleOnClick={this.removeSelf} />
                 </div>}
+                {userHelper.getLogin() && (this.isAnimateur() || this.isCoAnimateur()) && this.isPasse() && <div>
+                    <Button label='event.gestionAbsent' type='button' handleOnClick={() => {this.toggleGestionAbsent(this.props.event._id)}} />
+                </div>}
                 {this.isOwner() && !this.isPasse() && <div>
                     <Button label='event.deleteEvent' type='button' handleOnClick={this.deleteEvent} />
                 </div>}
             </Panel>
+            {this.state.togglePopinAbsent && <Popin open={true} type='from-right' onPopinClose={this.closePopinAbsent}>
+                        <Absents id={this.state.togglePopinAbsent} />
+                    </Popin>}
         </div>
         );
     }
