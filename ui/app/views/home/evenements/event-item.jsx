@@ -11,9 +11,9 @@ import {navigate} from 'focus-core/history';
 export default React.createClass({
     displayName: 'NewsPanel',
     onClickTile() {
-        let mom = moment();
+        let mom = moment().locale('en');
         let momentDebut = moment(this.props.data.date_debut, moment.ISO_8601);
-        let diff = Math.abs(mom.clone().startOf('isoWeek').diff(momentDebut.clone().startOf('isoWeek'), 'week'));
+        let diff = Math.abs(mom.clone().startOf('week').diff(momentDebut.clone().startOf('week'), 'week'));
         setTimeout(() => {navigate('agenda/'+this.props.data._id+'/'+diff,true)},10)
     },
     /** @inheritDoc */

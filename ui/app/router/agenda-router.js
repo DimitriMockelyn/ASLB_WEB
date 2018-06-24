@@ -29,9 +29,9 @@ export default createRouter(Backbone).extend({
     agendaIdOnly(id) {
         navigate('agenda', false);
         agendaService.loadEvent(id).then(res => {
-            let mom = moment();
+            let mom = moment().locale('en');
             let momentDebut = moment(res.date_debut, moment.ISO_8601);
-            let diff = Math.abs(mom.clone().startOf('isoWeek').diff(momentDebut.clone().startOf('isoWeek'), 'week'));
+            let diff = Math.abs(mom.clone().startOf('week').diff(momentDebut.clone().startOf('week'), 'week'));
             this._pageContent(AgendaView, {props: {eventId: id, week: diff}});
         });
         
