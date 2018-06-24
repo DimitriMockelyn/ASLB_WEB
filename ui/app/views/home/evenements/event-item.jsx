@@ -12,7 +12,7 @@ export default React.createClass({
     displayName: 'NewsPanel',
     onClickTile() {
         let mom = moment().locale('en');
-        let momentDebut = moment(this.props.data.date_debut, moment.ISO_8601);
+        let momentDebut = moment(this.props.data.date_debut, moment.ISO_8601).locale('en');
         let diff = Math.abs(mom.clone().startOf('week').diff(momentDebut.clone().startOf('week'), 'week'));
         setTimeout(() => {navigate('agenda/'+this.props.data._id+'/'+diff,true)},10)
     },
