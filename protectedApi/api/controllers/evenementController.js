@@ -601,7 +601,6 @@ exports.generate_appointment = function(req, res) {
       // Create new Calendar and set optional fields
     var cal = ical({
         domain: 'sport.laboursidiere.com',
-        name: 'iCal',
         timezone: 'Europe/Paris'
     });
     // create a new event
@@ -625,7 +624,6 @@ exports.generate_mail_appointment = function(req,res) {
       // Create new Calendar and set optional fields
       var cal = ical({
           domain: 'sport.laboursidiere.com',
-          name: 'iCal',
           timezone: 'Europe/Paris'
       });
       // create a new event
