@@ -21,6 +21,14 @@ var News = new Schema({
     type: mongoose.Schema.Types.ObjectId,
 		ref: 'User'
   },
+  important: {
+    type: Boolean,
+    default: false
+  },
+  luPar: [{
+    type: mongoose.Schema.Types.ObjectId,
+		ref: 'User'
+  }]
 });
 
 

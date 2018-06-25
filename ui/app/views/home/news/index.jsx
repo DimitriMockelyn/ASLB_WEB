@@ -22,16 +22,33 @@ export default React.createClass({
         }
     },
     componentWillMount() {
-        this.loadAllNews();
+        this.loadAllNews().then ( res => {
+            if (userHelper.getLogin() && res && res.length > 0) {
+                const id = userHelper.getLogin()._id;
+                if (res[0].important) {
+                    if (res[0].luPar.indexOf(id) === -1) {
+                        this.setState({openPopinImportant: res[0]});
+                        adminServices.markNewsAsRead(res[0]._id);
+                    }
+                    return;
+                }
+            }
+        })
     },
     loadAllNews() {
-        adminServices.loadAllNews().then(res => {this.setState({news: res})});
+        return adminServices.loadAllNews().then(res => {
+            this.setState({news: res}); 
+            return res;
+        });
     },
     renderActionsEdit() {
             return <div>
                 <Button type='button' label='button.voirPlus' handleOnClick={() => {this.setState({limitNews: this.state.limitNews+3})}}/>
             </div>
         
+    },
+    closePopinImportant() {
+        this.setState({openPopinImportant: undefined});
     },
     /** @inheritDoc */
     renderContent() {
@@ -49,7 +66,11 @@ export default React.createClass({
                     </div>}
             </div>
         </Panel>
+        {this.state.openPopinImportant && <Popin open={true} onPopinClose={this.closePopinImportant}>
+            <NewsItem data={this.state.openPopinImportant}/>
+        </Popin>}
         </div>
+        
         );
     }
 });

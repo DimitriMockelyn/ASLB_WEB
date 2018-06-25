@@ -37,6 +37,10 @@ export default {
         }
     },
     admin: {
+        important: {
+            domain: 'DO_YES_NO',
+            required: true,
+        },
         titre:{
             domain: 'DO_LABEL_LONG',
             required: true

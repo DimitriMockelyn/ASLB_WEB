@@ -99,6 +99,9 @@ module.exports = function(app) {
 		.get(adminHandler.list_all_news)
 		.put(userHandlers.loginRequired, userHandlers.isAdmin, adminHandler.create_news)
 
+	app.route('/markNewsAsRead/:id')
+		.get(userHandlers.loginRequired, adminHandler.mark_news_as_read);
+
 	app.route('/news/:id')
 		.post(userHandlers.loginRequired,  userHandlers.isAdmin, adminHandler.edit_news)
 		.delete(userHandlers.loginRequired,  userHandlers.isAdmin, adminHandler.delete_news)

@@ -9,6 +9,9 @@ export default {
     loadAllNews() {
         return fetch(adminUrl.loadAllNews(), utils.computeHeaders());
     },
+    markNewsAsRead(id) {
+        return fetch(adminUrl.markNewsAsRead({urlData: {id}}), utils.computeHeaders());
+    },
     editNews(data) {
         return fetch(adminUrl.editNews({urlData: {id: data.id}, data: data}), utils.computeHeaders());
     },

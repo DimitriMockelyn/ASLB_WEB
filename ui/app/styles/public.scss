@@ -1503,3 +1503,8 @@ p {
 [data-focus='chip-button']{
   color: #FFF;
 }
+
+[data-important='true'] [data-focus='panel-title'] h3::before {
+  content: '\26A0';
+  margin-right: 5px;
+}

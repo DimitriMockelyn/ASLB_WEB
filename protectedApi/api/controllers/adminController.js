@@ -162,13 +162,37 @@ exports.create_news = function(req, res) {
 exports.edit_news = function(req, res) {
   var data = {
     titre: req.body.titre,
-    content: req.body.content
+    content: req.body.content,
+    important: req.body.important
   }
   News.findOneAndUpdate({_id:req.params.id}, data, {new: true}, function(err, news) {
     if (err)
       res.send(err);
     res.json({updated: true});
   });
+};
+
+exports.mark_news_as_read = function(req, res) {
+  User.findOne({
+    email: req.user.email
+  }, function(err, user) {
+    News.findById(req.params.id, function(err, news) {
+      console.log(news);
+      if (!news.luPar) {
+        news.luPar = [];
+      }
+      if (news.luPar.indexOf(user._id) === -1) {
+        news.luPar.push(user);
+        news.save(function(err, newsUpdated) {
+          if (err)
+            res.send(err);
+          res.json({updated: true});
+        });
+      } else {
+        res.json({updated: true});
+      }
+    });
+  })
 };
 
 exports.delete_news = function(req, res) {

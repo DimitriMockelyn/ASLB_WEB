@@ -5,6 +5,7 @@ const url = getConfig().API_ROOT;
 export default {
     createNews:  builder(url + 'news', 'PUT'),
     loadAllNews:  builder(url + 'news', 'GET'),
+    markNewsAsRead:  builder(url + 'markNewsAsRead/${id}', 'GET'),
     editNews:  builder(url + 'news/${id}', 'POST'),
     deleteNews:  builder(url + 'news/${id}', 'DELETE'),
     loadAllUsers: builder(url + 'users', 'POST'),
