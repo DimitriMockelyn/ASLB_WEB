@@ -152,8 +152,12 @@ export default React.createClass({
         return false;
     },
     renderActionsUpdate() {
+        var buttonMail = <div/>
         if (this.isPasse()) {
-            return <div />;
+           if (this.isAnimateur()) {
+                buttonMail = <Button label='button.sendMailParticipants' icon='mail' type='button' handleOnClick={this.sendMailParticipants} />;
+            }
+            return buttonMail;
         }
         var buttonEdit = <div/>;
         if (this.isOwner() || this.isAnimateur()) {
