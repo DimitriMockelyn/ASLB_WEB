@@ -46,6 +46,9 @@ export default {
         error: {
             telephone: ' Le numéro de téléphone n\'est pas valide',
             date: 'La date doit être au format JJ/MM/AAAA'
+        },
+        validation:{
+            email: 'L\'adresse mail n\'est pas valide' 
         }
     },
     field: {
