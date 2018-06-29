@@ -383,26 +383,32 @@ exports.get_commentaire_for_user = function(req, res) {
         res.send(err);
       }
       Commentaire.find({$and: [
-        {auteur : user},
+        //{auteur : user},
         {evenement: evenement}
       ]}, function(err, commentaires) {
         if (err) {
           res.send(err);
         }
         if (!commentaires || commentaires.length === 0) {
-          res.json({commentairePresent: false});
+          res.json({commentairePresent: false, listeCommentaires : []});
         } else {
           let result = {};
-          result._id = commentaires[0]._id;
-          result.evenement = commentaires[0].evenement ;
-          result.commentaire = commentaires[0].commentaire ;
-          result.date = commentaires[0].date ;
-          result.note = commentaires[0].note ;
-          result.auteur = commentaires[0].auteur ;
-          result['commentairePresent'] = true;
+          result.listeCommentaires = commentaires;
+          result['commentairePresent'] = false;
+          commentaires.map(comm => {
+            if (comm.auteur._id.toString() === user._id.toString()) {
+              result._id = comm._id;
+              result.evenement = comm.evenement ;
+              result.commentaire = comm.commentaire ;
+              result.date = comm.date ;
+              result.note = comm.note ;
+              result.auteur = comm.auteur._id ;
+              result['commentairePresent'] = true;
+            }
+          });
           res.json(result);
         }
-      })
+      }).populate('auteur', '_id prenom nom')
     })
   })
 }

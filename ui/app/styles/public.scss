@@ -1508,3 +1508,19 @@ p {
   content: '\26A0';
   margin-right: 5px;
 }
+
+[data-focus='commentaire-public'] {
+  margin-top: 15px;
+  [data-focus='header-commentaire'] {
+    display: flex;
+    flex-direction: row;
+    & > div {
+      margin-right: 20px;
+    }
+    margin-bottom: 15px;
+  }
+  [data-focus='list-commentaire'] {
+    max-height: 120px;
+    overflow-y: auto;
+  }
+}

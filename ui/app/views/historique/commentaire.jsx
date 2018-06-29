@@ -7,13 +7,34 @@ import userHelper from 'focus-core/user';
 import confirm from 'focus-core/application/confirm';
 import agendaServices from '../../services/agenda';
 import message from 'focus-core/message';
-
+import Note from '../../components/note';
 export default React.createClass({
     displayName: 'CommentairePanel',
     mixins: [formMixin],
     definitionPath: 'event',
+    noteMoyenne : 0.0,
+    nbNote: 0,
+    nbCommentaires : 0,
+    computeNote() {
+        this.noteMoyenne = 0.0;
+        this.nbNote = 0;
+        this.nbCommentaires = 0;
+        if (this.state && this.state.listeCommentaires && this.state.listeCommentaires.length > 0) {
+            for (let index in this.state.listeCommentaires) {
+                let comm = this.state.listeCommentaires[index];
+                if (comm.note) {
+                    this.noteMoyenne = (this.noteMoyenne*this.nbNote+comm.note)/(this.nbNote+1);
+                    this.nbNote = this.nbNote +1;
+                }
+                if (comm.commentaire) {
+                    this.nbCommentaires++;
+                }
+            }
+        }
+        this.setState({updated: true});
+    },
     componentWillMount() {
-        agendaServices.loadCommentaire(this.props.data._id).then(res => { this.setState(res)});
+        agendaServices.loadCommentaire(this.props.data._id).then(res => { this.setState(res, this.computeNote)});
     },
     postComment() {
         if (this._validate()) {
@@ -52,6 +73,30 @@ export default React.createClass({
             {this.fieldFor('note', {isEdit: true})}
             {this.fieldFor('commentaire', {isEdit: true})}
             <Button label={this.state.commentairePresent ? 'event.editComment' : 'event.createComment'} type='button' handleOnClick={this.postComment} />
+
+            <div data-focus='commentaire-public'>
+                <div data-focus='header-commentaire'>
+                {this.nbNote !== 0 && <div>
+                    {i18n.t('event.noteMoyenne') + ' ' + this.noteMoyenne + '/5 ( ' + this.nbNote + ' note(s) )' }
+                    <Note value={this.noteMoyenne} editing={false} name={this.noteMoyenne + '/5'}/>
+                    </div>}
+                {!this.nbNote && <div>{i18n.t('event.noNotes')}</div>}
+                {<div>
+                    {this.nbCommentaires + ' commentaire(s)'}    
+                </div>}
+                </div>
+                <div data-focus='list-commentaire'>
+                    <div data-focus='commentaire-coach'>
+                {this.state && this.state.listeCommentaires && this.state.listeCommentaires.length > 0 && this.state.listeCommentaires.map(data => {
+                    return <div data-focus='commentaire-detail'>
+                            {data.note && <Note value={data.note} editing={false} />}
+                            <div data-focus='commentaire-commentaire'><label>{data.commentaire || ''}</label></div>
+                            <div data-focus='commentaire-auteur'>{data.auteur.prenom + ' ' + data.auteur.nom + ' (' + moment(data.date, moment.ISO_8601).format('DD/MM/YYYY - HH:mm') +')'}</div>
+                        </div>
+                })}
+                </div>
+                </div>
+            </div>
         </div>
         );
     }

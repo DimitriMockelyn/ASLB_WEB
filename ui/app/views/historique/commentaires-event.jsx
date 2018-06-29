@@ -19,7 +19,6 @@ export default React.createClass({
         this.noteMoyenne = 0.0;
         this.nbNote = 0;
         this.nbCommentaires = 0;
-        console.log(this.props.data);
         if (this.props.data.commentaires) {
             for (let index in this.props.data.commentaires) {
                 let comm = this.props.data.commentaires[index];
