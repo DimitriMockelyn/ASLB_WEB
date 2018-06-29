@@ -158,6 +158,8 @@ export default {
         warning: 'Les machines sont en libre accès. Cependant, pour permettre à tout le monde d\'en profiter, il est possible de les réserver à l\'avance. Il n\'est pas possible de réserver deux creneaux d\'une même machine à la suite, mais si personne ne l\'utilise, vous pourrez bien évidemment continuer.'
     },
     admin: {
+        entreprise: 'Entreprise',
+        addEntreprise: 'Ajouter une entreprise',
         important: 'Important',
         exportEvents: 'Exporter les évenements',
         addMedia: 'Ajouter un média',
@@ -249,6 +251,7 @@ export default {
         media: 'Etes-vous sur de vouloir supprimer ce média ?',
         presentation: 'Etes-vous sur de vouloir supprimer cette présentation ?',
         typeEvenement: 'Etes-vous sur de vouloir supprimer ce type d\'évènement ?',
+        entreprise: 'Etes-vous sur de vouloir supprimer cette entreprise ?',
     },
     select: {
         unSelected: '-',
@@ -352,7 +355,9 @@ export default {
         url: 'URL',
         logo: 'Logo (url)',
         description: 'Description',
-        ordre: 'Ordre'
+        ordre: 'Ordre',
+        code: 'Code',
+        label: 'Libéllé'
     },
     presentation: {
         name: 'Titre',

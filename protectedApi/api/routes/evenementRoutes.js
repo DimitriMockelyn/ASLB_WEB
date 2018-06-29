@@ -66,6 +66,13 @@ module.exports = function(app) {
 	app.route('/typeEntreprise')
 		.get(userHandlers.list_all_entreprises);
 
+	app.route('/entreprise')
+		.put(userHandlers.loginRequired,  userHandlers.isAdmin, adminHandler.create_entreprise)
+
+	app.route('/entreprise/:id')
+		.post(userHandlers.loginRequired,  userHandlers.isAdmin, adminHandler.edit_entreprise)
+		.delete(userHandlers.loginRequired,  userHandlers.isAdmin, adminHandler.delete_entreprise)
+
 	app.route('/activate')
 		.post(userHandlers.activate);
 	

@@ -310,6 +310,35 @@ exports.edit_presentation = function(req, res) {
   });
 };
 
+exports.create_entreprise = function(req, res) {
+  var new_ptn = new Entreprise(req.body);
+  new_ptn.save(function(err, news) {
+    if (err)
+      res.send(err);
+    res.json({created: true});
+  });
+};
+
+exports.delete_entreprise = function(req, res) {
+  Entreprise.remove({_id:req.params.id}, function(err, news) {
+    if (err)
+      res.send(err);
+    res.json({removed: true});
+  });
+};
+
+exports.edit_entreprise = function(req, res) {
+  var data = {
+    code: req.body.code,
+    label: req.body.label
+  }
+  Entreprise.findOneAndUpdate({_id:req.params.id}, data, {new: true}, function(err, news) {
+    if (err)
+      res.send(err);
+    res.json({updated: true});
+  });
+};
+
 exports.list_all_ribbons = function(req, res) {
   Ribbon.find({}, function(err, ptns) {
     if (err) {

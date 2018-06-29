@@ -15,6 +15,7 @@ import Partenaires from './partenaire';
 import Mails from './mails';
 import Presentations from './presentations';
 import TypeActivites from './typeActivites';
+import Entreprises from './entreprise';
 import Ribbons from './ribbons';
 import {navigate} from 'focus-core/history';
 import {component as Button} from 'focus-components/common/button/action';
@@ -58,6 +59,7 @@ export default React.createClass({
                     <Button icon='bar_chart' type='button' shape='' label='admin.exportEvents' handleOnClick={this.exportEvents} />
                     <News hasLoad={false} />
                     <Partenaires hasLoad={false} />
+                    <Entreprises hasLoad={false} />
                     <Medias hasLoad={false} />
                     <Presentations hasLoad={false} />
                     <TypeActivites hasLoad={false} />

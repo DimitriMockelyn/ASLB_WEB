@@ -60,6 +60,15 @@ export default {
     createPresentation(data) {
         return fetch(adminUrl.createPresentation({data}), utils.computeHeaders());
     },
+    editEntreprise(data) {
+        return fetch(adminUrl.editEntreprise({urlData: {id: data.id}, data: data}), utils.computeHeaders());
+    },
+    deleteEntreprise(data) {
+        return fetch(adminUrl.deleteEntreprise({urlData: {id: data.id}}), utils.computeHeaders());
+    },
+    createEntreprise(data) {
+        return fetch(adminUrl.createEntreprise({data}), utils.computeHeaders());
+    },
     editTypeEvenement(data) {
         return fetch(adminUrl.editTypeEvenement({urlData: {id: data.id}, data: data}), utils.computeHeaders());
     },
