@@ -40,7 +40,10 @@ app.use(bodyParser.json({limit: '50mb'}));
 var allowCrossDomain = function(req, res, next) {
     res.header('Access-Control-Allow-Origin', '*');
     res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
-    res.header('Access-Control-Allow-Headers', 'Content-Type,Authorization,Cache-Control,X-Requested-With');
+    res.header('Access-Control-Allow-Headers', 'Content-Type,Authorization,Cache-Control,X-Requested-With'); 
+    res.setHeader('Pragma','no-cache');
+    res.setHeader('Cache-Control','no-cache');
+    
     if (req.method === "OPTIONS") 
         res.send(200);
     else 
@@ -62,6 +65,8 @@ app.use(function(req, res, next) {
     // Set to true if you need the website to include cookies in the requests sent
     // to the API (e.g. in case you use sessions)
     res.setHeader('Access-Control-Allow-Credentials', true);
+    res.setHeader('Pragma','no-cache');
+    res.setHeader('Cache-Control','no-cache');
 	
   if (req.headers && req.headers.authorization && req.headers.authorization.split(' ')[0] === 'JWT') {
     jsonwebtoken.verify(req.headers.authorization.split(' ')[1], 'RESTFULAPIs', function(err, decode) {

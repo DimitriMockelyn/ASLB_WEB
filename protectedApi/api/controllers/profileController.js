@@ -47,9 +47,11 @@ exports.infos_generales = function(req, res) {
         {
           $or: [
             {participants: user},
-            {animateur: user}
+            {animateur: user},
+            {coanimateurs: user}
           ]
         }, 
+        {absents: {$ne: user}},
         { date_debut: {$lt: Date.now()}}]}, function(err, evenementsPasses) {
           data['evenementsPasses'] = evenementsPasses;
           Evenement.find({$and: [
