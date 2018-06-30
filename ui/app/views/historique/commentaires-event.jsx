@@ -42,8 +42,17 @@ export default React.createClass({
         <div>
             <div data-focus='commentaire-coach'>
                 <div>
+                    <div>
                     {(this.props.data.typeEvenement ? this.props.data.typeEvenement.name : '') + ' - ' + this.props.data.name}
+                    </div>
+                    
                 </div>
+                <div>
+                        {'Animé par '+this.props.data.animateur.prenom + ' ' + this.props.data.animateur.nom}
+                        {this.props.data.coanimateurs && this.props.data.coanimateurs.map(coanim => {
+                            return ' et ' + coanim.prenom + ' ' + coanim.nom;
+                        })}
+                    </div>
                 <div>
                     {this.props.data.description}
                 </div>

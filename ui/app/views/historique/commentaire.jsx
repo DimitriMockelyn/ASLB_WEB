@@ -57,8 +57,16 @@ export default React.createClass({
         var limitString = this.props.data.limite ?  '/' + this.props.data.limite : '';
         return (
         <div>
-                            <div>
+                <div>
+                    <div>
                     {(this.props.data.typeEvenement ? this.props.data.typeEvenement.name : '') + ' - ' + this.props.data.name}
+                    </div>
+                    <div>
+                        {'Animé par '+this.props.data.animateur.prenom + ' ' + this.props.data.animateur.nom}
+                        {this.props.data.coanimateurs && this.props.data.coanimateurs.map(coanim => {
+                            return ' et ' + coanim.prenom + ' ' + coanim.nom;
+                        })}
+                    </div>
                 </div>
             <div>
                     {this.props.data.description}

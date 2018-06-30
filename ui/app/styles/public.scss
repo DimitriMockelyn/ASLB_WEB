@@ -518,10 +518,6 @@ div[data-focus="field"][data-domain="DO_RTE"] [data-focus="field-value-container
       width: 12px;
       overflow: hidden;
     }
-    & > label:nth-of-type(2n+1) {
-      display: flex;
-      flex-flow: row-reverse;
-    }
   }
 }
 
