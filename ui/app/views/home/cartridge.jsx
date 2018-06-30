@@ -1,11 +1,18 @@
 //librairies
 import React, {PropTypes} from 'react';
 
+import homeServices from '../../services/home';
 import {component as BackButton} from 'focus-components/common/button/back';
 import {navigate} from 'focus-core/history';
 import userHelper from 'focus-core/user';
 import {component as Popin} from 'focus-components/application/popin';
+import Panel from 'focus-components/components/panel';
 export default React.createClass({
+    componentWillMount() {
+        homeServices.loadBlocs('partenaire').then(res => {
+            this.setState({blocs: res});
+        })
+    },
     getInitialState() {
         return {}
     },
@@ -14,6 +21,12 @@ export default React.createClass({
     },
     closeExplications() {
         this.setState({togglePopinExplication: false});
+    },
+    togglePopinPartenaire() {
+        this.setState({showPopinPartenaire: true});
+    },
+    closePopinPartenaire() {
+        this.setState({showPopinPartenaire: false});
     },
     render() {
         return <div>
@@ -41,6 +54,11 @@ export default React.createClass({
                         Rejoindre l'équipe d'animation ?
                     </label>
                 </div>
+                <div className='header-tile-click' onClick={this.togglePopinPartenaire}>
+                    <label>
+                        Devenir partenaire
+                    </label>
+                </div>
             </div>
             {this.state.togglePopinExplication && <Popin size='small' open={true} onPopinClose={this.closeExplications}>
                         <div data-focus='display-column'>
@@ -51,6 +69,14 @@ export default React.createClass({
                             <label>{i18n.t('historique.signature')}</label>
                         </div>
                     </Popin>}
+            {this.state.showPopinPartenaire && <Popin open={true} onPopinClose={this.closePopinPartenaire} >
+            <div>
+                {this.state && this.state.blocs && this.state.blocs.length > 0 && <Panel title={this.state.blocs[0].titre}>
+                        <div dangerouslySetInnerHTML={{ __html: this.state.blocs[0].contenu }} />
+                    </Panel>
+                }
+            </div>
+            </Popin>}
         </div>;
     }
 });
