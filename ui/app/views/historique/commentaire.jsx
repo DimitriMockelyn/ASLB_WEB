@@ -8,6 +8,8 @@ import confirm from 'focus-core/application/confirm';
 import agendaServices from '../../services/agenda';
 import message from 'focus-core/message';
 import Note from '../../components/note';
+import {translate} from 'focus-core/translation';
+
 export default React.createClass({
     displayName: 'CommentairePanel',
     mixins: [formMixin],
@@ -80,6 +82,10 @@ export default React.createClass({
                 </div>
             {this.fieldFor('note', {isEdit: true})}
             {this.fieldFor('commentaire', {isEdit: true})}
+            {this.fieldFor('prive', {isEdit: true})}
+            <div data-focus='news-info'>
+                {translate('event.explainPrive')}
+            </div>
             <Button label={this.state.commentairePresent ? 'event.editComment' : 'event.createComment'} type='button' handleOnClick={this.postComment} />
 
             <div data-focus='commentaire-public'>

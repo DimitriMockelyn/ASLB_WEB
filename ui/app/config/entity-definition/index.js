@@ -99,6 +99,10 @@ export default {
         },
     },
     event: {
+        prive: {
+            domain: 'DO_YES_NO',
+            required: false
+        },
         created :{
             domain: 'DO_DATE',
             required: false

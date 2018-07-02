@@ -403,8 +403,13 @@ exports.get_commentaire_for_user = function(req, res) {
               result.date = comm.date ;
               result.note = comm.note ;
               result.auteur = comm.auteur._id ;
+              result.prive = comm.prive;
               result['commentairePresent'] = true;
+            } 
+            if (comm.prive) {
+              comm.commentaire = '';
             }
+            
           });
           res.json(result);
         }
@@ -443,7 +448,7 @@ exports.post_commentaire_for_user = function(req, res) {
               res.json(newComm);
           });
         } else {
-          Commentaire.findOneAndUpdate({_id:commentaires[0]._id}, {note: req.body.note, date: Date.now(), commentaire: req.body.commentaire}, {new: true}, function(err, newComm) {
+          Commentaire.findOneAndUpdate({_id:commentaires[0]._id}, {note: req.body.note, date: Date.now(), commentaire: req.body.commentaire, prive: req.body.prive}, {new: true}, function(err, newComm) {
             if (err) {
               res.send(err);
             }
