@@ -1519,3 +1519,8 @@ p {
     overflow-y: auto;
   }
 }
+
+[data-focus="home-chat-display"] .expanded-actions [data-focus='panel'] .actions {
+  margin-left: 50px;
+  width : calc( 100% - 250px);
+}

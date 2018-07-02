@@ -100,6 +100,7 @@ export default {
 
     },
     home: {
+        newsFilterPopup: 'Voir les news "Pop-up"',
         messageDeleted: '** message supprimé **',
         message: {
             0: 'Bienvenue sur l\'interface web de l\'ASLB ! \n (Cliquez sur la fenêtre pour continuer)',
@@ -160,7 +161,7 @@ export default {
     admin: {
         entreprise: 'Entreprise',
         addEntreprise: 'Ajouter une entreprise',
-        important: 'Important',
+        important: 'Pop-up',
         exportEvents: 'Exporter les évenements',
         addMedia: 'Ajouter un média',
         media: 'Média',

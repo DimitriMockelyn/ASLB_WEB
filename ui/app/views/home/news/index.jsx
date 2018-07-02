@@ -18,7 +18,8 @@ export default React.createClass({
     definitionPath: 'admin',
     getInitialState() {
         return {
-            limitNews: 3
+            limitNews: 3,
+            showPopupNews : false
         }
     },
     componentWillMount() {
@@ -42,21 +43,29 @@ export default React.createClass({
         });
     },
     renderActionsEdit() {
-            return <div>
+            return <div data-focus='display-row'>
+                <div style={{'margin-right': 'auto'}}>
+                    <Toggle ref='toggle' value={this.state.showPopupNews} label={i18n.t('home.newsFilterPopup')} onChange={this.toggleNewsPopup} />
+                </div>
                 <Button type='button' label='button.voirPlus' handleOnClick={() => {this.setState({limitNews: this.state.limitNews+3})}}/>
+                
             </div>
         
     },
     closePopinImportant() {
         this.setState({openPopinImportant: undefined});
     },
+    toggleNewsPopup() {
+        this.setState({showPopupNews : !this.state.showPopupNews});
+    },
     /** @inheritDoc */
     renderContent() {
         return (
-            <div data-focus='list-home'>
+            <div data-focus='list-home' className='expanded-actions'>
         <Panel  title='admin.derniereNews' actions={this.renderActionsEdit}>
+        
             <div data-focus='news-list'>
-                {this.state.news && this.state.news.length > 0 && this.state.news.map((value, pos) => {
+                {this.state.news && this.state.news.length > 0 && this.state.news.filter(news => this.state.showPopupNews || !news.important).map((value, pos) => {
                     if (pos < this.state.limitNews) {
                         return <NewsItem data={value}/>
                     }
