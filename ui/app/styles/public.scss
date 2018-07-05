@@ -523,6 +523,9 @@ div[data-focus="field"][data-domain="DO_RTE"] [data-focus="field-value-container
 
 .dv-star-rating {
   width: auto;
+  display: flex !important;
+  flex-direction: row-reverse;
+
   & > label {
     width: 12px;
     overflow: hidden;
@@ -586,19 +589,19 @@ div[data-focus="field"][data-mode="edit"][data-domain="DO_COMMENT"] [data-focus=
 }
 [data-focus='commentaire-coach'] {
   & > div:first-child {
-    margin: 20px;
+    margin: 10px 0px;
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-start;
     & > .dv-star-rating {
-      margin-left: 20px;
+      //margin-left: 20px;
     }
   }
   & > div:nth-child(2) {
-    margin-bottom: 20px;
+    margin-bottom: 10px;
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content:  flex-start;
   }
   [data-focus='commentaire-detail'] {
     border-top: 1px solid black;
@@ -609,6 +612,8 @@ div[data-focus="field"][data-mode="edit"][data-domain="DO_COMMENT"] [data-focus=
     padding: 10px;
     [data-focus="commentaire-auteur"] {
       margin-left: auto;
+      max-width: 150px;
+      width: 150px;
     }
     [data-focus="commentaire-commentaire"] {
       margin-left: 15px;
@@ -1510,7 +1515,7 @@ p {
     display: flex;
     flex-direction: row;
     & > div {
-      margin-right: 20px;
+      //margin-right: 20px;
     }
     margin-bottom: 15px;
   }

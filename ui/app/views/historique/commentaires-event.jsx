@@ -63,7 +63,7 @@ export default React.createClass({
                      i18n.t('event.duree') + ' ' + this.props.data.duree + ' - ' +
                      i18n.t('admin.nbInscrits') + ' ' + this.props.data.participants.length + limitString} </div>
                 </div>
-                {this.nbNote !== 0 && <div>
+                {this.nbNote !== 0 && <div data-focus='display-row'>
                     {i18n.t('event.noteMoyenne') + ' ' + this.noteMoyenne + '/5 ( ' + this.nbNote + ' note(s) )' }
                     <Note value={this.noteMoyenne} editing={false} name={this.noteMoyenne + '/5'}/>
                     </div>}

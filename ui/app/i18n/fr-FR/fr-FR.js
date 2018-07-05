@@ -208,7 +208,7 @@ export default {
 
     },
     event: {
-        explainPrive: 'Les commentaires privés ne seront visible que par les animateurs',
+        explainPrive: 'Les commentaires privés ne seront visibles que par les animateurs',
         prive: 'Commentaire privé ?',
         gestionAbsent: 'Gestion des absences',
         generateAppointment: 'Télécharger un rappel de séance',

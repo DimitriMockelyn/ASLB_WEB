@@ -90,7 +90,7 @@ export default React.createClass({
 
             <div data-focus='commentaire-public'>
                 <div data-focus='header-commentaire'>
-                {this.nbNote !== 0 && <div>
+                {this.nbNote !== 0 && <div data-focus='display-row'>
                     {i18n.t('event.noteMoyenne') + ' ' + this.noteMoyenne + '/5 ( ' + this.nbNote + ' note(s) )' }
                     <Note value={this.noteMoyenne} editing={false} name={this.noteMoyenne + '/5'}/>
                     </div>}
