@@ -35,6 +35,43 @@ function requestBadgeEvenementTypeCount(badge, user, CODE_EVENEMENT, FILTER_EVEN
  });
 }
 
+function requestBadgeEvenementAllTypeCount(badge, user, FILTER_EVENEMENTS, LIMIT ) {
+  BadgeRecu.find({$and:[{user: user},{badge: badge}]}, function(err, badges) {
+  var existingIds = [];
+  badges.map(badgeAcquis => {existingIds = existingIds.concat(badgeAcquis.evenements)});
+  let mapEvents = new Map();
+  TypeEvenement.find({}, function(err, typeEvents){
+      typeEvents.map(typeEvt => {
+        if (typeEvt.code !== 'ASLB') {
+          mapEvents.set(typeEvt._id.toString(), []);
+        }
+      })
+      console.log(mapEvents);
+      Evenement.find({$and:[{ date_debut: {$lt: Date.now()}},FILTER_EVENEMENTS,{typeEvenement: typeEvents},{_id: {$nin: existingIds}}]}, function(err,res) {
+          res.map(evt => {
+            console.log(evt.typeEvenement._id.toString(), mapEvents.get(evt.typeEvenement._id.toString()));
+            if (mapEvents.has(evt.typeEvenement._id.toString()) && mapEvents.get(evt.typeEvenement._id.toString()).length < LIMIT) {
+              mapEvents.get(evt.typeEvenement._id.toString()).push(evt);
+            }
+          })
+          var toDoBadges = true;
+          var allEvts = [];
+          mapEvents.forEach(value => {
+            if (value.length < LIMIT) {
+              toDoBadges = false;
+            } else {
+              allEvts = allEvts.concat(value);
+            }
+          });
+          console.log(mapEvents);
+          if (toDoBadges) {
+            createBadgeForEvenements(badge, user,allEvts, allEvts.length);
+          }
+      }).populate('typeEvenement','_id code').sort({date_debut: 1})
+    })
+ });
+}
+
 function requestBadgeNoteEvenementsCount(badge, user, LIMIT) { 
   BadgeRecu.find({$and:[{user: user},{badge: badge}]}, function(err, badges) {
   var existingIds = [];
@@ -114,6 +151,22 @@ exports.insert_badges_default = function() {
     code:'Or',
     isMultiple: true,
     requestCheck: 'requestBadgeEvenementInMonthCount(badge, user, {animateur: user}, 2)'
+  }, {upsert: true, 'new': true}, function(err, model) {
+  });
+
+  Badge.findOneAndUpdate({titre: 'Faire 1 de chaque'}, {
+    titre: 'Faire 1 de chaque',
+    code:'Argent',
+    isMultiple: false,
+    requestCheck: 'requestBadgeEvenementAllTypeCount(badge, user, {participants: user}, 1)'
+  }, {upsert: true, 'new': true}, function(err, model) {
+  });
+
+  Badge.findOneAndUpdate({titre: 'Faire 3 de chaque'}, {
+    titre: 'Faire 3 de chaque',
+    code:'Or',
+    isMultiple: false,
+    requestCheck: 'requestBadgeEvenementAllTypeCount(badge, user, {participants: user}, 3)'
   }, {upsert: true, 'new': true}, function(err, model) {
   });
 }
