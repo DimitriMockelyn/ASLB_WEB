@@ -49,6 +49,13 @@ export default React.createClass({
                     <div className={className} />
                     <label>{' '+data.length}</label>
                 </div>
+        } else {
+            if ((!this.state.badgesRecus || this.state.badgesRecus.length === 0) && className === 'Bronze') {
+                return <div >
+                    <div className={className} />
+                    <label>{' 0'}</label>
+                </div>
+            }
         }
     },
     togglePopin() {

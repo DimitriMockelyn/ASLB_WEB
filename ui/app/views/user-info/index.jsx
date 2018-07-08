@@ -50,12 +50,12 @@ export default React.createClass({
                                             <div className='title'>
                                                 {bd.titre}
                                             </div>
-                                            <div className='description'>
-                                                {bd.description} 
-                                            </div>
                                             {this.state.popinBadge.mapCount[bd._id] !== 0 && <div className='count'>
                                                 {' x'+this.state.popinBadge.mapCount[bd._id]}
                                             </div>}
+                                            <div className='description'>
+                                                {bd.description} 
+                                            </div>
                                         </div>
                                     </div>
                                     </div>

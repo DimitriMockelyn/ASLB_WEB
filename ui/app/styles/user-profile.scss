@@ -414,7 +414,7 @@ $color-ribbon-darker: rgba(15,51,10,1);
 
     .count {
         position: relative;
-        top: -40px;
+        top: -20px;
         /* height: 0px; */
         background-color: white;
         width: 20px;
@@ -430,5 +430,8 @@ $color-ribbon-darker: rgba(15,51,10,1);
     }
     .title {
         font-weight: bold;
+    }
+    [data-focus='round-line'] {
+        margin-bottom: 0;
     }
 }
