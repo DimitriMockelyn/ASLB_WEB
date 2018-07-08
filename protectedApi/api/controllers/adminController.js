@@ -17,6 +17,7 @@ var mongoose = require('mongoose'),
   Machine = mongoose.model('Machine'),
   Badge = mongoose.model('Badge'),
   mailer = require('../utils/mailer'),
+  badgeController = require('./badgeController'),
   moment = require('moment');
 
 
@@ -126,98 +127,7 @@ exports.initData = function() {
   }
   })
 
-  var requestBadgeEvenementCount = 'BadgeRecu.find({$and:[{user: user},{badge: badge}]}, function(err, badges) {'
-  +'  var existingIds = [];'
-  +'  badges.map(badgeAcquis => {existingIds = existingIds.concat(badgeAcquis.evenements)});'
-  +'  Evenement.find({$and:[{ date_debut: {$lt: Date.now()}},#FILTER_EVENEMENTS#,{_id: {$nin: existingIds}}]}, function(err,res) {'
-  +'   createBadgeForEvenements(badge, user,res, #LIMIT#);'
-  +'  }).sort({date_debut: 1}).limit(#LIMIT#)'
-  +' })';
-
-  var requestBadgeEvenementTypeCount = 'BadgeRecu.find({$and:[{user: user},{badge: badge}]}, function(err, badges) {'
-  +'  var existingIds = [];'
-  +'  badges.map(badgeAcquis => {existingIds = existingIds.concat(badgeAcquis.evenements)});'
-  +'  TypeEvenement.find({code:#CODE_EVENEMENT#}, function(err, typeEvent){'
-  +'    Evenement.find({$and:[{ date_debut: {$lt: Date.now()}},#FILTER_EVENEMENTS#,{typeEvenement: typeEvent},{_id: {$nin: existingIds}}]}, function(err,res) {'
-  +'      createBadgeForEvenements(badge, user,res, #LIMIT#);'
-  +'    }).populate(\'typeEvenement\',\'_id code\').sort({date_debut: 1}).limit(#LIMIT#)'
-  +'  })'
-  +' })';
-
-  var requestBadgeNoteEvenementsCount = 'BadgeRecu.find({$and:[{user: user},{badge: badge}]}, function(err, badges) {'
-  +'  var existingIds = [];'
-  +'  badges.map(badgeAcquis => {existingIds = existingIds.concat(badgeAcquis.evenements)});'
-  +'  Commentaire.find({auteur: user}, function(err, comms){'
-  +'  var commsIds = [];'
-  +'  comms.map(comm => {commsIds.push(comm.evenement)});'
-  +'    Evenement.find({$and:[{ date_debut: {$lt: Date.now()}},{_id: {$in: commsIds}},{_id: {$nin: existingIds}}]}, function(err,res) {'
-  +'      createBadgeForEvenementsNotes(badge, user, comms, res, #LIMIT#);'
-  +'    }).populate(\'typeEvenement\',\'_id code\').sort({date_debut: 1}).limit(#LIMIT#)'
-  +'  })'
-  +' })';
-
-  var requestBadgeEvenementInMonthCount = 'BadgeRecu.find({$and:[{user: user},{badge: badge}]}, function(err, badges) {'
-  +'  var existingIds = [];'
-  +'  var filterDate = [];'
-  +'  badges.map(badgeAcquis => {'
-  +'    badgeAcquis.evenements.map(evtBadge => {'
-  +'      existingIds = existingIds.concat(evtBadge._id);'
-  +'      var dateDebut = moment(new Date(evtBadge.date_debut), moment.ISO_8601).startOf(\'month\').toDate();'
-  +'      var dateFin = moment(new Date(evtBadge.date_debut), moment.ISO_8601).endOf(\'month\').toDate();'
-  +'      filterDate.push({$or: [{'
-  +'       date_debut: {$lt: dateDebut}'
-  +'      },{'
-  +'        date_debut: {$gt: dateFin}'
-  +'      }]})'
-  +'    });'
-  +'  });'
-  +'  if (filterDate.length === 0) {'
-  +'    filterDate.push({ date_debut: {$lt: Date.now()}});'
-  +'  }'
-  +'  Evenement.find({$and:[{ date_debut: {$lt: Date.now()}},{$and: filterDate},#FILTER_EVENEMENTS#,{_id: {$nin: existingIds}}]}, function(err,res) {'
-  +'   createBadgeForEvenementsInMonth(badge, user,res, #LIMIT#);'
-  +'  }).sort({date_debut: 1})'
-  +' }).populate(\'evenements\', \'_id date_debut\')'
-
-  Badge.findOneAndUpdate({titre: '5 Evenements'}, {
-    titre: '5 Evenements',
-    code:'Bronze',
-    isMultiple: false,
-    requestCheck: requestBadgeEvenementCount.replace(/#LIMIT#/g, '5').replace(/#FILTER_EVENEMENTS#/g,'{participants: user}')
-  }, {upsert: true, 'new': true}, function(err, model) {
-  });
-
-  Badge.findOneAndUpdate({titre: '5 Crossfit'}, {
-    titre: '5 Crossfit',
-    code:'Bronze',
-    isMultiple: true,
-    requestCheck: requestBadgeEvenementTypeCount.replace(/#LIMIT#/g, '5').replace(/#FILTER_EVENEMENTS#/g,'{participants: user}').replace(/#CODE_EVENEMENT#/g, '\'CROSS\'')
-  }, {upsert: true, 'new': true}, function(err, model) {
-  });
-
-  Badge.findOneAndUpdate({titre: '5 Evenements en un mois'}, {
-    titre: '5 Evenements en un mois',
-    code:'Argent',
-    isMultiple: true,
-    requestCheck: requestBadgeEvenementInMonthCount.replace(/#LIMIT#/g, '4').replace(/#FILTER_EVENEMENTS#/g,'{participants: user}')
-  }, {upsert: true, 'new': true}, function(err, model) {
-  });
-
-  Badge.findOneAndUpdate({titre: 'Noter 2 evenements'}, {
-    titre: 'Noter 2 evenements',
-    code:'Bronze',
-    isMultiple: true,
-    requestCheck: requestBadgeNoteEvenementsCount.replace(/#LIMIT#/g, '2')
-  }, {upsert: true, 'new': true}, function(err, model) {
-  });
-
-  Badge.findOneAndUpdate({titre: 'Animer 3 Evenements en un mois'}, {
-    titre: 'Animer 3 Evenements en un mois',
-    code:'Or',
-    isMultiple: true,
-    requestCheck: requestBadgeEvenementInMonthCount.replace(/#LIMIT#/g, '2').replace(/#FILTER_EVENEMENTS#/g,'{animateur: user}')
-  }, {upsert: true, 'new': true}, function(err, model) {
-  });
+  badgeController.insert_badges_default();
 }
 
 
