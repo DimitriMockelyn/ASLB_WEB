@@ -251,4 +251,7 @@ module.exports = function(app) {
 	app.route('/profil/infoBadgesRecu/:id')
 		.get(userHandlers.userExists, profileController.my_badges);
 
+	app.route('/profil/infoBadgesRecu/:id')
+		.get(userHandlers.userExists, profileController.my_badges);
+
 };
