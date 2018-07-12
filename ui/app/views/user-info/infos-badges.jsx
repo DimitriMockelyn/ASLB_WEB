@@ -19,7 +19,7 @@ export default React.createClass({
         let bronze = [];
         let argent = [];
         let or = [];
-        let platine = [];
+        let platinium = [];
         let allAquired = [];
         let mapCount = {};
         allBadges.map(item => {
@@ -31,7 +31,7 @@ export default React.createClass({
                 allAquired.push(badgeDef);
                 mapCount[badgeDef._id] = mapCount[badgeDef._id]+1;
                 if (badgeDef.code === 'Platinium') {
-                    platine.push(badgeRecu);                    
+                    platinium.push(badgeRecu);                    
                 } else if (badgeDef.code === 'Or') {
                     or.push(badgeRecu);
                 } else if(badgeDef.code === 'Argent') {
@@ -41,7 +41,7 @@ export default React.createClass({
                 } 
             })
         }
-        this.setState({allBadges, badgesRecus,bronze, argent, or, platine, allAquired, mapCount});
+        this.setState({allBadges, badgesRecus,bronze, argent, or, platinium, allAquired, mapCount});
     },
     computeBadgeFor(data, className) {
         if (data && data.length > 0) {

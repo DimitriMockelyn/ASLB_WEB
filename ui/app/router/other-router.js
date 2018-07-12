@@ -11,6 +11,7 @@ import MediaView from '../views/media';
 import InscriptionView from '../views/inscription';
 import AdminUsersView from '../views/admin/admin-users';
 import AdminBlocsView from '../views/admin/admin-blocs';
+import AdminBadgesView from '../views/admin/admin-badges';
 import EspacesView from '../views/espaces';
 import UserView from '../views/user-info';
 import MachinesView from '../views/machines';
@@ -27,6 +28,7 @@ export default createRouter(Backbone).extend({
         admin: 'admin',
         adminUsers: 'adminUsers',
         adminBlocs: 'adminBlocs',
+        adminBadges: 'adminBadges',
         me: 'me',
         media: 'media',
         espaces: 'espaces',
@@ -58,6 +60,11 @@ export default createRouter(Backbone).extend({
     adminBlocs() {
         if (userHelper.getLogin() && userHelper.getLogin().isAdmin) {
             this._pageContent(AdminBlocsView, {props: {hasLoad: false}});
+        }
+    },
+    adminBadges() {
+        if (userHelper.getLogin() && userHelper.getLogin().isAdmin) {
+            this._pageContent(AdminBadgesView, {props: {hasLoad: false}});
         }
     },
     me() {

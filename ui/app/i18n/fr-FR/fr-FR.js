@@ -158,7 +158,21 @@ export default {
     machines: {
         warning: 'Les machines sont en libre accès. Cependant, pour permettre à tout le monde d\'en profiter, il est possible de les réserver à l\'avance. Il n\'est pas possible de réserver deux creneaux d\'une même machine à la suite, mais si personne ne l\'utilise, vous pourrez bien évidemment continuer.'
     },
+    badges: {
+        titre: 'Titre',
+        type: 'Type',
+        description: 'Description',
+        isMultiple: 'Possible de l\'avoir plusieurs fois',
+        actif: 'Actif',
+        ordre: 'Ordre',
+        code: 'Niveau',
+        typeDeBadge: 'Type de badge',
+        limitePourBadge: 'Limite d\'évenements pour le badge',
+        typeEvenement: 'Type d\'événement (Si applicable)',
+        action: 'Action a accomplir'
+    },
     admin: {
+        adminBadges: 'Administrer les badges',
         entreprise: 'Entreprise',
         addEntreprise: 'Ajouter une entreprise',
         important: 'Pop-up',

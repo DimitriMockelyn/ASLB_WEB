@@ -6,7 +6,8 @@ module.exports = function(app) {
 	homeController = require('../controllers/homeController'),
 	profileController = require('../controllers/profileController'),
 	adminHandler = require('../controllers/adminController'),
-	machinesController = require('../controllers/machinesController');
+	machinesController = require('../controllers/machinesController'),
+	badgeController= require('../controllers/badgeController');
 
 	// todoList Routes
 	app.route('/evenements')
@@ -254,4 +255,9 @@ module.exports = function(app) {
 	app.route('/profil/infoBadgesRecu/:id')
 		.get(userHandlers.userExists, profileController.my_badges);
 
+	app.route('/allBadges')
+		.get(userHandlers.loginRequired, userHandlers.isAdmin, badgeController.loadAllBadges);
+	
+	app.route('/saveBadges')
+		.post(userHandlers.loginRequired, userHandlers.isAdmin, badgeController.editBadges);
 };

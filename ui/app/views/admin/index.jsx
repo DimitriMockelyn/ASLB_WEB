@@ -57,6 +57,7 @@ export default React.createClass({
                     <Button icon='person' type='button' shape='' label='admin.adminUsers' handleOnClick={() => {navigate('adminUsers', true)}} />
                     <Button icon='data_usage' type='button' shape='' label='admin.adminBlocs' handleOnClick={() => {navigate('adminBlocs', true)}} />
                     <Button icon='bar_chart' type='button' shape='' label='admin.exportEvents' handleOnClick={this.exportEvents} />
+                    <Button icon='stars' type='button' shape='' label='admin.adminBadges' handleOnClick={() => {navigate('adminBadges', true)}} />
                     <News hasLoad={false} />
                     <Partenaires hasLoad={false} />
                     <Entreprises hasLoad={false} />

@@ -22,6 +22,10 @@ var Badge = new Schema({
     },
     requestCheck: {
       type: String
+    },
+    actif: {
+      type: Boolean,
+      default: true
     }
 });
 
