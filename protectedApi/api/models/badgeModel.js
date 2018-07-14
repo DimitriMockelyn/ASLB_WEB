@@ -9,7 +9,7 @@ var Badge = new Schema({
       type: String,
       required: true
     },
-    type: {
+    code: {
       type: String,
       required: true
     },
@@ -22,6 +22,10 @@ var Badge = new Schema({
     },
     requestCheck: {
       type: String
+    },
+    actif: {
+      type: Boolean,
+      default: true
     }
 });
 

@@ -37,6 +37,8 @@ export default {
     toggleActiveRibbon: builder(url + 'toggleActifRibbon/${ribId}', 'POST'),
     allBlocs: builder(url + 'allBlocs', 'GET'),
     saveBloc: builder(url + 'saveBloc/${id}', 'POST'),
+    allBadges: builder(url + 'allBadges', 'GET'),
+    saveBadges: builder(url + 'saveBadges', 'POST'),
     editMedia:  builder(url + 'medias/${id}', 'POST'),
     deleteMedia:  builder(url + 'medias/${id}', 'DELETE'),
     createMedia:  builder(url + 'medias', 'PUT'),

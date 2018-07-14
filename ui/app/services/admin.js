@@ -105,6 +105,12 @@ export default {
     saveBloc(data) {
         return fetch(adminUrl.saveBloc({urlData: {id: data._id}, data: data}), utils.computeHeaders());
     },
+    allBadges() {
+        return fetch(adminUrl.allBadges(), utils.computeHeaders());
+    },
+    saveBadges(data) {
+        return fetch(adminUrl.saveBadges({data: data}), utils.computeHeaders());
+    },
     editMedia(data) {
         return fetch(adminUrl.editMedia({urlData: {id: data.id}, data: data}), utils.computeHeaders());
     },

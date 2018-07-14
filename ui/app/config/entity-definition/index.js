@@ -6,6 +6,32 @@
 import userHelper from 'focus-core/user';
 export default {
     home:{},
+    badges: {
+        titre: {
+            domain: 'DO_LABEL_LONG',
+            required: true
+        },
+        type: {
+            domain: 'DO_LABEL_LONG',
+            required: true
+        },
+        description: {
+            domain: 'DO_COMMENT',
+            required: false
+        },
+        isMultiple: {
+            domain: 'DO_YES_NO',
+            required: true
+        },
+        actif: {
+            domain: 'DO_YES_NO',
+            required: true
+        },
+        ordre: {
+            domain: 'DO_NUMBER',
+            required: true
+        }
+    },
     blocs: {
         titre: {
             domain: 'DO_LABEL_LONG',

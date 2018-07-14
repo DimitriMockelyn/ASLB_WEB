@@ -19,5 +19,8 @@ export default {
     },
     readNotification(id) {
         return fetch(profileUrl.readNotification({urlData: {id}}), utils.computeHeaders());
-    }
+    },
+    getInfoBadges(id) {
+        return fetch(profileUrl.getInfoBadges({urlData: {id}}));
+    },
 };

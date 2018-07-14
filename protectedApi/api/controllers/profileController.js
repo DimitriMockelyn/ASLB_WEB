@@ -17,6 +17,8 @@ var mongoose = require('mongoose'),
   Queue = mongoose.model('Queue'),
   Commentaire = mongoose.model('Commentaire'), 
   evenementController = require('./evenementController'),
+  Badge = mongoose.model('Badge'),
+  BadgeRecu= mongoose.model('BadgeRecu'),
   Entreprise = mongoose.model('Entreprise');
 
   var {getConfig} = require('../../config');
@@ -124,5 +126,18 @@ exports.read_notification = function(req, res) {
           })
         }
       })
+  });
+}
+
+exports.my_badges = function(req, res) {
+  Badge.find({}, function(err, allBadges) {
+    User.findById(req.params.id, function(err,user) {
+      BadgeRecu.find({user: user}, function(err, badgesRecus) {
+        let result = {};
+        result['allBadges'] = allBadges;
+        result['badgesRecus'] = badgesRecus;
+          return res.json(result);
+      });
+    });
   });
 }

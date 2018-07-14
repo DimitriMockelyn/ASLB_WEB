@@ -15,8 +15,10 @@ var mongoose = require('mongoose'),
   Profil = mongoose.model('Profil'),
   BlocAdministrables = mongoose.model('BlocAdministrables'),
   Machine = mongoose.model('Machine'),
-  mailer = require('../utils/mailer');
-
+  Badge = mongoose.model('Badge'),
+  mailer = require('../utils/mailer'),
+  badgeController = require('./badgeController'),
+  moment = require('moment');
 
 
 exports.initData = function() {
@@ -125,7 +127,9 @@ exports.initData = function() {
   }
   })
 
+  badgeController.insert_badges_default();
 }
+
 
 exports.list_all_partenaires = function(req, res) {
   Partenaire.find({}, function(err, ptns) {

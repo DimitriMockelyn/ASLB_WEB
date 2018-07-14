@@ -12,6 +12,7 @@
         border-radius: 15px;
         padding: 20px;
         padding-left: 40px;
+        z-index: 1001;
     }
     [data-focus='user-panel-right'] {
         position: fixed;
@@ -347,5 +348,90 @@ $color-ribbon-darker: rgba(15,51,10,1);
     }
     .clickable:hover {
         text-decoration: underline;
+    }
+}
+
+[data-focus="badges-line"] {
+    cursor: pointer;
+    label {
+        cursor: pointer;
+    }
+    [data-focus="round-line"] {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        margin-bottom: 10px;
+        & > div {
+            margin-right: 5px;
+            display: flex;
+            flex-direction: row;
+            & > div {
+                width: 15px;
+                height: 15px;
+                border-radius: 50px;
+                margin-right: 3px;
+            }
+        }
+    }
+    .Bronze {
+        background-color: rgb(150,90,56);
+    }
+    .Argent {
+        background-color: rgb(168,168,168);
+    }
+    .Or {
+        background-color: rgb(217,164,65);
+    }
+    .Platinium {
+        background-color: #85bdca;
+    }
+}
+
+.badge-info-line {
+    display: flex;
+    flex-direction: row;
+    border: 2px solid rgba(85, 85, 85, 0.12);
+    border-radius: 5px;
+    align-items: center;
+    margin: 5px;
+    padding: 10px;
+    &.Bronze {
+        border: 2px solid rgb(150,90,56);
+        background-color: transparent;
+    }
+    &.Argent {
+        border: 2px solid rgb(168,168,168);
+        background-color: transparent;
+    }
+    &.Or {
+        border: 2px solid rgb(217,164,65);
+        background-color: transparent;
+    }
+    &.Platinium {
+        border: 2px solid #85bdca;
+        background-color: transparent;
+    }
+
+    .count {
+        position: relative;
+        top: -20px;
+        /* height: 0px; */
+        background-color: white;
+        width: 20px;
+        height: 20px;
+        margin-bottom: -20px;
+        vertical-align: middle;
+        /* margin-right: auto; */
+        text-align: center;
+        right: calc( -100% + 30px);
+    }
+    .desc-line {
+        width: 100%;
+    }
+    .title {
+        font-weight: bold;
+    }
+    [data-focus='round-line'] {
+        margin-bottom: 0;
     }
 }

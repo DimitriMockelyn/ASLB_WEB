@@ -24,6 +24,8 @@ var express = require('express'),
   CreneauMachine = require('./api/models/creneauMachineModel'),
   Queue = require('./api/models/queueModel'),
   BlocAdministrables = require('./api/models/blocsAdministrable'),
+  Badge = require('./api/models/badgeModel'),
+  BadgeRecu = require('./api/models/badgeRecuModel'),
   bodyParser = require('body-parser'),
   jsonwebtoken = require("jsonwebtoken");
 
