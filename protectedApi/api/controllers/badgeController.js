@@ -186,80 +186,27 @@ function requestBadgeTypeEvenementInMonthCount(badge, user,CODE_EVENEMENT, FILTE
 
 exports.insert_badges_default = function() {
 
-  Badge.findOneAndUpdate({titre: '5 Evenements'}, {
-    titre: '5 Evenements',
-    code:'Bronze',
-    isMultiple: false,
-    requestCheck: 'requestBadgeEvenementCount(badge, user, {participants: user}, 5)'
-  }, {upsert: true, 'new': true}, function(err, model) {
-  });
-
-  Badge.findOneAndUpdate({titre: '5 Crossfit'}, {
-    titre: '5 Crossfit',
-    code:'Bronze',
-    isMultiple: true,
-    requestCheck: 'requestBadgeEvenementTypeCount(badge, user, \'FG\',{participants: user}, 5)'
-  }, {upsert: true, 'new': true}, function(err, model) {
-  });
-
-  Badge.findOneAndUpdate({titre: '5 Evenements en un mois'}, {
-    titre: '5 Evenements en un mois',
-    code:'Argent',
-    isMultiple: true,
-    requestCheck: 'requestBadgeEvenementInMonthCount(badge, user, {participants: user}, 4)'
-  }, {upsert: true, 'new': true}, function(err, model) {
-  });
-
-  Badge.findOneAndUpdate({titre: 'Noter 2 evenements'}, {
-    titre: 'Noter 2 evenements',
-    code:'Bronze',
-    isMultiple: true,
-    requestCheck: 'requestBadgeNoteEvenementsCount(badge, user, 2)'
-  }, {upsert: true, 'new': true}, function(err, model) {
-  });
-
-  Badge.findOneAndUpdate({titre: 'Animer 3 Evenements en un mois'}, {
-    titre: 'Animer 3 Evenements en un mois',
-    code:'Or',
-    isMultiple: true,
-    requestCheck: 'requestBadgeEvenementInMonthCount(badge, user, {animateur: user}, 2)'
-  }, {upsert: true, 'new': true}, function(err, model) {
-  });
-
-  Badge.findOneAndUpdate({titre: 'Faire 1 de chaque'}, {
-    titre: 'Faire 1 de chaque',
-    code:'Argent',
-    isMultiple: false,
-    requestCheck: 'requestBadgeEvenementAllTypeCount(badge, user, {participants: user}, 1)'
-  }, {upsert: true, 'new': true}, function(err, model) {
-  });
-
-  Badge.findOneAndUpdate({titre: 'Faire 3 de chaque'}, {
-    titre: 'Faire 3 de chaque',
-    code:'Or',
-    isMultiple: false,
-    requestCheck: 'requestBadgeEvenementAllTypeCount(badge, user, {participants: user}, 3)'
-  }, {upsert: true, 'new': true}, function(err, model) {
-  });
 }
 
 
 exports.initBadges = function(user) {
   Badge.find({actif: true}, function(err, badgesTest) {
-    badgesTest.map(badge => {
-      if (badge.isMultiple ) {
-        checkBadge(badge, user);
-      } else {
-        //On ne le teste que si on en a pas encore
-        BadgeRecu.find({$and:[{user: user},{badge: badge}]}, function(err, badgesExistants) {
-          if (badgesExistants && badgesExistants.length > 0) {
+    if (badgesTest && badgesTest.length > 0) {
+      badgesTest.map(badge => {
+        if (badge.isMultiple ) {
+          checkBadge(badge, user);
+        } else {
+          //On ne le teste que si on en a pas encore
+          BadgeRecu.find({$and:[{user: user},{badge: badge}]}, function(err, badgesExistants) {
+            if (badgesExistants && badgesExistants.length > 0) {
 
-          } else {
-            checkBadge(badge, user);
-          }
-        })
-      }  
-    })  
+            } else {
+              checkBadge(badge, user);
+            }
+          })
+        }  
+      })  
+    }
   })
 }
 
