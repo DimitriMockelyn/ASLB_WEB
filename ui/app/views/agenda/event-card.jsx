@@ -61,6 +61,10 @@ export default React.createClass({
                 <div className='description'>
                     {this.state.description}
                 </div>
+                {this.state.tokenConsumer === false && <div className='line-info-not-consumer'>
+                    <i className='material-icons'>info</i>
+                    <div>{translate('event.doesNotConsumeToken')}</div>
+                </div>}
                 <div className='line-info'>
                     <div>{translate('event.dateHeure')}</div>
                     <div>{moment(this.state.startDate).format('DD/MM/YYYY      HH:mm')}</div>

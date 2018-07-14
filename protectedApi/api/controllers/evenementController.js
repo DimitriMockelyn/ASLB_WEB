@@ -776,7 +776,8 @@ exports.update_a_evenement = function(req, res) {
     description: req.body.description,
     animateur: req.body.animateur,
     coanimateurs: req.body.coanimateurs || [], 
-    niveau: req.body.niveau
+    niveau: req.body.niveau,
+    tokenConsumer: req.body.tokenConsumer
   }
   TypeEvenement.findOne({
     _id: req.body.typeEvenement

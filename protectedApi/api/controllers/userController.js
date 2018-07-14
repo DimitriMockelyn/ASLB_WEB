@@ -409,7 +409,7 @@ exports.load_tokens = function(req, res) {
             }
             let events = [];
             eventsIn.map(evt => {
-              if (evt.typeEvenement && evt.typeEvenement.code !== 'ASLB') {
+              if ((evt.typeEvenement && evt.typeEvenement.code !== 'ASLB' ) && evt.tokenConsumer) {
                 events.push(evt);
               }
             })
@@ -442,7 +442,7 @@ exports.inscriptionTokenPossible = function(req, res, next) {
           if (err) {
             return res.status(401).json({ message: 'Evenement non trouvé' });
           }
-          if (evenement.typeEvenement && evenement.typeEvenement.code === 'ASLB') {
+          if (evenement.typeEvenement && evenement.typeEvenement.code === 'ASLB' || !evenement.tokenConsumer) {
             return next();
           } else {
           Queue.find({personne: user}, function(err, queues) {
@@ -462,7 +462,7 @@ exports.inscriptionTokenPossible = function(req, res, next) {
             ]}, function(err, eventsIn) {
                   let events = [];
                   eventsIn.map(evt => {
-                    if (evt.typeEvenement && evt.typeEvenement.code !== 'ASLB') {
+                    if ((evt.typeEvenement && evt.typeEvenement.code !== 'ASLB') && evt.tokenConsumer) {
                       events.push(evt);
                     }
                   })

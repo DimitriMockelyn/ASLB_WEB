@@ -222,6 +222,8 @@ export default {
 
     },
     event: {
+        doesNotConsumeToken: 'Cet évènement ne nécéssite pas de jeton d\'inscription, et n\'en consommera pas',
+        tokenConsumer: 'Evenement nécéssitant un jeton',
         explainPrive: 'Les commentaires privés ne seront visibles que par les animateurs',
         prive: 'Commentaire privé ?',
         gestionAbsent: 'Gestion des absences',

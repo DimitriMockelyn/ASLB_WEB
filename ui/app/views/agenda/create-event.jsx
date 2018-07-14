@@ -17,7 +17,7 @@ export default React.createClass({
     componentWillMount() {
     },
     getInitialState() {
-        return {...this.props.data, date_debut : moment(this.props.data.start), coanimateurs: []};
+        return {...this.props.data, tokenConsumer: true, date_debut : moment(this.props.data.start), coanimateurs: []};
     },
     create() {
         if (this.validate()) {
@@ -98,6 +98,7 @@ export default React.createClass({
                 {this.fieldFor('description', {isEdit: true})}
                 {this.fieldFor('typeEvenement', {isEdit: true, listName: 'typeEvenements', isRequired: true, valueKey: '_id', labelKey: 'name'})}
                 {this.fieldFor('niveau', {isEdit: true, listName: 'niveauEvenements', valueKey: '_id', labelKey: 'name'})}
+                {this.fieldFor('tokenConsumer', {isEdit: true})}
             </Panel>
         </div>
         );

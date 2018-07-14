@@ -178,6 +178,9 @@ export default React.createClass({
             }
 
         }
+        if (!event.tokenConsumer) {
+            className = className + ' gratuit ';
+        }
         if (event.animateur._id.toString() === myId) {
             className = className + ' participant ';
         }

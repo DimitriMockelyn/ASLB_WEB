@@ -125,6 +125,10 @@ export default {
         },
     },
     event: {
+        tokenConsumer: {
+            domain: 'DO_YES_NO',
+            required: false
+        },
         prive: {
             domain: 'DO_YES_NO',
             required: false

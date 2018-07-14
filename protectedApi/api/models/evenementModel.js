@@ -18,6 +18,10 @@ var Evenement = new Schema({
     type: Boolean,
     default: false
   },
+  tokenConsumer: {
+    type: Boolean,
+    default: true
+  },
   date_debut: {
     type: Date,
     required: true

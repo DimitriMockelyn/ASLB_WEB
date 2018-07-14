@@ -276,6 +276,16 @@ button.mdl-button:not(.mdl-button--icon) {
   }
 }*/
 
+.rbc-event.gratuit:before {
+  font-family: FontAwesome;
+  content: '\f09c';
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  z-index: 3;
+  background-color: inherit;
+}
+
 .rbc-event.participant:after {
   content: '\2713';
   position: absolute;
@@ -1528,4 +1538,16 @@ p {
 [data-focus="home-chat-display"] .expanded-actions [data-focus='panel'] .actions {
   margin-left: 50px;
   width : calc( 100% - 250px);
+}
+
+.line-info-not-consumer {
+  i {
+    color: $primary-color;
+  }
+  & > div {
+    font-style: italic;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+  }
 }
