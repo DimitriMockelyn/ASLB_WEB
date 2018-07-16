@@ -159,9 +159,9 @@ export default React.createClass({
                 {this.fieldFor('actif', {isEdit: true})}
                 {this.fieldFor('typeDeBadge', {isEdit: true, isRequired: true, valueKey: 'value', labelKey: 'label' , 
                     values: typeBadgesList, onChange: this.onChangeType})}
-                {this.state.hasCount && this.fieldFor('limitePourBadge', {isEdit: true})}
-                {this.state.hasType && this.fieldFor('typeEvenement', {isEdit: true,listName: 'typeEvenements', valueKey: 'code', labelKey: 'name'})}
-                {this.state.hasAction && this.fieldFor('action', {isEdit: true, valueKey: 'value', labelKey: 'label' , 
+                {this.state.hasCount && this.fieldFor('limitePourBadge', {isEdit: true, isRequired: true})}
+                {this.state.hasType && this.fieldFor('typeEvenement', {isEdit: true, isRequired: true,listName: 'typeEvenements', valueKey: 'code', labelKey: 'name'})}
+                {this.state.hasAction && this.fieldFor('action', {isEdit: true, isRequired: true, valueKey: 'value', labelKey: 'label' , 
                     values: [{
                         value: '{participants: user}',
                         label: 'Participant'
