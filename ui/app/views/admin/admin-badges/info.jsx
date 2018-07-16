@@ -6,6 +6,64 @@ import adminServices from '../../../services/admin';
 import moment from 'moment';
 import userHelper from 'focus-core/user';
 
+const typeBadgesList = [
+    {
+        value: 'requestBadgeEvenementCount',
+        label: 'Nombre d\'événement quelconque',
+        hasType: false,
+        hasCount: true,
+        hasAction: true
+    },{
+        value: 'requestBadgeEvenementTypeCount',
+        label: 'Nombre d\'événement d\'un certain type',
+        hasType: true,
+        hasCount: true,
+        hasAction: true
+    },{
+        value: 'requestBadgeEvenementAllTypeCount',
+        label: 'Nombre d\'événement pour tous les types',
+        hasType: false,
+        hasCount: true,
+        hasAction: true
+    },{
+        value: 'requestBadgeNoteEvenementsCount',
+        label: 'Nombre d\'événement noté',
+        hasType: false,
+        hasCount: true,
+        hasAction: false
+    },{
+        value: 'requestBadgeEvenementInMonthCount',
+        label: 'Nombre d\'événement dans le mois',
+        hasType: false,
+        hasCount: true,
+        hasAction: true
+    },{
+        value: 'requestBadgeAvatar',
+        label: 'Entrer un avatar',
+        hasType: false,
+        hasCount: false,
+        hasAction: false
+    },{
+        value: 'requestBadgeProfil',
+        label: 'Saisir son profil',
+        hasType: false,
+        hasCount: false,
+        hasAction: false
+    }, {
+        value: 'requestBadgeNoteTypeEvenementsCount',
+        label: 'Nombre de notes sur un certain type d\'événement',
+        hasType: true,
+        hasCount: true,
+        hasAction: false
+    },{
+        value: 'requestBadgeTypeEvenementInMonthCount',
+        label: 'Nombre d\'événement d\'un certain type dans le mois',
+        hasType: true,
+        hasCount: true,
+        hasAction: true
+    }
+];
+
 export default React.createClass({
     displayName: 'HomeView',
     mixins: [formMixin],
@@ -44,6 +102,12 @@ export default React.createClass({
         if (reversed.length > 2) {
             obj['typeEvenement'] = reversed[2].trim().split('\'')[1];
         }
+        const typeBadge = typeBadgesList.find(val => val.value === obj['typeDeBadge']);
+        if (typeBadge) {
+            obj['hasType'] = typeBadge.hasType;
+            obj['hasCount'] = typeBadge.hasCount;
+            obj['hasAction'] = typeBadge.hasAction;
+        }
         return obj;
     },
     computeRequest(data) {
@@ -71,6 +135,17 @@ export default React.createClass({
             adminServices.saveBadges({ ...data, id: this.state._id}).then(this.props.onPopinClose);
         }
     },
+    onChangeType(key) {
+        const data = this._getEntity();
+        const typeBadge = typeBadgesList.find(val => val.value === key);
+        let metadata = {};
+        if (typeBadge) {
+            metadata['hasType'] = typeBadge.hasType;
+            metadata['hasCount'] = typeBadge.hasCount;
+            metadata['hasAction'] = typeBadge.hasAction;
+        }
+        this.setState({...data, typeDeBadge: key, ...metadata})
+    },
     /** @inheritDoc */
     renderContent() {
         return (
@@ -83,37 +158,10 @@ export default React.createClass({
                 {this.fieldFor('isMultiple', {isEdit: true})}
                 {this.fieldFor('actif', {isEdit: true})}
                 {this.fieldFor('typeDeBadge', {isEdit: true, isRequired: true, valueKey: 'value', labelKey: 'label' , 
-                    values: [{
-                        value: 'requestBadgeEvenementCount',
-                        label: 'Nombre d\'événement quelconque'
-                    },{
-                        value: 'requestBadgeEvenementTypeCount',
-                        label: 'Nombre d\'événement d\'un certain type'
-                    },{
-                        value: 'requestBadgeEvenementAllTypeCount',
-                        label: 'Nombre d\'événement pour tous les types'
-                    },{
-                        value: 'requestBadgeNoteEvenementsCount',
-                        label: 'Nombre d\'événement noté'
-                    },{
-                        value: 'requestBadgeEvenementInMonthCount',
-                        label: 'Nombre d\'événement dans le mois'
-                    },{
-                        value: 'requestBadgeAvatar',
-                        label: 'Entrer un avatar'
-                    },{
-                        value: 'requestBadgeProfil',
-                        label: 'Saisir son profil'
-                    }, {
-                        value: 'requestBadgeNoteTypeEvenementsCount',
-                        label: 'Nombre de notes sur un certain type d\'événement'
-                    },{
-                        value: 'requestBadgeTypeEvenementInMonthCount',
-                        label: 'Nombre d\'événement d\'un certain type dans le mois'
-                    }]})}
-                {this.fieldFor('limitePourBadge', {isEdit: true})}
-                {this.fieldFor('typeEvenement', {isEdit: true,listName: 'typeEvenements', valueKey: 'code', labelKey: 'name'})}
-                {this.fieldFor('action', {isEdit: true, valueKey: 'value', labelKey: 'label' , 
+                    values: typeBadgesList, onChange: this.onChangeType})}
+                {this.state.hasCount && this.fieldFor('limitePourBadge', {isEdit: true})}
+                {this.state.hasType && this.fieldFor('typeEvenement', {isEdit: true,listName: 'typeEvenements', valueKey: 'code', labelKey: 'name'})}
+                {this.state.hasAction && this.fieldFor('action', {isEdit: true, valueKey: 'value', labelKey: 'label' , 
                     values: [{
                         value: '{participants: user}',
                         label: 'Participant'
