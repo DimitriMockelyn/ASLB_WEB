@@ -39,7 +39,7 @@ export default React.createClass({
                     <UserRibbonSelect hasLoad={false} data={userHelper.getLogin()} onPopinClose={this.closePopinRibbon}/>
                 </Popin>}
                 {this.state.popinBadge && <Popin open={true} onPopinClose={this.closePopinBadge}>
-                        {this.state.popinBadge.allBadges.map(bd => {
+                        {this.state.popinBadge.badgesWithDate.map(bd => {
                             return <div data-focus='badges-line'><div className={this.state.popinBadge.mapCount[bd._id] !== 0 ? 'badge-info-line '+bd.code : 'badge-info-line'}>
                                         <div data-focus='round-line'>
                                             <div>

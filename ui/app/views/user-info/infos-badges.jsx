@@ -2,6 +2,7 @@ import React from 'react';
 import profileServices from '../../services/profile';
 import userHelper from 'focus-core/user';
 import {component as Popin} from 'focus-components/application/popin';
+import moment from 'moment';
 
 export default React.createClass({
     displayName: 'BadgesView',
@@ -25,9 +26,14 @@ export default React.createClass({
         allBadges.map(item => {
             mapCount[item._id] = 0;
         })
+        let badgesWithDate = res.allBadges;
         if (badgesRecus && badgesRecus.length > 0) {
             badgesRecus.map(badgeRecu => {
                 var badgeDef = allBadges.find(elt => {return elt._id === badgeRecu.badge});
+                var badgeDef = badgesWithDate.find(elt => {return elt._id === badgeRecu.badge});
+                if (!badgeDef.dateRecu  || badgeDef.dateRecu.isBefore( moment(badgeRecu.dateRecu, moment.ISO_8601))) {
+                    badgeDef.dateRecu = moment(badgeRecu.dateRecu, moment.ISO_8601);
+                }
                 allAquired.push(badgeDef);
                 mapCount[badgeDef._id] = mapCount[badgeDef._id]+1;
                 if (badgeDef.code === 'Platinium') {
@@ -41,7 +47,25 @@ export default React.createClass({
                 } 
             })
         }
-        this.setState({allBadges, badgesRecus,bronze, argent, or, platinium, allAquired, mapCount});
+        badgesWithDate.sort((b1,b2) => {
+            if (!b1.dateRecu && !b2.dateRecu) {
+                return 0;
+            }
+            if (!b1.dateRecu && b2.dateRecu) {
+                return 1;
+            }
+            if (b1.dateRecu && !b2.dateRecu) {
+                return -1;
+            }
+            if (b1.dateRecu.isBefore(b2.dateRecu)) {
+                return 1;
+            }
+            if (b1.dateRecu.isAfter(b2.dateRecu)) {
+                return -1;
+            }
+            return 0;
+        })
+        this.setState({allBadges, badgesRecus, badgesWithDate,bronze, argent, or, platinium, allAquired, mapCount});
     },
     computeBadgeFor(data, className) {
         if (data && data.length > 0) {

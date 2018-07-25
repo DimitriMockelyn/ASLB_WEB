@@ -22,22 +22,24 @@ export default React.createClass({
     render() {
         return (
             <div data-focus='panel-into-panel'>
-                <Panel title={this.props.value.titre} actions={this.renderActionsEdit}>
-                    <div data-focus='badges-line'>
-                        <div className={'badge-info-line ' + this.props.value.code}>
-                            <div data-focus='round-line'>
-                                <div>
-                                    <div className={this.props.value.code} />
-                                </div>
+                <div data-focus='badges-line'>
+                    <div className={'badge-info-line '+this.props.value.code}>
+                        <div data-focus='round-line'>
+                            <div>
+                                <div className={this.props.value.code} />
+                                <Button type='button' label='button.edit' shape='icon' icon='edit' handleOnClick={() => { this.props.editAction(this.props.value) }} />
                             </div>
-                            <div className='desc-line'>
-                                <div className='description'>
-                                    {this.props.value.description}
-                                </div>
+                        </div>
+                        <div className='desc-line'>
+                            <div className='title'>
+                                {this.props.value.titre}
+                            </div>
+                            <div className='description'>
+                                {this.props.value.description} 
                             </div>
                         </div>
                     </div>
-                </Panel>
+                </div>
             </div>
         );
     }

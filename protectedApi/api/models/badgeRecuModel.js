@@ -16,6 +16,10 @@ var BadgeRecu = new Schema({
   user: {
     type: mongoose.Schema.Types.ObjectId,
 		ref: 'User'
+  },
+  dateRecu: {
+    type: Date,
+    default: Date.now
   }
 });
 
