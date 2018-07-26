@@ -23,7 +23,6 @@ var mongoose = require('mongoose'),
 
   var formidable = require('formidable');
 
-  var TOKEN_NB = 3;
   var GLISSEMENT_JOURS_STATS = 30;
 
 exports.register = function(req, res) {
@@ -424,7 +423,7 @@ exports.load_tokens = function(req, res) {
               });
               found ? countInscrit++ : countAttente++;
             });
-            return res.json({count:TOKEN_NB - events.length, countAttente, countInscrit});
+            return res.json({count:user.tokens - events.length, countAttente, countInscrit});
         }).populate('typeEvenement', '_id code')
       })
     }
@@ -469,10 +468,10 @@ exports.inscriptionTokenPossible = function(req, res, next) {
                   if (err) {
                     throw err;
                   }
-                  if (events.length < TOKEN_NB || user.isAdmin) {
+                  if (events.length < user.tokens || user.isAdmin) {
                     return next();
                   } else {
-                    return res.status(401).json({ message: 'Vous ne pouvez pas vous inscrire a plus de '+TOKEN_NB.toString()+' cours à la fois' });
+                    return res.status(401).json({ message: 'Vous ne pouvez pas vous inscrire a plus de '+user.tokens.toString()+' cours à la fois' });
                   }
               }).populate('typeEvenement', '_id code').populate('fileAttente', '_id personne');
             })
