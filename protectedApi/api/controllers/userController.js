@@ -558,6 +558,7 @@ function fill_user_data(users_db, formatDate, cb) {
     users[index]['isAdmin'] = users_db[index]['isAdmin'];
     users[index]['canCreate'] = users_db[index]['canCreate'];
     users[index]['actif'] = users_db[index]['actif'];
+    users[index]['tokens'] = users_db[index]['tokens'];
   }
   var minDate = new Date(Date.now());
   minDate.setDate(minDate.getDate() - GLISSEMENT_JOURS_STATS);
@@ -776,7 +777,8 @@ exports.update_date_activation = function(req, res) {
     prenom: req.body.prenom,
     email: req.body.email,
     telephone: req.body.telephone,
-    dateNaissance: req.body.dateNaissance
+    dateNaissance: req.body.dateNaissance,
+    tokens: req.body.tokens
   }, function(err, userActif) {
     if (err) {
       return res.json({updated: false});

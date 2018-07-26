@@ -156,6 +156,7 @@ export default React.createClass({
                     <div>Certificat</div>
                     <div>Côtisation</div>
                     <div>Nombre d'inscriptions dans les 30 derniers jours</div>
+                    <div>Nombre max de Jetons</div>
                     <div></div>
                 </div>
                 {this.state.users && this.state.users.length > 0 && this.state.users.map((value, pos) => {
@@ -179,6 +180,7 @@ export default React.createClass({
                             <div>{value.certificat}</div>
                             <div>{value.cotisation}</div>
                             <div>{value.nombreInscription}</div>
+                            <div>{value.tokens}</div>
                             <div><Button type='button' icon='edit' shape='fav' handleOnClick={() => {this.openPopin(value)}}/>
                             <Button type='button' icon='fitness_center' shape='fav' handleOnClick={() => {this.openPopinRibbon(value)}}/></div>
                         </div>
