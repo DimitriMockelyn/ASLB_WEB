@@ -20,7 +20,7 @@ export default React.createClass({
     render() {
         var limitString = this.props.data.limite ?  '/' + this.props.data.limite : '';
         return (
-        <div className={'rbc-event event-caroussel ' + (this.props.data.typeEvenement ? this.props.data.typeEvenement.code : '') } onClick={this.onClickTile}>
+        <div className={'rbc-event event-caroussel ' + (this.props.data.typeEvenement ? this.props.data.typeEvenement.code : '') + (!this.props.data.tokenConsumer ? ' gratuit ' : '') } onClick={this.onClickTile}>
                 <div>
                     {(this.props.data.typeEvenement ?  this.props.data.typeEvenement.name : '') + ' - ' + this.props.data.name}
                 </div>

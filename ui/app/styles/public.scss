@@ -286,6 +286,11 @@ button.mdl-button:not(.mdl-button--icon) {
   background-color: inherit;
 }
 
+.rbc-event.event-caroussel.gratuit:before {
+  right: 17px;
+    bottom: 2px;
+}
+
 .rbc-event.participant:after {
   content: '\2713';
   position: absolute;
@@ -754,6 +759,7 @@ $lines-to-show: 3;
           -webkit-box-orient: vertical;
           overflow: hidden;
           text-overflow: ellipsis;
+          word-break: break-word;
         }
         [data-focus="tile-info"] {
           font-style: italic;
