@@ -38,7 +38,7 @@ button.mdl-button:not(.mdl-button--icon) {
 }
 
 [data-focus='menu-left'] {
-  z-index: 1001;
+  z-index: 1800;
   background-color: $primary-color;
 }
 
@@ -1386,7 +1386,7 @@ p {
 }
 
 [data-focus="historique-list"] + [data-focus='popin'][data-type='from-right'] > [data-focus='popin-overlay'] {
- z-index: 1002;
+ z-index: 1900;
 }
 
 .display-center {
