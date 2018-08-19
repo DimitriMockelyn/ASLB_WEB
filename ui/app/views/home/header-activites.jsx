@@ -70,12 +70,12 @@ export default React.createClass({
             <div>
               <div className='center-text top-header-act'>{translate('admin.detailActivites')}</div>
             <div data-focus='header-activites'>           
-                <Carousel wrapAround={true} slidesToShow={3} decorators={Decorators}>
+                <Carousel wrapAround={true} slidesToShow={7} decorators={Decorators}>
                 {eventsDesc.map(data => {
                     if (data.image) {
                     return (<div onClick={this.togglePopinLegende(data.code)}>
                             <img src={data.image} />
-                            <div>{data.name}</div>
+                            <div className={'header-name ' + data.code}>{data.name}</div>
                         </div>);
                     }
                 })}

@@ -960,7 +960,6 @@ $lines-to-show: 3;
   flex-direction: row;
   margin-right: auto;
   & > div {
-    border: 1px solid black;
     padding: 3px;
     justify-content: center;
     align-items: center;
@@ -969,7 +968,7 @@ $lines-to-show: 3;
     margin: auto;
     cursor: pointer;
     img {
-      height: 150px;
+      height: 40px;
       width: auto;
     }
     & > div {
@@ -1276,9 +1275,9 @@ i.inscrit {
 }
 
 [data-focus="header-activites"] > div.slider {
-  height: 180px !important;
+  height: 80px !important;
   & > .slider-frame {
-    height: 174px !important;
+    height: 74px !important;
   }
   .slider-decorator-2 {
     display: none !important;
