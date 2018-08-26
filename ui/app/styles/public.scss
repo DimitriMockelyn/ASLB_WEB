@@ -1560,3 +1560,7 @@ p {
 [data-focus='me-panel'] [data-focus="badges-line"] [data-focus="round-line"] {
   justify-content: flex-start;
 }
+
+[data-scope="profile-top"] [data-focus="badges-line"] [data-focus="round-line"] {
+  margin-bottom: 0px;
+}
