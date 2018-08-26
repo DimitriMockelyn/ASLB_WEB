@@ -18,7 +18,7 @@ export default {
         return fetch(profileUrl.loadNotifications(), utils.computeHeaders());
     },
     readNotification(id) {
-        return fetch(profileUrl.readNotification({urlData: {id}}), utils.computeHeaders());
+        return fetch(profileUrl.readNotification({urlData: {id}, data: {id}}), utils.computeHeaders());
     },
     getInfoBadges(id) {
         return fetch(profileUrl.getInfoBadges({urlData: {id}}));
