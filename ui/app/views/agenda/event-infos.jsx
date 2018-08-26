@@ -195,6 +195,13 @@ export default React.createClass({
                 users = users + ';'+ this.state.participants[index].email 
             }
         }
+        for (let index in this.state.fileAttente) {
+            if (users === '') {
+                users = this.state.fileAttente[index].personne.email;
+            } else {
+                users = users + ';'+ this.state.fileAttente[index].personne.email 
+            }
+        }
         window.location.href = 'mailto:'+users;
     },
     computeSexeData(membre) {
