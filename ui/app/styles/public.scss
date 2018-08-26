@@ -1556,3 +1556,7 @@ p {
     display: flex;
   }
 }
+
+[data-focus='me-panel'] [data-focus="badges-line"] [data-focus="round-line"] {
+  justify-content: flex-start;
+}

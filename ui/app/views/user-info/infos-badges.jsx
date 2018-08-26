@@ -83,7 +83,9 @@ export default React.createClass({
         }
     },
     togglePopin() {
-        this.props.togglePopinBadge(this.state);
+        if (this.props.togglePopinBadge) {
+            this.props.togglePopinBadge(this.state);
+        }
     },
     closePopin() {
         this.setState({showPopin: false});

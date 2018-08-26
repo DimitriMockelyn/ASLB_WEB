@@ -11,6 +11,7 @@ import ConnectOrCreate from './connect-or-create';
 import MyInfo from './my-info';
 import Bienvenue from './bienvenue';
 import NotificationCenter from './notification-center';
+import InfosBadges from '../../views/user-info/infos-badges';
 export default React.createClass({
     displayName: 'HomeView',
     mixins: [formMixin],
@@ -86,7 +87,10 @@ export default React.createClass({
             {userHelper.getLogin() && 
                 this.renderTokens()}
             {userHelper.getLogin() && 
-                <label>{userHelper.getLogin().prenom + ' ' + userHelper.getLogin().nom}</label>}
+                <div>
+                <label>{userHelper.getLogin().prenom + ' ' + userHelper.getLogin().nom}</label>
+                <InfosBadges id={userHelper.getLogin()._id} />
+                </div>}
             {!userHelper.getLogin() && 
                 <label>{i18n.t('user.connect')}</label> }
                 {(!userHelper.getLogin() || !userHelper.getLogin().avatar) &&<i className='material-icons'>person</i>}
