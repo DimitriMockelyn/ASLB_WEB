@@ -437,7 +437,7 @@ div[data-focus="field"][data-mode="edit"][data-domain='DO_RTE'] [data-focus="fie
 }
 
 [data-focus='list-home'] {
-  margin: 30px;
+  margin: 5px;
   [data-focus='news-list'] {
   max-height: 600px;
   margin: 30px;
@@ -956,7 +956,7 @@ $lines-to-show: 3;
   max-width: calc( 100vw - 450px);
   overflow: auto;
   margin-top: -60px;
-  margin-bottom: 30px;
+  margin-bottom: 10px;
   flex-direction: row;
   margin-right: auto;
   & > div {
@@ -1298,7 +1298,7 @@ i.inscrit {
   height: 67px !important;
   padding-left: 50px;
   padding-right: 50px;
-  .slider-slide > div {
+  .rbc-event {
     margin-right: 15px;
     height: 60px;
     & > div {
