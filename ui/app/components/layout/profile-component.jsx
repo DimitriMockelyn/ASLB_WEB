@@ -87,7 +87,7 @@ export default React.createClass({
             {userHelper.getLogin() && 
                 this.renderTokens()}
             {userHelper.getLogin() && 
-                <div>
+                <div data-focus='user-name-badges'>
                 <label>{userHelper.getLogin().prenom + ' ' + userHelper.getLogin().nom}</label>
                 <InfosBadges id={userHelper.getLogin()._id} />
                 </div>}

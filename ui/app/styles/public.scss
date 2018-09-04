@@ -1564,3 +1564,10 @@ p {
 [data-scope="profile-top"] [data-focus="badges-line"] [data-focus="round-line"] {
   margin-bottom: 0px;
 }
+
+[data-focus='user-name-badges'] {
+  height: 45px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
