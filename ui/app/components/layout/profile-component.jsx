@@ -58,10 +58,13 @@ export default React.createClass({
         for (let index = 0; index < this.state.inscrit; index++) {
             dataToken.push({className: 'inscrit'});
         }
+        let size = 15*(3.0/dataToken.length);
+        let margin = 2.0*(3.0/dataToken.length);
+        let style = {'width': size+'px', 'height':  size+'px', 'margin': margin+'px'};
         return <div data-focus='credit-line'>
             {dataToken.length > 0 && <label>Mes Crédits :</label>}
             <div>{dataToken.map(tk => {
-                return <i className={tk.className + ' material-icons'}></i>
+                return <i style={style} className={tk.className + ' material-icons'}></i>
             })}</div>
             </div>
     },

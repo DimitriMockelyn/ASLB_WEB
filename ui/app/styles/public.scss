@@ -1224,7 +1224,7 @@ div[data-focus="field"] [data-focus="field-label-container"].mdl-cell--12-col {
 i.tokenValid {
   color: green !important;
   font-size: 15px !important;
-  margin: 2px !important;
+  //margin: 2px !important;
   background-image: url('../assets/button-green.png');
   background-size: 100% 100%;
   width: 15px;
@@ -1233,7 +1233,7 @@ i.tokenValid {
 
 i.attente {
   font-size: 15px !important;
-  margin: 2px !important;
+  //margin: 2px !important;
   background-image: url('../assets/button-yellow.png');
   background-size: 100% 100%;
   width: 15px;
@@ -1242,7 +1242,7 @@ i.attente {
 i.inscrit {
   color: red !important;
   font-size: 15px !important;
-  margin: 2px !important;
+  //margin: 2px !important;
   background-image: url('../assets/button-red.png');
   background-size: 100% 100%;
   width: 15px;
@@ -1252,7 +1252,14 @@ i.inscrit {
 [data-focus='credit-line'] {
   display: flex;
   margin-right: 5px;
+
   flex-direction: row;
+  div {
+    display: flex;
+    margin-left: 5px;
+    justify-content: center;
+    align-items: center;
+  }
 }
 
 

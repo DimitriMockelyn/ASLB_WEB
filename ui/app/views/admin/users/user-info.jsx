@@ -126,6 +126,7 @@ export default React.createClass({
                 {this.fieldFor('cotisation', {onChange: this.onChangeInfo('cotisation')})}
                 {this.fieldFor('canCreate', {isEdit: false})}
                 {this.fieldFor('isAdmin', {isEdit: false})}
+                {this.fieldFor('tokens')}
 
                 <div>  
                     <Button label='person.toggleCanCreate' type='button' handleOnClick={this.canCreateToggle} />
