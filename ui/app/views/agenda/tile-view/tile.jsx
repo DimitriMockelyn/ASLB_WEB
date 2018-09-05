@@ -20,7 +20,7 @@ export default React.createClass({
         props.className = props.className + ' rbc-event';
         var limitString = this.props.data.limite ?  '/' + this.props.data.limite : '';
         if (this.props.data.fileAttente && this.props.data.fileAttente.length > 0 ) {
-            limitString = limitString + ' ('+this.props.data.fileAttente.length+' en attente)'
+            limitString = limitString + ' (En attente : '+this.props.data.fileAttente.length+')'
         }
         return (
             <div data-focus='tile'  {...props} onClick={this.props.onClickTile}>
