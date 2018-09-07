@@ -1578,3 +1578,22 @@ p {
   flex-direction: column;
   justify-content: space-around;
 }
+
+.card-link {
+  .user-card-header {
+    display: none;
+  }
+  .card {
+    min-height: 175px;
+  }
+  .user-card-body {
+    padding-top: 1rem;
+    padding-bottom: 4rem;
+  }
+  .user-card-avatar {
+    top: calc(50% - 3.5rem);
+  }
+  .user-card-stats {
+    margin-top: auto;
+  }
+}

@@ -26,5 +26,11 @@ export default {
     },
     toggleSelfForMachine(id) {
         return fetch(homeUrl.toggleSelfForMachine({urlData: {id}, data: {test: true}}), utils.computeHeaders());
+    },
+    loadContributeurs() {
+        return fetch(homeUrl.loadContributeurs());
+    },
+    loadContributeursInfo(login) {
+        return fetch(homeUrl.loadContributeursInfo({urlData: {login}}));
     }
 };
