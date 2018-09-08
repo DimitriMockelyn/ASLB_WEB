@@ -101,7 +101,7 @@ button.mdl-button:not(.mdl-button--icon) {
   right: 0px;
   width: 400px;
   height: 60px;
-  z-index: 1001;
+  z-index: 1850;
   display: flex;
   justify-content: flex-end;
   align-items: center;
@@ -136,6 +136,10 @@ button.mdl-button:not(.mdl-button--icon) {
       margin-right: 10px;
     }
   }
+}
+
+[data-focus='popin'][data-type='full'] > [data-focus='popin-overlay'] {
+  z-index: 1900;
 }
 
 [data-focus='layout'] > [data-focus='confirmation-popin'] > [data-focus='popin'][data-type='full'] > [data-focus='popin-overlay'] {
