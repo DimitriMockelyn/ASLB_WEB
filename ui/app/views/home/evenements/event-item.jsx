@@ -19,6 +19,9 @@ export default React.createClass({
     /** @inheritDoc */
     render() {
         var limitString = this.props.data.limite ?  '/' + this.props.data.limite : '';
+        if (this.props.data.fileAttente && this.props.data.fileAttente.length > 0 ) {
+            limitString = limitString + ' (En attente : '+this.props.data.fileAttente.length+')'
+        }
         return (
         <div className={'rbc-event event-caroussel ' + (this.props.data.typeEvenement ? this.props.data.typeEvenement.code : '') + (!this.props.data.tokenConsumer ? ' gratuit ' : '') } onClick={this.onClickTile}>
                 <div>

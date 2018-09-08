@@ -341,7 +341,8 @@ export default {
         reglement: 'Règlement',
         certificat: 'Certificat',
         cotisation: 'Cotisation',
-        numero: 'Numéro d\'adhérent'
+        numero: 'Numéro d\'adhérent',
+        tokens: 'Nombre max de jetons'
 
     },
     confirmAddDroits: {

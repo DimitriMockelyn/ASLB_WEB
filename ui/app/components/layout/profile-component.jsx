@@ -11,6 +11,7 @@ import ConnectOrCreate from './connect-or-create';
 import MyInfo from './my-info';
 import Bienvenue from './bienvenue';
 import NotificationCenter from './notification-center';
+import InfosBadges from '../../views/user-info/infos-badges';
 export default React.createClass({
     displayName: 'HomeView',
     mixins: [formMixin],
@@ -57,10 +58,13 @@ export default React.createClass({
         for (let index = 0; index < this.state.inscrit; index++) {
             dataToken.push({className: 'inscrit'});
         }
+        let size = 15*(3.0/dataToken.length);
+        let margin = 2.0*(3.0/dataToken.length);
+        let style = {'width': size+'px', 'height':  size+'px', 'margin': margin+'px'};
         return <div data-focus='credit-line'>
             {dataToken.length > 0 && <label>Mes Crédits :</label>}
             <div>{dataToken.map(tk => {
-                return <i className={tk.className + ' material-icons'}></i>
+                return <i style={style} className={tk.className + ' material-icons'}></i>
             })}</div>
             </div>
     },
@@ -86,7 +90,10 @@ export default React.createClass({
             {userHelper.getLogin() && 
                 this.renderTokens()}
             {userHelper.getLogin() && 
-                <label>{userHelper.getLogin().prenom + ' ' + userHelper.getLogin().nom}</label>}
+                <div data-focus='user-name-badges'>
+                <label>{userHelper.getLogin().prenom + ' ' + userHelper.getLogin().nom}</label>
+                <InfosBadges id={userHelper.getLogin()._id} />
+                </div>}
             {!userHelper.getLogin() && 
                 <label>{i18n.t('user.connect')}</label> }
                 {(!userHelper.getLogin() || !userHelper.getLogin().avatar) &&<i className='material-icons'>person</i>}

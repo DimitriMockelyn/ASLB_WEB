@@ -437,7 +437,7 @@ div[data-focus="field"][data-mode="edit"][data-domain='DO_RTE'] [data-focus="fie
 }
 
 [data-focus='list-home'] {
-  margin: 30px;
+  margin: 5px;
   [data-focus='news-list'] {
   max-height: 600px;
   margin: 30px;
@@ -956,11 +956,10 @@ $lines-to-show: 3;
   max-width: calc( 100vw - 450px);
   overflow: auto;
   margin-top: -60px;
-  margin-bottom: 30px;
+  margin-bottom: 10px;
   flex-direction: row;
   margin-right: auto;
   & > div {
-    border: 1px solid black;
     padding: 3px;
     justify-content: center;
     align-items: center;
@@ -969,7 +968,7 @@ $lines-to-show: 3;
     margin: auto;
     cursor: pointer;
     img {
-      height: 150px;
+      height: 40px;
       width: auto;
     }
     & > div {
@@ -1225,7 +1224,7 @@ div[data-focus="field"] [data-focus="field-label-container"].mdl-cell--12-col {
 i.tokenValid {
   color: green !important;
   font-size: 15px !important;
-  margin: 2px !important;
+  //margin: 2px !important;
   background-image: url('../assets/button-green.png');
   background-size: 100% 100%;
   width: 15px;
@@ -1234,7 +1233,7 @@ i.tokenValid {
 
 i.attente {
   font-size: 15px !important;
-  margin: 2px !important;
+  //margin: 2px !important;
   background-image: url('../assets/button-yellow.png');
   background-size: 100% 100%;
   width: 15px;
@@ -1243,7 +1242,7 @@ i.attente {
 i.inscrit {
   color: red !important;
   font-size: 15px !important;
-  margin: 2px !important;
+  //margin: 2px !important;
   background-image: url('../assets/button-red.png');
   background-size: 100% 100%;
   width: 15px;
@@ -1253,7 +1252,14 @@ i.inscrit {
 [data-focus='credit-line'] {
   display: flex;
   margin-right: 5px;
+
   flex-direction: row;
+  div {
+    display: flex;
+    margin-left: 5px;
+    justify-content: center;
+    align-items: center;
+  }
 }
 
 
@@ -1276,9 +1282,9 @@ i.inscrit {
 }
 
 [data-focus="header-activites"] > div.slider {
-  height: 180px !important;
+  height: 80px !important;
   & > .slider-frame {
-    height: 174px !important;
+    height: 74px !important;
   }
   .slider-decorator-2 {
     display: none !important;
@@ -1299,7 +1305,7 @@ i.inscrit {
   height: 67px !important;
   padding-left: 50px;
   padding-right: 50px;
-  .slider-slide > div {
+  .rbc-event {
     margin-right: 15px;
     height: 60px;
     & > div {
@@ -1555,5 +1561,39 @@ p {
     justify-content: center;
     align-items: center;
     display: flex;
+  }
+}
+
+[data-focus='me-panel'] [data-focus="badges-line"] [data-focus="round-line"] {
+  justify-content: flex-start;
+}
+
+[data-scope="profile-top"] [data-focus="badges-line"] [data-focus="round-line"] {
+  margin-bottom: 0px;
+}
+
+[data-focus='user-name-badges'] {
+  height: 45px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+
+.card-link {
+  .user-card-header {
+    display: none;
+  }
+  .card {
+    min-height: 175px;
+  }
+  .user-card-body {
+    padding-top: 1rem;
+    padding-bottom: 4rem;
+  }
+  .user-card-avatar {
+    top: calc(50% - 3.5rem);
+  }
+  .user-card-stats {
+    margin-top: auto;
   }
 }

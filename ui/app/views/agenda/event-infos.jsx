@@ -17,11 +17,11 @@ import Absents from '../historique/absents';
 import {component as Popin} from 'focus-components/application/popin';
 const ConfirmPopup = React.createClass({
     render() {
-        return <div data-focus='display-column' className={this.props.tokensRestant === 0 ? 'no-actions' : ''}>
+        return <div data-focus='display-column' className={(this.props.tokensRestant === 0 && this.props.isNotFree) ? 'no-actions' : ''}>
                 {this.props.tokensRestant !== 0 && translate('agenda.messageQueue').split('\n').map(data => {
                     return <label>{data}</label>
                 })}
-                {this.props.tokensRestant === 0 && translate('agenda.messageQueueImpossible').split('\n').map(data => {
+                {(this.props.tokensRestant === 0 || !this.props.isNotFree) && translate('agenda.messageQueueImpossible').split('\n').map(data => {
                     return <label>{data}</label>
                 })}
         </div>
@@ -58,7 +58,7 @@ export default React.createClass({
     addSelf() {
         if (this.validate()) {
             if (this.props.event.participants.length === this.props.event.limite) {
-                confirm(() => { return <ConfirmPopup tokensRestant={this.props.tokensRestant} />}, {cancelButtonLabel: 'button.cancelQueue', confirmButtonLabel: 'button.acceptQueue'}).then(this.trueAddSelf);
+                confirm(() => { return <ConfirmPopup isNotFree={this.props.event.tokenConsumer} tokensRestant={this.props.tokensRestant}  />}, {cancelButtonLabel: 'button.cancelQueue', confirmButtonLabel: 'button.acceptQueue'}).then(this.trueAddSelf);
             } else { 
                 this.trueAddSelf();
             }
@@ -193,6 +193,13 @@ export default React.createClass({
                 users = this.state.participants[index].email;
             } else {
                 users = users + ';'+ this.state.participants[index].email 
+            }
+        }
+        for (let index in this.state.fileAttente) {
+            if (users === '') {
+                users = this.state.fileAttente[index].personne.email;
+            } else {
+                users = users + ';'+ this.state.fileAttente[index].personne.email 
             }
         }
         window.location.href = 'mailto:'+users;
