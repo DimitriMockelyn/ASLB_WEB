@@ -47,7 +47,7 @@ export default React.createClass({
                 <label>
                     Les contributeurs actuels sont :
                 </label>
-                <div data-focus='display-row'>
+                <div data-focus='display-row' style={{'flex-wrap': 'wrap'}}>
                 {this.state && this.state.contributeurs && this.state.contributeurs.map(ct => {
                     return  <UserCard
                     cardClass='float'
