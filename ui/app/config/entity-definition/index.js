@@ -124,6 +124,16 @@ export default {
             required: false
         },
     },
+    machine: {
+        nom: {
+            domain: 'DO_LABEL_LONG',
+            required: true
+        },
+        type: {
+            domain: 'DO_LABEL_LONG',
+            required: true
+        }
+    },
     event: {
         tokenConsumer: {
             domain: 'DO_YES_NO',

@@ -21,6 +21,7 @@ import {navigate} from 'focus-core/history';
 import {component as Button} from 'focus-components/common/button/action';
 import Blocs from './blocs';
 import Medias from './medias';
+import Machines from './machines';
 import {downloadCSV} from '../../utils/download';
 import adminServices from '../../services/admin';
 
@@ -64,6 +65,7 @@ export default React.createClass({
                     <Medias hasLoad={false} />
                     <Presentations hasLoad={false} />
                     <TypeActivites hasLoad={false} />
+                    <Machines hasLoad={false} />
                     <Ribbons hasLoad={false} />
                     
                 </ScrollspyContainer>

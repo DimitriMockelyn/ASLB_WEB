@@ -9,6 +9,9 @@ export default {
     loadMedias() {
         return fetch(homeUrl.loadMedias());
     },
+    loadMachines() {
+        return fetch(homeUrl.loadMachines());
+    },
     loadPresentations() {
         return fetch(homeUrl.loadPresentations());
     },

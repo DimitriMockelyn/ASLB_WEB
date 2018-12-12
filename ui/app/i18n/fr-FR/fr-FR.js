@@ -179,6 +179,8 @@ export default {
         exportEvents: 'Exporter les évenements',
         addMedia: 'Ajouter un média',
         media: 'Média',
+        addMachine: 'Ajouter une machine',
+        machine: 'Machine',
         adminBlocs: 'Administrer les blocs',
         detailActivites: 'Détails des activités',
         adminUsers: 'Administrer les utilisateurs',
@@ -271,12 +273,17 @@ export default {
         presentation: 'Etes-vous sur de vouloir supprimer cette présentation ?',
         typeEvenement: 'Etes-vous sur de vouloir supprimer ce type d\'évènement ?',
         entreprise: 'Etes-vous sur de vouloir supprimer cette entreprise ?',
+        machine: 'Etes-vous sur de vouloir supprimer cette machine ? Cette action est irréversible'
     },
     select: {
         unSelected: '-',
         oui: 'Oui',
         non: 'Non'
 
+    },
+    machine: {
+        nom: 'Nom',
+        type: 'Type'
     },
     user: {
         firstConnect: 'Première connexion',

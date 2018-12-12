@@ -120,6 +120,15 @@ export default {
     createMedia(data) {
         return fetch(adminUrl.createMedia({data}), utils.computeHeaders());
     },
+    editMachine(data) {
+        return fetch(adminUrl.editMachine({urlData: {id: data.id}, data: data}), utils.computeHeaders());
+    },
+    deleteMachine(data) {
+        return fetch(adminUrl.deleteMachine({urlData: {id: data.id}}), utils.computeHeaders());
+    },
+    createMachine(data) {
+        return fetch(adminUrl.createMachine({data}), utils.computeHeaders());
+    },
     toggleChat(data) {
         return fetch(adminUrl.toggleChat({urlData: {id: data._id}}), utils.computeHeaders());
     },

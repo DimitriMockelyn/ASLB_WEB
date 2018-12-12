@@ -30,10 +30,12 @@ export default React.createClass({
     computeCreneaux(creneaux) {
         let data = {};
         creneaux.map( creneaux => {
+            if (creneaux.machine) {
             if (!data[creneaux.machine.nom]) {
-                data[creneaux.machine.nom] = [];
+                    data[creneaux.machine.nom] = [];
+                }
+                data[creneaux.machine.nom].push(creneaux);
             }
-            data[creneaux.machine.nom].push(creneaux);
         });
         for (let index in data) {
             data[index].sort(function(a,b){

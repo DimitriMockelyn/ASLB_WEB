@@ -246,6 +246,14 @@ module.exports = function(app) {
 	app.route('/listMachinesForDay')
 		.post(machinesController.load_list_machine)
 
+	app.route('/machines')
+		.get(adminHandler.list_all_machines)
+		.put(userHandlers.loginRequired,  userHandlers.isAdmin, adminHandler.create_machine)
+
+	app.route('/machines/:id')
+		.post(userHandlers.loginRequired,  userHandlers.isAdmin, adminHandler.edit_machine)
+		.delete(userHandlers.loginRequired,  userHandlers.isAdmin, adminHandler.delete_machine)
+
 	app.route('/toggleSelfForMachine/:id')
 		.post(userHandlers.loginRequired, userHandlers.isMembreActif, machinesController.toggle_self_for_machine);
 

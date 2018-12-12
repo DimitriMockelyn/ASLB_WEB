@@ -502,3 +502,42 @@ exports.edit_media = function(req, res) {
     res.json({updated: true});
   });
 };
+
+//Partie machine
+exports.list_all_machines = function(req, res) {
+  Machine.find({}, function(err, ptns) {
+    if (err) {
+      res.send(err);
+    }
+    res.json(ptns);
+  }).sort({date: -1});
+};
+
+exports.create_machine = function(req, res) {
+  var new_ptn = new Machine(req.body);
+  new_ptn.save(function(err, news) {
+    if (err)
+      res.send(err);
+    res.json({created: true});
+  });
+};
+
+exports.delete_machine = function(req, res) {
+  Machine.remove({_id:req.params.id}, function(err, news) {
+    if (err)
+      res.send(err);
+    res.json({removed: true});
+  });
+};
+
+exports.edit_machine = function(req, res) {
+  var data = {
+    nom: req.body.nom,
+    type: req.body.type
+  }
+  Machine.findOneAndUpdate({_id:req.params.id}, data, {new: true}, function(err, news) {
+    if (err)
+      res.send(err);
+    res.json({updated: true});
+  });
+};
