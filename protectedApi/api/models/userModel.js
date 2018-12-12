@@ -4,6 +4,7 @@ var mongoose = require('mongoose'),
   bcrypt = require('bcrypt'),
   Schema = mongoose.Schema;
 
+var TOKEN_NB = 3;
 /**
  * User Schema
  */
@@ -107,7 +108,12 @@ var User = new Schema({
   cotisation: {
     type: Boolean,
     default: false
-  }
+  },
+  tokens: {
+    type: Number,
+    required: true,
+    default: TOKEN_NB
+  },
 });
 
 User.methods.comparePassword = function(password) {

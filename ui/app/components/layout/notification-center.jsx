@@ -33,10 +33,9 @@ export default React.createClass({
     onFocusNotif(id) {
         let that = this;
         return () => {
-            console.log('SET TMEOUT');
             that.timeouts.push({id :id, func : setTimeout(() => { 
                     profileServices.readNotification(id).then(() => {that.componentWillMount()});
-                }, 1000)
+                }, 250)
             });
         }
     },
@@ -50,10 +49,11 @@ export default React.createClass({
             })
         }
     },
-    onClickLink(link) {
+    onClickLink(data) {
         return () => {
-            if (link) {
-                navigate(link, true);
+            if (data) {
+                profileServices.readNotification(data._id);
+                navigate(data.lien, true);
             }
         }
     },
@@ -67,7 +67,7 @@ export default React.createClass({
             {this.state.opened && this.state.notifications.length > 0 && <div className='notif-list'>
                 {this.state.notifications.map(data => {
                     return <div className={data.lu ? 'read' : 'unread'} onMouseOver={!data.lu && this.onFocusNotif(data._id)} onMouseOut={!data.lu && this.onBlurNotif(data._id)}>
-                        <div className={data.lien ? 'clickable' : ''} onClick={this.onClickLink(data.lien)}>
+                        <div className={data.lien ? 'clickable' : ''} onClick={this.onClickLink(data)}>
                             {data.message}
                         </div>
                     </div>

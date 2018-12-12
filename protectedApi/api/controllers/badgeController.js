@@ -8,6 +8,7 @@ var mongoose = require('mongoose'),
   BadgeRecu= mongoose.model('BadgeRecu'),
   Presentation= mongoose.model('Presentation'),
   NiveauEvenement= mongoose.model('NiveauEvenement'),
+  Notifications=  mongoose.model('Notifications'),
   Profil = mongoose.model('Profil'),
   moment = require('moment'),
   Commentaire= mongoose.model('Commentaire');
@@ -221,6 +222,7 @@ function createBadgeForEvenements(badge, user, evenements, expectedSize) {
     brecu.badge = badge;
     brecu.user = user;
     brecu.evenements = evenements;
+    saveNotifBadgeForUser(user, badge);
     brecu.save(function(err,rsfinal){
       if (badge.isMultiple) {
         checkBadge(badge,user);
@@ -228,12 +230,24 @@ function createBadgeForEvenements(badge, user, evenements, expectedSize) {
     });
 
   }
+
+}
+
+function saveNotifBadgeForUser(user, badge) {
+  let notif = new Notifications();
+  notif.destinataire = user;
+  notif.lien = 'u/'+user._id;
+  notif.message = 'Tu as débloqué le badge '+badge.titre+' !';
+  notif.save(function(err, not) {
+  })
+
 }
 
 function createBadgeSimple(badge, user) {
     var brecu = new BadgeRecu();
     brecu.badge = badge;
     brecu.user = user;
+    saveNotifBadgeForUser(user, badge);
     brecu.save(function(err,rsfinal){
       if (badge.isMultiple) {
         checkBadge(badge,user);
@@ -247,6 +261,7 @@ function createBadgeForEvenementsNotes(badge, user, commentaires, evenements, ex
     brecu.badge = badge;
     brecu.user = user;
     brecu.evenements = evenements;
+    saveNotifBadgeForUser(user, badge);
     brecu.save(function(err,rsfinal){
       if (badge.isMultiple) {
         checkBadge(badge,user);
