@@ -33,6 +33,7 @@ export default React.createClass({
     mixins: [formMixin],
     definitionPath: 'event',
     referenceNames: ['typeEvenements', 'niveauEvenements', 'typeSexe'],
+    checkDoubleSave: false,
     componentWillMount() {
         this.setState({});
 
@@ -56,11 +57,15 @@ export default React.createClass({
         return moment(this.props.event.date_debut).isBefore(moment());
     },
     addSelf() {
-        if (this.validate()) {
-            if (this.props.event.participants.length === this.props.event.limite) {
-                confirm(() => { return <ConfirmPopup isNotFree={this.props.event.tokenConsumer} tokensRestant={this.props.tokensRestant}  />}, {cancelButtonLabel: 'button.cancelQueue', confirmButtonLabel: 'button.acceptQueue'}).then(this.trueAddSelf);
-            } else { 
-                this.trueAddSelf();
+        if (!this.checkDoubleSave) {
+            this.checkDoubleSave = true
+            if (this.validate()) {
+                this.checkDoubleSave = false;
+                if (this.props.event.participants.length === this.props.event.limite) {
+                    confirm(() => { return <ConfirmPopup isNotFree={this.props.event.tokenConsumer} tokensRestant={this.props.tokensRestant}  />}, {cancelButtonLabel: 'button.cancelQueue', confirmButtonLabel: 'button.acceptQueue'}).then(this.trueAddSelf);
+                } else { 
+                    this.trueAddSelf();
+                }
             }
         }
     },
