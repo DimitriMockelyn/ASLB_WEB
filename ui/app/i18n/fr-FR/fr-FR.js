@@ -320,6 +320,7 @@ export default {
         mailResetSent: 'Un mail vous a été envoyé pour réinitialiser votre mot de passe',
         mailFirstSent: 'Un mail vous a été envoyé pour initialiser votre mot de passe',
         date_activation: 'Date d\'adhésion',
+        date_renouvellement: 'Date de renouvellement d\'adhésion',
         canCreate: 'Peut créer un événement',
         isAdmin: 'Est admin',
         toggleCanCreate: 'Est créateur d’évènements',

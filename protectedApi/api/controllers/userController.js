@@ -512,9 +512,9 @@ exports.export_users = function(req, res) {
     }
     fill_user_data(users_db, true, users => {      
       var fields = ['nom', 'prenom', 'email','numero','sexe.label', 'entreprise.label', 'dateNaissance', 'telephone',
-      'date_activation', 'date_fin', 'dossier_complet', 'adhesion', 'decharge', 'reglement', 'certificat', 'cotisation', 'nombreInscription',
+      'date_activation', 'date_renouvellement', 'date_fin', 'dossier_complet', 'adhesion', 'decharge', 'reglement', 'certificat', 'cotisation', 'nombreInscription',
        'noteMoyenneDonnee', 'noteMoyenneRecue' , 'nombreAbsences', 'nombreCoach']
-      var fieldNames  = ['person.nom', 'person.prenom', 'person.email','Numéro d\'adhérent','sexe.label', 'entreprise.label','person.dateNaissance', 'person.telephone', 'person.date_activation', 'person.date_fin', 'person.dossier_complet',
+      var fieldNames  = ['person.nom', 'person.prenom', 'person.email','Numéro d\'adhérent','sexe.label', 'entreprise.label','person.dateNaissance', 'person.telephone', 'person.date_activation', 'person.date_renouvellement', 'person.date_fin', 'person.dossier_complet',
       'Adhésion', 'Décharge', 'Règlement', 'Certificat', 'Côtisation', 
       'Nombre d\'inscriptions dans les '+GLISSEMENT_JOURS_STATS+' derniers jours', 'Note moyenne donnée sur '+GLISSEMENT_JOURS_STATS+' jours', 
       'Note moyenne recue sur '+GLISSEMENT_JOURS_STATS+' jours', 'Nombre d\'absences sur '+GLISSEMENT_JOURS_STATS+' jours', 'Nombre d\'activités données sur '+GLISSEMENT_JOURS_STATS+' jours']
@@ -545,6 +545,7 @@ function fill_user_data(users_db, formatDate, cb) {
     users[index]['certificat'] = users_db[index].certificat ? 'Oui' : 'Non';
     users[index]['cotisation'] = users_db[index].cotisation ? 'Oui' : 'Non';
     users[index]['date_activation'] = formatDate ? (users_db[index]['date_activation'] ? moment(users_db[index]['date_activation'], moment.ISO_8601).format('DD/MM/YYYY') : '') : users_db[index]['date_activation'];
+    users[index]['date_renouvellement'] = formatDate ? (users_db[index]['date_renouvellement'] ? moment(users_db[index]['date_renouvellement'], moment.ISO_8601).format('DD/MM/YYYY') : '') : users_db[index]['date_renouvellement'];
     users[index]['date_fin'] = formatDate ? ( users_db[index]['date_fin'] ? moment(users_db[index]['date_fin'], moment.ISO_8601).format('DD/MM/YYYY') : '')  : users_db[index]['date_fin'];
     users[index]['nombreInscription'] = 0;
     users[index]['nombreNotesDonnee'] = 0;
@@ -765,6 +766,7 @@ exports.toggle_actif = function(req, res) {
 exports.update_date_activation = function(req, res) {
   User.findByIdAndUpdate(req.params.id, {
     date_activation : req.body.date_activation, 
+    date_renouvellement : req.body.date_renouvellement, 
     date_fin: req.body.date_fin, 
     dossier_complet: req.body.dossier_complet,
     adhesion: req.body.adhesion,

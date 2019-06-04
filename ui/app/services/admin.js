@@ -6,7 +6,7 @@ export default {
     createNews(data) {
         return fetch(adminUrl.createNews({data}), utils.computeHeaders());
     },
-    loadAllNews() {
+    loadAllNews() { 
         return fetch(adminUrl.loadAllNews(), utils.computeHeaders());
     },
     markNewsAsRead(id) {

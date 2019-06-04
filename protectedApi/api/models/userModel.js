@@ -37,6 +37,9 @@ var User = new Schema({
   date_activation: {
     type: Date
   },
+  date_renouvellement: {
+    type: Date
+  },
   date_fin: {
     type: Date
   },

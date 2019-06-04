@@ -38,7 +38,7 @@ export default React.createClass({
         <div>
             <div>
                 <ScrollspyContainer>
-                    <Users hasLoad={false} />
+                    <Users hasLoad={false} actif={false} />
                     <Mails hasLoad={false} />
                 </ScrollspyContainer>
             </div>

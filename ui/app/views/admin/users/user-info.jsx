@@ -66,13 +66,15 @@ export default React.createClass({
     },
     computeDateFin(dateAdhesion) {
         var momentFin = moment('31/08/2018','DD/MM/YYYY');
+        var momentLimit = moment('31/05/2017','DD/MM/YYYY');
+        momentLimit.set('year', moment().get('year'));
         var momentDebut = moment(dateAdhesion, [moment.ISO_8601,'DD/MM/YYYY', 'DDMMYYYY']);
         if (momentDebut.isValid()) {
             momentFin.set('year', momentDebut.get('year'));
             if (momentFin.isBefore(momentDebut)) {
                 momentFin.set('year', momentFin.get('year') +1);
             }
-            if (momentFin.get('year') === 2018) {
+            if (momentDebut.isAfter(momentLimit)) {
                 momentFin.set('year', momentFin.get('year') +1);
             }
             return  momentFin;
@@ -95,8 +97,14 @@ export default React.createClass({
             data[field] = value;
             if (data.adhesion && data.decharge && data.reglement && data.certificat && data.cotisation) {
                 data.dossier_complet = true;
-                data.date_activation = moment();
-                data.date_fin = this.computeDateFin(moment());
+                if (!data.date_activation) {
+                    data.date_activation = moment();
+                }
+                if (field === 'date_renouvellement') {
+                    data.date_fin = this.computeDateFin(value);
+                } else {
+                    data.date_fin = this.computeDateFin(moment());
+                }
             } else {
                 data.dossier_complet = false;
                 data.date_activation = undefined;
@@ -117,6 +125,7 @@ export default React.createClass({
                 {this.fieldFor('telephone')}
                 {this.fieldFor('numero', {isEdit: false})}
                 {this.fieldFor('date_activation', {isEdit: false})}
+                {this.fieldFor('date_renouvellement', {onChange: this.onChangeInfo('date_renouvellement')})}
                 {this.fieldFor('date_fin', {isEdit: false})}
                 {this.fieldFor('dossier_complet', {isEdit: false})}
                 {this.fieldFor('adhesion', {onChange: this.onChangeInfo('adhesion')})}

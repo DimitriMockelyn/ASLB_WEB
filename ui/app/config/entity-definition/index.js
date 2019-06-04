@@ -99,6 +99,10 @@ export default {
             domain: 'DO_DATE',
             required: false
         },
+        date_renouvellement: {
+            domain: 'DO_DATE',
+            required: false
+        },
         date_fin: {
             domain: 'DO_DATE',
             required: false
@@ -230,6 +234,10 @@ export default {
             required: true
         },
         date_activation: {
+            domain: 'DO_DATE',
+            required: false
+        },
+        date_renouvellement: {
             domain: 'DO_DATE',
             required: false
         },
