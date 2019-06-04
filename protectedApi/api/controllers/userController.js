@@ -83,7 +83,7 @@ exports.sign_in = function(req, res) {
       return res.status(401).json({ message: 'Mauvais compte / mot de passe ou compte inactif' });
     }
     badgeController.initBadges(user);
-    return res.json({ token: jwt.sign({ email: user.email, nom: user.nom, prenom: user.prenom, _id: user._id }, 'RESTFULAPIs', {expiresIn: 3600*12}) });
+    return res.json({ token: jwt.sign({ email: user.email, nom: user.nom, prenom: user.prenom, _id: user._id, isAdmin: user.isAdmin }, 'RESTFULAPIs', {expiresIn: 3600*12}) });
 
   });
 };
@@ -333,12 +333,24 @@ exports.isEvenementOwner = function(req, res, next) {
       if (err) {
         return res.status(401).json({ message: 'Evenement non trouvé' });
       }
-      if (evenement.createur._id.toString() === req.user._id.toString() || evenement.animateur._id.toString() === req.user._id.toString()) {
+      console.log(req.user);
+      if (req.user.isAdmin || evenement.createur._id.toString() === req.user._id.toString() || evenement.animateur._id.toString() === req.user._id.toString()) {
         return next();
       } else {
+        if (evenement.coanimateurs) {
+          isCoanim = false;
+          event.coanimateurs.map(anim => {
+            if (anim.toString() === req.user._id.toString()) {
+              isCoanim = true;
+            }
+          })
+          if (isCoanim) {
+            return next();
+          }
+        }
       return res.status(401).json({ message: 'Vous n\'êtes pas le propriétaire de cet évenement' });
       }
-    }).populate('createur').populate('animateur');
+    }).populate('createur').populate('animateur').populate('coanimateurs');
   } else {
     return res.status(401).json({ message: 'Vous n\'êtes pas le propriétaire de cet évenement' });
   }

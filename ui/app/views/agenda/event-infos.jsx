@@ -159,13 +159,13 @@ export default React.createClass({
     renderActionsUpdate() {
         var buttonMail = <div/>
         if (this.isPasse()) {
-           if (this.isAnimateur()) {
+           if (this.isAnimateur() || this.isCoAnimateur() || (userHelper.getLogin() && userHelper.getLogin().isAdmin)) {
                 buttonMail = <Button label='button.sendMailParticipants' icon='mail' type='button' handleOnClick={this.sendMailParticipants} />;
             }
             return buttonMail;
         }
         var buttonEdit = <div/>;
-        if (this.isOwner() || this.isAnimateur()) {
+        if (this.isOwner() || this.isAnimateur() || this.isCoAnimateur() || (userHelper.getLogin() && userHelper.getLogin().isAdmin)) {
             if (this.state.isEdit) {
                 buttonEdit = <Button label='button.save' type='button' handleOnClick={this.update} />
             } else {
@@ -173,7 +173,7 @@ export default React.createClass({
             }  
         }
         var buttonMail = <div/>
-        if (this.isAnimateur()) {
+        if (this.isAnimateur() || this.isCoAnimateur() || (userHelper.getLogin() && userHelper.getLogin().isAdmin)) {
             buttonMail = <Button label='button.sendMailParticipants' icon='mail' type='button' handleOnClick={this.sendMailParticipants} />;
         }
         var buttonInvite = <div />;
@@ -323,7 +323,7 @@ export default React.createClass({
                 {userHelper.getLogin() && (this.isAnimateur() || this.isCoAnimateur()) && this.isPasse() && <div>
                     <Button label='event.gestionAbsent' type='button' handleOnClick={() => {this.toggleGestionAbsent(this.props.event._id)}} />
                 </div>}
-                {this.isOwner() && !this.isPasse() && <div>
+                {(this.isOwner() || this.isAnimateur() || this.isCoAnimateur() || (userHelper.getLogin() && userHelper.getLogin().isAdmin)) && !this.isPasse() && <div>
                     <Button label='event.deleteEvent' type='button' handleOnClick={this.deleteEvent} />
                 </div>}
             </Panel>
