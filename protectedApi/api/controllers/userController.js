@@ -512,10 +512,10 @@ exports.export_users = function(req, res) {
     }
     fill_user_data(users_db, true, users => {      
       var fields = ['nom', 'prenom', 'email','numero','sexe.label', 'entreprise.label', 'dateNaissance', 'telephone',
-      'date_activation', 'date_renouvellement', 'date_fin', 'dossier_complet', 'adhesion', 'decharge', 'reglement', 'certificat', 'date_expiration_certificat', 'cotisation', 'nombreInscription',
+      'date_activation', 'date_renouvellement', 'date_fin', 'dossier_complet', 'adhesion', 'decharge', 'reglement', 'certificat', 'date_emission_certificat', 'date_expiration_certificat',  'cotisation', 'nombreInscription',
        'noteMoyenneDonnee', 'noteMoyenneRecue' , 'nombreAbsences', 'nombreCoach']
       var fieldNames  = ['person.nom', 'person.prenom', 'person.email','Numéro d\'adhérent','sexe.label', 'entreprise.label','person.dateNaissance', 'person.telephone', 'person.date_activation', 'person.date_renouvellement', 'person.date_fin', 'person.dossier_complet',
-      'Adhésion', 'Décharge', 'Règlement', 'Certificat', 'person.date_expiration_certificat', 'Côtisation', 
+      'Adhésion', 'Décharge', 'Règlement', 'Certificat', 'person.date_emission_certificat', 'person.date_expiration_certificat', 'Côtisation', 
       'Nombre d\'inscriptions dans les '+GLISSEMENT_JOURS_STATS+' derniers jours', 'Note moyenne donnée sur '+GLISSEMENT_JOURS_STATS+' jours', 
       'Note moyenne recue sur '+GLISSEMENT_JOURS_STATS+' jours', 'Nombre d\'absences sur '+GLISSEMENT_JOURS_STATS+' jours', 'Nombre d\'activités données sur '+GLISSEMENT_JOURS_STATS+' jours']
       json2csv({ data: users, fields: fields, fieldNames:fieldNames, quotes:'', del: ';' }, function(err, csv) {
@@ -546,6 +546,7 @@ function fill_user_data(users_db, formatDate, cb) {
     users[index]['cotisation'] = users_db[index].cotisation ? 'Oui' : 'Non';
     users[index]['date_activation'] = formatDate ? (users_db[index]['date_activation'] ? moment(users_db[index]['date_activation'], moment.ISO_8601).format('DD/MM/YYYY') : '') : users_db[index]['date_activation'];
     users[index]['date_expiration_certificat'] = formatDate ? (users_db[index]['date_expiration_certificat'] ? moment(users_db[index]['date_expiration_certificat'], moment.ISO_8601).format('DD/MM/YYYY') : '') : users_db[index]['date_expiration_certificat'];
+    users[index]['date_emission_certificat'] = formatDate ? (users_db[index]['date_emission_certificat'] ? moment(users_db[index]['date_emission_certificat'], moment.ISO_8601).format('DD/MM/YYYY') : '') : users_db[index]['date_emission_certificat'];
     users[index]['date_renouvellement'] = formatDate ? (users_db[index]['date_renouvellement'] ? moment(users_db[index]['date_renouvellement'], moment.ISO_8601).format('DD/MM/YYYY') : '') : users_db[index]['date_renouvellement'];
     users[index]['date_fin'] = formatDate ? ( users_db[index]['date_fin'] ? moment(users_db[index]['date_fin'], moment.ISO_8601).format('DD/MM/YYYY') : '')  : users_db[index]['date_fin'];
     users[index]['nombreInscription'] = 0;
@@ -769,6 +770,7 @@ exports.update_date_activation = function(req, res) {
     date_activation : req.body.date_activation, 
     date_renouvellement : req.body.date_renouvellement, 
     date_expiration_certificat: req.body.date_expiration_certificat,
+    date_emission_certificat: req.body.date_emission_certificat,
     date_fin: req.body.date_fin, 
     dossier_complet: req.body.dossier_complet,
     adhesion: req.body.adhesion,

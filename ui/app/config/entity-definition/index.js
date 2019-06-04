@@ -241,6 +241,10 @@ export default {
             domain: 'DO_DATE',
             required: false
         },
+        date_emission_certificat: {
+            domain: 'DO_DATE',
+            required: false
+        },
         date_expiration_certificat: {
             domain: 'DO_DATE',
             required: false

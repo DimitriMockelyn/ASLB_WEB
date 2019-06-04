@@ -90,7 +90,13 @@ export default React.createClass({
             adminServices.toggleActif({ id: this.state._id, raison: this.state.raisonChange}).then(this.props.onPopinClose);
         });
     },
-    onChangeInfo(field) {
+    onChangeEmissionCertif(value) {
+        var momentDebut = moment(value, [moment.ISO_8601,'DD/MM/YYYY', 'DDMMYYYY']);
+        var momentFin = moment(value, [moment.ISO_8601,'DD/MM/YYYY', 'DDMMYYYY']);
+        momentFin.set('year', momentFin.get('year')+3);
+        this.setState({date_expiration_certificat: momentFin, date_emission_certificat: momentDebut});
+    },
+    onChangeInfo(field) { 
         let that = this;
         return (value) => {
             let data = that._getEntity();
@@ -133,7 +139,10 @@ export default React.createClass({
                 {this.fieldFor('reglement', {onChange: this.onChangeInfo('reglement')})}
                 {this.fieldFor('certificat', {onChange: this.onChangeInfo('certificat')})}
                 {this.fieldFor('cotisation', {onChange: this.onChangeInfo('cotisation')})}
-                {this.fieldFor('date_expiration_certificat')}
+                {this.fieldFor('date_emission_certificat', {onChange: this.onChangeEmissionCertif})}
+                <div style={{'display':'none'}}>
+                    {this.fieldFor('date_expiration_certificat', {isEdit: false})}
+                </div>
                 {this.fieldFor('canCreate', {isEdit: false})}
                 {this.fieldFor('isAdmin', {isEdit: false})}
                 {this.fieldFor('tokens')}

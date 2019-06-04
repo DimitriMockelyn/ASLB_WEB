@@ -43,6 +43,9 @@ var User = new Schema({
   date_expiration_certificat: {
     type: Date
   },
+  date_emission_certificat: {
+    type: Date
+  },
   date_fin: {
     type: Date
   },

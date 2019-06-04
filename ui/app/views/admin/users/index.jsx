@@ -133,6 +133,12 @@ export default React.createClass({
             that.setState(data);
         }
     },
+    onChangeEmissionCertif(value) {
+        var momentDebut = moment(value, [moment.ISO_8601,'DD/MM/YYYY', 'DDMMYYYY']);
+        var momentFin = moment(value, [moment.ISO_8601,'DD/MM/YYYY', 'DDMMYYYY']);
+        momentFin.set('year', momentFin.get('year')+3);
+        this.setState({date_expiration_certificat: momentFin, date_emission_certificat: momentDebut});
+    },
     /** @inheritDoc */
     renderContent() {
         return (
@@ -209,7 +215,10 @@ export default React.createClass({
                 {this.fieldFor('decharge', {isEdit: true, onChange: this.onChangeInfo('decharge')})}
                 {this.fieldFor('reglement', {isEdit: true, onChange: this.onChangeInfo('reglement')})}
                 {this.fieldFor('certificat', {isEdit: true, onChange: this.onChangeInfo('certificat')})}
-                {this.fieldFor('date_expiration_certificat')}
+                {this.fieldFor('date_emission_certificat', {onChange: this.onChangeEmissionCertif})}
+                <div style={{'display':'none'}}>
+                    {this.fieldFor('date_expiration_certificat', {isEdit: false})}
+                </div>
                 {this.fieldFor('cotisation', {isEdit: true, onChange: this.onChangeInfo('cotisation')})}
                 {this.fieldFor('isAdmin', {isEdit: true})}
                 {this.fieldFor('canCreate', {isEdit: true})}
