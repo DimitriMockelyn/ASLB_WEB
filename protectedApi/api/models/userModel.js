@@ -40,6 +40,9 @@ var User = new Schema({
   date_renouvellement: {
     type: Date
   },
+  date_expiration_certificat: {
+    type: Date
+  },
   date_fin: {
     type: Date
   },

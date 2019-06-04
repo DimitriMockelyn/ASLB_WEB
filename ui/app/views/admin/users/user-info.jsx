@@ -133,6 +133,7 @@ export default React.createClass({
                 {this.fieldFor('reglement', {onChange: this.onChangeInfo('reglement')})}
                 {this.fieldFor('certificat', {onChange: this.onChangeInfo('certificat')})}
                 {this.fieldFor('cotisation', {onChange: this.onChangeInfo('cotisation')})}
+                {this.fieldFor('date_expiration_certificat')}
                 {this.fieldFor('canCreate', {isEdit: false})}
                 {this.fieldFor('isAdmin', {isEdit: false})}
                 {this.fieldFor('tokens')}

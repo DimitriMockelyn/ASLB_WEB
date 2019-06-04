@@ -321,6 +321,7 @@ export default {
         mailFirstSent: 'Un mail vous a été envoyé pour initialiser votre mot de passe',
         date_activation: 'Date d\'adhésion',
         date_renouvellement: 'Date de renouvellement d\'adhésion',
+        date_expiration_certificat: 'Date d\'expiration du certificat médical',
         canCreate: 'Peut créer un événement',
         isAdmin: 'Est admin',
         toggleCanCreate: 'Est créateur d’évènements',

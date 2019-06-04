@@ -209,6 +209,7 @@ export default React.createClass({
                 {this.fieldFor('decharge', {isEdit: true, onChange: this.onChangeInfo('decharge')})}
                 {this.fieldFor('reglement', {isEdit: true, onChange: this.onChangeInfo('reglement')})}
                 {this.fieldFor('certificat', {isEdit: true, onChange: this.onChangeInfo('certificat')})}
+                {this.fieldFor('date_expiration_certificat')}
                 {this.fieldFor('cotisation', {isEdit: true, onChange: this.onChangeInfo('cotisation')})}
                 {this.fieldFor('isAdmin', {isEdit: true})}
                 {this.fieldFor('canCreate', {isEdit: true})}
