@@ -165,7 +165,10 @@ export default React.createClass({
             return buttonMail;
         }
         var buttonEdit = <div/>;
-        if (this.isOwner() || this.isAnimateur() || this.isCoAnimateur() || (userHelper.getLogin() && userHelper.getLogin().isAdmin)) {
+        if (this.state.isEdit) {
+            buttonEdit = <Button label='button.save' type='button' handleOnClick={this.update} />
+        }
+        if (this.isOwner() || this.isAnimateur() || this.isCoAnimateur() || (userHelper.getLogin() && userHelper.getLogin().isAdmin) ) {
             if (this.state.isEdit) {
                 buttonEdit = <Button label='button.save' type='button' handleOnClick={this.update} />
             } else {
@@ -173,7 +176,7 @@ export default React.createClass({
             }  
         }
         var buttonMail = <div/>
-        if (this.isAnimateur() || this.isCoAnimateur() || (userHelper.getLogin() && userHelper.getLogin().isAdmin)) {
+        if (this.state.isEdit || this.isAnimateur() || this.isCoAnimateur() || (userHelper.getLogin() && userHelper.getLogin().isAdmin)) {
             buttonMail = <Button label='button.sendMailParticipants' icon='mail' type='button' handleOnClick={this.sendMailParticipants} />;
         }
         var buttonInvite = <div />;

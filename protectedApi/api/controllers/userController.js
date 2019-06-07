@@ -338,9 +338,9 @@ exports.isEvenementOwner = function(req, res, next) {
         return next();
       } else {
         if (evenement.coanimateurs) {
-          isCoanim = false;
-          event.coanimateurs.map(anim => {
-            if (anim.toString() === req.user._id.toString()) {
+          var isCoanim = false;
+          evenement.coanimateurs.map(anim => {
+            if (anim._id.toString() === req.user._id.toString()) {
               isCoanim = true;
             }
           })
