@@ -102,13 +102,15 @@ export default React.createClass({
     },
     computeDateFin(dateAdhesion) {
         var momentFin = moment('31/08/2018','DD/MM/YYYY');
+        var momentLimit = moment('31/05/2017','DD/MM/YYYY');
+        momentLimit.set('year', moment().get('year'));
         var momentDebut = moment(dateAdhesion, [moment.ISO_8601,'DD/MM/YYYY', 'DDMMYYYY']);
         if (momentDebut.isValid()) {
             momentFin.set('year', momentDebut.get('year'));
             if (momentFin.isBefore(momentDebut)) {
                 momentFin.set('year', momentFin.get('year') +1);
             }
-            if (momentFin.get('year') === 2018) {
+            if (momentDebut.isAfter(momentLimit)) {
                 momentFin.set('year', momentFin.get('year') +1);
             }
             return  momentFin;
@@ -215,7 +217,7 @@ export default React.createClass({
                 {this.fieldFor('decharge', {isEdit: true, onChange: this.onChangeInfo('decharge')})}
                 {this.fieldFor('reglement', {isEdit: true, onChange: this.onChangeInfo('reglement')})}
                 {this.fieldFor('certificat', {isEdit: true, onChange: this.onChangeInfo('certificat')})}
-                {this.fieldFor('date_emission_certificat', {onChange: this.onChangeEmissionCertif})}
+                {this.fieldFor('date_emission_certificat', {isEdit: true, onChange: this.onChangeEmissionCertif})}
                 <div style={{'display':'none'}}>
                     {this.fieldFor('date_expiration_certificat', {isEdit: false})}
                 </div>

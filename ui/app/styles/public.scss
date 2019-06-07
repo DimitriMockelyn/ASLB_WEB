@@ -1601,3 +1601,8 @@ p {
     margin-top: auto;
   }
 }
+
+
+[data-focus="panel"] [data-focus='input-date'] [data-focus='picker-zone'] {
+  position: relative;
+}
