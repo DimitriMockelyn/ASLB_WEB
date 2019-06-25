@@ -17,7 +17,7 @@ export default React.createClass({
                 </div>
                 <Panel title='Conditions'>
                     <div data-focus='column'>
-                    <label>L'inscription est réservée aux employés du Centre d'Affaires La Boursidière et est valable du 1er septembre au 31 août. Le prix de la cotisation est de 30€ à renouveler chaque année.</label>
+                    <label>L'inscription est réservée aux employés du Centre d'Affaires La Boursidière et est valable du 1er septembre au 31 août. Le prix de la cotisation est de 35€ à renouveler chaque année.</label>
                     </div>
                 </Panel>
                 <Panel title='Nous rejoindre'>
@@ -36,7 +36,7 @@ export default React.createClass({
                             Vous pouvez déposer votre dossier d’inscription complété dans la boîte aux lettres de l’ASLB (n°101). Elle se trouve dans la salle La Poste (demander sa localisation à l’accueil)
                         </label>
                         <label>
-                                La cotisation annuelle est de 30 € et peut être payée en liquide, par chèque (à l’ordre de l’ASLB), par virement (IBAN fourni dans la fiche d’adhésion) ou par Paypal (cf fiche d’adhésion). . 
+                                La cotisation annuelle est de 35 € et peut être payée en liquide, par chèque (à l’ordre de l’ASLB), par virement (IBAN fourni dans la fiche d’adhésion) ou par Paypal (cf fiche d’adhésion). . 
                         </label>
                         <label>
                             Les paiements par virement ou PayPal sont vivement encouragés, car ils n’engendrent pas de manutention. 
