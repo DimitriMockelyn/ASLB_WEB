@@ -25,10 +25,10 @@ export default React.createClass({
     referenceNames: ['typeSexe', 'typeEntreprise'],
     getInitialState() {
         return {
-            limit: 1,
+            limit: 5,
             filter: '',
             skip: 0,
-            bulk: 1,
+            bulk: 5,
             users: []
         }
     },
