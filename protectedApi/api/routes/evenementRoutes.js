@@ -116,6 +116,12 @@ module.exports = function(app) {
 
 	app.route('/users')
 		.post(userHandlers.loginRequired,  userHandlers.isAdmin, userHandlers.load_users)
+	
+	app.route('/usersCount')
+		.post(userHandlers.loginRequired,  userHandlers.isAdmin, userHandlers.load_users_count)
+
+	app.route('/usersActifs')
+		.post(userHandlers.loginRequired,  userHandlers.isAdmin, userHandlers.load_users_actif)
 
 	app.route('/usersExport')
 		.post(userHandlers.loginRequired,  userHandlers.isAdmin, userHandlers.export_users)

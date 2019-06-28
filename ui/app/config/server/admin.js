@@ -9,6 +9,8 @@ export default {
     editNews:  builder(url + 'news/${id}', 'POST'),
     deleteNews:  builder(url + 'news/${id}', 'DELETE'),
     loadAllUsers: builder(url + 'users', 'POST'),
+    loadAllUsersCount: builder(url + 'usersCount', 'POST'),
+    loadAllActiveUsers: builder(url + 'usersActifs', 'POST'),
     exportAllUsers: builder(url + 'usersExport', 'POST'),
     exportAllEvents: builder(url + 'eventExport', 'POST'),
     canCreateToggle:  builder(url + 'toggleCreation/${id}', 'POST'),

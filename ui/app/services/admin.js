@@ -21,6 +21,12 @@ export default {
     loadAllUsers(data) {
         return fetch(adminUrl.loadAllUsers({data}), utils.computeHeaders());
     },
+    loadAllUsersCount(data) {
+        return fetch(adminUrl.loadAllUsersCount({data}), utils.computeHeaders());
+    },
+    loadAllActiveUsers(data) {
+        return fetch(adminUrl.loadAllActiveUsers({data}), utils.computeHeaders());
+    },
     exportAllUsers(data) {
         return fetch(adminUrl.exportAllUsers({data}), utils.computeHeaders());
     },

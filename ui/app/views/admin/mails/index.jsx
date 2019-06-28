@@ -23,7 +23,7 @@ export default React.createClass({
         adminServices.loadUsersForMail().then(res => {this.setState({mail: res})});
     },
     loadAllUsers() {
-        adminServices.loadAllUsers({filter: this.state.filter}).then(res => {this.setState({users: res})});
+        adminServices.loadAllActiveUsers({filter: this.state.filter}).then(res => {this.setState({users: res})});
     },
     sendMail(field) {
         let users = this.state.mail[field];

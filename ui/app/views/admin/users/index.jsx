@@ -25,16 +25,19 @@ export default React.createClass({
     referenceNames: ['typeSexe', 'typeEntreprise'],
     getInitialState() {
         return {
-            limit: 5,
-            filter: ''
+            limit: 1,
+            filter: '',
+            skip: 0,
+            bulk: 1,
+            users: []
         }
     },
     componentWillMount() {
         this.loadAllUsers();
     },
     loadAllUsers() {
-        adminServices.loadAllUsers({filter: ''}).then(res => {this.setState({total: res.length})});
-        adminServices.loadAllUsers({filter: this.state.filter}).then(res => {this.setState({users: res})});
+        adminServices.loadAllUsersCount({filter: ''}).then(res => {this.setState({total: res.total})});
+        adminServices.loadAllUsers({filter: this.state.filter, skip: this.state.skip, limit: this.state.limit}).then(res => {this.setState({users: res})});
     },
     export() {
         adminServices.exportAllUsers({filter: this.state.filter}).then(res => {downloadCSV(res, 'users.csv')});;
@@ -53,12 +56,15 @@ export default React.createClass({
         this.setState({selectedUserRibbon : undefined});
         this.loadAllUsers();
     },
+    increaseLimit() {
+        this.setState({limit: this.state.limit+this.state.bulk}, this.loadAllUsers)
+    },
     renderActionsEdit() {
         if (!this.props.hideButtons) {
             return <div>
                 <Button type='button' label='button.createUser' handleOnClick={this.createUser} />
                 <Button type='button' label='button.exporter' handleOnClick={this.export} />
-                <Button type='button' label='button.voirPlus' handleOnClick={() => {this.setState({limit: this.state.limit+5})}}/>
+                <Button type='button' label='button.voirPlus' handleOnClick={this.increaseLimit}/>
             </div>
         }
     },
