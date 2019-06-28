@@ -66,8 +66,8 @@ export default React.createClass({
     render() {
         
         return (
-            <div data-focus='tile-machine' className={this.state.metadata.canClick? 'canClick' : ''} onClick={this.state.metadata.canClick && this.click} style={this.computeStyle()}>
-                {this.state.data && this.state.data.membre && this.state.data.membre.prenom + ' ' + this.state.data.membre.nom}
+            <div data-focus='tile-machine' className={this.state.metadata.canClick? 'canClick' : ''} onClick={this.state.metadata.canClick && this.click} style={this.computeStyle()} title={this.state.data && this.state.data.membre && this.state.data.membre.prenom + ' ' + this.state.data.membre.nom}>
+                {this.state.data && this.state.data.membre && this.state.data.membre.prenom}
             </div>
         );
     }
