@@ -27,6 +27,7 @@ var express = require('express'),
   Badge = require('./api/models/badgeModel'),
   BadgeRecu = require('./api/models/badgeRecuModel'),
   bodyParser = require('body-parser'),
+  userController = require('./api/controllers/userController'),
   jsonwebtoken = require("jsonwebtoken");
 
 mongoose.Promise = global.Promise;
@@ -34,6 +35,7 @@ mongoose.connect('mongodb://localhost/ASLBDB');
 
 var adminController = require('./api/controllers/adminController');
 var {getConfig} = require('./config');
+const cron = require('node-cron');
 
 app.use(bodyParser.urlencoded({limit: '50mb',  extended: true }));
 app.use(bodyParser.json({limit: '50mb'}));
@@ -84,6 +86,9 @@ app.use(function(req, res, next) {
 var routes = require('./api/routes/evenementRoutes');
 routes(app);
 
+cron.schedule("0 0 3 * * *", () => {
+  userController.performDailyCheckActive();
+})
 
 
 app.use(function(req, res) {

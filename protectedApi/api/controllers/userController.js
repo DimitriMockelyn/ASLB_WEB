@@ -948,3 +948,41 @@ exports.edit_profil = function(req, res) {
     }
   })
 }
+
+exports.performDailyCheckActive = function() {
+  console.log("DAILY CHECK");
+  User.find({$and: [
+    {actif: true},
+    {
+      $or:[{
+        date_fin: {
+            $lt: Date.now(),
+        }},
+        {
+          date_expiration_certificat: {
+            $lt: Date.now(),
+        }
+      }]
+    }
+  ]}, function(err, users_to_inactivate) {
+    console.log(users_to_inactivate)
+    if (users_to_inactivate.length > 0) {
+      let stringMail = 'Les comptes suivant ont été désactivés car leur date de fin d\'adhésion est passeée ou leur certificat medical arrive a expiration : \n'; 
+      for (let index in users_to_inactivate) {
+        users_to_inactivate[index].actif = false;
+        users_to_inactivate[index].save(function(err, user) {});
+        stringMail = stringMail + " - " + users_to_inactivate[index].prenom + ' '+ users_to_inactivate[index].nom+'\n'
+      }
+      User.find({isAdmin: true}, function(err, admins) {
+        let adminsEmails = [];
+        for (let i in admins) {
+          adminsEmails.push(admins[i].email);
+        }
+        console.log("SEND MAIL TO")
+        console.log(adminsEmails);
+        console.log(stringMail);
+        mailer.sendMail(adminsEmails, '[ASLB] Desactivation automatique',stringMail);
+      })
+    }
+  })
+}
