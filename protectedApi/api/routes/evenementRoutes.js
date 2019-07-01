@@ -274,4 +274,10 @@ module.exports = function(app) {
 	
 	app.route('/saveBadges')
 		.post(userHandlers.loginRequired, userHandlers.isAdmin, badgeController.editBadges);
+
+	app.route('/uploadFile')
+		.post(userHandlers.loginRequired, userHandlers.isAdmin, adminHandler.upload_file);
+
+	app.route('/uploadFileInscription')
+		.post(userHandlers.loginRequired, userHandlers.isAdmin, adminHandler.upload_file_inscription);
 };

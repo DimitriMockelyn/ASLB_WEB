@@ -22,6 +22,7 @@ import {component as Button} from 'focus-components/common/button/action';
 import Blocs from './blocs';
 import Medias from './medias';
 import Machines from './machines';
+import Files from './files';
 import {downloadCSV} from '../../utils/download';
 import adminServices from '../../services/admin';
 
@@ -67,6 +68,7 @@ export default React.createClass({
                     <TypeActivites hasLoad={false} />
                     <Machines hasLoad={false} />
                     <Ribbons hasLoad={false} />
+                    <Files hasLoad={false} />
                     
                 </ScrollspyContainer>
             </div>

@@ -8,6 +8,7 @@ var mongoose = require('mongoose'),
   News= mongoose.model('News'),
   Sexe=mongoose.model('Sexe'),
   Entreprise=mongoose.model('Entreprise'),
+  fs =  require('fs'),
   Presentation= mongoose.model('Presentation'),
   NiveauEvenement= mongoose.model('NiveauEvenement'),
   Ribbon=mongoose.model('Ribbon'),
@@ -20,6 +21,8 @@ var mongoose = require('mongoose'),
   badgeController = require('./badgeController'),
   moment = require('moment');
 
+  var formidable = require('formidable');
+var {getConfig} = require('../../config');
 
 exports.initData = function() {
   
@@ -541,3 +544,21 @@ exports.edit_machine = function(req, res) {
     res.json({updated: true});
   });
 };
+
+exports.upload_file = function(req, res) {
+  var form = new formidable.IncomingForm();
+  form.parse(req, function (err, fields, files) {
+    console.log('FILE', files);
+    fs.copyFileSync(files.file.path, getConfig().filePath+'/'+files.file.name);
+    res.json({updated: true})
+  });
+}
+
+exports.upload_file_inscription = function(req, res) {
+  var form = new formidable.IncomingForm();
+  form.parse(req, function (err, fields, files) {
+    console.log('FILE', files);
+    fs.copyFileSync(files.file.path, getConfig().filePath+'/Inscription_ASLB.zip');
+    res.json({updated: true})
+  });
+}

@@ -172,6 +172,9 @@ export default {
         action: 'Action a accomplir'
     },
     admin: {
+        uploadFile: 'Charger un fichier',
+        fileUploaded: 'Le fichier a bien été mis en ligne',
+        uploadFileInscription: 'Charger un nouveau dossier d\'inscription',
         adminBadges: 'Administrer les badges',
         entreprise: 'Entreprise',
         addEntreprise: 'Ajouter une entreprise',
