@@ -18,6 +18,8 @@ import {downloadCSV} from '../../../utils/download';
 import userServices from '../../../services/user';
 import message from 'focus-core/message';
 
+import {Checkbox} from 'focus-components/components/input';
+
 export default React.createClass({
     displayName: 'UsersView',
     mixins: [formMixin],
@@ -29,18 +31,22 @@ export default React.createClass({
             filter: '',
             skip: 0,
             bulk: 5,
-            users: []
+            users: [],
+            actif: true
         }
     },
     componentWillMount() {
         this.loadAllUsers();
     },
+    onChangeToggle() {
+        this.setState({actif: !this.state.actif}, this.loadAllUsers);
+    },
     loadAllUsers() {
-        adminServices.loadAllUsersCount({filter: ''}).then(res => {this.setState({total: res.total})});
-        adminServices.loadAllUsers({filter: this.state.filter, skip: this.state.skip, limit: this.state.limit}).then(res => {this.setState({users: res})});
+        adminServices.loadAllUsersCount({filter: '', actif: this.state.actif}).then(res => {this.setState({total: res.total})});
+        adminServices.loadAllUsers({filter: this.state.filter, skip: this.state.skip, limit: this.state.limit, actif: this.state.actif}).then(res => {this.setState({users: res})});
     },
     export() {
-        adminServices.exportAllUsers({filter: this.state.filter}).then(res => {downloadCSV(res, 'users.csv')});;
+        adminServices.exportAllUsers({filter: this.state.filter, actif: this.state.actif}).then(res => {downloadCSV(res, 'users_'+(this.state.actif ? 'actif' : 'inactif')+'.csv')});;
     },
     openPopin(user) {
         this.setState({selectedUser : user});
@@ -152,6 +158,11 @@ export default React.createClass({
         return (
         <Panel  title='Utilisateurs' actions={this.renderActionsEdit}>
             <Input placeholder='Tapez votre recherche' value={this.state.filter} onChange={this.onChangeInput} />
+            <Checkbox
+                            label='Utilisateurs Actif'
+                            onChange={this.onChangeToggle}
+                            value={this.state.actif}
+                        />
             <div data-focus='user-list'>
                 <div data-focus='user-line'>
                     <div>

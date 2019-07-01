@@ -502,9 +502,9 @@ exports.inscriptionTokenPossible = function(req, res, next) {
 exports.load_users = function(req, res) {
   var filter = new RegExp(req.body.filter, 'i');
   Entreprise.find({label: filter}, function(err, entreprises) {
-    User.find({ $or: [{'nom': filter}, {'email': filter}, {'prenom':filter}, { "entreprise" : {
+    User.find({ $and: [{'actif': req.body.actif},{$or: [{'nom': filter}, {'email': filter}, {'prenom':filter}, { "entreprise" : {
       $in: entreprises
-    }}, {'numero': filter}]}, function(err, users_db) {
+    }}, {'numero': filter}]}]}, function(err, users_db) {
       if (err) {
         console.log(err);
         res.send(err);
@@ -557,7 +557,7 @@ exports.load_users_actif = function(req, res) {
 
 exports.export_users = function(req, res) {
   var filter = new RegExp(req.body.filter, 'i');
-  User.find({ $or: [{'nom': filter}, {'email': filter}, {'prenom':filter}]}, function(err, users_db) {
+  User.find({ $and: [{'actif': req.body.actif},{ $or: [{'nom': filter}, {'email': filter}, {'prenom':filter}]}]}, function(err, users_db) {
     if (err) {
       res.send(err);
     }
