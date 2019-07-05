@@ -26,6 +26,7 @@ var express = require('express'),
   BlocAdministrables = require('./api/models/blocsAdministrable'),
   Badge = require('./api/models/badgeModel'),
   BadgeRecu = require('./api/models/badgeRecuModel'),
+  DayOff = require('./api/models/dayOffModel'),
   bodyParser = require('body-parser'),
   userController = require('./api/controllers/userController'),
   jsonwebtoken = require("jsonwebtoken");

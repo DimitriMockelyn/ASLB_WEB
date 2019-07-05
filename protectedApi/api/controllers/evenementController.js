@@ -8,6 +8,7 @@ var mongoose = require('mongoose'),
   NiveauEvenement= mongoose.model('NiveauEvenement'),
   User= mongoose.model("User"),
   Queue = mongoose.model("Queue"),
+  DayOff = mongoose.model("DayOff"),
   Partenaire = mongoose.model('Partenaire'),
   CreneauMachine= mongoose.model('CreneauMachine'),
   Machine = mongoose.model('Machine'),
@@ -904,80 +905,90 @@ function check_evenement_conflit(user, event, res, complement_msg, cb) {
   let dateFinJournee = new Date(event.date_debut.getTime());
   dateDebutJournee.setHours(0);
   dateFinJournee.setHours(23);
-  //On recherche les evenements en conflit
-  return Evenement.find({
-    date_debut: {
-        $gte: dateDebutJournee,
-        $lt:  dateFinJournee
+  //On regarde si il y a un jour ferié
+  return DayOff.find({
+    date: {
+      $gte: dateDebutJournee,
+      $lt:  dateFinJournee
     }
-  }, function(err, events) {
-    for (let index in events) {
-      let existingEvent = events[index];
-      let dateDebutEvent = new Date(existingEvent.date_debut.getTime());
-      let dateFinEvent = new Date(existingEvent.date_debut.getTime() + existingEvent.duree*60000);
-      if ( existingEvent._id.toString() !== event._id.toString() && (
-        (dateDebutEvent <= dateDebut && dateFinEvent > dateDebut) || //Debut du nouvel evenement pendant un autre
-        (dateDebutEvent < dateFin && dateFinEvent >= dateFin) || //Fin du nouvel evenement pendant un autre
-        (dateDebut <= dateDebutEvent && dateFin > dateFinEvent) || //Debut du nouvel evenement pendant un autre
-        (dateDebut < dateFinEvent && dateFin >= dateFinEvent) //Fin du nouvel evenement pendant un autre
-      )) {
-        //Cette activité est en conflit, on vérifie la liste des participants
-        if (existingEvent.animateur.toString() === user._id.toString()) {
-          return res.status(401).json({ message: 'Cette activité entre en conflit avec une autre '+complement_msg });
-        }
-        if (existingEvent.coanimateurs.indexOf(user._id.toString()) > -1 ) {
-          return res.status(401).json({ message: 'Cette activité entre en conflit avec une autre '+complement_msg });
-        }
-        if (existingEvent.participants.length > 0) {
-          for (let index2  = 0; index2 < existingEvent.participants.length; index2++) {
-            let ptp = existingEvent.participants[index2];
-            if (ptp && ptp._id.toString() === user._id.toString()) {
-              return res.status(401).json({ message: 'Cette activité entre en conflit avec une autre '+complement_msg });
-            }
-          };
-        }
-        if (existingEvent.fileAttente.length > 0) {
-          for (let index2  = 0; index2 < existingEvent.fileAttente.length; index2++) {
-            let ptp = existingEvent.fileAttente[index2];
-            if (ptp && ptp.personne.toString() === user._id.toString()) {
-              return res.status(401).json({ message: 'Cette activité entre en conflit avec une autre '+complement_msg });
-            }
-          };
-        }
-        
+  }, function(err, daysoffs) {
+    if (daysoffs.length > 0) {
+      return res.status(401).json({ message: 'Impossible : ce jour est defini comme sans activité pour cause de: '+daysoffs[0].reason });
+    }
+    //On recherche les evenements en conflit
+    return Evenement.find({
+      date_debut: {
+          $gte: dateDebutJournee,
+          $lt:  dateFinJournee
       }
-    }
-    // Il n'y a pas d'evenements en conflit, on vérifie l'inscription aux machines
-    CreneauMachine.find({
-      $and:[{dateDebut: {
-        $lt:  dateFinJournee
-      }},
-      {dateDebut: {
-        $gte: dateDebutJournee
-      }},
-      {
-        membre: user
-      }]
-    }, function(err, creneaux) {
-      for (let index in creneaux) {
-        const cren = creneaux[index];
-        let dateDebutCreneau = moment(cren.dateDebut).clone();
-        let dateFinCreneau = moment(cren.dateDebut).clone();
-        dateFinCreneau.add(30,'minutes');
-        if (
-          (dateDebutCreneau <= dateDebut && dateFinCreneau > dateDebut) || //Debut du nouvel evenement pendant un autre
-          (dateDebutCreneau < dateFin && dateFinCreneau >= dateFin) || //Fin du nouvel evenement pendant un autre
-          (dateDebut <= dateDebutCreneau && dateFin > dateFinCreneau) || //Debut du nouvel evenement pendant un autre
-          (dateDebut < dateFinCreneau && dateFin >= dateFinCreneau) //Fin du nouvel evenement pendant un autre
-        ) {
-          return res.status(401).json({ message: 'Vous avez déjà réservé une machine sur cet horaire. Veuillez retirer votre réservation pour vous inscrire à cette activité' });
+    }, function(err, events) {
+      for (let index in events) {
+        let existingEvent = events[index];
+        let dateDebutEvent = new Date(existingEvent.date_debut.getTime());
+        let dateFinEvent = new Date(existingEvent.date_debut.getTime() + existingEvent.duree*60000);
+        if ( existingEvent._id.toString() !== event._id.toString() && (
+          (dateDebutEvent <= dateDebut && dateFinEvent > dateDebut) || //Debut du nouvel evenement pendant un autre
+          (dateDebutEvent < dateFin && dateFinEvent >= dateFin) || //Fin du nouvel evenement pendant un autre
+          (dateDebut <= dateDebutEvent && dateFin > dateFinEvent) || //Debut du nouvel evenement pendant un autre
+          (dateDebut < dateFinEvent && dateFin >= dateFinEvent) //Fin du nouvel evenement pendant un autre
+        )) {
+          //Cette activité est en conflit, on vérifie la liste des participants
+          if (existingEvent.animateur.toString() === user._id.toString()) {
+            return res.status(401).json({ message: 'Cette activité entre en conflit avec une autre '+complement_msg });
+          }
+          if (existingEvent.coanimateurs.indexOf(user._id.toString()) > -1 ) {
+            return res.status(401).json({ message: 'Cette activité entre en conflit avec une autre '+complement_msg });
+          }
+          if (existingEvent.participants.length > 0) {
+            for (let index2  = 0; index2 < existingEvent.participants.length; index2++) {
+              let ptp = existingEvent.participants[index2];
+              if (ptp && ptp._id.toString() === user._id.toString()) {
+                return res.status(401).json({ message: 'Cette activité entre en conflit avec une autre '+complement_msg });
+              }
+            };
+          }
+          if (existingEvent.fileAttente.length > 0) {
+            for (let index2  = 0; index2 < existingEvent.fileAttente.length; index2++) {
+              let ptp = existingEvent.fileAttente[index2];
+              if (ptp && ptp.personne.toString() === user._id.toString()) {
+                return res.status(401).json({ message: 'Cette activité entre en conflit avec une autre '+complement_msg });
+              }
+            };
+          }
+          
         }
       }
-      return cb();
-    })
-    
-  }).populate('fileAttente', '_id personne ordre').populate('participants', '_id prenom nom email')
-  
+      // Il n'y a pas d'evenements en conflit, on vérifie l'inscription aux machines
+      CreneauMachine.find({
+        $and:[{dateDebut: {
+          $lt:  dateFinJournee
+        }},
+        {dateDebut: {
+          $gte: dateDebutJournee
+        }},
+        {
+          membre: user
+        }]
+      }, function(err, creneaux) {
+        for (let index in creneaux) {
+          const cren = creneaux[index];
+          let dateDebutCreneau = moment(cren.dateDebut).clone();
+          let dateFinCreneau = moment(cren.dateDebut).clone();
+          dateFinCreneau.add(30,'minutes');
+          if (
+            (dateDebutCreneau <= dateDebut && dateFinCreneau > dateDebut) || //Debut du nouvel evenement pendant un autre
+            (dateDebutCreneau < dateFin && dateFinCreneau >= dateFin) || //Fin du nouvel evenement pendant un autre
+            (dateDebut <= dateDebutCreneau && dateFin > dateFinCreneau) || //Debut du nouvel evenement pendant un autre
+            (dateDebut < dateFinCreneau && dateFin >= dateFinCreneau) //Fin du nouvel evenement pendant un autre
+          ) {
+            return res.status(401).json({ message: 'Vous avez déjà réservé une machine sur cet horaire. Veuillez retirer votre réservation pour vous inscrire à cette activité' });
+          }
+        }
+        return cb();
+      })
+      
+    }).populate('fileAttente', '_id personne ordre').populate('participants', '_id prenom nom email')
+  })
 }
 
 exports.loadAbsents = function(req, res) {

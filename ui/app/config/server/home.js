@@ -11,6 +11,7 @@ export default {
     addMessageChat: builder(url + 'chat', 'POST'),
     loadBlocs: builder(url + 'blocsByType/${type}', 'GET'),
     loadMachinesForDay: builder(url + 'listMachinesForDay', 'POST'),
+    loadDayOffs: builder(url + 'dayOffs', 'GET'),
     toggleSelfForMachine: builder(url + 'toggleSelfForMachine/${id}', 'POST'),
     loadContributeurs: builder('https://api.github.com/repos/DimitriMockelyn/ASLB_WEB/contributors', 'GET'),
     loadContributeursInfo: builder('https://api.github.com/users/${login}', 'GET'),

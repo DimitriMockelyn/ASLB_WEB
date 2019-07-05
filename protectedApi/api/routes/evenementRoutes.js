@@ -260,6 +260,14 @@ module.exports = function(app) {
 		.post(userHandlers.loginRequired,  userHandlers.isAdmin, adminHandler.edit_machine)
 		.delete(userHandlers.loginRequired,  userHandlers.isAdmin, adminHandler.delete_machine)
 
+	app.route('/dayOffs')
+		.get(adminHandler.list_all_day_offs)
+		.put(userHandlers.loginRequired,  userHandlers.isAdmin, adminHandler.create_day_off)
+
+	app.route('/dayOffs/:id')
+		.post(userHandlers.loginRequired,  userHandlers.isAdmin, adminHandler.edit_day_off)
+		.delete(userHandlers.loginRequired,  userHandlers.isAdmin, adminHandler.delete_day_off)
+
 	app.route('/toggleSelfForMachine/:id')
 		.post(userHandlers.loginRequired, userHandlers.isMembreActif, machinesController.toggle_self_for_machine);
 

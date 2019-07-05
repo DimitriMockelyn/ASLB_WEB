@@ -6,6 +6,16 @@
 import userHelper from 'focus-core/user';
 export default {
     home:{},
+    dayOff: {
+        reason: {
+            domain: 'DO_LABEL_LONG',
+            required: true
+        },
+        date: {
+            domain: 'DO_DATE',
+            required: true
+        }
+    },
     badges: {
         titre: {
             domain: 'DO_LABEL_LONG',

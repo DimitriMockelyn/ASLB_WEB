@@ -47,5 +47,8 @@ export default {
     editMachine:  builder(url + 'machines/${id}', 'POST'),
     deleteMachine:  builder(url + 'machines/${id}', 'DELETE'),
     createMachine:  builder(url + 'machines', 'PUT'),
+    editDayOff:  builder(url + 'dayOffs/${id}', 'POST'),
+    deleteDayOff:  builder(url + 'dayOffs/${id}', 'DELETE'),
+    createDayOff:  builder(url + 'dayOffs', 'PUT'),
     toggleChat: builder(url + 'toggleChat/${id}', 'POST')
 };

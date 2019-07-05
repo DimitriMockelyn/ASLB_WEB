@@ -24,6 +24,9 @@ export default {
     loadBlocs(type) {
         return fetch(homeUrl.loadBlocs({urlData: {type}}));
     },
+    loadDayOffs(type) {
+        return fetch(homeUrl.loadDayOffs({urlData: {type}}));
+    },
     loadMachinesForDay(data) {
         return fetch(homeUrl.loadMachinesForDay({data}));
     },

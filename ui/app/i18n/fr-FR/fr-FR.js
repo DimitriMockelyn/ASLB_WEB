@@ -75,6 +75,11 @@ export default {
         empty: 'La recherche n\'a pas retourné de résultats'
 
     },
+    dayOff: {
+        reason: 'Raison',
+        date: 'Date',
+        panelTitle: 'Jours sans activités'
+    },
     button: {
         createUser: 'Créer un utilisateur',
         reindexAll: 'Tout ré-indexer',
@@ -172,6 +177,8 @@ export default {
         action: 'Action a accomplir'
     },
     admin: {
+        addDayOff: 'Ajouter',
+        dayOff: 'Jour sans activité',
         uploadFile: 'Charger un fichier',
         fileUploaded: 'Le fichier a bien été mis en ligne',
         uploadFileInscription: 'Charger un nouveau dossier d\'inscription',
@@ -276,6 +283,7 @@ export default {
         presentation: 'Etes-vous sur de vouloir supprimer cette présentation ?',
         typeEvenement: 'Etes-vous sur de vouloir supprimer ce type d\'évènement ?',
         entreprise: 'Etes-vous sur de vouloir supprimer cette entreprise ?',
+        dayOff: 'Etes-vous sur de vouloir supprimer ce jour sans activité ?',
         machine: 'Etes-vous sur de vouloir supprimer cette machine ? Cette action est irréversible'
     },
     select: {

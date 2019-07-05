@@ -17,8 +17,10 @@ var mongoose = require('mongoose'),
   BlocAdministrables = mongoose.model('BlocAdministrables'),
   Machine = mongoose.model('Machine'),
   Badge = mongoose.model('Badge'),
+  DayOff = mongoose.model('DayOff'),
   mailer = require('../utils/mailer'),
   badgeController = require('./badgeController'),
+  
   moment = require('moment');
 
   var formidable = require('formidable');
@@ -539,6 +541,45 @@ exports.edit_machine = function(req, res) {
     type: req.body.type
   }
   Machine.findOneAndUpdate({_id:req.params.id}, data, {new: true}, function(err, news) {
+    if (err)
+      res.send(err);
+    res.json({updated: true});
+  });
+};
+
+//Partie day off
+exports.list_all_day_offs = function(req, res) {
+  DayOff.find({}, function(err, ptns) {
+    if (err) {
+      res.send(err);
+    }
+    res.json(ptns);
+  }).sort({date: -1});
+};
+
+exports.create_day_off = function(req, res) {
+  var new_ptn = new DayOff(req.body);
+  new_ptn.save(function(err, news) {
+    if (err)
+      res.send(err);
+    res.json({created: true});
+  });
+};
+
+exports.delete_day_off = function(req, res) {
+  DayOff.remove({_id:req.params.id}, function(err, news) {
+    if (err)
+      res.send(err);
+    res.json({removed: true});
+  });
+};
+
+exports.edit_day_off = function(req, res) {
+  var data = {
+    reason: req.body.reason,
+    date: req.body.date
+  }
+  DayOff.findOneAndUpdate({_id:req.params.id}, data, {new: true}, function(err, news) {
     if (err)
       res.send(err);
     res.json({updated: true});

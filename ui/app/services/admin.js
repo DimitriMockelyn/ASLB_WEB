@@ -138,4 +138,13 @@ export default {
     toggleChat(data) {
         return fetch(adminUrl.toggleChat({urlData: {id: data._id}}), utils.computeHeaders());
     },
+    editDayOff(data) {
+        return fetch(adminUrl.editDayOff({urlData: {id: data.id}, data: data}), utils.computeHeaders());
+    },
+    deleteDayOff(data) {
+        return fetch(adminUrl.deleteDayOff({urlData: {id: data.id}}), utils.computeHeaders());
+    },
+    createDayOff(data) {
+        return fetch(adminUrl.createDayOff({data}), utils.computeHeaders());
+    }
 };

@@ -9,6 +9,7 @@ BigCalendar.momentLocalizer(moment);
 import {component as Popin} from 'focus-components/application/popin';
 import EventInfos from './event-infos';
 import agendaServices from '../../services/agenda';
+import homeServices from '../../services/home';
 import CreateEvent from './create-event';
 import userHelper from 'focus-core/user';
 import Toggle from 'focus-components/components/input/toggle';
@@ -126,12 +127,32 @@ export default React.createClass({
                     });
                 }
             })
-            this.setState({events});
-            return events;
+            return homeServices.loadDayOffs().then(offs => {
+                offs.map((dayoff) => {
+                    let dateDebutJournee = new Date(dayoff.date);
+                    let dateFinJournee = new Date(dayoff.date)
+                    dateDebutJournee.setHours(7);
+                    dateDebutJournee.setMinutes(0);
+                    dateFinJournee.setHours(20);
+                    dateFinJournee.setMinutes(0);
+                    events.push({
+                        ...event,
+                        isDayOff: true,
+                        startDate: dateDebutJournee,
+                        endDate: dateFinJournee,
+                        title: dayoff.reason
+                    });
+                })
+                this.setState({events});
+                return events;
+            })
+
         });
     },
     onSelectEvent(event) {
-        this.setState({selectedEvent : event});
+        if (!event.isDayOff) {
+            this.setState({selectedEvent : event});
+        }
     },
     closePopin(data) {
         this.setState({selectedEvent : undefined});
@@ -163,6 +184,11 @@ export default React.createClass({
         var myId = userHelper.getLogin() && userHelper.getLogin()._id ? userHelper.getLogin()._id.toString() : '';
         var className = '';
         //Detection de la couleur pour le type d'evenement
+        if (event.isDayOff) {
+            return {
+                className: 'day-off-event'
+            }
+        }
         if (this.state && this.state.reference && this.state.reference.typeEvenements) {
             for (let index in this.state.reference.typeEvenements) {
                 let typeEvt = this.state.reference.typeEvenements[index];

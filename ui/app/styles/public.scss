@@ -1606,3 +1606,9 @@ p {
 [data-focus="panel"] [data-focus='input-date'] [data-focus='picker-zone'] {
   position: relative;
 }
+
+.day-off-event {
+  //pointer-events: none !important;
+  background-color: grey !important;
+  cursor: initial;
+}
