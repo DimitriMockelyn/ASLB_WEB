@@ -1612,3 +1612,15 @@ p {
   background-color: grey !important;
   cursor: initial;
 }
+
+.profile-incomplet {
+  color: darkred;
+  /* position: initial; */
+  bottom: 0px;
+  font-size: 10px;
+  justify-content: center;
+  text-align: center;
+  width: 100%;
+  height: 0px;
+  margin-bottom: 10px;
+}

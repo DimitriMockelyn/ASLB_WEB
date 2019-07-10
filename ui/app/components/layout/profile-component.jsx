@@ -93,6 +93,7 @@ export default React.createClass({
                 <div data-focus='user-name-badges'>
                 <label>{userHelper.getLogin().prenom + ' ' + userHelper.getLogin().nom}</label>
                 <InfosBadges id={userHelper.getLogin()._id} />
+                {!(userHelper.getLogin().avatar && userHelper.getLogin().profil) && <span className='profile-incomplet'>Profil Incomplet</span>}
                 </div>}
             {!userHelper.getLogin() && 
                 <label>{i18n.t('user.connect')}</label> }

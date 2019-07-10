@@ -83,7 +83,7 @@ exports.sign_in = function(req, res) {
       return res.status(401).json({ message: 'Mauvais compte / mot de passe ou compte inactif' });
     }
     badgeController.initBadges(user);
-    return res.json({ token: jwt.sign({ email: user.email, nom: user.nom, prenom: user.prenom, _id: user._id, isAdmin: user.isAdmin }, 'RESTFULAPIs', {expiresIn: 3600*12}) });
+    return res.json({ token: jwt.sign({ email: user.email, nom: user.nom, prenom: user.prenom, _id: user._id, isAdmin: user.isAdmin, profilComplet: user.avatar && user.profil && user.profil._id }, 'RESTFULAPIs', {expiresIn: 3600*12}) });
 
   });
 };
@@ -519,7 +519,7 @@ exports.load_users = function(req, res) {
 exports.load_users_count = function(req, res) {
   var filter = new RegExp(req.body.filter, 'i');
   Entreprise.find({label: filter}, function(err, entreprises) {
-    User.find({ $or: [{'nom': filter}, {'email': filter}, {'prenom':filter}, { "entreprise" : {
+    User.find({  $or: [{'nom': filter}, {'email': filter}, {'prenom':filter}, { "entreprise" : {
       $in: entreprises
     }}, {'numero': filter}]}, function(err, users_db) {
       if (err) {
