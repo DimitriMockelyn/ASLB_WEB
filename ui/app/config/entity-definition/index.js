@@ -149,6 +149,10 @@ export default {
         }
     },
     event: {
+        notifText: {
+            domain: 'DO_COMMENT',
+            required: true
+        },
         tokenConsumer: {
             domain: 'DO_YES_NO',
             required: false

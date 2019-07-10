@@ -30,4 +30,5 @@ export default {
     setPresent: builder(url + 'setPresent/${eventId}', 'POST'),
     exportMyHistory: builder(url + 'historique/exportMyHistory', 'POST'),
     exportMyCoachHistory: builder(url + 'historique/exportMyCoachHistory', 'POST'),
+    sendPostNotif: builder(url + 'sendPostNotif/${eventId}', 'POST')
 };

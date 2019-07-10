@@ -14,6 +14,7 @@ import {translate} from 'focus-core/translation';
 import Autocomplete from '../../components/autocomplete-field';
 import {download} from '../../utils/download';
 import Absents from '../historique/absents';
+import PostNotification from './post-notification';
 import {component as Popin} from 'focus-components/application/popin';
 const ConfirmPopup = React.createClass({
     render() {
@@ -268,6 +269,12 @@ export default React.createClass({
     closePopinAbsent() {
         this.setState({togglePopinAbsent : undefined});
     },
+    togglePostNotif(id) {
+        this.setState({togglePostNotif : id});
+    },
+    closePostNotif() {
+        this.setState({togglePostNotif : undefined});
+    },
     /*
                         {this.fieldFor('coanimateur1', {label: 'Co-Animateur',options: {
                         FieldComponent: Autocomplete,
@@ -326,12 +333,18 @@ export default React.createClass({
                 {userHelper.getLogin() && (this.isAnimateur() || this.isCoAnimateur()) && this.isPasse() && <div>
                     <Button label='event.gestionAbsent' type='button' handleOnClick={() => {this.toggleGestionAbsent(this.props.event._id)}} />
                 </div>}
+                {userHelper.getLogin() && (this.isAnimateur() || this.isCoAnimateur() || (userHelper.getLogin() && userHelper.getLogin().isAdmin)) && this.isPasse() && <div>
+                    <Button label='event.sendPostNotif' type='button' handleOnClick={() => {this.togglePostNotif(this.props.event._id)}} />
+                </div>}
                 {(this.isOwner() || this.isAnimateur() || this.isCoAnimateur() || (userHelper.getLogin() && userHelper.getLogin().isAdmin)) && !this.isPasse() && <div>
                     <Button label='event.deleteEvent' type='button' handleOnClick={this.deleteEvent} />
                 </div>}
             </Panel>
             {this.state.togglePopinAbsent && <Popin open={true} type='from-right' onPopinClose={this.closePopinAbsent}>
                         <Absents id={this.state.togglePopinAbsent} />
+                    </Popin>}
+            {this.state.togglePostNotif && <Popin open={true} onPopinClose={this.closePostNotif}>
+                        <PostNotification id={this.state.togglePostNotif} hasLoad={false} onPopinClose={this.closePostNotif} hasForm={false}/>
                     </Popin>}
         </div>
         );

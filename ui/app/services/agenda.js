@@ -83,5 +83,8 @@ export default {
     },
     exportMyCoachHistory() {
         return fetch(agendaUrl.exportMyCoachHistory(), utils.computeHeaders());
-    }
+    },
+    sendPostNotif(json) {
+        return fetch(agendaUrl.sendPostNotif({urlData: {eventId:json.id}, data: json.data}), utils.computeHeaders());
+    },
 };

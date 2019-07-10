@@ -23,6 +23,7 @@ export default React.createClass({
         agendaServices.loadMyHistory().then(res => {
             const events = []
             this.setState({history: res})
+            let selected = undefined;
             res.map((event) => {
                
                 if (event) {
@@ -30,15 +31,20 @@ export default React.createClass({
                     let title = (event.typeEvenement ? event.typeEvenement.name : '') + ' - ' + event.name ;
                     var endDate = new Date(event.date_debut);
                     endDate.setMinutes(endDate.getMinutes() + event.duree);
-                    events.push({
+                    let toPush = {
                         ...event,
                         startDate: new Date(event.date_debut),
                         endDate: endDate,
                         title: title,
-                    });
+                    }
+                    if (event._id === this.props.eventId) {
+                        selected = toPush
+                    }
+                    events.push(toPush);
                 }
+                
             })
-            this.setState({historyCal: events})
+            this.setState({historyCal: events, eventClicked: selected})
         });
     },
     onClickEvent(value) {

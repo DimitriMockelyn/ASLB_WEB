@@ -234,6 +234,10 @@ export default {
 
     },
     event: {
+        sendPostNotif: 'Envoyer une notification aux participants',
+        notifText: 'Texte de la notification',
+        sendNotification: 'Envoyer la notification aux participants',
+        notificationPoste: 'La notification à bien été envoyée',
         doesNotConsumeToken: 'Cet évènement ne nécéssite pas de jeton d\'inscription, et n\'en consommera pas',
         tokenConsumer: 'Evenement nécéssitant un jeton',
         explainPrive: 'Les commentaires privés ne seront visibles que par les animateurs',

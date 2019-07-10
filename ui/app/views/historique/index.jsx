@@ -21,7 +21,7 @@ export default React.createClass({
             data.push({
                 name: 'Mon Historique',
                 component: EvenementParticipe,
-                props: {}
+                props: this.props
             });
             if (this.state.isCoach) {
                 data.push({
