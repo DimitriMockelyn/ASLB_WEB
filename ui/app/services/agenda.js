@@ -60,6 +60,9 @@ export default {
     postCommentaire(json) {
         return fetch(agendaUrl.postCommentaire({urlData: {eventId:json.idEvent}, data: json.data}), utils.computeHeaders());
     },
+    postReponseCommentaire(json) {
+        return fetch(agendaUrl.postReponseCommentaire({urlData: {eventId:json.idEvent}, data: json}), utils.computeHeaders());
+    },
     isCoach() {
         return fetch(agendaUrl.isCoach(), utils.computeHeaders());
     },

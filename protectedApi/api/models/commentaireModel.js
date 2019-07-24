@@ -24,6 +24,10 @@ var Commentaire = new Schema({
     type: mongoose.Schema.Types.ObjectId,
 		ref: 'Evenement'
   },
+  reponseA: {
+    type: mongoose.Schema.Types.ObjectId,
+		ref: 'Commentaire'
+  },
   prive: {
     type: Boolean,
     default: false

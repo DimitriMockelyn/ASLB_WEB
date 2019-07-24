@@ -9,7 +9,7 @@ import agendaServices from '../../services/agenda';
 import message from 'focus-core/message';
 import Note from '../../components/note';
 import {translate} from 'focus-core/translation';
-
+import CommentaireLine from './commentaire-line';
 export default React.createClass({
     displayName: 'CommentairePanel',
     mixins: [formMixin],
@@ -102,11 +102,7 @@ export default React.createClass({
                 <div data-focus='list-commentaire'>
                     <div data-focus='commentaire-coach'>
                 {this.state && this.state.listeCommentaires && this.state.listeCommentaires.length > 0 && this.state.listeCommentaires.map(data => {
-                    return <div data-focus='commentaire-detail'>
-                            {data.note && <Note value={data.note} editing={false} />}
-                            <div data-focus='commentaire-commentaire'><label>{data.commentaire || ''}</label></div>
-                            <div data-focus='commentaire-auteur'>{data.auteur.prenom + ' ' + data.auteur.nom + ' (' + moment(data.date, moment.ISO_8601).format('DD/MM/YYYY - HH:mm') +')'}</div>
-                        </div>
+                    return <CommentaireLine data={data} reload={this.componentWillMount} CommentaireLineComp={CommentaireLine}/>
                 })}
                 </div>
                 </div>

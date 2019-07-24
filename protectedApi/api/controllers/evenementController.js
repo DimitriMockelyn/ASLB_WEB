@@ -189,6 +189,9 @@ exports.export_my_history = function(req, res) {
           });
           evenementFound.commentaires.push(commentaire);
         });
+        events.map( event => {
+          event.commentaires = computeMapCommetaire(event.commentaires);
+        });
         return exportMyHistoryForEvents(res, user, events);
       }).populate('auteur', '_id prenom nom').populate('evenement', '_id');
     })
@@ -261,6 +264,9 @@ exports.export_my_coach_history = function(req,res) {
             return event._id.toString() === commentaire.evenement._id.toString();
           });
           evenementFound.commentaires.push(commentaire);
+        });
+        events.map( event => {
+          event.commentaires = computeMapCommetaire(event.commentaires);
         });
         return exportGlobalHistoryForEvents(res, user, events);
       }).populate('auteur', '_id prenom nom').populate('evenement', '_id');
@@ -345,6 +351,9 @@ exports.list_my_coach_history = function(req, res) {
           });
           evenementFound.commentaires.push(commentaire);
         });
+        events.map( event => {
+          event.commentaires = computeMapCommetaire(event.commentaires);
+        });
         res.json(events);
       }).populate('auteur', '_id prenom nom').populate('evenement', '_id');
     });
@@ -367,9 +376,47 @@ exports.is_user_coach = function(req, res) {
       if (err) {
         res.send(err);
       }
-      res.json({isCoach: evenements.length > 0});
+      res.json({isCoach: evenements.length > 0}); 
     });
   })
+}
+
+function findCommentaireInMap(commentaireId, map) {
+  let comm = undefined;
+  console.log(commentaireId, map);
+  for (let index in map) {
+    if (map[index]._id.toString() === commentaireId.toString()) {
+      comm = map[index];
+    }
+    if (map[index].children && map[index].children.length > 0) {
+      comm = comm || findCommentaireInMap(commentaireId, map[index].children)
+    }
+  }
+  return comm;
+}
+
+function computeMapCommetaire(commentaires) {
+  let mapCommentaire = [];
+  let arrCommentaire = [];
+  commentaires.map(comm => {
+      let obj = {...comm._doc, children: []}
+      mapCommentaire.push(obj);
+      arrCommentaire.push(obj);
+  })
+  arrCommentaire.map(comm => {
+    if (comm.reponseA) {
+      let commFound = findCommentaireInMap(comm.reponseA, mapCommentaire)
+      console.log(commFound);
+      commFound.children.push(comm);
+      for (let index in mapCommentaire) {
+        if (mapCommentaire[index]._id === comm._id) {
+          mapCommentaire.splice(index, 1);
+        }
+      }
+    }
+  })
+  return mapCommentaire;
+
 }
 
 exports.get_commentaire_for_user = function(req, res) {
@@ -394,7 +441,7 @@ exports.get_commentaire_for_user = function(req, res) {
           res.json({commentairePresent: false, listeCommentaires : []});
         } else {
           let result = {};
-          result.listeCommentaires = commentaires;
+          result.listeCommentaires = computeMapCommetaire(commentaires);
           result['commentairePresent'] = false;
           commentaires.map(comm => {
             if (comm.auteur._id.toString() === user._id.toString()) {
@@ -458,6 +505,35 @@ exports.post_commentaire_for_user = function(req, res) {
           });
         }
       })
+    })
+  })
+}
+
+exports.post_reponse_commentaire_for_user = function(req,res) {
+  User.findOne({
+    email: req.user.email
+  }, function(err, user) {
+    if (err) {
+      res.send(err);
+    }
+    Evenement.findById(req.params.evenementId, function(err, evenement) {
+      if (err) {
+        res.send(err);
+        return;
+      }
+      var comm = new Commentaire();
+      comm.auteur = user;
+      comm.evenement = evenement;
+      comm.commentaire = req.body.reponse;
+      comm.reponseA = req.body.idCommentaire;
+
+      comm.save(function(err, newComm) {
+          if (err) {
+            res.send(err);
+            return;
+          }
+          res.json(newComm);
+      });
     })
   })
 }
@@ -625,6 +701,23 @@ exports.generate_appointment = function(req, res) {
       organizer: evenement.animateur.prenom + ' ' + evenement.animateur.nom +' <'+evenement.animateur.email+'>'
     });
     res.json({iCal: cal.toString()})
+  }).populate('animateur', '_id nom prenom email');
+}
+
+exports.generate_post_notification = function(req, res) {
+  Evenement.findById(req.params.evenementId, function(err, evenement) {
+    if (evenement && evenement.participants) {
+      evenement.participants.map(user => {
+        let notif = new Notifications();
+        notif.destinataire = user;
+        notif.lien = 'historique/'+req.params.evenementId;
+        notif.message = req.body.notifText;
+
+        notif.save(function(err, not) {
+        })
+      })
+      res.json({success: true})
+    }
   }).populate('animateur', '_id nom prenom email');
 }
 

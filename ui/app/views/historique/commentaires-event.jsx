@@ -8,6 +8,9 @@ import confirm from 'focus-core/application/confirm';
 import agendaServices from '../../services/agenda';
 import message from 'focus-core/message';
 import Note from '../../components/note';
+
+import CommentaireLine from './commentaire-line';
+
 export default React.createClass({
     displayName: 'CommentairePanel',
     mixins: [formMixin],
@@ -72,11 +75,12 @@ export default React.createClass({
                     {this.nbCommentaires + ' commentaire(s)'}    
                 </div>}
                 {this.props.data.commentaires && this.props.data.commentaires.length > 0 && this.props.data.commentaires.map(data => {
-                    return <div data-focus='commentaire-detail'>
+                    /*return <div data-focus='commentaire-detail'>
                             {data.note && <Note value={data.note} editing={false} />}
                             <div data-focus='commentaire-commentaire'><label>{data.commentaire || ''}</label></div>
                             <div data-focus='commentaire-auteur'>{data.auteur.prenom + ' ' + data.auteur.nom + ' (' + moment(data.date, moment.ISO_8601).format('DD/MM/YYYY - HH:mm') +')'}</div>
-                        </div>
+                        </div>*/
+                    return <CommentaireLine data={data} reload={() => {window.location.reload()}} CommentaireLineComp={CommentaireLine}/>
                 })}
             </div>
         </div>
