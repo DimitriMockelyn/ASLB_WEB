@@ -399,7 +399,15 @@ function computeMapCommetaire(commentaires) {
   let mapCommentaire = [];
   let arrCommentaire = [];
   commentaires.map(comm => {
-      let obj = {...comm._doc, children: []}
+      let obj = {
+        commentaire: comm.commentaire,
+        date: comm.date,
+        note: comm.note,
+        auteur: comm.auteur,  
+        evenement: comm.evenement,
+        reponseA: comm.reponseA,
+        prive: comm.prive, 
+      children: []}
       mapCommentaire.push(obj);
       arrCommentaire.push(obj);
   })
