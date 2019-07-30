@@ -400,6 +400,7 @@ function computeMapCommetaire(commentaires) {
   let arrCommentaire = [];
   commentaires.map(comm => {
       let obj = {
+        _id: comm._id,
         commentaire: comm.commentaire,
         date: comm.date,
         note: comm.note,
@@ -451,7 +452,7 @@ exports.get_commentaire_for_user = function(req, res) {
           let result = {};
           result.listeCommentaires = computeMapCommetaire(commentaires);
           result['commentairePresent'] = false;
-          commentaires.map(comm => {
+          result.listeCommentaires.map(comm => {
             if (comm.auteur._id.toString() === user._id.toString()) {
               result._id = comm._id;
               result.evenement = comm.evenement ;
