@@ -22,7 +22,16 @@ export default {
         return fetch(homeUrl.addMessageChat({data}), utils.computeHeaders());
     },
     loadBlocs(type) {
-        return fetch(homeUrl.loadBlocs({urlData: {type}}));
+        return fetch(homeUrl.loadBlocs({urlData: {type}})).then(res => {
+            res.map(value => {
+                value.contenu = value.contenu.replace(/href=".*" target=\"_blank\"/g, function (str) {
+
+                    let url = str.replace(/href="/g,"").replace(/".*/g,"");
+                    return 'href='+window.location.hash+' target="_blank" onclick="window.location.href=\''+url+'\'"';
+                })
+            });
+            return res;
+        })
     },
     loadDayOffs(type) {
         return fetch(homeUrl.loadDayOffs({urlData: {type}}));

@@ -132,6 +132,37 @@ exports.initData = function() {
   }
   })
 
+  BlocAdministrables.find({type: 'contactasso', ordre: 1}, function(err, exists) {
+    if (!exists  || exists.length === 0) {
+    BlocAdministrables.findOneAndUpdate({type: 'contactasso', ordre: 1}, {
+      type: 'contactasso', 
+      ordre: 1,
+      titre:'Contacter l\'association',
+      contenu: '<div data-focus="display-column"><label>Pour nous contacter, 3 possibilités:</label><div data-focus="display-row"><label><!-- react-text: 13 -->Courrier : <!-- /react-text --><!-- react-text: 14 --> <!-- /react-text --></label><div class="bold"> ASSOCIATION SPORTIVE LA BOURSIDIÈRE, LA BOURSIDIERE, 92350 Plessis-Robinson.</div></div><div data-focus="display-row"><label><!-- react-text: 18 -->Courriel : <!-- /react-text --><!-- react-text: 19 --> <!-- /react-text --></label><div class="bold"> </div><div class="link bold">aslb@laboursidiere.com</div></div><label>Venez nous voir directement :</label><div data-focus="img-acces"></div></div>'
+    }, {upsert: true, 'new': true}, function(err, model) {
+    });
+  }
+  })
+
+  BlocAdministrables.find({type: 'inscription', ordre: 1}, function(err, exists) {
+    if (!exists  || exists.length === 0) {
+    BlocAdministrables.findOneAndUpdate({type: 'inscription', ordre: 1}, {
+      type: 'inscription', 
+      ordre: 1,
+      titre:'Conditions',
+      contenu: 'L\'inscription est réservée aux employés du Centre d\'Affaires La Boursidière et est valable du 1er septembre au 31 août. Le prix de la cotisation est de 35€ à renouveler chaque année.'
+    }, {upsert: true, 'new': true}, function(err, model) {
+    });
+    BlocAdministrables.findOneAndUpdate({type: 'inscription', ordre: 2}, {
+      type: 'inscription', 
+      ordre: 2,
+      titre:'Nous rejoindre',
+      contenu: '<div data-focus="column"><label><!-- react-text: 19 -->Téléchargez <!-- /react-text --><div class="link boldbig">içi</div><!-- react-text: 21 --> votre dossier d\'inscription<!-- /react-text --></label><label>La première étape avant toute inscription est de s’assurer que vous disposez bien d’un certificat médical. Prenez rendez-vous chez votre médecin si vous n’en avez pas.</label><label>Le dossier d’inscription comporte les documents ci-dessous :</label><ul><li><label>Fiche d\'adhésion (à compléter et signer)</label></li><li><label>Certificat médical (à faire remplir par son médecin traitant - valable 3 ans)</label></li><li><label>Décharge de responsabilité (à compléter et signer)</label></li><li><label>Règlement intérieur (à parapher sur chaque page et à signer sur la dernière page)</label></li></ul><label>Vous pouvez déposer votre dossier d’inscription complété dans la boîte aux lettres de l’ASLB (n°101). Elle se trouve dans la salle La Poste (demander sa localisation à l’accueil)</label><label>La cotisation annuelle est de 35 € et peut être payée en liquide, par chèque (à l’ordre de l’ASLB), par virement (IBAN fourni dans la fiche d’adhésion) ou par Paypal (cf fiche d’adhésion). .</label><label>Les paiements par virement ou PayPal sont vivement encouragés, car ils n’engendrent pas de manutention.</label></div>'
+    }, {upsert: true, 'new': true}, function(err, model) {
+    });
+  }
+  })
+
   badgeController.insert_badges_default();
 }
 
