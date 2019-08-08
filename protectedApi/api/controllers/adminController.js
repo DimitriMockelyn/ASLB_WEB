@@ -590,7 +590,8 @@ exports.upload_file = function(req, res) {
   var form = new formidable.IncomingForm();
   form.parse(req, function (err, fields, files) {
     console.log('FILE', files);
-    fs.copyFileSync(files.file.path, getConfig().filePath+'/'+files.file.name);
+    fs.createReadStream(files.file.path).pipe(fs.createWriteStream(getConfig().filePath+'/'+files.file.name));
+    //fs.writeFileSync(getConfig().filePath+'/'+files.file.name, files.file.path);
     res.json({updated: true})
   });
 }
@@ -599,7 +600,8 @@ exports.upload_file_inscription = function(req, res) {
   var form = new formidable.IncomingForm();
   form.parse(req, function (err, fields, files) {
     console.log('FILE', files);
-    fs.copyFileSync(files.file.path, getConfig().filePath+'/Inscription_ASLB.zip');
+    fs.createReadStream(files.file.path).pipe(fs.createWriteStream(getConfig().filePath+'/Inscription_ASLB.zip'));
+    //fs.writeFileSync(files.file.path, getConfig().filePath+'/Inscription_ASLB.zip');
     res.json({updated: true})
   });
 }
