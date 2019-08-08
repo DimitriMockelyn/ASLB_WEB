@@ -59,21 +59,23 @@ export default React.createClass({
         return (
                 <div data-focus='chat-history'>
                     {this.state.messages && this.state.messages.map(msg => {
-                        return <div data-focus='message-chat' ref='chat-view'>
-                                <div>
-                                    <div className='click-user-name' onClick={() => {navigate('u/'+msg.auteur._id, true)}}>{msg.auteur.prenom + ' ' +msg.auteur.nom}</div>
-                                    {userHelper.getLogin() && userHelper.getLogin().isAdmin && 
-                                        <i className='material-icons clickable-msg' onClick={() => {this.toggleMessage(msg)} }>{!msg.deleted ? 'clear' : 'check'}</i>
-                                    }
-                                    {!msg.deleted && <div dangerouslySetInnerHTML={{__html: msg.message}}/>}
-                                    {msg.deleted && <div style={{'color': 'red'}}>{translate('home.messageDeleted')}</div>}
+                        if (msg.auteur) {
+                            return <div data-focus='message-chat' ref='chat-view'>
+                                    <div>
+                                        <div className='click-user-name' onClick={() => {navigate('u/'+msg.auteur._id, true)}}>{msg.auteur.prenom + ' ' +msg.auteur.nom}</div>
+                                        {userHelper.getLogin() && userHelper.getLogin().isAdmin && 
+                                            <i className='material-icons clickable-msg' onClick={() => {this.toggleMessage(msg)} }>{!msg.deleted ? 'clear' : 'check'}</i>
+                                        }
+                                        {!msg.deleted && <div dangerouslySetInnerHTML={{__html: msg.message}}/>}
+                                        {msg.deleted && <div style={{'color': 'red'}}>{translate('home.messageDeleted')}</div>}
 
-                                </div>
-                                <div>
-                                    {moment(msg.date, moment.ISO_8601).format('DD/MM/YYYY - HH:mm')}
-                                </div>
+                                    </div>
+                                    <div>
+                                        {moment(msg.date, moment.ISO_8601).format('DD/MM/YYYY - HH:mm')}
+                                    </div>
 
-                            </div>;
+                                </div>;
+                        }
                     })}
                 </div>
         );
