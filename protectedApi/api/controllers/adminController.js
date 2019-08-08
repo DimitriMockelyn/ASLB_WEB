@@ -636,3 +636,11 @@ exports.upload_file_inscription = function(req, res) {
     res.json({updated: true})
   });
 }
+
+exports.list_file = function(req, res) {
+  var files = []
+  fs.readdirSync(getConfig().filePath).forEach(file => {
+    files.push(file)
+  })
+  res.json({files: files});
+}

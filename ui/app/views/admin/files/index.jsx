@@ -25,11 +25,23 @@ export default React.createClass({
         return {
         }
     },
+    componentWillMount() {
+        adminServices.listFiles().then(res => {
+            this.setState({files: res.files});
+        })
+    },
     
     /** @inheritDoc */
     renderContent() {
         return (
         <Panel  title='Fichiers'>
+                Fichiers disponibles :
+        <div style={{'max-height':'150px', 'overflow': 'auto'}}>
+
+            {this.state.files && this.state.files.map(file => {
+                return <div>{window.location.host + window.location.pathname+'fichiers/'+file}</div>
+            })}
+            </div>
             <Button type='button' label='admin.uploadFile' handleOnClick={() => {this.refs.upload.refs.focusFile.dropzone.hiddenFileInput.click()}}/>
             <div style={{'display': 'none'}}>
                 <FileUpload ref='upload' onFileSuccess={() => {message.addSuccessMessage(i18n.t('admin.fileUploaded'))}} url={root + 'uploadFile'}/>

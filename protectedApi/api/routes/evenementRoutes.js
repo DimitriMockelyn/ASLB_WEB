@@ -294,4 +294,7 @@ module.exports = function(app) {
 
 	app.route('/uploadFileInscription')
 		.post(userHandlers.loginRequired, userHandlers.isAdmin, adminHandler.upload_file_inscription);
+
+	app.route('/listFile')
+		.get(userHandlers.loginRequired, userHandlers.isAdmin, adminHandler.list_file)
 };

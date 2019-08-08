@@ -146,5 +146,8 @@ export default {
     },
     createDayOff(data) {
         return fetch(adminUrl.createDayOff({data}), utils.computeHeaders());
+    },
+    listFiles() {
+        return fetch(adminUrl.listFiles(), utils.computeHeaders());
     }
 };

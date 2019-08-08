@@ -50,5 +50,6 @@ export default {
     editDayOff:  builder(url + 'dayOffs/${id}', 'POST'),
     deleteDayOff:  builder(url + 'dayOffs/${id}', 'DELETE'),
     createDayOff:  builder(url + 'dayOffs', 'PUT'),
-    toggleChat: builder(url + 'toggleChat/${id}', 'POST')
+    toggleChat: builder(url + 'toggleChat/${id}', 'POST'),
+    listFiles: builder(url + 'listFile', 'GET')
 };
