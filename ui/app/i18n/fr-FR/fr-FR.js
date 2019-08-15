@@ -101,7 +101,8 @@ export default {
         exporter: 'Exporter',
         sendMailParticipants: 'Contacter les participants',
         cancelQueue: 'Je ne veux pas être mis en attente',
-        acceptQueue: 'Je me mets en file d’attente :)'
+        acceptQueue: 'Je me mets en file d’attente :)',
+        clone: 'Cloner'
 
     },
     home: {

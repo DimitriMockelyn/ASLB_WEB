@@ -158,13 +158,19 @@ export default React.createClass({
         return false;
     },
     renderActionsUpdate() {
+        var buttonClone = <div/>;
+        if (!this.state.isEdit && this.props.onClone) {
+            buttonClone = <Button label='button.clone' type='button' handleOnClick={() => {this.props.onClone(this.props.event)}} />
+        }
+
         var buttonMail = <div/>
         if (this.isPasse()) {
            if (this.isAnimateur() || this.isCoAnimateur() || (userHelper.getLogin() && userHelper.getLogin().isAdmin)) {
                 buttonMail = <Button label='button.sendMailParticipants' icon='mail' type='button' handleOnClick={this.sendMailParticipants} />;
             }
-            return buttonMail;
+            return <div>{buttonMail} {buttonClone}</div>;
         }
+
         var buttonEdit = <div/>;
         if (this.state.isEdit) {
             buttonEdit = <Button label='button.save' type='button' handleOnClick={this.update} />
@@ -193,7 +199,7 @@ export default React.createClass({
             <Button label='event.sendMailAppointment' type='button' shape='icon' icon='move_to_inbox' handleOnClick={this.sendMailAppointment} />
         </div>
         }
-        return <div data-focus='display-row'>{buttonInvite} {buttonMailAppoint} {buttonEdit} {buttonMail} </div>
+        return <div data-focus='display-row'> {buttonInvite} {buttonMailAppoint} {buttonEdit} {buttonMail} {buttonClone}</div>
     },
     sendMailParticipants() {
         var users =''
@@ -297,7 +303,7 @@ export default React.createClass({
                     {this.fieldFor('limite')}
                     {this.fieldFor('animateur',{options: {querySearcherCs: userServices.loadUserAutocomplete, initialString: this.props.event && this.props.event.animateur && this.props.event.animateur.nom + ' ' + this.props.event.animateur.prenom}})}
                     {this.state.coanimateurs && this.state.coanimateurs.length > 0 && this.state.coanimateurs.map( (coanim,index) => {
-                        return <div data-focus='display-row'>{this.fieldFor('coanimateur'+index, {label: 'Co-Animateur '+index,options: {
+                        return <div data-focus='display-row'>{this.fieldFor('coanimateur'+index, {label: 'Co-Animateur '+(index+1),options: {
                             FieldComponent: Autocomplete,
                             querySearcherCs: userServices.loadUserAutocomplete, 
                             initialString: coanim && coanim.nom + ' ' + coanim.prenom}})}

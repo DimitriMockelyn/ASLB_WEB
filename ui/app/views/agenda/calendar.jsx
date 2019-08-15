@@ -173,6 +173,16 @@ export default React.createClass({
             this.setState({creerEvent: slotInfo});
         }
     },
+    cloneEvent(event) {
+        let cloneEvent = JSON.parse(JSON.stringify(event));
+        if (userHelper.getLogin() && userHelper.getLogin().canCreate) {
+            cloneEvent._id = undefined;
+            cloneEvent.participants = [];
+            cloneEvent.created_date = undefined;
+            cloneEvent._v = undefined;
+            this.setState({selectedEvent:undefined, creerEvent: cloneEvent});
+        }
+    },
     closeCreerEvent() {
         this.setState({creerEvent: undefined});
         this.loadAllEvents();
@@ -313,7 +323,9 @@ export default React.createClass({
                 </div>
 
             {this.state.selectedEvent && <Popin open={true}  onPopinClose={this.closePopin}>
-                <EventInfos toggleGestionAbsent={this.toggleGestionAbsent} tokensRestant={this.state.tokensRestant} event={this.state.selectedEvent} onPopinClose={this.closePopin} isEdit={false} hasLoad={false} hasForm={false}/>
+                <EventInfos toggleGestionAbsent={this.toggleGestionAbsent} tokensRestant={this.state.tokensRestant} event={this.state.selectedEvent} onPopinClose={this.closePopin} isEdit={false} hasLoad={false} hasForm={false} 
+                    onClone={userHelper.getLogin() && userHelper.getLogin().canCreate && this.cloneEvent}
+                />
             </Popin>}
             {this.state.creerEvent && <Popin open={true}  onPopinClose={this.closeCreerEvent}>
                 <CreateEvent data={this.state.creerEvent} onPopinClose={this.closeCreerEvent} hasLoad={false} hasForm={false}/>

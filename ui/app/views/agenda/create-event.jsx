@@ -17,7 +17,13 @@ export default React.createClass({
     componentWillMount() {
     },
     getInitialState() {
-        return {...this.props.data, tokenConsumer: true, date_debut : moment(this.props.data.start), coanimateurs: []};
+        let complement = {};
+        if (this.props.data.coanimateurs && this.props.data.coanimateurs.length > 0) {
+            this.props.data.coanimateurs.map((data,index) => {
+                complement['coanimateur'+index] = data;
+            })
+        }
+        return {...this.props.data, ...complement, tokenConsumer: true, date_debut : moment(this.props.data.start), coanimateurs: this.props.data.coanimateurs || []};
     },
     create() {
         if (this.validate()) {
@@ -85,9 +91,9 @@ export default React.createClass({
                 {this.fieldFor('date_debut', {isEdit: true})}
                 {this.fieldFor('duree', {isEdit: true})}
                 {this.fieldFor('limite', {isEdit: true})}
-                {this.fieldFor('animateur', {isEdit: true, options: {querySearcherCs: userServices.loadUserAutocomplete}})}
+                {this.fieldFor('animateur', {isEdit: true, options: {querySearcherCs: userServices.loadUserAutocomplete, initialString: this.state && this.state.animateur && this.state.animateur.nom + ' ' + this.state.animateur.prenom}})}
                 {this.state.coanimateurs && this.state.coanimateurs.length > 0 && this.state.coanimateurs.map( (coanim,index) => {
-                        return <div data-focus='display-row'>{this.fieldFor('coanimateur'+index, {isEdit: true, label: 'Co-Animateur '+index,options: {
+                        return <div data-focus='display-row'>{this.fieldFor('coanimateur'+index, {isEdit: true, label: 'Co-Animateur '+(index+1),options: {
                             FieldComponent: Autocomplete,
                             querySearcherCs: userServices.loadUserAutocomplete, 
                             initialString: coanim && coanim.nom + ' ' + coanim.prenom}})}
