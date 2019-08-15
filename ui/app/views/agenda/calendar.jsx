@@ -180,6 +180,9 @@ export default React.createClass({
             cloneEvent.participants = [];
             cloneEvent.created_date = undefined;
             cloneEvent._v = undefined;
+            cloneEvent.absents = [];
+            cloneEvent.createur = undefined;
+            cloneEvent.fileAttente = [];
             this.setState({selectedEvent:undefined, creerEvent: cloneEvent});
         }
     },
