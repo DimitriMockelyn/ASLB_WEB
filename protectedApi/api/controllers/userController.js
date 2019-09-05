@@ -512,7 +512,7 @@ exports.load_users = function(req, res) {
       fill_user_data(users_db, false,  (users_res) => {
         return res.json(users_res);
       })
-    }).populate('sexe', '_id label').populate('entreprise', '_id label').sort('numero').skip(req.body.skip || 0).limit(req.body.limit || 99999);
+    }).select("-avatar").populate('sexe', '_id label').populate('entreprise', '_id label').sort('numero').skip(req.body.skip || 0).limit(req.body.limit || 99999);
   })
 }
 
@@ -522,6 +522,7 @@ exports.load_users_count = function(req, res) {
     User.find({  $or: [{'nom': filter}, {'email': filter}, {'prenom':filter}, { "entreprise" : {
       $in: entreprises
     }}, {'numero': filter}]}, function(err, users_db) {
+      
       if (err) {
         console.log(err);
         res.send(err);
@@ -529,7 +530,7 @@ exports.load_users_count = function(req, res) {
       fill_user_data(users_db, false,  (users_res) => {
         return res.json({total: users_res.length});
       })
-    }).populate('sexe', '_id label').populate('entreprise', '_id label').sort('numero').skip(req.body.skip || 0).limit(req.body.limit || 99999);
+    }).select("-avatar").populate('sexe', '_id label').populate('entreprise', '_id label').sort('numero').skip(req.body.skip || 0).limit(req.body.limit || 99999);
   })
 }
 
@@ -551,7 +552,7 @@ exports.load_users_actif = function(req, res) {
       fill_user_data(users_db, false,  (users_res) => {
         return res.json(users_res);
       })
-    }).populate('sexe', '_id label').populate('entreprise', '_id label').sort('numero');
+    }).select("-avatar").populate('sexe', '_id label').populate('entreprise', '_id label').sort('numero');
   })
 }
 
