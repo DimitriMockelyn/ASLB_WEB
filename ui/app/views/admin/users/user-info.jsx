@@ -110,6 +110,9 @@ export default React.createClass({
                 }
                 if (field === 'date_renouvellement') {
                     data.date_fin = this.computeDateFin(value);
+                    if (data.date_fin.isAfter(moment())) {
+                        data.actif = true;
+                    }
                 } else {
                     data.date_fin = this.computeDateFin(moment());
                 }
