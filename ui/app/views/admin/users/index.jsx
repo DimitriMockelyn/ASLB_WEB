@@ -115,14 +115,16 @@ export default React.createClass({
     computeDateFin(dateAdhesion) {
         var momentFin = moment('31/08/2018','DD/MM/YYYY');
         var momentLimit = moment('31/05/2017','DD/MM/YYYY');
+        var momentLimitMax = moment('31/08/2017','DD/MM/YYYY');
         momentLimit.set('year', moment().get('year'));
+        momentLimitMax.set('year', moment().get('year'));
         var momentDebut = moment(dateAdhesion, [moment.ISO_8601,'DD/MM/YYYY', 'DDMMYYYY']);
         if (momentDebut.isValid()) {
             momentFin.set('year', momentDebut.get('year'));
             if (momentFin.isBefore(momentDebut)) {
                 momentFin.set('year', momentFin.get('year') +1);
             }
-            if (momentDebut.isAfter(momentLimit)) {
+            if (momentDebut.isAfter(momentLimit) && !momentDebut.isAfter(momentLimitMax)) {
                 momentFin.set('year', momentFin.get('year') +1);
             }
             return  momentFin;
