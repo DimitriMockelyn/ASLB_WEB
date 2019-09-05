@@ -836,7 +836,8 @@ exports.update_date_activation = function(req, res) {
     email: req.body.email,
     telephone: req.body.telephone,
     dateNaissance: req.body.dateNaissance,
-    tokens: req.body.tokens
+    tokens: req.body.tokens,
+    actif: req.body.actif
   }, function(err, userActif) {
     if (err) {
       return res.json({updated: false});
