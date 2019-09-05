@@ -39,7 +39,7 @@ export default React.createClass({
         <div style={{'max-height':'150px', 'overflow': 'auto'}}>
 
             {this.state.files && this.state.files.map(file => {
-                return <div>{window.location.host + window.location.pathname+'fichiers/'+file}</div>
+                return <div>{window.location.origin + window.location.pathname+'fichiers/'+file}</div>
             })}
             </div>
             <Button type='button' label='admin.uploadFile' handleOnClick={() => {this.refs.upload.refs.focusFile.dropzone.hiddenFileInput.click()}}/>
