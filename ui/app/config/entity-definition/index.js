@@ -321,6 +321,9 @@ export default {
         },
         records: {
             domain: 'DO_RTE'
+        },
+        doNotDelete: {
+            domain: 'DO_YES_NO'
         }
     },
     presentation: {

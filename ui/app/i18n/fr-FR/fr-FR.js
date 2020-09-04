@@ -368,7 +368,8 @@ export default {
         certificat: 'Certificat',
         cotisation: 'Cotisation',
         numero: 'Numéro d\'adhérent',
-        tokens: 'Nombre max de jetons'
+        tokens: 'Nombre max de jetons',
+        doNotDelete: 'Ne pas supprimer'
 
     },
     confirmAddDroits: {

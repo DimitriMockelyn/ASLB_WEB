@@ -149,5 +149,8 @@ export default {
     },
     listFiles() {
         return fetch(adminUrl.listFiles(), utils.computeHeaders());
+    },
+    deleteMass() {
+        return fetch(adminUrl.deleteMass(), utils.computeHeaders());
     }
 };

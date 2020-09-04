@@ -123,6 +123,10 @@ var User = new Schema({
     required: true,
     default: TOKEN_NB
   },
+  doNotDelete: {
+    type: Boolean,
+    default: false
+  }
 });
 
 User.methods.comparePassword = function(password) {

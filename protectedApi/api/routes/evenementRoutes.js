@@ -143,6 +143,9 @@ module.exports = function(app) {
 	app.route('/updateUser/:id')
 		.post(userHandlers.loginRequired,  userHandlers.isAdmin, userHandlers.update_date_activation)
 
+	app.route('/deleteMassUser')
+		.delete(userHandlers.loginRequired,  userHandlers.isAdmin, userHandlers.delete_mass)
+
 	app.route('/uploadAvatar')
 		.post(userHandlers.loginRequired, userHandlers.changeAvatar)
 

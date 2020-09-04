@@ -40,7 +40,8 @@ export default React.createClass({
             decharge: (this.props.data.decharge === 'Oui'), 
             reglement: (this.props.data.reglement === 'Oui'), 
             certificat: (this.props.data.certificat === 'Oui'), 
-            cotisation: (this.props.data.cotisation === 'Oui'), 
+            cotisation: (this.props.data.cotisation === 'Oui'),
+            doNotDelete: (this.props.data.doNotDelete === 'Oui') 
         };
     },
     canCreateToggle() {
@@ -151,6 +152,7 @@ export default React.createClass({
                 {this.fieldFor('canCreate', {isEdit: false})}
                 {this.fieldFor('isAdmin', {isEdit: false})}
                 {this.fieldFor('tokens')}
+                {this.fieldFor('doNotDelete')}
 
                 <div>  
                     <Button label='person.toggleCanCreate' type='button' handleOnClick={this.canCreateToggle} />

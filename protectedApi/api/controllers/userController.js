@@ -565,11 +565,11 @@ exports.export_users = function(req, res) {
     fill_user_data(users_db, true, users => {      
       var fields = ['nom', 'prenom', 'email','numero','sexe.label', 'entreprise.label', 'dateNaissance', 'telephone',
       'date_activation', 'date_renouvellement', 'date_fin', 'dossier_complet', 'adhesion', 'decharge', 'reglement', 'certificat', 'date_emission_certificat', 'date_expiration_certificat',  'cotisation', 'nombreInscription',
-       'noteMoyenneDonnee', 'noteMoyenneRecue' , 'nombreAbsences', 'nombreCoach']
+       'noteMoyenneDonnee', 'noteMoyenneRecue' , 'nombreAbsences', 'nombreCoach', 'doNotDelete']
       var fieldNames  = ['person.nom', 'person.prenom', 'person.email','Numéro d\'adhérent','sexe.label', 'entreprise.label','person.dateNaissance', 'person.telephone', 'person.date_activation', 'person.date_renouvellement', 'person.date_fin', 'person.dossier_complet',
       'Adhésion', 'Décharge', 'Règlement', 'Certificat', 'person.date_emission_certificat', 'person.date_expiration_certificat', 'Côtisation', 
       'Nombre d\'inscriptions dans les '+GLISSEMENT_JOURS_STATS+' derniers jours', 'Note moyenne donnée sur '+GLISSEMENT_JOURS_STATS+' jours', 
-      'Note moyenne recue sur '+GLISSEMENT_JOURS_STATS+' jours', 'Nombre d\'absences sur '+GLISSEMENT_JOURS_STATS+' jours', 'Nombre d\'activités données sur '+GLISSEMENT_JOURS_STATS+' jours']
+      'Note moyenne recue sur '+GLISSEMENT_JOURS_STATS+' jours', 'Nombre d\'absences sur '+GLISSEMENT_JOURS_STATS+' jours', 'Nombre d\'activités données sur '+GLISSEMENT_JOURS_STATS+' jours', 'Ne pas supprimer']
       json2csv({ data: users, fields: fields, fieldNames:fieldNames, quotes:'', del: ';' }, function(err, csv) {
         res.setHeader('Content-disposition', 'attachment; filename=data.csv');
         res.set('Content-Type', 'text/csv');
@@ -614,6 +614,7 @@ function fill_user_data(users_db, formatDate, cb) {
     users[index]['canCreate'] = users_db[index]['canCreate'];
     users[index]['actif'] = users_db[index]['actif'];
     users[index]['tokens'] = users_db[index]['tokens'];
+    users[index]['doNotDelete'] = users_db[index].doNotDelete ? 'Oui' : 'Non';
   }
   var minDate = new Date(Date.now());
   minDate.setDate(minDate.getDate() - GLISSEMENT_JOURS_STATS);
@@ -816,6 +817,15 @@ exports.toggle_actif = function(req, res) {
   });
 }
 
+exports.delete_mass = function(req, res) {
+  User.deleteMany({doNotDelete: {$not: {$eq: true}} }, function(err, result) {
+    if (err) {
+      return res.json({updated: false});
+    } else {
+      return res.json({updated: true});
+    }
+  });
+}
 
 exports.update_date_activation = function(req, res) {
   User.findByIdAndUpdate(req.params.id, {
@@ -837,7 +847,8 @@ exports.update_date_activation = function(req, res) {
     telephone: req.body.telephone,
     dateNaissance: req.body.dateNaissance,
     tokens: req.body.tokens,
-    actif: req.body.actif
+    actif: req.body.actif,
+    doNotDelete: req.body.doNotDelete
   }, function(err, userActif) {
     if (err) {
       return res.json({updated: false});
