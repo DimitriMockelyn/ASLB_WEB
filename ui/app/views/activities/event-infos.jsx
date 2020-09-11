@@ -6,6 +6,7 @@ import activiteServices from '../../services/activite';
 import moment from 'moment';
 import userHelper from 'focus-core/user';
 import confirm from 'focus-core/application/confirm';
+import {addErrorMessage,addSuccessMessage} from 'focus-core/message';
 import userServices from '../../services/user';
 import message from 'focus-core/message';
 import EventCard from './event-card';
@@ -54,8 +55,8 @@ export default React.createClass({
             this.checkDoubleSave = true
             if (this.validate()) {
                 this.checkDoubleSave = false;
-                if (this.props.event.participants.length === this.props.event.limite) {
-                    confirm(() => { return <ConfirmPopup isNotFree={this.props.event.tokenConsumer} tokensRestant={this.props.tokensRestant}  />}, {cancelButtonLabel: 'button.cancelQueue', confirmButtonLabel: 'button.acceptQueue'}).then(this.trueAddSelf);
+                if (this.props.event.participants.length >= this.props.event.limite) {
+                    addErrorMessage('Cette activité est complète')
                 } else { 
                     this.trueAddSelf();
                 }
@@ -80,7 +81,6 @@ export default React.createClass({
             //request.execute(function(event) {that.props.onPopinClose()})
     },
     isInEvent(id) {
-        debugger;
         for (let index in this.props.event.participants) {
             if (this.props.event.participants[index]._id === id) {
                 return true;
@@ -114,21 +114,15 @@ export default React.createClass({
         })
     },
     renderActionsUpdate() {
-        var buttonClone = <div/>;
-        if (!this.state.isEdit && this.props.onClone) {
-            buttonClone = <Button label='button.clone' type='button' handleOnClick={() => {this.props.onClone(this.props.event)}} />
-        }
 
         var buttonMail = <div/>
         if (this.isPasse()) {
 
-            return <div>{buttonMail} {buttonClone}</div>;
+            return <div>{buttonMail}</div>;
         }
 
         var buttonEdit = <div/>;
-        if (this.state.isEdit) {
-            buttonEdit = <Button label='button.save' type='button' handleOnClick={this.update} />
-        }
+
         if (this.isOwner() || (userHelper.getLogin() && userHelper.getLogin().isAdmin) ) {
             if (this.state.isEdit) {
                 buttonEdit = <Button label='button.save' type='button' handleOnClick={this.update} />
@@ -141,19 +135,10 @@ export default React.createClass({
             buttonMail = <Button label='button.sendMailParticipants' icon='mail' type='button' handleOnClick={this.sendMailParticipants} />;
         }
         var buttonInvite = <div />;
-        if (userHelper.getLogin() && (this.isInEvent(userHelper.getLogin()._id))) {
-            buttonInvite = <div>
-            <Button label='event.generateAppointment' type='button' shape='icon' icon='add_alarm' handleOnClick={this.generateAppointment} />
-        </div>
-        }
 
         var buttonMailAppoint = <div/>;
-        if (false && userHelper.getLogin() && this.isInEvent(userHelper.getLogin()._id)) {
-            buttonMailAppoint = <div>
-            <Button label='event.sendMailAppointment' type='button' shape='icon' icon='move_to_inbox' handleOnClick={this.sendMailAppointment} />
-        </div>
-        }
-        return <div data-focus='display-row'> {buttonInvite} {buttonMailAppoint} {buttonEdit} {buttonMail} {buttonClone}</div>
+
+        return <div data-focus='display-row'> {buttonInvite} {buttonMailAppoint} {buttonEdit} {buttonMail}</div>
     },
     computeSexeData(membre) {
         if (!membre.sexe || !this.state.reference || !this.state.reference.typeSexe) {

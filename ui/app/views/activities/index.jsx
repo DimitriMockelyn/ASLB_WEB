@@ -124,7 +124,7 @@ export default React.createClass({
 
                     return <div data-focus='display-column' className='array-like'>
                         {obj.map(creneau => {
-                            return <TileActivity data={creneau}/>
+                            return <TileActivity data={creneau} onRefresh={this.componentWillMount.bind(this)} />
                         })}
                     </div>
                 })}

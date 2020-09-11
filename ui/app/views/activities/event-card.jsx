@@ -32,7 +32,7 @@ export default React.createClass({
     /** @inheritDoc */
     renderContent() {
         console.log(this.state);
-        var limitString = this.state.limite ?  '/' + this.state.limite : '';
+        var limitString = this.state.limite ?  '/' + this.state.limite : '/0';
         return (
             <div data-focus='event-consult-card'>
                 <div className='top-row'>

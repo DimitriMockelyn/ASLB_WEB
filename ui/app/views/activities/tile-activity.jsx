@@ -83,22 +83,25 @@ export default React.createClass({
         res['justifyContent'] = 'center';
         return res;
     },
+    closePopin() {
+        this.setState({selectedEvent: false}, this.props.onRefresh);
+    },
     closeCreerEvent() {
-        this.setState({creerEvent: false});
+        this.setState({creerEvent: false}, this.props.onRefresh);
     },
     /** @inheritDoc */
     render() {
         
         return (
             <div style={{'width': '100%'}} >            
-            <div  data-focus='tile-machine' className={this.state.metadata.canClick? 'canClick' : ''}  style={this.computeStyle()} onClick={this.state.metadata.canClick && this.click} >
-                {this.state.data && !this.state.data.locked && this.state.data.title}
-                {this.state.data && this.state.data.locked && <i className="material-icons">lock</i> }
-            </div>
+                <div  data-focus='tile-machine' className={this.state.metadata.canClick? 'canClick' : ''}  style={this.computeStyle()} onClick={this.state.metadata.canClick && this.click} >
+                    {this.state.data && !this.state.data.locked && this.state.data.title}
+                    {this.state.data && this.state.data.locked && <i className="material-icons">lock</i> }
+                </div>
                 {this.state.selectedEvent && <Popin open={true}  onPopinClose={this.closePopin}>
-                <EventInfos event={this.state.data} onPopinClose={this.closePopin} isEdit={false} hasLoad={false} hasForm={false} 
-                />
-            </Popin>}
+                    <EventInfos event={this.state.data} onPopinClose={this.closePopin} isEdit={false} hasLoad={false} hasForm={false} 
+                    />
+                </Popin>}
             {this.state.creerEvent && <Popin open={true}  onPopinClose={this.closeCreerEvent}>
                 <CreateEvent toggleLock={this.toggleLock} data={this.state.data} id={this.state.data._id} onPopinClose={this.closeCreerEvent} hasLoad={false} hasForm={false} createEvent={this.createEvent}/>
             </Popin>}
