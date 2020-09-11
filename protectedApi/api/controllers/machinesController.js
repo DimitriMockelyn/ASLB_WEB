@@ -6,6 +6,9 @@ var mongoose = require('mongoose'),
   User= mongoose.model("User"),
   CreneauMachine= mongoose.model('CreneauMachine'),
   Machine = mongoose.model('Machine'),
+  Activity = mongoose.model('Activity'),
+  CreneauActivity = mongoose.model('CreneauActivity'),
+  ActivityTime = mongoose.model('ActivityTime'),
   BlocAdministrables = mongoose.model('BlocAdministrables'),
   moment = require('moment'),
   mailer = require('../utils/mailer');
@@ -14,6 +17,7 @@ var mongoose = require('mongoose'),
 const heureDebut = 7;
 const minuteDebut = 0;
 const duree = 30;
+const dureeActivity = 60;
 const heureDernier = 19;
 const minuteDernier = 30;
 
@@ -63,6 +67,96 @@ const initCreneauxIfNeededForDay = function(day, month, year, next) {
   });
 }
 
+const initActivityIfNeededForDay = function(day, month, year, next) {
+  
+  var newDate = moment();
+  newDate.set('year', year);
+  newDate.set('month', month-1); //Month are 0 based
+  newDate.set('date', day);
+  newDate.startOf('day');
+  var endDate = newDate.clone()
+  endDate.endOf('day');
+  var daysofweek = ['lundi', 'mardi', 'mercredi', 'jeudi', 'vendredi']
+  ActivityTime.find({}, function(err, actTimes) {
+    Activity.find({}, function(err, activitys) {
+        //On regarde, pour toutes les activitys, si on a des creneaux a ce jour
+        CreneauActivity.find({$and:[{
+          dateDebut: {$lt: endDate}
+        }, {
+          dateDebut: {$gt: newDate}
+        } ]
+      }, function( err, creneaux) {
+          let crens = [];
+          let date = newDate.clone();
+          date.set('hour', heureDebut).set('minute',minuteDebut);
+          let dateDernier = newDate.clone()
+          dateDernier.set('hour', heureDernier).set('minute',minuteDernier);
+          while (!date.isAfter(dateDernier)) {
+            let unlockEnd = undefined;
+            let unlockBegin = undefined;
+            actTimes.forEach(function(actTime) {
+              if (daysofweek.indexOf(actTime.jour) +1 === date.isoWeekday()) {
+                unlockEnd = actTime.heureFin;
+                unlockBegin = actTime.heureDebut;
+              }
+            })
+            let locked = false;
+            if (unlockEnd && unlockBegin) {
+              var heureDebutUnlock = newDate.clone();
+              var heureFinUnlock = newDate.clone();
+              heureDebutUnlock.set('hour', unlockBegin.split(":")[0]).set('minute',unlockBegin.split(":")[1]);
+              heureFinUnlock.set('hour', unlockEnd.split(":")[0]).set('minute',unlockEnd.split(":")[1]);
+              if (date.isAfter(heureFinUnlock) || date.isBefore(heureDebutUnlock)) {
+                locked = true
+              }
+            }
+            //Création des creneaux, de 8h a 20h
+            activitys.map(mch => {
+              let cren = new CreneauActivity();
+              cren.activity = mch._id;
+              cren.dateDebut = date.clone();
+              cren.locked = locked;
+              crens.push(cren);
+            });
+            date.add(dureeActivity,'minutes');
+          }
+          crens = crens.filter(cren => {
+            let exists = creneaux.find(existingcren => {
+              return existingcren.activity.toString() === cren.activity.toString() && moment(existingcren.dateDebut).isSame(moment(cren.dateDebut))
+            })
+            return exists === undefined;
+          });
+          // save multiple documents to the collection referenced by Book Model
+          CreneauActivity.collection.insert(crens, function (err, crens) {
+            next();
+          });
+      });
+    });
+  });
+  }
+
+exports.load_list_activity = function(req, res) {
+  const {day, month, year} = req.body;
+  initActivityIfNeededForDay(day,month,year, () => {
+    var newDate = moment();
+    newDate.set('year', year);
+    newDate.set('month', month-1); //Month are 0 based
+    newDate.set('date', day);
+    newDate.startOf('day');
+    var endDate = newDate.clone();
+    endDate.endOf('day');
+    //On regarde, pour toutes les activites, si on a des creneaux a ce jour
+    CreneauActivity.find({$and:[{
+        dateDebut: {$lt: endDate}
+      }, {
+        dateDebut: {$gt: newDate}
+      }]
+    }, function( err, creneaux) {
+        res.json(creneaux);
+    }).populate('activity', '_id nom type').populate('createur', '_id nom prenom').populate('participants', '_id prenom nom email')
+  });
+}
+
 exports.load_list_machine = function(req, res) {
   const {day, month, year} = req.body;
   initCreneauxIfNeededForDay(day,month,year, () => {
@@ -83,6 +177,24 @@ exports.load_list_machine = function(req, res) {
         res.json(creneaux);
     }).populate('machine', '_id nom type').populate('membre', '_id nom prenom')
   });
+}
+
+exports.create_activity_in_creneau = function(req, res) {
+  User.findOne({
+    email: req.user.email
+  }, function(err, user) {
+    CreneauActivity.findById(req.params.creneauId, function(err, creneau) {
+      creneau.createur = user;
+      creneau.title = req.body.title;
+      creneau.limite = req.body.limite;
+      creneau.description = req.body.description;
+      creneau.save(function(err, crn) {
+        CreneauActivity.findById(crn._id, function(err, result) {
+          res.json(result);
+        }).populate('activity', '_id nom type').populate('createur', '_id nom prenom')
+      })
+    });
+  })
 }
 
 exports.toggle_self_for_machine = function(req, res) {
@@ -210,5 +322,118 @@ function check_evenement_conflit_machine(res, creneau, user, next) {
     return next();
     
   }).populate('fileAttente', '_id personne ordre').populate('participants', '_id prenom nom email');
-
 }
+
+exports.add_self_to_activite = function(req, res) {
+  CreneauActivity.findById(req.params.creneauId, function(err, evenement) {
+    if (err) {
+      res.send(err);
+    }
+    if (!evenement.participants) {
+      evenement.participants = [];
+    }
+
+    User.findOne({
+      email: req.user.email
+    }, function(err, user) {
+        //On vérifie que la date de fin n'est pas trop loin
+        if (evenement.dateDebut.getTime() > user.date_fin.getTime()) {
+            return res.status(401).json({ message: 'Cette activité est apres votre fin d\'ashésion' });
+        }
+        //On vérifie qu'on ajoute pas de doublons
+        if (evenement.participants.indexOf(user._id) === -1) {
+          //Y a t'il encore de la place ?
+          if (evenement.limite !== undefined && evenement.limite !== null && evenement.participants.length >= evenement.limite) {
+            return res.status(401).json({ message: 'Cette activité est complete' }); //Deja en file d'attente
+          } else {
+            evenement.participants.push(user);
+            evenement.save(function(err, evenement) {
+              if (err)
+                res.send(err);
+              res.json(evenement);
+            });
+          }
+        } else {
+          res.json(evenement);
+        }
+    });
+
+  })
+};
+
+const remove_one_from_evenement = function(req, res, user, evenementId, next) {
+  CreneauActivity.findById(evenementId, function(err, evenement) {
+    if (err) {
+      res.send(err);
+    }
+    if (!evenement.participants) {
+      evenement.participants = [];
+    }
+
+    //On vérifie qu'on ajoute pas de doublons
+    
+    for (var i = 0; i < evenement.participants.length; i++) {
+      if (evenement.participants[i].toString() === user._id.toString()) {
+          evenement.participants.splice(i, 1);
+          i--;
+      }
+    }
+    if (next) {
+      next(evenement);
+    }
+    /*
+    evenement.save(function(err, evenement) {
+        if (err) {
+          res.send(err);
+        }
+        res.json(evenement);
+    });
+    */
+  })
+}
+
+exports.remove_one_from_evenement = remove_one_from_evenement;
+
+exports.remove_self_to_activite = function(req, res) {
+    User.findOne({
+      email: req.user.email
+    }, function(err, user) {
+      remove_one_from_evenement(req, res, user, req.params.creneauId, evenement => {
+        evenement.save(function(err, evenement) {
+          if (err) {
+            res.send(err);
+          }
+          res.json(evenement);
+      });
+    });
+  });
+};
+
+
+exports.update_a_activite = function(req, res) {
+  CreneauActivity.findOneAndUpdate({_id:req.params.creneauId}, {limite: req.body.limite, title: req.body.title, description: req.body.description}, {new: true}, function(err, newComm) {
+    if (err) {
+      res.send(err);
+    }
+    res.json({update: true});
+  });
+}; 
+
+exports.toggle_lock = function(req, res) {
+  CreneauActivity.findOneAndUpdate({_id:req.params.creneauId}, {locked: req.body.locked}, {new: true}, function(err, newComm) {
+    if (err) {
+      res.send(err);
+    }
+    res.json({update: true});
+  });
+}; 
+
+exports.delete_a_activite = function(req, res) {
+
+  CreneauActivity.findOneAndUpdate({_id:req.params.creneauId}, {limite: 0, createur: undefined, title: undefined, description: undefined, participants:[]}, {new: true}, function(err, newComm) {
+    if (err) {
+      res.send(err);
+    }
+    res.json({update: true});
+  });
+};

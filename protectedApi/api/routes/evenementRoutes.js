@@ -33,6 +33,21 @@ module.exports = function(app) {
 	app.route('/evenements/removeSelf/:evenementId')
 		.post(userHandlers.loginRequired, userHandlers.isEvenementFutur, eventHandler.remove_self_to_evenement);
 
+	app.route('/createActivityInCreneau/:creneauId')
+		.post(userHandlers.loginRequired, userHandlers.isMembreActif, userHandlers.isCreneauActivityFutur, machinesController.create_activity_in_creneau)
+
+	app.route('/activite/addSelf/:creneauId')
+		.post(userHandlers.loginRequired, userHandlers.isMembreActif, userHandlers.isCreneauActivityFutur, machinesController.add_self_to_activite)
+	app.route('/activite/removeSelf/:creneauId')
+		.post(userHandlers.loginRequired, userHandlers.isCreneauActivityFutur, machinesController.remove_self_to_activite);
+
+	app.route('/activite/:creneauId')
+		.put(userHandlers.loginRequired, userHandlers.isMembreActif, userHandlers.isCreneauActivityFutur, machinesController.update_a_activite)
+		.delete(userHandlers.loginRequired, userHandlers.isMembreActif, userHandlers.isCreneauActivityFutur, machinesController.delete_a_activite); 
+
+	app.route('/lockActivity/:creneauId')
+		.post(userHandlers.loginRequired, userHandlers.isAdmin, userHandlers.isCreneauActivityFutur, machinesController.toggle_lock); 
+
 	app.route('/evenements/generateAppointment/:evenementId')
 		.post(userHandlers.loginRequired, userHandlers.isEvenementFutur, eventHandler.generate_appointment);
 
@@ -261,6 +276,9 @@ module.exports = function(app) {
 	app.route('/listMachinesForDay')
 		.post(machinesController.load_list_machine)
 
+	app.route('/loadActivitesForDay')
+		.post(machinesController.load_list_activity)
+
 	app.route('/machines')
 		.get(adminHandler.list_all_machines)
 		.put(userHandlers.loginRequired,  userHandlers.isAdmin, adminHandler.create_machine)
@@ -268,6 +286,22 @@ module.exports = function(app) {
 	app.route('/machines/:id')
 		.post(userHandlers.loginRequired,  userHandlers.isAdmin, adminHandler.edit_machine)
 		.delete(userHandlers.loginRequired,  userHandlers.isAdmin, adminHandler.delete_machine)
+
+	app.route('/activites')
+		.get(adminHandler.list_all_activites)
+		.put(userHandlers.loginRequired,  userHandlers.isAdmin, adminHandler.create_activite)
+
+	app.route('/activites/:id')
+		.post(userHandlers.loginRequired,  userHandlers.isAdmin, adminHandler.edit_activite)
+		.delete(userHandlers.loginRequired,  userHandlers.isAdmin, adminHandler.delete_activite)
+
+	app.route('/activityTimes')
+		.get(adminHandler.list_all_activity_times)
+		.put(userHandlers.loginRequired,  userHandlers.isAdmin, adminHandler.create_activity_time)
+
+	app.route('/activityTimes/:id')
+		.post(userHandlers.loginRequired,  userHandlers.isAdmin, adminHandler.edit_activity_time)
+		.delete(userHandlers.loginRequired,  userHandlers.isAdmin, adminHandler.delete_activity_time)
 
 	app.route('/dayOffs')
 		.get(adminHandler.list_all_day_offs)

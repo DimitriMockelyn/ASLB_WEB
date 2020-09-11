@@ -15,6 +15,7 @@ var mongoose = require('mongoose'),
   Profil = mongoose.model('Profil'),
   Queue = mongoose.model('Queue'),
   Commentaire = mongoose.model('Commentaire'), 
+  CreneauActivity = mongoose.model('CreneauActivity'),
   evenementController = require('./evenementController'),
   Entreprise = mongoose.model('Entreprise'),
   badgeController = require('./badgeController');
@@ -326,6 +327,25 @@ exports.isAdmin = function(req, res, next) {
     return res.status(401).json({ message: 'Il faut être connecté pour réaliser cette action' });
   }
 };
+
+exports.isCreneauActivityFutur = function(req, res, next) {
+  if (req.user && req.params.creneauId) {
+  }
+  if (req.params.creneauId) {
+    CreneauActivity.findById(req.params.creneauId, function(err, evenement) {
+      if (err) {
+        return res.status(401).json({ message: 'Activité non trouvé' });
+      }
+      if (evenement.dateDebut.getTime() > Date.now()) {
+        return next();
+      } else {
+      return res.status(401).json({ message: 'Vous ne pouvez pas faire cette action sur une activité passée' });
+      }
+    }).populate('createur');
+  } else {
+    return res.status(401).json({ message: 'L\'activité n\'existe pas' });
+  }
+}
 
 exports.isEvenementOwner = function(req, res, next) {
   if (req.user && req.params.evenementId) {

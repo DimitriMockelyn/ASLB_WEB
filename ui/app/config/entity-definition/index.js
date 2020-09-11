@@ -16,6 +16,20 @@ export default {
             required: true
         }
     },
+    activityTimes: {
+        heureFin: {
+            domain: 'DO_LABEL_LONG',
+            required: true
+        },
+        heureDebut: {
+            domain: 'DO_LABEL_LONG',
+            required: true
+        },
+        date: {
+            domain: 'DO_LABEL_LONG',
+            required: true
+        }
+    },
     badges: {
         titre: {
             domain: 'DO_LABEL_LONG',
@@ -139,6 +153,16 @@ export default {
         },
     },
     machine: {
+        nom: {
+            domain: 'DO_LABEL_LONG',
+            required: true
+        },
+        type: {
+            domain: 'DO_LABEL_LONG',
+            required: true
+        }
+    },
+    activite: {
         nom: {
             domain: 'DO_LABEL_LONG',
             required: true

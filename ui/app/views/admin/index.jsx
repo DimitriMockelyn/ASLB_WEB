@@ -22,7 +22,9 @@ import {component as Button} from 'focus-components/common/button/action';
 import Blocs from './blocs';
 import Medias from './medias';
 import Machines from './machines';
+import Activites from './activites';
 import DayOffs from './dayOffs';
+import ActivityTimes from './activityTimes';
 import Files from './files';
 import {downloadCSV} from '../../utils/download';
 import adminServices from '../../services/admin';
@@ -68,8 +70,10 @@ export default React.createClass({
                     <Presentations hasLoad={false} />
                     <TypeActivites hasLoad={false} />
                     <Machines hasLoad={false} />
+                    <Activites hasLoad={false} />
                     <Ribbons hasLoad={false} />
                     <DayOffs hasLoad={false} />
+                    <ActivityTimes hasLoad={false} />
                     <Files hasLoad={false} />
                     
                 </ScrollspyContainer>

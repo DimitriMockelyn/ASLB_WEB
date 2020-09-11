@@ -11,6 +11,7 @@ function computeMenuItem() {
         { icon: 'date_range', name: 'Agenda', route: 'agenda'},
         { icon: 'fitness_center', name: 'Espaces et matériel', route: 'espaces'},
         { icon: 'rowing', name: 'Machines', route: 'machines'},
+        { icon: 'watch', name: 'Exterieur', route: 'activites'},
         { icon: 'call', name: 'Contacts et informations', route: 'contact'},
         { icon: 'business', name: 'Partenaires', route: 'partenaires'},
         { icon: 'camera', name: 'Média', route: 'media'}

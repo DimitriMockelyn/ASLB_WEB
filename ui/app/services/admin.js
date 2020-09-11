@@ -135,6 +135,15 @@ export default {
     createMachine(data) {
         return fetch(adminUrl.createMachine({data}), utils.computeHeaders());
     },
+    editActivite(data) {
+        return fetch(adminUrl.editActivite({urlData: {id: data.id}, data: data}), utils.computeHeaders());
+    },
+    deleteActivite(data) {
+        return fetch(adminUrl.deleteActivite({urlData: {id: data.id}}), utils.computeHeaders());
+    },
+    createActivite(data) {
+        return fetch(adminUrl.createActivite({data}), utils.computeHeaders());
+    },
     toggleChat(data) {
         return fetch(adminUrl.toggleChat({urlData: {id: data._id}}), utils.computeHeaders());
     },
@@ -147,10 +156,22 @@ export default {
     createDayOff(data) {
         return fetch(adminUrl.createDayOff({data}), utils.computeHeaders());
     },
+    editActivityTimes(data) {
+        return fetch(adminUrl.editActivityTimes({urlData: {id: data.id}, data: data}), utils.computeHeaders());
+    },
+    deleteActivityTimes(data) {
+        return fetch(adminUrl.deleteActivityTimes({urlData: {id: data.id}}), utils.computeHeaders());
+    },
+    createActivityTimes(data) {
+        return fetch(adminUrl.createActivityTimes({data}), utils.computeHeaders());
+    },
     listFiles() {
         return fetch(adminUrl.listFiles(), utils.computeHeaders());
     },
     deleteMass() {
         return fetch(adminUrl.deleteMass(), utils.computeHeaders());
-    }
+    },
+    lockActivity(id, value) {
+        return fetch(adminUrl.lockActivity({urlData: {id: id}, data: {locked: value}}), utils.computeHeaders());
+    },
 };

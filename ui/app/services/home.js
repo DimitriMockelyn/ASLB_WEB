@@ -12,11 +12,17 @@ export default {
     loadMachines() {
         return fetch(homeUrl.loadMachines());
     },
+    loadActivites() {
+        return fetch(homeUrl.loadActivites());
+    },
     loadPresentations() {
         return fetch(homeUrl.loadPresentations());
     },
     loadChat() {
         return fetch(homeUrl.loadChat());
+    },
+    createActivityInCreneau(data) {
+        return fetch(homeUrl.createActivityInCreneau({urlData: {id: data._id}, data: data}), utils.computeHeaders());
     },
     addMessageChat(data) {
         return fetch(homeUrl.addMessageChat({data}), utils.computeHeaders());
@@ -36,8 +42,14 @@ export default {
     loadDayOffs(type) {
         return fetch(homeUrl.loadDayOffs({urlData: {type}}));
     },
+    loadActivityTimes() {
+        return fetch(homeUrl.loadActivityTimes());
+    },
     loadMachinesForDay(data) {
         return fetch(homeUrl.loadMachinesForDay({data}));
+    },
+    loadActivitesForDay(data) {
+        return fetch(homeUrl.loadActivitesForDay({data}));
     },
     toggleSelfForMachine(id) {
         return fetch(homeUrl.toggleSelfForMachine({urlData: {id}, data: {test: true}}), utils.computeHeaders());

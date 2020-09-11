@@ -16,8 +16,10 @@ var mongoose = require('mongoose'),
   Profil = mongoose.model('Profil'),
   BlocAdministrables = mongoose.model('BlocAdministrables'),
   Machine = mongoose.model('Machine'),
+  Activity = mongoose.model('Activity'),
   Badge = mongoose.model('Badge'),
   DayOff = mongoose.model('DayOff'),
+  ActivityTime = mongoose.model('ActivityTime'),
   mailer = require('../utils/mailer'),
   badgeController = require('./badgeController'),
   
@@ -617,6 +619,42 @@ exports.edit_day_off = function(req, res) {
   });
 };
 
+//Partie day off
+exports.list_all_activity_times = function(req, res) {
+  ActivityTime.find({}, function(err, ptns) {
+    if (err) {
+      res.send(err);
+    }
+    res.json(ptns);
+  }).sort({date: -1});
+};
+
+exports.create_activity_time = function(req, res) {
+  var new_ptn = new ActivityTime(req.body);
+  new_ptn.save(function(err, news) {
+    if (err)
+      res.send(err);
+    res.json({created: true});
+  });
+};
+
+exports.delete_activity_time = function(req, res) {
+  ActivityTime.remove({_id:req.params.id}, function(err, news) {
+    if (err)
+      res.send(err);
+    res.json({removed: true});
+  });
+};
+
+exports.edit_activity_time = function(req, res) {
+  var data = req.body;
+  ActivityTime.findOneAndUpdate({_id:req.params.id}, data, {new: true}, function(err, news) {
+    if (err)
+      res.send(err);
+    res.json({updated: true});
+  });
+};
+
 exports.upload_file = function(req, res) {
   var form = new formidable.IncomingForm();
   form.parse(req, function (err, fields, files) {
@@ -644,3 +682,42 @@ exports.list_file = function(req, res) {
   })
   res.json({files: files});
 }
+
+//Partie activite
+exports.list_all_activites = function(req, res) {
+  Activity.find({}, function(err, ptns) {
+    if (err) {
+      res.send(err);
+    }
+    res.json(ptns);
+  }).sort({date: -1});
+};
+
+exports.create_activite = function(req, res) {
+  var new_ptn = new Activity(req.body);
+  new_ptn.save(function(err, news) {
+    if (err)
+      res.send(err);
+    res.json({created: true});
+  });
+};
+
+exports.delete_activite = function(req, res) {
+  Activity.remove({_id:req.params.id}, function(err, news) {
+    if (err)
+      res.send(err);
+    res.json({removed: true});
+  });
+};
+
+exports.edit_activite = function(req, res) {
+  var data = {
+    nom: req.body.nom,
+    type: req.body.type
+  }
+  Activity.findOneAndUpdate({_id:req.params.id}, data, {new: true}, function(err, news) {
+    if (err)
+      res.send(err);
+    res.json({updated: true});
+  });
+};

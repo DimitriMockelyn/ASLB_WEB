@@ -16,6 +16,7 @@ import EspacesView from '../views/espaces';
 import UserView from '../views/user-info';
 import MachinesView from '../views/machines';
 import MachinesLiveView from '../views/machines/live';
+import ActivitiesView from '../views/activities';
 
 export default createRouter(Backbone).extend({
     log: true,
@@ -35,7 +36,8 @@ export default createRouter(Backbone).extend({
         inscription: 'inscription',
         'u/:id': 'userView',
         machines: 'machines',
-        machinesLive: 'machinesLive'
+        machinesLive: 'machinesLive',
+        activites: 'activites'
     },
 
     partenaires() {
@@ -84,6 +86,9 @@ export default createRouter(Backbone).extend({
     },
     machinesLive() {
         this._pageContent(MachinesLiveView);
+    },
+    activites() {
+        this._pageContent(ActivitiesView);
     }
 });
 

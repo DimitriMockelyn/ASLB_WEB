@@ -119,10 +119,16 @@ export default {
         }
 
     },
+    activity: {
+        create: 'Creer une activité',
+        lock: 'Bloquer',
+        unlock: 'Debloquer'
+    },
     agenda: {
         legendeStar: 'Les étoiles, si précisées, correspondent au niveau de difficulté de la séance.',
         home: 'Agenda des activités de l\'ASLB',
         evenementDetail: 'Détail de l\'évènement',
+        activityDetail: 'Détail de l\'activité',
         mine: 'Mon agenda',
         all: 'Tous les évènements',
         calendar: 'Vue calendrier',
@@ -177,7 +183,15 @@ export default {
         typeEvenement: 'Type d\'événement (Si applicable)',
         action: 'Action a accomplir'
     },
+    activityTimes: {
+        panelTitle: 'Heures des activites exterieures',
+        heureDebut: 'Heure de debut (HH:MM)',
+        heureFin: 'Heure de fin (HH:MM)',
+        jour: 'Jour de la semaine (en minuscule)'
+    },
     admin: {
+        activityTimes: 'Heures des activites exterieures',
+        addActivityTime: 'Ajouter',
         addDayOff: 'Ajouter',
         dayOff: 'Jour sans activité',
         uploadFile: 'Charger un fichier',
@@ -235,6 +249,7 @@ export default {
 
     },
     event: {
+        title: 'Titre',
         sendPostNotif: 'Envoyer une notification aux participants',
         notifText: 'Texte de la notification',
         sendNotification: 'Envoyer la notification aux participants',
@@ -289,7 +304,8 @@ export default {
         typeEvenement: 'Etes-vous sur de vouloir supprimer ce type d\'évènement ?',
         entreprise: 'Etes-vous sur de vouloir supprimer cette entreprise ?',
         dayOff: 'Etes-vous sur de vouloir supprimer ce jour sans activité ?',
-        machine: 'Etes-vous sur de vouloir supprimer cette machine ? Cette action est irréversible'
+        machine: 'Etes-vous sur de vouloir supprimer cette machine ? Cette action est irréversible',
+        dayOff: 'Etes-vous sur de vouloir supprimer cette configuration?'
     },
     select: {
         unSelected: '-',
