@@ -16,11 +16,25 @@ export default React.createClass({
         let diff = Math.abs(mom.clone().startOf('week').diff(momentDebut.clone().startOf('week'), 'week'));
         setTimeout(() => {navigate('agenda/'+this.props.data._id+'/'+diff,true)},10)
     },
+    onClickActivityTile() {
+        let mom = moment().locale('en');
+        let momentDebut = moment(this.props.data.dateDebut, moment.ISO_8601).locale('en');
+        let diff = Math.abs(mom.clone().startOf('day').diff(momentDebut.clone().startOf('day'), 'day'));
+        setTimeout(() => {navigate('activites/'+this.props.data._id+'/'+diff,true)},10)
+    },
     /** @inheritDoc */
     render() {
         var limitString = this.props.data.limite ?  '/' + this.props.data.limite : '';
-        if (this.props.data.fileAttente && this.props.data.fileAttente.length > 0 ) {
-            limitString = limitString + ' (En attente : '+this.props.data.fileAttente.length+')'
+        if (this.props.data.activity) {
+            return (
+            <div className={'rbc-event event-caroussel '} onClick={this.onClickActivityTile}>
+            <div>
+                {(this.props.data.activity ?  this.props.data.activity.nom : '') + ' - ' + (this.props.data.title || '')}
+            </div>
+            <div>{moment(this.props.data.dateDebut, moment.ISO_8601).format('DD/MM/YYYY - HH:mm') }</div>
+            <div>{translate('event.nbInscrits') + ' ' +this.props.data.participants.length + limitString} </div>
+    </div>
+    );
         }
         return (
         <div className={'rbc-event event-caroussel ' + (this.props.data.typeEvenement ? this.props.data.typeEvenement.code : '') + (!this.props.data.tokenConsumer ? ' gratuit ' : '') } onClick={this.onClickTile}>

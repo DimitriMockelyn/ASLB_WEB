@@ -18,6 +18,13 @@ import MachinesView from '../views/machines';
 import MachinesLiveView from '../views/machines/live';
 import ActivitiesView from '../views/activities';
 
+import homeService from '../services/home';
+
+import {navigate} from 'focus-core/history';
+import agendaService from '../services/agenda';
+import moment from 'moment';
+
+
 export default createRouter(Backbone).extend({
     log: true,
     beforeRoute() {
@@ -37,7 +44,9 @@ export default createRouter(Backbone).extend({
         'u/:id': 'userView',
         machines: 'machines',
         machinesLive: 'machinesLive',
-        activites: 'activites'
+        activites: 'activites',
+        'activites/:id/:week' : 'activitesId',
+        'activites/:id' : 'activitesIdOnly',
     },
 
     partenaires() {
@@ -89,6 +98,20 @@ export default createRouter(Backbone).extend({
     },
     activites() {
         this._pageContent(ActivitiesView);
-    }
+    },
+    activitesId(id, week) {
+        navigate('activites', false);
+        this._pageContent(ActivitiesView, {props: {creneauId: id, dateDiff: week}});
+    },
+    activitesIdOnly(id) {
+        navigate('activites', false);
+        homeService.loadActivity(id).then(res => {
+            let mom = moment().locale('en');
+            let momentDebut = moment(res.dateDebut, moment.ISO_8601).locale('en');
+            let diff = momentDebut.clone().startOf('day').diff(mom.clone().startOf('day'), 'day');
+            this._pageContent(ActivitiesView, {props: {creneauId: id, dateDiff: diff}});
+        });
+        
+    },
 });
 

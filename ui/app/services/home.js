@@ -51,6 +51,9 @@ export default {
     loadActivitesForDay(data) {
         return fetch(homeUrl.loadActivitesForDay({data}));
     },
+    loadActivity(id) {
+        return fetch(homeUrl.loadActivity({urlData: {id}}), utils.computeHeaders());
+    },
     toggleSelfForMachine(id) {
         return fetch(homeUrl.toggleSelfForMachine({urlData: {id}, data: {test: true}}), utils.computeHeaders());
     },

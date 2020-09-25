@@ -14,6 +14,11 @@ export default React.createClass({
     componentWillReceiveProps(newProps) {
         this.setState({data : newProps.data, metadata: this.checkClickable(newProps.data)})
     },
+    componentDidMount() {
+        if (this.props.toOpen && this.state.metadata.canClick) {
+            this.click();
+        }
+    },
     createEvent(data) {
         let entity = {...this.state.data, ...data};
         return homeServices.createActivityInCreneau(entity).then(res => {

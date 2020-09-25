@@ -42,6 +42,7 @@ module.exports = function(app) {
 		.post(userHandlers.loginRequired, userHandlers.isCreneauActivityFutur, machinesController.remove_self_to_activite);
 
 	app.route('/activite/:creneauId')
+		.get(machinesController.get_a_activite)
 		.put(userHandlers.loginRequired, userHandlers.isMembreActif, userHandlers.isCreneauActivityFutur, machinesController.update_a_activite)
 		.delete(userHandlers.loginRequired, userHandlers.isMembreActif, userHandlers.isCreneauActivityFutur, machinesController.delete_a_activite); 
 

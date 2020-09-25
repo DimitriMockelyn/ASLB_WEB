@@ -14,17 +14,20 @@ import {navigate} from 'focus-core/history';
 export default React.createClass({
     displayName: 'ActivityView',
     getInitialState() {
+        if (this.props.dateDiff) {
+            return {currentDate: moment().add(parseInt(this.props.dateDiff, 10), 'days')}
+        }
         return {currentDate: moment()}
     },
     componentWillMount() {
-        this.loadActivitesForDay(this.state.currentDate);
+        this.loadActivitesForDay(this.state.currentDate, this.props.creneauId);
     },
-    loadActivitesForDay(date) {
+    loadActivitesForDay(date, creneauId) {
         const year = date.get('year');
         const month = date.get('month')+1;  // 0 to 11
         const day = date.get('date');
-        homeServices.loadActivitesForDay({day, month, year}).then(res => {
-            this.setState({creneaux: this.computeCreneaux(res)});
+        return homeServices.loadActivitesForDay({day, month, year}).then(res => {
+            this.setState({creneaux: this.computeCreneaux(res), toOpen: creneauId});
         })
     },
     computeCreneaux(creneaux) {
@@ -124,7 +127,8 @@ export default React.createClass({
 
                     return <div data-focus='display-column' className='array-like'>
                         {obj.map(creneau => {
-                            return <TileActivity data={creneau} onRefresh={this.componentWillMount.bind(this)} />
+                            
+                            return <TileActivity data={creneau} onRefresh={this.componentWillMount.bind(this)} toOpen={creneau._id === this.state.toOpen}/>
                         })}
                     </div>
                 })}

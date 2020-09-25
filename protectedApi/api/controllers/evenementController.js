@@ -6,6 +6,7 @@ var mongoose = require('mongoose'),
   Commentaire = mongoose.model('Commentaire'),
   TypeEvenement = mongoose.model('TypeEvenement'),
   NiveauEvenement= mongoose.model('NiveauEvenement'),
+  CreneauActivity= mongoose.model('CreneauActivity'),
   User= mongoose.model("User"),
   Queue = mongoose.model("Queue"),
   DayOff = mongoose.model("DayOff"),
@@ -65,10 +66,30 @@ exports.list_all_incoming_evenements = function(req, res) {
       res.send(err);
     }
     evenements.forEach(function(evenement) { 
+        evenement.is_activity = false;
         evenement.createur = evenement.createur;
         evenement.participants = evenement.participants;
     });
-    res.json(evenements);
+    CreneauActivity.find({
+      $and: [{
+        dateDebut: {
+          $gte: Date.now()
+        },
+        createur: {$not: {$eq: null}}
+      }]
+    }, function(err, activities) {
+      if (err) {
+        res.send(err);
+      }
+      activities.forEach(function(activity) { 
+          activity.is_activity = true;
+          activity.createur = activity.createur;
+          activity.participants = activity.participants;
+          evenements.push(activity);
+      });
+      res.json(evenements);
+    }).populate('activity', '_id nom type')
+    
   }).populate('createur', '_id prenom nom')
   .populate('participants', '_id prenom nom sexe email')
   .populate('typeEvenement', '_id code name')

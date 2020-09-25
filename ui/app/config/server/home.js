@@ -16,6 +16,7 @@ export default {
     createActivityInCreneau: builder(url + 'createActivityInCreneau/${id}', 'POST'),
     loadDayOffs: builder(url + 'dayOffs', 'GET'),
     loadActivityTimes: builder(url + 'activityTimes', 'GET'),
+    loadActivity: builder(url + 'activite/${id}', 'GET'),
     toggleSelfForMachine: builder(url + 'toggleSelfForMachine/${id}', 'POST'),
     loadContributeurs: builder('https://api.github.com/repos/DimitriMockelyn/ASLB_WEB/contributors', 'GET'),
     loadContributeursInfo: builder('https://api.github.com/users/${login}', 'GET'),

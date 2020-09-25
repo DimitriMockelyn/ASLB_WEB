@@ -198,6 +198,15 @@ exports.create_activity_in_creneau = function(req, res) {
   })
 }
 
+exports.get_a_activite = function(req,res) {
+  CreneauActivity.findById(req.params.creneauId, function(err, evenement) {
+    if (err) {
+      res.send(err);
+    }
+    res.json(evenement);
+  });
+}
+
 exports.toggle_self_for_machine = function(req, res) {
   User.findOne({
     email: req.user.email
