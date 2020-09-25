@@ -98,16 +98,9 @@ export default React.createClass({
     },
     update() {
         let entity = this._getEntity();
-        if (entity.coanimateurs && entity.coanimateurs.length > 0) {
-            let newArray = [];
-            entity.coanimateurs.map((anim, index) => {
-                if (entity['coanimateur'+index]) {
-                    newArray.push(entity['coanimateur'+index]);
-                }
-            });
-            entity.coanimateurs = newArray;
-        } else {
-            entity.coanimateurs = [];
+        if (entity.limite < entity.participants.length) {
+            message.addErrorMessage("Vous ne pouvez pas reduire le nombre de participants a ce niveau.");
+            return;
         }
         activiteServices.updateEvent(entity).then((res) => {
             this.props.onPopinClose({reopen: this.props.event._id});

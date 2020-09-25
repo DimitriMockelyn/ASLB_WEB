@@ -146,6 +146,9 @@ module.exports = function(app) {
 
 	app.route('/usersAutocomplete')
 		.post(userHandlers.load_users_autocomplete)
+	
+	app.route('/activeUsersAutocomplete')
+		.post(userHandlers.load_active_users_autocomplete)
 
 	app.route('/toggleCreation/:id')
 		.post(userHandlers.loginRequired,  userHandlers.isAdmin, userHandlers.toggle_creation)

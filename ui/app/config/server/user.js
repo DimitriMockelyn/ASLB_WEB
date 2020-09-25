@@ -14,6 +14,7 @@ export default {
     sendMailReset: builder(url + 'sendMailReset', 'POST'),
     sendMailFirst: builder(url + 'sendMailFirst', 'POST'),
     loadUserAutocomplete:  builder(url + 'usersAutocomplete', 'POST'),
+    loadActiveUserAutocomplete: builder(url + 'activeUsersAutocomplete', 'POST'),
     loadMesInformations: builder(url + 'mesInformations', 'GET'),
     updateMesInformations: builder(url + 'mesInformations', 'POST'),
     loadSexes: builder(url + 'typeSexe', 'GET'),

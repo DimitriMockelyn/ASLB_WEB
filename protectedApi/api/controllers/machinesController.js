@@ -188,6 +188,7 @@ exports.create_activity_in_creneau = function(req, res) {
       creneau.title = req.body.title;
       creneau.limite = req.body.limite;
       creneau.description = req.body.description;
+      creneau.participants = req.body.participants;
       creneau.save(function(err, crn) {
         CreneauActivity.findById(crn._id, function(err, result) {
           res.json(result);

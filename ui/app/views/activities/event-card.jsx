@@ -37,10 +37,13 @@ export default React.createClass({
             <div data-focus='event-consult-card'>
                 <div className='top-row'>
                     <div>{this.state.title}</div>
-                    
+                    <div>{translate('event.creator')}</div>
+                    <div>
+                        <div className='click-user-name'onClick={() => {setTimeout(() => {navigate('u/'+this.state.createur._id, true)},10)}}>{this.state.createur.prenom} {this.state.createur.nom}</div>
+                    </div>
                 </div>
                 <div className='description'>
-                    {this.state.description}
+                {this.state.description}
                 </div>
                 
                 <div className='line-info mrg-top'>

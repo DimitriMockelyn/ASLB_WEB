@@ -49,6 +49,12 @@ export default {
         }
         return fetch(userUrl.loadUserAutocomplete({data}), utils.computeHeaders());
     },
+    loadActiveUserAutocomplete(data) {
+        if (!data.data || !data.data.criteria) {
+            data = {data: {criteria: data}, urlData: {skip: 0, top: 30}}
+        }
+        return fetch(userUrl.loadActiveUserAutocomplete({data}), utils.computeHeaders());
+    },
     loadMesInformations() {
         return fetch(userUrl.loadMesInformations(), utils.computeHeaders());
     },
