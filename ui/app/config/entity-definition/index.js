@@ -17,6 +17,9 @@ export default {
         }
     },
     activityTimes: {
+        activitesTimeType: {
+            domain: 'DO_CHECKBOX_SELECT'
+        },
         heureFin: {
             domain: 'DO_LABEL_LONG',
             required: true

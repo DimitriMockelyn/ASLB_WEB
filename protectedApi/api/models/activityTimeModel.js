@@ -21,7 +21,11 @@ var ActivityTime = new Schema({
   },
   jour: {
     type: String
-  }
+  },
+  activitesTimeType:  [{
+    type: mongoose.Schema.Types.ObjectId,
+		ref: 'Activity'
+  }]
 });
 
 mongoose.model('ActivityTime', ActivityTime);

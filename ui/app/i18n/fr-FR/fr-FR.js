@@ -187,11 +187,18 @@ export default {
         panelTitle: 'Heures des activites exterieures',
         heureDebut: 'Heure de debut (HH:MM)',
         heureFin: 'Heure de fin (HH:MM)',
-        jour: 'Jour de la semaine (en minuscule)'
+        jour: 'Jour de la semaine (en minuscule)',
+        activitesTimeType: 'Types d\'activité(s)'
+    },
+    activite: {
+        type: 'Type',
+        nom: 'Nom'
     },
     admin: {
+        activite: 'Activites exterieures',
         activityTimes: 'Heures des activites exterieures',
         addActivityTime: 'Ajouter',
+        addActivite: 'Ajouter',
         addDayOff: 'Ajouter',
         dayOff: 'Jour sans activité',
         uploadFile: 'Charger un fichier',

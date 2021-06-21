@@ -24,7 +24,15 @@ export default React.createClass({
         return (
         <div data-focus='panel-into-panel'>
             <Panel title={(this.props.value.jour + ' - ' + this.props.value.heureDebut + ' - ' + this.props.value.heureFin)} actions={this.renderActionsEdit} data-spy={undefined} >
-                
+                {this.props.value.activitesTimeType && this.props.value.activitesTimeType.map(actType => {
+                    
+                    return this.props.acts.map( elt => {
+                        if (actType === elt._id) {
+                            return <div>{elt.nom}</div>;
+                        }
+                    })
+                        
+                })}
             </Panel>
         </div>
         );

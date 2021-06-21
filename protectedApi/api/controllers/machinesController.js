@@ -92,29 +92,36 @@ const initActivityIfNeededForDay = function(day, month, year, next) {
           let dateDernier = newDate.clone()
           dateDernier.set('hour', heureDernier).set('minute',minuteDernier);
           while (!date.isAfter(dateDernier)) {
-            let unlockEnd = undefined;
-            let unlockBegin = undefined;
-            actTimes.forEach(function(actTime) {
-              if (daysofweek.indexOf(actTime.jour) +1 === date.isoWeekday()) {
-                unlockEnd = actTime.heureFin;
-                unlockBegin = actTime.heureDebut;
-              }
-            })
-            let locked = false;
-            if (unlockEnd && unlockBegin) {
-              var heureDebutUnlock = newDate.clone();
-              var heureFinUnlock = newDate.clone();
-              heureDebutUnlock.set('hour', unlockBegin.split(":")[0]).set('minute',unlockBegin.split(":")[1]);
-              heureFinUnlock.set('hour', unlockEnd.split(":")[0]).set('minute',unlockEnd.split(":")[1]);
-              if (date.isAfter(heureFinUnlock) || date.isBefore(heureDebutUnlock)) {
-                locked = true
-              }
-            }
             //Création des creneaux, de 8h a 20h
             activitys.map(mch => {
               let cren = new CreneauActivity();
               cren.activity = mch._id;
               cren.dateDebut = date.clone();
+
+              //Check if locked
+              
+              let locked = false;
+              actTimes.forEach(function(actTime) {
+                let unlockEnd = undefined;
+                let unlockBegin = undefined;
+                if (daysofweek.indexOf(actTime.jour) +1 === date.isoWeekday() && actTime.activitesTimeType.indexOf(mch._id) > -1) {
+                  unlockEnd = actTime.heureFin;
+                  unlockBegin = actTime.heureDebut;
+                }
+                if (unlockEnd && unlockBegin) {
+                  var heureDebutUnlock = newDate.clone();
+                  var heureFinUnlock = newDate.clone();
+                  heureDebutUnlock.set('hour', unlockBegin.split(":")[0]).set('minute',unlockBegin.split(":")[1]);
+                  heureFinUnlock.set('hour', unlockEnd.split(":")[0]).set('minute',unlockEnd.split(":")[1]);
+                  if ((date.isAfter(heureFinUnlock) || date.isBefore(heureDebutUnlock))) {
+                    locked = true
+                  }
+                }
+              })
+              
+
+
+              //
               cren.locked = locked;
               crens.push(cren);
             });

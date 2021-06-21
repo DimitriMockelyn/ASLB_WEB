@@ -27,7 +27,13 @@ export default React.createClass({
         this.loadAllActivityTimes();
     },
     loadAllActivityTimes() {
-        homeServices.loadActivityTimes().then(res => {this.setState({ptn: res})});
+        homeServices.loadActivites().then(acts => {
+            acts.forEach(function(act) {
+                act.name = act.nom;
+            })
+            this.setState({acts: acts}, () => {
+            homeServices.loadActivityTimes().then(res => {this.setState({ptn: res})});
+        })});
     },
     openPopin(ptn) {
         this.setState({selectedPtn : ptn, openNewsPopin: true});
@@ -54,12 +60,12 @@ export default React.createClass({
             <div data-focus='news-list'>
                 {this.state.ptn && this.state.ptn.length > 0 && this.state.ptn.map((value, pos) => {
                     if (pos < this.state.limit) {
-                        return <PartenairePanel value={value} editAction={this.openPopin} deleteAction={this.delete}/>
+                        return <PartenairePanel value={value} editAction={this.openPopin} deleteAction={this.delete} acts={this.state.acts}/>
                     }
                 })}
             </div>
             {this.state.openNewsPopin && <Popin open={true} size='large' onPopinClose={this.closePopin}>
-                <PartenaireInfo data={this.state.selectedPtn} onPopinClose={this.closePopin} isEdit={true} hasLoad={false} hasForm={false}/>
+                <PartenaireInfo data={this.state.selectedPtn} onPopinClose={this.closePopin} isEdit={true} hasLoad={false} hasForm={false} acts={this.state.acts}/>
             </Popin>}
         </Panel>
         );
