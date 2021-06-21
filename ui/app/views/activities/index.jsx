@@ -79,7 +79,6 @@ export default React.createClass({
 		}
         return (
         <div>
-            {translate('activities.warning')}
             <div data-focus='display-row' style={{'justify-content':'space-around', 'width': '100%', 'margin-bottom': '30px', 'margin-top': '30px'}}>
                 <Button label='<<' type='button' style='' handleOnClick={() => {this.addDay(false)}} />
                 <div data-focus='display-row'>

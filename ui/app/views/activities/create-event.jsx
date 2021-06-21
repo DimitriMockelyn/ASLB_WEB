@@ -44,7 +44,7 @@ export default React.createClass({
     },
     renderCstAct() {
         return                 (<div>
-        <Button label='activity.create' type='button' handleOnClick={this.create} />
+        {!this.state.locked && <Button label='activity.create' type='button' handleOnClick={this.create} />}
         {userHelper.getLogin() && userHelper.getLogin().isAdmin && <Button label={'activity.'+(this.state.locked ? 'un' : '')+'lock'} type='button' handleOnClick={this.toggleLock} />}
         </div>);
     },
@@ -100,7 +100,7 @@ export default React.createClass({
                                 <Button type='button' icon='clear' label='Supprimer' handleOnClick={this.removeParticipant(index)} />
                             </div>    
                     })}
-                    <Button type='button' icon='add' label='Ajouter un participant' handleOnClick={this.addParticipant} />
+                    {!this.state.locked && <Button type='button' icon='add' label='Ajouter un participant' handleOnClick={this.addParticipant} />}
             </Panel>
         </div>
         );
