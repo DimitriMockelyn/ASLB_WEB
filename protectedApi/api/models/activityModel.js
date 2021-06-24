@@ -12,7 +12,10 @@ var Activity = new Schema({
   type: {
     type: String,
     required: true
-  }
+  },
+  color: { 
+    type: String
+  },
 });
 
 

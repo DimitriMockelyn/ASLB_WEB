@@ -32,6 +32,7 @@ export default React.createClass({
             <Panel title='admin.activite'>
                 {this.fieldFor('nom', {isEdit: true})}
                 {this.fieldFor('type', {isEdit: true})}
+                {this.fieldFor('color', {isEdit: true})}
                 <div>
                     <Button label='button.save' type='button' handleOnClick={this.create} />
                 </div>

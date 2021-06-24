@@ -47,7 +47,7 @@ export default React.createClass({
                 <label> Présents </label>
                 {this.state.presents.map(usr => {
                     return <div>
-                        <label>{usr.prenom + ' ' + usr.nom}</label>
+                        <label>{usr && (usr.prenom + ' ' + usr.nom)}</label>
                         <i className='material-icons' onClick={() => {this.setAbsent({id: this.props.id, user: usr._id})}}>keyboard_arrow_right</i>
                     </div>
                 })}
@@ -58,7 +58,7 @@ export default React.createClass({
                     return <div>
                         
                         <i className='material-icons' onClick={() => {this.setPresent({id: this.props.id, user: usr._id})}}>keyboard_arrow_left</i>
-                        <label>{usr.prenom + ' ' + usr.nom}</label>
+                        <label>{usr && (usr.prenom + ' ' + usr.nom)}</label>
                     </div>
                 })}
             </div>

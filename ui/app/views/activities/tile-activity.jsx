@@ -96,11 +96,10 @@ export default React.createClass({
     },
     /** @inheritDoc */
     render() {
-        
         return (
             <div style={{'width': '100%'}} >            
                 <div  data-focus='tile-machine' className={this.state.metadata.canClick? 'canClick' : ''}  style={this.computeStyle()} onClick={this.state.metadata.canClick && this.click} >
-                    {this.state.data && this.state.data.createur && !this.state.data.locked && <span>{this.state.data.title} - {this.state.data.createur.prenom} {this.state.data.createur.nom}</span>}
+                    {this.state.data && this.state.data.createur && !this.state.data.locked && <span>{this.state.data.title} - {this.state.data.createur && this.state.data.createur.prenom} { this.state.data.createur && this.state.data.createur.nom}</span>}
                     {this.state.data && this.state.data.locked && <i className="material-icons">lock</i> }
                 </div>
                 {this.state.selectedEvent && <Popin open={true}  onPopinClose={this.closePopin}>

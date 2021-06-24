@@ -22,9 +22,9 @@ export default React.createClass({
     },
     render() {
         return (
-        <div data-focus='panel-into-panel'>
+        <div data-focus='panel-into-panel' >
             <Panel title={this.props.value.nom + ' - ' + this.props.value.type} actions={this.renderActionsEdit} data-spy={undefined} >
-                
+                <div style={{'backgroundColor': this.props.value.color, 'height':'10px', 'width': '10px'}}></div>
             </Panel>
         </div>
         );

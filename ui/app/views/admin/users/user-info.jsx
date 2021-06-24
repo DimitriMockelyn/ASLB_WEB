@@ -67,6 +67,7 @@ export default React.createClass({
     },
     computeDateFin(dateAdhesion) {
         var momentFin = moment('31/12/2018','DD/MM/YYYY');
+        var momentFinHardLimit = moment('30/12/2022','DD/MM/YYYY');
         var momentLimit = moment('30/09/2017','DD/MM/YYYY');
         var momentLimitMax = moment('31/12/2017','DD/MM/YYYY');
         momentLimit.set('year', moment().get('year'));
@@ -78,6 +79,9 @@ export default React.createClass({
                 momentFin.set('year', momentFin.get('year') +1);
             }
             if (momentDebut.isAfter(momentLimit) && !momentDebut.isAfter(momentLimitMax)) {
+                momentFin.set('year', momentFin.get('year') +1);
+            }
+            if (momentFin.isBefore(momentFinHardLimit)) {
                 momentFin.set('year', momentFin.get('year') +1);
             }
             return  momentFin;

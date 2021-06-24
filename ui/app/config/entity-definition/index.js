@@ -173,6 +173,9 @@ export default {
         type: {
             domain: 'DO_LABEL_LONG',
             required: true
+        },
+        color: {
+            domain: 'DO_COLOR'
         }
     },
     event: {

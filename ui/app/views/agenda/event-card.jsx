@@ -52,9 +52,9 @@ export default React.createClass({
                     <div>{translate('event.animePar')}</div>
                     <div>
                         <i style={{    'float': 'right', 'cursor': 'pointer'}} className='material-icons' onClick={this.mailToAnims}>mail</i>
-                        <div className='click-user-name'onClick={() => {setTimeout(() => {navigate('u/'+this.props.animateur._id, true)},10)}}>{this.props.animateur.prenom}</div>
+                        {this.props.animateur && <div className='click-user-name'onClick={() => {setTimeout(() => {navigate('u/'+this.props.animateur._id, true)},10)}}>{this.props.animateur.prenom}</div>}
                         {this.props.coanimateurs && this.props.coanimateurs.length > 0 && this.props.coanimateurs.map(anim => {
-                            return <div className='click-user-name'onClick={() => {setTimeout(() => {navigate('u/'+anim._id, true)},10)}}>{anim.prenom}</div>
+                            return <div className='click-user-name'onClick={() => {setTimeout(() => {navigate('u/'+(anim ? anim._id : ''), true)},10)}}>{ anim && anim.prenom}</div>
                         })}
                     </div>
                 </div>
@@ -82,12 +82,18 @@ export default React.createClass({
                 </div>
                 <div className='participants'>
                     {this.state.participants && this.state.participants.length > 0 && this.state.participants.map(value => {
+                        if (!value) {
+                            value = {}
+                        }
                         return <div className='click-user-name' onClick={() => {setTimeout(() => {navigate('u/'+value._id, true)},10)}}>{value.nom + ' ' + value.prenom}<div>{this.props.computeSexeData(value)}</div></div>
                     })}
                 </div>
                 {this.state.fileAttente && this.state.fileAttente.length > 0 && <div>Liste d'attente</div>}
                 {this.state.fileAttente && this.state.fileAttente.length > 0 && <div className='participants'>
                     {this.state.fileAttente.sort((a,b) => {return a.ordre - b.ordre;}).map(value => {
+                        if (!value.personne) {
+                            value.personne = {}
+                        }
                         return <div className='click-user-name' onClick={() => {setTimeout(() => {navigate('u/'+value.personne._id, true)},10)}}>{value.personne.nom + ' ' + value.personne.prenom}<div>{this.props.computeSexeData(value.personne)}</div></div>
                     })}
                 </div>}

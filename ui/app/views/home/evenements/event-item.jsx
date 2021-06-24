@@ -25,9 +25,15 @@ export default React.createClass({
     /** @inheritDoc */
     render() {
         var limitString = this.props.data.limite ?  '/' + this.props.data.limite : '';
+        var styling = {}
+        if (this.props.data && this.props.data.activity && this.props.data.activity.color) {
+            styling = {
+            'backgroundColor': this.props.data.activity.color
+            }
+        }
         if (this.props.data.activity) {
             return (
-            <div className={'rbc-event event-caroussel '} onClick={this.onClickActivityTile}>
+            <div style={styling}  className={'rbc-event event-caroussel '} onClick={this.onClickActivityTile}>
             <div>
                 {(this.props.data.activity ?  this.props.data.activity.nom : '') + ' - ' + (this.props.data.title || '')}
             </div>

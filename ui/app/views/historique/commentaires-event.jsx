@@ -51,9 +51,9 @@ export default React.createClass({
                     
                 </div>
                 <div>
-                        {'Animé par '+this.props.data.animateur.prenom + ' ' + this.props.data.animateur.nom}
+                        {'Animé par '+(this.props.data.animateur ? this.props.data.animateur.prenom + ' ' + this.props.data.animateur.nom : '')}
                         {this.props.data.coanimateurs && this.props.data.coanimateurs.map(coanim => {
-                            return ' et ' + coanim.prenom + ' ' + coanim.nom;
+                            return ' et ' + (coanim ? coanim.prenom + ' ' + coanim.nom : '');
                         })}
                     </div>
                 <div>

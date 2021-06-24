@@ -48,7 +48,7 @@ export default React.createClass({
                             return <this.props.CommentaireLineComp data={child} reload={this.props.componentWillMount} CommentaireLineComp={this.props.CommentaireLineComp}/>
                         })}
                     </div>
-                    <div data-focus='commentaire-auteur'>{data.auteur.prenom + ' ' + data.auteur.nom + ' (' + moment(data.date, moment.ISO_8601).format('DD/MM/YYYY - HH:mm') +')'}</div>
+                    <div data-focus='commentaire-auteur'>{(data.auteur ? data.auteur.prenom + ' ' + data.auteur.nom : '') + ' (' + moment(data.date, moment.ISO_8601).format('DD/MM/YYYY - HH:mm') +')'}</div>
                 </div>
                 )
     }

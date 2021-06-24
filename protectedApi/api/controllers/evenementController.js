@@ -88,7 +88,7 @@ exports.list_all_incoming_evenements = function(req, res) {
           evenements.push(activity);
       });
       res.json(evenements);
-    }).populate('activity', '_id nom type')
+    }).populate('activity', '_id nom type color')
     
   }).populate('createur', '_id prenom nom')
   .populate('participants', '_id prenom nom sexe email')
@@ -474,7 +474,7 @@ exports.get_commentaire_for_user = function(req, res) {
           result.listeCommentaires = computeMapCommetaire(commentaires);
           result['commentairePresent'] = false;
           result.listeCommentaires.map(comm => {
-            if (comm.auteur._id.toString() === user._id.toString()) {
+            if (comm.auteur && comm.auteur._id.toString() === user._id.toString()) {
               result._id = comm._id;
               result.evenement = comm.evenement ;
               result.commentaire = comm.commentaire ;

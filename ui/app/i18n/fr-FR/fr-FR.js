@@ -192,7 +192,8 @@ export default {
     },
     activite: {
         type: 'Type',
-        nom: 'Nom'
+        nom: 'Nom',
+        color: 'Couleur'
     },
     admin: {
         activite: 'Activites exterieures',

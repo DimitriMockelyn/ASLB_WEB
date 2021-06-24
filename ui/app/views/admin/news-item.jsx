@@ -28,7 +28,7 @@ export default React.createClass({
                 <div className='news-content' dangerouslySetInnerHTML={{ __html: this.props.data.content }} />
 
                 <div data-focus='news-info'>
-                    <div>{i18n.t('admin.newsCreatedBy') + ' ' + this.props.data.createur.nom + ' ' + this.props.data.createur.prenom + ' ' + i18n.t('admin.newsCreatedAt') + ' ' + moment(this.props.data.date, moment.ISO_8601).format('DD/MM/YYYY - HH:mm')}</div>
+                    <div>{i18n.t('admin.newsCreatedBy') + ' ' +  (this.props.data.createur ? this.props.data.createur.nom : '') + ' ' + (this.props.data.createur? this.props.data.createur.prenom : '') + ' ' + i18n.t('admin.newsCreatedAt') + ' ' + moment(this.props.data.date, moment.ISO_8601).format('DD/MM/YYYY - HH:mm')}</div>
                 </div>
             </Panel>
         </div>

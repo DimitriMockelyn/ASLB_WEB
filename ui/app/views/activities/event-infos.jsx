@@ -164,7 +164,7 @@ export default React.createClass({
                         <label>{i18n.t('event.participantsList') + ' ('+this.state.participants.length+')'}</label>
                         <div data-focus='list'>
                             {this.state.participants && this.state.participants.length > 0 && this.state.participants.map(value => {
-                                return <div>{value.nom + ' ' + value.prenom}<div>{this.computeSexeData(value)}</div></div>
+                                return <div>{value && (value.nom + ' ' + value.prenom)}<div>{this.computeSexeData(value)}</div></div>
                             })}
                         </div>
                     </div>}

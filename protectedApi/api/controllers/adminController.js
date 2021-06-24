@@ -713,7 +713,8 @@ exports.delete_activite = function(req, res) {
 exports.edit_activite = function(req, res) {
   var data = {
     nom: req.body.nom,
-    type: req.body.type
+    type: req.body.type,
+    color: req.body.color
   }
   Activity.findOneAndUpdate({_id:req.params.id}, data, {new: true}, function(err, news) {
     if (err)

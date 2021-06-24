@@ -39,7 +39,7 @@ export default React.createClass({
                     <div>{this.state.title}</div>
                     <div>{translate('event.creator')}</div>
                     <div>
-                        <div className='click-user-name'onClick={() => {setTimeout(() => {navigate('u/'+this.state.createur._id, true)},10)}}>{this.state.createur.prenom} {this.state.createur.nom}</div>
+                        <div className='click-user-name'onClick={() => {setTimeout(() => {navigate('u/'+this.state.createur._id, true)},10)}}>{ this.state.createur && this.state.createur.prenom} {this.state.createur && this.state.createur.nom}</div>
                     </div>
                 </div>
                 <div className='description'>
@@ -55,7 +55,7 @@ export default React.createClass({
                 </div>
                 <div className='participants'>
                     {this.state.participants && this.state.participants.length > 0 && this.state.participants.map(value => {
-                        return <div className='click-user-name' onClick={() => {setTimeout(() => {navigate('u/'+value._id, true)},10)}}>{value.nom + ' ' + value.prenom}<div>{this.props.computeSexeData(value)}</div></div>
+                        return <div className='click-user-name' onClick={() => {setTimeout(() => {navigate('u/'+value._id, true)},10)}}>{ value && (value.nom + ' ' + value.prenom)}<div>{this.props.computeSexeData(value)}</div></div>
                     })}
                 </div>
             </div>
