@@ -1107,7 +1107,33 @@ function check_evenement_conflit(user, event, res, complement_msg, cb) {
             return res.status(401).json({ message: 'Vous avez déjà réservé une machine sur cet horaire. Veuillez retirer votre réservation pour vous inscrire à cette activité' });
           }
         }
-        return cb();
+        CreneauActivity.find({
+          $and:[{dateDebut: {
+            $lt:  dateFinJournee
+          }},
+          {dateDebut: {
+            $gte: dateDebutJournee
+          }},
+          {
+            participants: user
+          }]
+        }, function(err, creneaux) {
+          for (let index in creneaux) {
+            const cren = creneaux[index];
+            let dateDebutCreneau = moment(cren.dateDebut).clone();
+            let dateFinCreneau = moment(cren.dateDebut).clone();
+            dateFinCreneau.add(30,'minutes');
+            if (
+              (dateDebutCreneau <= dateDebut && dateFinCreneau > dateDebut) || //Debut du nouvel evenement pendant un autre
+              (dateDebutCreneau < dateFin && dateFinCreneau >= dateFin) || //Fin du nouvel evenement pendant un autre
+              (dateDebut <= dateDebutCreneau && dateFin > dateFinCreneau) || //Debut du nouvel evenement pendant un autre
+              (dateDebut < dateFinCreneau && dateFin >= dateFinCreneau) //Fin du nouvel evenement pendant un autre
+            ) {
+              return res.status(401).json({ message: 'Vous avez déjà réservé une activité sur cet horaire. Veuillez retirer votre réservation pour vous inscrire à cette activité' });
+            }
+          }
+          return cb();
+        });
       })
       
     }).populate('fileAttente', '_id personne ordre').populate('participants', '_id prenom nom email')

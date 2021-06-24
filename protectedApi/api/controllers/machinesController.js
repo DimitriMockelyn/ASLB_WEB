@@ -336,7 +336,117 @@ function check_evenement_conflit_machine(res, creneau, user, next) {
         
       }
     }
+    CreneauActivity.find({
+      $and:[{dateDebut: {
+        $lt:  dateFinJournee
+      }},
+      {dateDebut: {
+        $gte: dateDebutJournee
+      }},
+      {
+        participants: user
+      }]
+    }, function(err, creneaux) {
+      for (let index in creneaux) {
+        const cren = creneaux[index];
+        let dateDebutCreneau = moment(cren.dateDebut).clone();
+        let dateFinCreneau = moment(cren.dateDebut).clone();
+        dateFinCreneau.add(30,'minutes');
+        if (
+          (dateDebutCreneau <= dateDebut && dateFinCreneau > dateDebut) || //Debut du nouvel evenement pendant un autre
+          (dateDebutCreneau < dateFin && dateFinCreneau >= dateFin) || //Fin du nouvel evenement pendant un autre
+          (dateDebut <= dateDebutCreneau && dateFin > dateFinCreneau) || //Debut du nouvel evenement pendant un autre
+          (dateDebut < dateFinCreneau && dateFin >= dateFinCreneau) //Fin du nouvel evenement pendant un autre
+        ) {
+          return res.status(401).json({ message: 'Vous avez déjà réservé une activité sur cet horaire. Veuillez retirer votre réservation pour vous inscrire à cette activité' });
+        }
+      }
+      return next();
+    });
+    
+  }).populate('fileAttente', '_id personne ordre').populate('participants', '_id prenom nom email');
+}
+
+function check_evenement_conflit_activite(res, creneau, user, next) {
+  if (creneau.participants.length === 0) {
     return next();
+  }
+  //Si l'utilisateur a reservé une activité au meme moment il faut lancer une erreur
+  let dateDebutJournee = new Date(creneau.dateDebut.getTime());
+  let dateFinJournee = new Date(creneau.dateDebut.getTime());
+  let dateDebut = new Date(creneau.dateDebut.getTime());
+  let dateFin = new Date(creneau.dateDebut.getTime() + duree*60000);
+  dateDebutJournee.setHours(0);
+  dateFinJournee.setHours(23);
+  Evenement.find({
+    date_debut: {
+        $gte: dateDebutJournee,
+        $lt:  dateFinJournee
+    }
+  }, function(err, events) {
+    for (let index in events) {
+      let existingEvent = events[index];
+      let dateDebutEvent = new Date(existingEvent.date_debut.getTime());
+      let dateFinEvent = new Date(existingEvent.date_debut.getTime() + existingEvent.duree*60000);
+      if (
+        (dateDebutEvent <= dateDebut && dateFinEvent > dateDebut) || //Debut du nouvel evenement pendant un autre
+        (dateDebutEvent < dateFin && dateFinEvent >= dateFin) || //Fin du nouvel evenement pendant un autre
+        (dateDebut <= dateDebutEvent && dateFin > dateFinEvent) || //Debut du nouvel evenement pendant un autre
+        (dateDebut < dateFinEvent && dateFin >= dateFinEvent) //Fin du nouvel evenement pendant un autre
+      ) {
+        //Cette activité est en conflit, on vérifie la liste des participants
+        if (existingEvent.animateur.toString() === user._id.toString()) {
+          return res.status(401).json({ message: 'Vous êtes déjà inscrit à une autre activité sur cet horaire. Veuillez choisir un autre créneau.' });
+        }
+        if (existingEvent.coanimateurs.indexOf(user._id.toString()) > -1 ) {
+          return res.status(401).json({ message: 'Vous êtes déjà inscrit à une autre activité sur cet horaire. Veuillez choisir un autre créneau.' });
+        }
+        if (existingEvent.participants.length > 0) {
+          for (let index2  = 0; index2 < existingEvent.participants.length; index2++) {
+            let ptp = existingEvent.participants[index2];
+            if (ptp && ptp._id.toString() === user._id.toString()) {
+              return res.status(401).json({ message: 'Vous êtes déjà inscrit à une autre activité sur cet horaire. Veuillez choisir un autre créneau.' });
+            }
+          };
+        }
+        if (existingEvent.fileAttente.length > 0) {
+          for (let index2  = 0; index2 < existingEvent.fileAttente.length; index2++) {
+            let ptp = existingEvent.fileAttente[index2];
+            if (ptp && ptp.personne.toString() === user._id.toString()) {
+              return res.status(401).json({ message: 'Vous êtes déjà inscrit à une autre activité sur cet horaire. Veuillez choisir un autre créneau.' });
+            }
+          };
+        }
+        
+      }
+    }
+    CreneauMachine.find({
+      $and:[{dateDebut: {
+        $lt:  dateFinJournee
+      }},
+      {dateDebut: {
+        $gte: dateDebutJournee
+      }},
+      {
+        membre: user
+      }]
+    }, function(err, creneaux) {
+      for (let index in creneaux) {
+        const cren = creneaux[index];
+        let dateDebutCreneau = moment(cren.dateDebut).clone();
+        let dateFinCreneau = moment(cren.dateDebut).clone();
+        dateFinCreneau.add(30,'minutes');
+        if (
+          (dateDebutCreneau <= dateDebut && dateFinCreneau > dateDebut) || //Debut du nouvel evenement pendant un autre
+          (dateDebutCreneau < dateFin && dateFinCreneau >= dateFin) || //Fin du nouvel evenement pendant un autre
+          (dateDebut <= dateDebutCreneau && dateFin > dateFinCreneau) || //Debut du nouvel evenement pendant un autre
+          (dateDebut < dateFinCreneau && dateFin >= dateFinCreneau) //Fin du nouvel evenement pendant un autre
+        ) {
+          return res.status(401).json({ message: 'Vous avez déjà réservé une activité sur cet horaire. Veuillez retirer votre réservation pour vous inscrire à cette activité' });
+        }
+      }
+      return next();
+    });
     
   }).populate('fileAttente', '_id personne ordre').populate('participants', '_id prenom nom email');
 }
@@ -363,11 +473,13 @@ exports.add_self_to_activite = function(req, res) {
           if (evenement.limite !== undefined && evenement.limite !== null && evenement.participants.length >= evenement.limite) {
             return res.status(401).json({ message: 'Cette activité est complete' }); //Deja en file d'attente
           } else {
-            evenement.participants.push(user);
-            evenement.save(function(err, evenement) {
-              if (err)
-                res.send(err);
-              res.json(evenement);
+            check_evenement_conflit_machine(res,creneau,user, () => {
+              evenement.participants.push(user);
+              evenement.save(function(err, evenement) {
+                if (err)
+                  res.send(err);
+                res.json(evenement);
+              });
             });
           }
         } else {
