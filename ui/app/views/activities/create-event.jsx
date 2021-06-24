@@ -8,6 +8,8 @@ import userHelper from 'focus-core/user';
 import userServices from '../../services/user';
 import Autocomplete from '../../components/autocomplete-field';
 import message from 'focus-core/message';
+import {Checkbox} from 'focus-components/components/input';
+
 export default React.createClass({
     displayName: 'HomeView',
     mixins: [formMixin],
@@ -44,7 +46,7 @@ export default React.createClass({
     },
     renderCstAct() {
         return                 (<div>
-        {!this.state.locked && <Button label='activity.create' type='button' handleOnClick={this.create} />}
+        {!this.state.locked && userHelper.getLogin() && <Button label='activity.create' type='button' handleOnClick={this.create} />}
         {userHelper.getLogin() && userHelper.getLogin().isAdmin && <Button label={'activity.'+(this.state.locked ? 'un' : '')+'lock'} type='button' handleOnClick={this.toggleLock} />}
         </div>);
     },
@@ -84,6 +86,15 @@ export default React.createClass({
             that.setState({...state, ...complement});
         }
     },
+    onChangeParticipant() {
+        var participant = !this.state.alsoParticipant;
+        var participants = this.state.participants;
+        participants = participants.filter(function(value) { value._id !== userHelper.getLogin()._id })
+        if (participant) {
+            participants.push(userHelper.getLogin()._id)
+        }
+        this.setState({alsoParticipant: participant, participants: participants });
+    },
     /** @inheritDoc */
     renderContent() {
         return (
@@ -92,11 +103,18 @@ export default React.createClass({
                 {this.fieldFor('title', {isEdit: !this.state.locked})}
                 {this.fieldFor('limite', {isEdit: !this.state.locked})}            
                 {this.fieldFor('description', {isEdit: !this.state.locked})}
+                <Checkbox
+                            label='Je participe a cet évenement'
+                            onChange={this.onChangeParticipant}
+                            value={this.state.alsoParticipant}
+                        />
+                        <br/>
                 {this.state.participants && this.state.participants.length > 0 && this.state.participants.map( (coanim,index) => {
                         return <div data-focus='display-row'>{this.fieldFor('participant'+index, {isEdit: true, label: 'Participant '+(index+1),options: {
                             FieldComponent: Autocomplete,
                             querySearcherCs: userServices.loadActiveUserAutocomplete, 
-                            initialString: coanim && coanim.nom + ' ' + coanim.prenom}})}
+                            value: coanim,
+                            initialString: coanim == userHelper.getLogin()._id  && userHelper.getLogin().nom + ' ' + userHelper.getLogin().prenom}})}
                                 <Button type='button' icon='clear' label='Supprimer' handleOnClick={this.removeParticipant(index)} />
                             </div>    
                     })}
