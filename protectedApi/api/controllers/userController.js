@@ -17,6 +17,7 @@ var mongoose = require('mongoose'),
   Commentaire = mongoose.model('Commentaire'), 
   CreneauActivity = mongoose.model('CreneauActivity'),
   evenementController = require('./evenementController'),
+  Notifications=  mongoose.model('Notifications'),
   Entreprise = mongoose.model('Entreprise'),
   badgeController = require('./badgeController');
 
@@ -1006,10 +1007,6 @@ exports.performDailyCheckActive = function() {
       $or:[{
         date_fin: {
             $lt: Date.now(),
-        }},
-        {
-          date_expiration_certificat: {
-            $lt: Date.now(),
         }
       }]
     }
@@ -1032,6 +1029,34 @@ exports.performDailyCheckActive = function() {
         console.log(stringMail);
         mailer.sendMail(adminsEmails, '[ASLB] Desactivation automatique',stringMail);
       })
+    }
+  }) 
+  var yesterday = Date.now() - 1000*60*60*24;
+  console.log(yesterday);
+  User.find({$and: [
+    {actif: true},
+    {
+      date_expiration_certificat: {
+        $lt: Date.now()
+      }
+    },
+    {
+      date_expiration_certificat: {
+        $gt: yesterday
+      }
+    }
+  ]}, function(err, users_to_warn) {
+    console.log(users_to_warn)
+    if (users_to_warn.length > 0) {
+      let stringMail = 'Les comptes suivant ont été désactivés car leur date de fin d\'adhésion est passeée ou leur certificat medical arrive a expiration : \n'; 
+      for (let index in users_to_warn) {
+        let notif = new Notifications();
+        notif.destinataire = users_to_warn[index];
+        notif.message = 'Votre certificat medical a expiré, pensez a le renouveler pour renouveler votre inscription';
+
+        notif.save(function(err, not) {
+        })
+      }
     }
   })
 }
