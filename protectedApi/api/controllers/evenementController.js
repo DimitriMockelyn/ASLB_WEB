@@ -85,8 +85,10 @@ exports.list_all_incoming_evenements = function(req, res) {
           activity.is_activity = true;
           activity.createur = activity.createur;
           activity.participants = activity.participants;
+          activity.date_debut = activity.dateDebut;
           evenements.push(activity);
       });
+      evenements.sort((a,b)=> a.date_debut > b.date_debut)
       res.json(evenements);
     }).populate('activity', '_id nom type color')
     
