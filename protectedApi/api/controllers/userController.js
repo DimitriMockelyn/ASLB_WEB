@@ -865,33 +865,44 @@ exports.delete_mass = function(req, res) {
 }
 
 exports.update_date_activation = function(req, res) {
-  User.findByIdAndUpdate(req.params.id, {
-    date_activation : req.body.date_activation, 
-    date_renouvellement : req.body.date_renouvellement, 
-    date_expiration_certificat: req.body.date_expiration_certificat,
-    date_emission_certificat: req.body.date_emission_certificat,
-    date_fin: req.body.date_fin, 
-    dossier_complet: req.body.dossier_complet,
-    adhesion: req.body.adhesion,
-    decharge: req.body.decharge,
-    reglement: req.body.reglement,
-    certificat: req.body.certificat,
-    cotisation: req.body.cotisation,
-    numero: req.body.numero,
-    nom: req.body.nom,
-    prenom: req.body.prenom,
-    email: req.body.email,
-    telephone: req.body.telephone,
-    dateNaissance: req.body.dateNaissance,
-    tokens: req.body.tokens,
-    actif: req.body.actif,
-    doNotDelete: req.body.doNotDelete
-  }, function(err, userActif) {
+  User.findById(req.params.id, function(err, userInit) {
     if (err) {
-      return res.json({updated: false});
-    } else {
-      return res.json({updated: true});
-    }
+      res.send(err);
+    } 
+    User.findByIdAndUpdate(req.params.id, {
+      date_activation : req.body.date_activation, 
+      date_renouvellement : req.body.date_renouvellement, 
+      date_expiration_certificat: req.body.date_expiration_certificat,
+      date_emission_certificat: req.body.date_emission_certificat,
+      date_fin: req.body.date_fin, 
+      dossier_complet: req.body.dossier_complet,
+      adhesion: req.body.adhesion,
+      decharge: req.body.decharge,
+      reglement: req.body.reglement,
+      certificat: req.body.certificat,
+      cotisation: req.body.cotisation,
+      numero: req.body.numero,
+      nom: req.body.nom,
+      prenom: req.body.prenom,
+      email: req.body.email,
+      telephone: req.body.telephone,
+      dateNaissance: req.body.dateNaissance,
+      tokens: req.body.tokens,
+      actif: req.body.actif,
+      doNotDelete: req.body.doNotDelete
+    }, function(err, userActif) {
+      if (err) {
+        return res.json({updated: false});
+      } else {
+        var dateRenouvellement = moment(new Date(userActif.date_renouvellement), moment.ISO_8601);
+        var oldDateRenouvellement = moment(new Date(userInit.date_renouvellement), moment.ISO_8601);
+        if (oldDateRenouvellement.isBefore(dateRenouvellement)) {
+          mailer.sendMail([user.email], 'Validation de votre renouvellement d\'adhésion à ASLB', 'Bonjour. Votre renouvellement d\'adhésion à l\'aslb a bien été enregistré et nous vous en remercions ! A très bientôt, L\'équipe ASLB');
+        }
+        return res.json({updated: true});
+      }
+    });
+    
   });
 }
 
@@ -1000,7 +1011,7 @@ exports.edit_profil = function(req, res) {
 }
 
 exports.performDailyCheckActive = function() {
-  console.log("DAILY CHECK");
+  /*console.log("DAILY CHECK");
   User.find({$and: [
     {actif: true},
     {
@@ -1058,5 +1069,5 @@ exports.performDailyCheckActive = function() {
         })
       }
     }
-  })
+  })*/
 }

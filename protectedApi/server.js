@@ -91,7 +91,7 @@ var routes = require('./api/routes/evenementRoutes');
 routes(app);
 
 cron.schedule("0 0 3 * * *", () => {
-  userController.performDailyCheckActive();
+  //userController.performDailyCheckActive();
 })
 
 
