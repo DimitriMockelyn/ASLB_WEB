@@ -869,6 +869,7 @@ exports.update_date_activation = function(req, res) {
     if (err) {
       res.send(err);
     } 
+    var dateRenouvellement = moment(new Date(userActif.date_renouvellement), moment.ISO_8601);
     User.findByIdAndUpdate(req.params.id, {
       date_activation : req.body.date_activation, 
       date_renouvellement : req.body.date_renouvellement, 
@@ -894,7 +895,6 @@ exports.update_date_activation = function(req, res) {
       if (err) {
         return res.json({updated: false});
       } else {
-        var dateRenouvellement = moment(new Date(userActif.date_renouvellement), moment.ISO_8601);
         var oldDateRenouvellement = moment(new Date(userInit.date_renouvellement), moment.ISO_8601);
         if (oldDateRenouvellement.isBefore(dateRenouvellement)) {
           mailer.sendMail([userActif.email], 'Validation de votre renouvellement d\'adhésion à ASLB', 'Bonjour. Votre renouvellement d\'adhésion à l\'aslb a bien été enregistré et nous vous en remercions ! A très bientôt, L\'équipe ASLB');
