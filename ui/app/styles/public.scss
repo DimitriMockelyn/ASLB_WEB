@@ -1461,26 +1461,42 @@ p {
     opacity: 0.7;
 }
 
+
+
+@keyframes cssAnimation {
+  0%   {opacity: 1; height: 100%;}
+  33%  {opacity: 1;height: 100%;}
+  34%  {opacity: 0;height:0px;}
+  100% {opacity: 0;height:0px;}
+}
+
 [data-focus='big-tiles-monitoring'] {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  margin-top: 20px;
+
   & > div {
-    width: 30%;
-    height: 250px;
     display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: space-around;
-    text-align: center;
-    border: 1px solid black;
-    margin: 20px;
-    border-radius: 20px;
-    background-color: rgba(35, 123, 76, 0.52);
+    flex-direction: row;
+    flex-wrap: wrap;
+    margin-top: 20px;
+
+    .show-first{
+
+    }
     & > div {
-      font-size: 30px;
-      color: white;
+      width: 30%;
+      height: 250px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-around;
+      text-align: center;
+      border: 1px solid black;
+      margin: 20px;
+      border-radius: 20px;
+      background-color: rgba(35, 123, 76, 0.52);
+      & > div {
+        font-size: 30px;
+        color: white;
+      }
     }
   }
 }

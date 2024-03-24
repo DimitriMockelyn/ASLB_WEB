@@ -240,12 +240,13 @@ exports.toggle_self_for_machine = function(req, res) {
             return res.status(401).json({ message: 'Vous ne pouvez pas monopoliser deux machines en même temps' });
           }
 
-        //On vérifie les conflits suplémentaires : pas le droit de faire 2 machines pareil de suite
-        let dateDebutCreneauPrec = dateFinCreneau.clone().add(-2*duree, 'minutes');
+        //On vérifie les conflits suplémentaires : pas le droit de faire 3 machines pareil de suite
+        let dateDebutCreneauPrec = dateFinCreneau.clone().add(-3*duree, 'minutes');
+        let dateFinCreneauSuiv = dateFinCreneau.clone().add(duree, 'minutes');
         CreneauMachine.find({
           $and:[{
             $or: [{
-              dateDebut: dateFinCreneau
+              dateDebut: dateFinCreneauSuiv
             }, {
               dateDebut: dateDebutCreneauPrec
             }]}
@@ -256,7 +257,7 @@ exports.toggle_self_for_machine = function(req, res) {
         }, function( err, creneauxAvantApres) {
           for (let index in creneauxAvantApres) {
             if (creneauxAvantApres[index].machine.type === creneau.machine.type) {
-              return res.status(401).json({ message: 'Pour laisser la place aux autres, il est interdit de réserver deux fois de suite une même machine. Si elle reste libre, vous pourrez continuer à l\'utiliser' });
+              return res.status(401).json({ message: 'Pour laisser la place aux autres, il est interdit de réserver trois fois de suite une même machine. Si elle reste libre, vous pourrez continuer à l\'utiliser' });
             }
           }
 
