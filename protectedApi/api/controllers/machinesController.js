@@ -241,26 +241,41 @@ exports.toggle_self_for_machine = function(req, res) {
           }
 
         //On vérifie les conflits suplémentaires : pas le droit de faire 3 machines pareil de suite
-        let dateDebutCreneauPrec = dateFinCreneau.clone().add(-3*duree, 'minutes');
+        let dateDebutCreneauAntPrec = dateFinCreneau.clone().add(-3*duree, 'minutes');
+        let dateDebutCreneauPrec = dateFinCreneau.clone().add(-2*duree, 'minutes');
         let dateFinCreneauSuiv = dateFinCreneau.clone().add(duree, 'minutes');
         CreneauMachine.find({
           $and:[{
-            $or: [{
-              dateDebut: dateFinCreneauSuiv
-            }, {
-              dateDebut: dateDebutCreneauPrec
-            }]}
+            dateDebut: {
+                $gte: dateDebutCreneauAntPrec,
+                $lte:  dateFinCreneauSuiv
+            }}
           , {
             membre: user
           }]
 
         }, function( err, creneauxAvantApres) {
+          var datesFound = {"dateDebutCreneauAntPrec": false, "dateDebutCreneauPrec": false, "dateFinCreneau": false, "dateFinCreneauSuiv": false}
           for (let index in creneauxAvantApres) {
             if (creneauxAvantApres[index].machine.type === creneau.machine.type) {
-              return res.status(401).json({ message: 'Pour laisser la place aux autres, il est interdit de réserver trois fois de suite une même machine. Si elle reste libre, vous pourrez continuer à l\'utiliser' });
+              
+              if (moment(creneauxAvantApres[index].dateDebut).toString() === dateDebutCreneauAntPrec.toString()) {
+                datesFound["dateDebutCreneauAntPrec"] = true;
+              }
+              if (moment(creneauxAvantApres[index].dateDebut).toString() === dateDebutCreneauPrec.toString()) {
+                datesFound["dateDebutCreneauPrec"] = true;
+              }
+              if (moment(creneauxAvantApres[index].dateDebut).toString() === dateFinCreneau.toString()) {
+                datesFound["dateFinCreneau"] = true;
+              }
+              if (moment(creneauxAvantApres[index].dateDebut).toString() === dateFinCreneauSuiv.toString()) {
+                datesFound["dateFinCreneauSuiv"] = true;
+              }
             }
           }
-
+          if ((datesFound["dateDebutCreneauAntPrec"] && datesFound["dateDebutCreneauPrec"]) || (datesFound["dateFinCreneau"] && datesFound["dateDebutCreneauPrec"]) || (datesFound["dateFinCreneau"] && datesFound["dateFinCreneauSuiv"])) {
+          return res.status(401).json({ message: 'Pour laisser la place aux autres, il est interdit de réserver trois fois de suite une même machine. Si elle reste libre, vous pourrez continuer à l\'utiliser' });
+          }
           if (creneau.membre) {
             creneau.membre = undefined;
           } else {

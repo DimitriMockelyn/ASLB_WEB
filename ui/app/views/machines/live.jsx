@@ -111,12 +111,13 @@ export default React.createClass({
         return (
         <div>
             <div className='array-like horaires-salle'>
-                {moment().format('HH:mm')}
+                {moment().format('HH:mm')} 
+                {this.state.showData && this.state.showData === 2 && 
+                     <span>- Prochain creneau:</span>}
+                    {this.state.showData && this.state.showData === 3 && 
+                     <span>- Dans une heure:</span>}
             </div>
-            {this.state.showData && this.state.showData === 2 && <div className="array-like horaires-salle"><br/><br/>
-                    Prochain creneau:</div>}
-                    {this.state.showData && this.state.showData === 3 && <div className="array-like horaires-salle"><br/><br/>
-                    Dans une heure:</div>}
+            
             <div data-focus='big-tiles-monitoring'>
                 <div className="show-first">
                 {this.state.showData && this.state.showData === 1 && this.state.data &&this.state.data.map(cren => {
@@ -125,16 +126,14 @@ export default React.createClass({
                             <div>{cren.membre ? cren.membre.prenom + ' ' + cren.membre.nom : 'Libre'}</div>
                         </div>
                 })}
-                </div>
-                <div className="show-second">
+
                                 {this.state.showData && this.state.showData === 2 && this.state.data2 && this.state.data2.map(cren => {
                     return <div>
                             <div>{cren.machine.nom}</div>
                             <div>{cren.membre ? cren.membre.prenom + ' ' + cren.membre.nom : 'Libre'}</div>
                         </div>
                 })}
-                </div>
-                <div className="show-third">
+
                                 {this.state.showData && this.state.showData === 3 &&  this.state.data3 &&this.state.data3.map(cren => {
                     return <div>
                             <div>{cren.machine.nom}</div>
