@@ -74,7 +74,7 @@
     "focus-devtools": "^0.3.5",
     "focus-notifications": "^0.2.0-rc6",
     "google-auth-library": "^0.11.0",
-    "googleapis": "^22.2.0",
+    "googleapis": "^59.0.0",
     "has-flag": "^2.0.0",
     "immutable": "^3.7.2",
     "input-moment": "^0.3.6",
