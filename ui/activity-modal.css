@@ -1,0 +1,201 @@
+/* ===== MODAL ACTIVITÉ ===== */
+.activity-modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(5px);
+    z-index: 2000;
+    align-items: center;
+    justify-content: center;
+    animation: fadeIn 0.3s ease;
+}
+
+.activity-modal.active {
+    display: flex;
+}
+
+.activity-modal-content {
+    background: var(--white);
+    border-radius: var(--radius-lg);
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    max-width: 500px;
+    width: 90%;
+    max-height: 80vh;
+    overflow-y: auto;
+    position: relative;
+    animation: slideUp 0.3s ease;
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.activity-modal-close {
+    position: absolute;
+    top: var(--spacing-lg);
+    right: var(--spacing-lg);
+    width: 36px;
+    height: 36px;
+    background: rgba(220, 53, 69, 0.1);
+    border: 2px solid var(--gray-light);
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all var(--transition-fast);
+    color: var(--gray-medium);
+    z-index: 10;
+}
+
+.activity-modal-close:hover {
+    background: rgba(220, 53, 69, 0.2);
+    border-color: #dc3545;
+    color: #dc3545;
+    transform: rotate(90deg);
+}
+
+.activity-modal-close svg {
+    width: 20px;
+    height: 20px;
+}
+
+.activity-modal-header {
+    padding: var(--spacing-xl);
+    padding-bottom: var(--spacing-lg);
+    border-bottom: 2px solid var(--gray-light);
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-lg);
+}
+
+.activity-modal-icon {
+    width: 60px;
+    height: 60px;
+    border-radius: var(--radius-md);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+    box-shadow: var(--shadow-md);
+}
+
+.activity-modal-header h2 {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--gray-dark);
+    margin: 0;
+}
+
+.activity-modal-body {
+    padding: var(--spacing-xl);
+}
+
+.activity-modal-body p {
+    font-size: 1rem;
+    line-height: 1.6;
+    color: var(--gray-medium);
+    margin-bottom: var(--spacing-lg);
+}
+
+.activity-modal-info {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-md);
+    background: var(--gray-bg);
+    padding: var(--spacing-lg);
+    border-radius: var(--radius-md);
+}
+
+.modal-info-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.modal-info-item strong {
+    color: var(--gray-dark);
+    font-weight: 600;
+}
+
+.modal-info-item span {
+    color: var(--gray-medium);
+}
+
+/* Couleurs d'icônes pour chaque activité */
+.activity-modal-icon.fitgood {
+    background: linear-gradient(135deg, #1B5E20, #2E7D32);
+    color: white;
+}
+
+.activity-modal-icon.ppg {
+    background: linear-gradient(135deg, #4FC3F7, #29B6F6);
+    color: white;
+}
+
+.activity-modal-icon.yoga {
+    background: linear-gradient(135deg, #FFB300, #FFA000);
+    color: white;
+}
+
+.activity-modal-icon.pilates {
+    background: linear-gradient(135deg, #9C27B0, #7B1FA2);
+    color: white;
+}
+
+.activity-modal-icon.boxe {
+    background: linear-gradient(135deg, #1565C0, #0D47A1);
+    color: white;
+}
+
+.activity-modal-icon.marche {
+    background: linear-gradient(135deg, #81C784, #66BB6A);
+    color: white;
+}
+
+.activity-modal-icon.fitdance {
+    background: linear-gradient(135deg, #EC407A, #E91E63);
+    color: white;
+}
+
+.activity-modal-icon.danseafro {
+    background: linear-gradient(135deg, #FF6F00, #F57C00);
+    color: white;
+}
+
+.activity-modal-icon.beachvolley {
+    background: linear-gradient(135deg, #D32F2F, #C62828);
+    color: white;
+}
+
+.activity-modal-icon.seanceindiv {
+    background: linear-gradient(135deg, #B71C1C, #8B0000);
+    color: white;
+}
+
+.activity-modal-icon.relaxation {
+    background: linear-gradient(135deg, #A5D6A7, #81C784);
+    color: white;
+}
+
+.activity-modal-icon.step {
+    background: linear-gradient(135deg, #7E57C2, #673AB7);
+    color: white;
+}
+
+.activity-modal-icon.hiit {
+    background: linear-gradient(135deg, #F8BBD0, #F48FB1);
+    color: var(--gray-dark);
+}

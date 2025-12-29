@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Administration - ASLB</title>
+    <meta name="description" content="Panneau d'administration ASLB - Gestion des activités">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="admin.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Playfair+Display:wght@400;700;800&display=swap"
+        rel="stylesheet">
+</head>
+
+<body>
+    <!-- Header simplifié -->
+    <header class="admin-header">
+        <div class="admin-header-content">
+            <div class="admin-logo">
+                <img src="logo-aslb-complet.png" alt="ASLB Logo" class="logo-img">
+                <h1>Administration</h1>
+            </div>
+            <nav class="admin-nav">
+                <a href="index.html" class="btn-back">← Retour au site</a>
+            </nav>
+        </div>
+    </header>
+
+    <div class="admin-layout">
+        <!-- Sidebar de navigation -->
+        <aside class="admin-sidebar">
+            <nav class="admin-menu">
+                <a href="#activites" class="admin-menu-item active" data-section="activites">
+                    <span class="menu-icon">🏃</span>
+                    <span>Activités</span>
+                </a>
+                <a href="#membres" class="admin-menu-item" data-section="membres">
+                    <span class="menu-icon">👥</span>
+                    <span>Membres</span>
+                </a>
+                <a href="#appareils" class="admin-menu-item" data-section="appareils">
+                    <span class="menu-icon">🏋️</span>
+                    <span>Appareils</span>
+                </a>
+                <a href="#planning" class="admin-menu-item" data-section="planning">
+                    <span class="menu-icon">📅</span>
+                    <span>Planning</span>
+                </a>
+                <a href="#actualites" class="admin-menu-item" data-section="actualites">
+                    <span class="menu-icon">📰</span>
+                    <span>Actualités</span>
+                </a>
+                <a href="#parametres" class="admin-menu-item" data-section="parametres">
+                    <span class="menu-icon">⚙️</span>
+                    <span>Paramètres</span>
+                </a>
+            </nav>
+        </aside>
+
+        <!-- Contenu principal -->
+        <main class="admin-content">
+            <!-- Section Activités -->
+            <div class="admin-section active" id="section-activites">
+                <div class="section-header">
+                    <div>
+                        <h2>Gestion des activités</h2>
+                        <p class="section-description">Gérez les activités proposées par l'association</p>
+                    </div>
+                    <button class="btn-primary btn-sm" id="btnAddActivity">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <line x1="12" y1="5" x2="12" y2="19"></line>
+                            <line x1="5" y1="12" x2="19" y2="12"></line>
+                        </svg>
+                        Ajouter
+                    </button>
+                </div>
+
+                <div class="table-container">
+                    <table class="admin-table" id="activitiesTable">
+                        <thead>
+                            <tr>
+                                <th width="50">Icône</th>
+                                <th>Nom</th>
+                                <th>Animateur</th>
+                                <th width="120">Durée</th>
+                                <th width="80">Couleur</th>
+                                <th width="100">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="activitiesTableBody">
+                            <!-- Rempli dynamiquement -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Section Membres (à venir) -->
+            <div class="admin-section" id="section-membres">
+                <div class="section-header">
+                    <div>
+                        <h2>Gestion des membres</h2>
+                        <p class="section-description">Gérez les adhérents de l'association</p>
+                    </div>
+                </div>
+                <div class="coming-soon">
+                    <p>🚧 Section en cours de développement</p>
+                    <small>Cette fonctionnalité sera disponible prochainement</small>
+                </div>
+            </div>
+
+            <!-- Section Appareils (à venir) -->
+            <div class="admin-section" id="section-appareils">
+                <div class="section-header">
+                    <div>
+                        <h2>Gestion des appareils</h2>
+                        <p class="section-description">Gérez les équipements et leur réservation</p>
+                    </div>
+                </div>
+                <div class="coming-soon">
+                    <p>🚧 Section en cours de développement</p>
+                    <small>Cette fonctionnalité sera disponible prochainement</small>
+                </div>
+            </div>
+
+            <!-- Section Planning (à venir) -->
+            <div class="admin-section" id="section-planning">
+                <div class="section-header">
+                    <div>
+                        <h2>Gestion du planning</h2>
+                        <p class="section-description">Gérez les cours et créneaux horaires</p>
+                    </div>
+                </div>
+                <div class="coming-soon">
+                    <p>🚧 Section en cours de développement</p>
+                    <small>Cette fonctionnalité sera disponible prochainement</small>
+                </div>
+            </div>
+
+            <!-- Section Actualités (à venir) -->
+            <div class="admin-section" id="section-actualites">
+                <div class="section-header">
+                    <div>
+                        <h2>Gestion des actualités</h2>
+                        <p class="section-description">Publiez et gérez les actualités du site</p>
+                    </div>
+                </div>
+                <div class="coming-soon">
+                    <p>🚧 Section en cours de développement</p>
+                    <small>Cette fonctionnalité sera disponible prochainement</small>
+                </div>
+            </div>
+
+            <!-- Section Paramètres (à venir) -->
+            <div class="admin-section" id="section-parametres">
+                <div class="section-header">
+                    <div>
+                        <h2>Paramètres généraux</h2>
+                        <p class="section-description">Configurez les paramètres du site</p>
+                    </div>
+                </div>
+                <div class="coming-soon">
+                    <p>🚧 Section en cours de développement</p>
+                    <small>Cette fonctionnalité sera disponible prochainement</small>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Modal d'ajout/modification -->
+    <div class="admin-modal" id="activityFormModal">
+        <div class="admin-modal-content">
+            <div class="admin-modal-header">
+                <h3 id="modalFormTitle">Ajouter une activité</h3>
+                <button class="admin-modal-close" id="modalFormClose" aria-label="Fermer">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                </button>
+            </div>
+            <div class="admin-modal-body">
+                <form id="activityForm">
+                    <input type="hidden" id="activityKey" name="key">
+
+                    <div class="form-group">
+                        <label for="activityName">Nom de l'activité *</label>
+                        <input type="text" id="activityName" name="name" required placeholder="Ex: FitGood">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="activityDescription">Description *</label>
+                        <textarea id="activityDescription" name="description" required rows="4"
+                            placeholder="Décrivez l'activité..."></textarea>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="activityInstructor">Animateur *</label>
+                            <input type="text" id="activityInstructor" name="instructor" required
+                                placeholder="Ex: Stéphane M.">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="activityDuration">Durée *</label>
+                            <input type="text" id="activityDuration" name="duration" required
+                                placeholder="Ex: 45 minutes">
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="activityColor">Couleur *</label>
+                            <div class="color-input-group">
+                                <input type="color" id="activityColor" name="color" required>
+                                <input type="text" id="activityColorHex" placeholder="#1B5E20"
+                                    pattern="^#[0-9A-Fa-f]{6}$">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="activityIcon">Icône (emoji) *</label>
+                            <input type="text" id="activityIcon" name="icon" required placeholder="⚡" maxlength="2">
+                        </div>
+                    </div>
+
+                    <!-- Aperçu -->
+                    <div class="form-preview">
+                        <h4>Aperçu</h4>
+                        <div class="preview-card">
+                            <div class="preview-icon" id="previewIcon">⚡</div>
+                            <div class="preview-content">
+                                <h5 id="previewName">Nom de l'activité</h5>
+                                <p id="previewInstructor">Animateur</p>
+                                <span class="preview-badge" id="previewBadge">Badge</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="button" class="btn-secondary" id="btnCancelForm">Annuler</button>
+                        <button type="submit" class="btn-primary">Enregistrer</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal de confirmation de suppression -->
+    <div class="admin-modal" id="deleteConfirmModal">
+        <div class="admin-modal-content modal-small">
+            <div class="admin-modal-header">
+                <h3>Confirmer la suppression</h3>
+                <button class="admin-modal-close" id="deleteConfirmClose" aria-label="Fermer">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                </button>
+            </div>
+            <div class="admin-modal-body">
+                <p>Êtes-vous sûr de vouloir supprimer l'activité <strong id="deleteActivityName"></strong> ?</p>
+                <p class="text-warning">Cette action est irréversible.</p>
+                <div class="form-actions">
+                    <button type="button" class="btn-secondary" id="btnCancelDelete">Annuler</button>
+                    <button type="button" class="btn-danger" id="btnConfirmDelete">Supprimer</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast de notification -->
+    <div class="toast" id="toast">
+        <span id="toastMessage"></span>
+    </div>
+
+    <script src="admin.js"></script>
+</body>
+
+</html>

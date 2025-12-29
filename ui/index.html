@@ -1,0 +1,689 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ASLB - Association Sportive La Boursidière</title>
+    <meta name="description"
+        content="Association Sportive La Boursidière - Découvrez nos activités sportives, cours et événements">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="auth-styles.css">
+    <link rel="stylesheet" href="activity-modal.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <!-- Google Fonts -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Poppins:wght@400;500;600;700;800&family=Caveat:wght@400;500;600;700&family=Playfair+Display:wght@400;500;600;700;800&family=Bebas+Neue&display=swap"
+        rel="stylesheet">
+</head>
+
+<body>
+    <!-- Header compact -->
+    <header class="header">
+        <div class="header-content">
+            <!-- Logo -->
+            <div class="logo-container">
+                <img src="logo-aslb-complet.png" alt="ASLB Logo" class="logo-img">
+            </div>
+
+            <!-- Titre central -->
+            <div class="header-title">
+                <h1>
+                    <span class="title-word">Association</span>
+                    <span class="title-word"><span class="title-letter">S</span>portive</span>
+                    <span class="title-word">La Boursidière</span>
+                </h1>
+                <p class="header-slogan">Le sport en entreprise, votre bien-être au quotidien</p>
+            </div>
+
+            <!-- Actions utilisateur -->
+            <div class="header-actions">
+                <!-- Profil utilisateur (masqué par défaut) -->
+                <div class="user-profile-header" style="display: none;">
+                    <div class="user-avatar">SM</div>
+                    <div class="user-info">
+                        <span class="user-name">Stéphane Martin</span>
+                        <span class="user-role">Président</span>
+                    </div>
+                    <div class="user-tokens">
+                        <span class="token available" title="Jeton disponible"></span>
+                        <span class="token available" title="Jeton disponible"></span>
+                        <span class="token available" title="Jeton disponible"></span>
+                    </div>
+                </div>
+
+                <!-- Toggle mode sombre/clair -->
+                <button class="theme-toggle" id="themeToggle" title="Changer le thème">
+                    <svg class="sun-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="5" />
+                        <line x1="12" y1="1" x2="12" y2="3" />
+                        <line x1="12" y1="21" x2="12" y2="23" />
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64" />
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78" />
+                        <line x1="1" y1="12" x2="3" y2="12" />
+                        <line x1="21" y1="12" x2="23" y2="12" />
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" />
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" />
+                    </svg>
+                    <svg class="moon-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        style="display: none;">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
+                    </svg>
+                </button>
+
+                <button class="btn-inscription">S'inscrire</button>
+                <button class="btn-connexion">Connexion</button>
+                <button class="btn-menu-hamburger" id="menuToggle">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Sidebar gauche -->
+    <aside class="sidebar">
+        <nav class="sidebar-nav">
+            <a href="#accueil" class="sidebar-link active" title="Accueil">
+                <span class="sidebar-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
+                        <polyline points="9 22 9 12 15 12 15 22" />
+                    </svg>
+                </span>
+                <span class="sidebar-label">Accueil</span>
+            </a>
+            <a href="#agenda" class="sidebar-link" title="Agenda">
+                <span class="sidebar-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <rect x="3" y="4" width="18" height="18" rx="2" ry="2" />
+                        <line x1="16" y1="2" x2="16" y2="6" />
+                        <line x1="8" y1="2" x2="8" y2="6" />
+                        <line x1="3" y1="10" x2="21" y2="10" />
+                    </svg>
+                </span>
+                <span class="sidebar-label">Agenda</span>
+            </a>
+            <a href="#appareils" class="sidebar-link" title="Appareils">
+                <span class="sidebar-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M6 6h4v12H6z" />
+                        <path d="M14 6h4v12h-4z" />
+                        <path d="M10 9h4v6h-4z" />
+                    </svg>
+                </span>
+                <span class="sidebar-label">Appareils</span>
+            </a>
+            <a href="#infos" class="sidebar-link" title="Infos Association">
+                <span class="sidebar-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="10" />
+                        <line x1="12" y1="16" x2="12" y2="12" />
+                        <line x1="12" y1="8" x2="12.01" y2="8" />
+                    </svg>
+                </span>
+                <span class="sidebar-label">Infos</span>
+            </a>
+            <a href="#medias" class="sidebar-link" title="Médias">
+                <span class="sidebar-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <rect x="3" y="3" width="18" height="18" rx="2" ry="2" />
+                        <circle cx="8.5" cy="8.5" r="1.5" />
+                        <polyline points="21 15 16 10 5 21" />
+                    </svg>
+                </span>
+                <span class="sidebar-label">Médias</span>
+            </a>
+            <a href="#evenements" class="sidebar-link" title="Évènements">
+                <span class="sidebar-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
+                        <circle cx="12" cy="10" r="3" />
+                    </svg>
+                </span>
+                <span class="sidebar-label">Évènements</span>
+            </a>
+
+            <!-- Séparateur -->
+            <div class="sidebar-separator"></div>
+
+            <!-- Menu Admin (visible uniquement pour les admins) -->
+            <a href="admin.html" class="sidebar-link admin-menu" title="Administration">
+                <span class="sidebar-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="3" />
+                        <path d="M12 1v6m0 6v6m-9-9h6m6 0h6" />
+                        <path d="M4.93 4.93l4.24 4.24m5.66 5.66l4.24 4.24m0-14.14l-4.24 4.24M9.17 14.83l-4.24 4.24" />
+                    </svg>
+                </span>
+                <span class="sidebar-label">Admin</span>
+                <span class="admin-badge">Admin</span>
+            </a>
+        </nav>
+    </aside>
+
+    <!-- Menu hamburger (profil utilisateur) -->
+    <div class="hamburger-menu" id="hamburgerMenu">
+        <button class="hamburger-close" id="hamburgerClose" aria-label="Fermer le menu">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <line x1="18" y1="6" x2="6" y2="18"></line>
+                <line x1="6" y1="6" x2="18" y2="18"></line>
+            </svg>
+        </button>
+        <div class="hamburger-menu-content">
+            <div class="user-profile">
+                <div class="user-avatar">
+                    <svg viewBox="0 0 40 40" class="avatar-icon">
+                        <circle cx="20" cy="20" r="19" fill="url(#avatarGradient)" />
+                        <circle cx="20" cy="15" r="6" fill="white" />
+                        <path d="M10 35 Q10 25, 20 25 Q30 25, 30 35" fill="white" />
+                        <defs>
+                            <linearGradient id="avatarGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" style="stop-color:#2EA365;stop-opacity:1" />
+                                <stop offset="100%" style="stop-color:#237B4C;stop-opacity:1" />
+                            </linearGradient>
+                        </defs>
+                    </svg>
+                </div>
+                <div class="user-info">
+                    <h3>Bienvenue !</h3>
+                    <p>Connectez-vous pour accéder à votre profil</p>
+                </div>
+            </div>
+            <nav class="hamburger-nav">
+                <a href="#profil" class="hamburger-link">
+                    <span class="icon">👤</span>
+                    <span>Mon Profil</span>
+                </a>
+                <a href="#mes-cours" class="hamburger-link">
+                    <span class="icon">📅</span>
+                    <span>Mes Cours</span>
+                </a>
+                <a href="#calendrier" class="hamburger-link">
+                    <span class="icon">🗓️</span>
+                    <span>Calendrier</span>
+                </a>
+                <a href="#appareils" class="hamburger-link">
+                    <span class="icon">🏋️</span>
+                    <span>Appareils</span>
+                </a>
+                <a href="#parametres" class="hamburger-link">
+                    <span class="icon">⚙️</span>
+                    <span>Paramètres</span>
+                </a>
+                <a href="#deconnexion" class="hamburger-link logout">
+                    <span class="icon">🚪</span>
+                    <span>Déconnexion</span>
+                </a>
+            </nav>
+        </div>
+    </div>
+
+    <!-- Contenu principal -->
+    <main class="main-content">
+        <!-- Section Activités compacte -->
+        <section class="activities-section">
+            <h2 class="section-title">Nos Activités</h2>
+            <div class="activities-grid">
+                <div class="activity-card" data-activity="fitgood" data-color="#1B5E20">
+                    <div class="activity-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" />
+                        </svg>
+                    </div>
+                    <h3>FitGood</h3>
+                </div>
+                <div class="activity-card" data-activity="ppg" data-color="#4FC3F7">
+                    <div class="activity-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M6 6h4v12H6z" />
+                            <path d="M14 6h4v12h-4z" />
+                            <path d="M10 9h4v6h-4z" />
+                        </svg>
+                    </div>
+                    <h3>PPG</h3>
+                </div>
+                <div class="activity-card" data-activity="yoga" data-color="#FFB300">
+                    <div class="activity-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="12" cy="5" r="2" />
+                            <path d="M12 7v6M8 10l4 3 4-3M8 16h8" />
+                        </svg>
+                    </div>
+                    <h3>Yoga</h3>
+                </div>
+                <div class="activity-card" data-activity="pilates" data-color="#9C27B0">
+                    <div class="activity-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="12" cy="5" r="2" />
+                            <path d="M12 7v4M8 11l4 2 4-2M12 13v6M10 19h4" />
+                        </svg>
+                    </div>
+                    <h3>Pilates</h3>
+                </div>
+                <div class="activity-card" data-activity="boxe" data-color="#1565C0">
+                    <div class="activity-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="9" cy="9" r="7" />
+                            <path d="M16 8l5-5M19 11l2-2" />
+                        </svg>
+                    </div>
+                    <h3>Boxe</h3>
+                </div>
+                <div class="activity-card" data-activity="marche" data-color="#81C784">
+                    <div class="activity-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
+                            <circle cx="8.5" cy="7" r="4" />
+                            <polyline points="17 11 19 13 23 9" />
+                        </svg>
+                    </div>
+                    <h3>Marche Nordique</h3>
+                </div>
+                <div class="activity-card" data-activity="fitdance" data-color="#EC407A">
+                    <div class="activity-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M9 18V5l12-2v13" />
+                            <circle cx="6" cy="18" r="3" />
+                            <circle cx="18" cy="16" r="3" />
+                        </svg>
+                    </div>
+                    <h3>Fit Dance</h3>
+                </div>
+                <div class="activity-card" data-activity="danseafro" data-color="#FF6F00">
+                    <div class="activity-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="12" cy="4" r="2" />
+                            <path d="M10 6c-1 2-2 4-2 6 0 3 2 5 4 5s4-2 4-5c0-2-1-4-2-6" />
+                            <path d="M8 12l-2 6M16 12l2 6" />
+                        </svg>
+                    </div>
+                    <h3>Danse Afro</h3>
+                </div>
+                <div class="activity-card" data-activity="beachvolley" data-color="#D32F2F">
+                    <div class="activity-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="12" cy="12" r="10" />
+                            <path d="M12 2a10 10 0 0 0 0 20" />
+                            <path d="M2 12h20" />
+                        </svg>
+                    </div>
+                    <h3>Beach Volley</h3>
+                </div>
+                <div class="activity-card" data-activity="seanceindiv" data-color="#B71C1C">
+                    <div class="activity-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="12" cy="8" r="4" />
+                            <path d="M3 21v-2a4 4 0 0 1 4-4h10a4 4 0 0 1 4 4v2" />
+                        </svg>
+                    </div>
+                    <h3>Séance Indiv.</h3>
+                </div>
+                <div class="activity-card" data-activity="relaxation" data-color="#A5D6A7">
+                    <div class="activity-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M2 12h2l3.5-7 4 14 3.5-7H22" />
+                        </svg>
+                    </div>
+                    <h3>Relaxation</h3>
+                </div>
+                <div class="activity-card" data-activity="step" data-color="#7E57C2">
+                    <div class="activity-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M2 20h4V14h4V8h4V2h4" />
+                        </svg>
+                    </div>
+                    <h3>Step</h3>
+                </div>
+                <div class="activity-card" data-activity="hiit" data-color="#F8BBD0">
+                    <div class="activity-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="22 12 18 12 15 21 9 3 6 12 2 12" />
+                        </svg>
+                    </div>
+                    <h3>HIIT</h3>
+                </div>
+            </div>
+        </section>
+
+        <!-- Planning Carrousel -->
+        <section class="schedule-banner">
+            <div class="schedule-header">
+                <h2 class="section-title">Planning de la semaine</h2>
+                <div class="schedule-controls">
+                    <button class="carousel-btn prev" id="schedulePrev">‹</button>
+                    <span class="current-week">Semaine du 23 au 29 Décembre</span>
+                    <button class="carousel-btn next" id="scheduleNext">›</button>
+                </div>
+            </div>
+            <div class="schedule-carousel-wrapper">
+                <button class="carousel-nav-btn carousel-nav-prev" id="carouselPrev" aria-label="Activité précédente">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polyline points="15 18 9 12 15 6"></polyline>
+                    </svg>
+                </button>
+                <div class="schedule-carousel-container">
+                    <div class="schedule-carousel" id="scheduleCarousel">
+                        <!-- Lundi -->
+                        <div class="schedule-card" data-activity="fitgood">
+                            <div class="schedule-time">Lundi 12h15</div>
+                            <div class="schedule-activity">
+                                <span class="activity-badge fitgood">FitGood</span>
+                                <span class="schedule-instructor">avec Stéphane Martin</span>
+                            </div>
+                            <div class="schedule-spots">15 places</div>
+                        </div>
+                        <div class="schedule-card" data-activity="ppg">
+                            <div class="schedule-time">Lundi 18h00</div>
+                            <div class="schedule-activity">
+                                <span class="activity-badge ppg">PPG</span>
+                                <span class="schedule-instructor">avec Guillaume Marchive</span>
+                            </div>
+                            <div class="schedule-spots">12 places</div>
+                        </div>
+
+                        <!-- Mardi -->
+                        <div class="schedule-card" data-activity="yoga">
+                            <div class="schedule-time">Mardi 12h15</div>
+                            <div class="schedule-activity">
+                                <span class="activity-badge yoga">Yoga</span>
+                                <span class="schedule-instructor">avec Marilyn Bonnet</span>
+                            </div>
+                            <div class="schedule-spots">10 places</div>
+                        </div>
+                        <div class="schedule-card" data-activity="boxe">
+                            <div class="schedule-time">Mardi 18h30</div>
+                            <div class="schedule-activity">
+                                <span class="activity-badge boxe">Boxe</span>
+                                <span class="schedule-instructor">avec Sébastien Clerck</span>
+                            </div>
+                            <div class="schedule-spots">14 places</div>
+                        </div>
+
+                        <!-- Mercredi -->
+                        <div class="schedule-card" data-activity="fitdance">
+                            <div class="schedule-time">Mercredi 12h15</div>
+                            <div class="schedule-activity">
+                                <span class="activity-badge fitdance">Fit Dance</span>
+                                <span class="schedule-instructor">avec Cristina Bovo</span>
+                            </div>
+                            <div class="schedule-spots">16 places</div>
+                        </div>
+                        <div class="schedule-card" data-activity="hiit">
+                            <div class="schedule-time">Mercredi 18h00</div>
+                            <div class="schedule-activity">
+                                <span class="activity-badge hiit">HIIT</span>
+                                <span class="schedule-instructor">avec Jeanne Chpack</span>
+                            </div>
+                            <div class="schedule-spots">12 places</div>
+                        </div>
+
+                        <!-- Jeudi -->
+                        <div class="schedule-card" data-activity="pilates">
+                            <div class="schedule-time">Jeudi 12h15</div>
+                            <div class="schedule-activity">
+                                <span class="activity-badge pilates">Pilates</span>
+                                <span class="schedule-instructor">avec Marilyn Bonnet</span>
+                            </div>
+                            <div class="schedule-spots">10 places</div>
+                        </div>
+                        <div class="schedule-card" data-activity="danseafro">
+                            <div class="schedule-time">Jeudi 18h30</div>
+                            <div class="schedule-activity">
+                                <span class="activity-badge danseafro">Danse Afro</span>
+                                <span class="schedule-instructor">avec Samira Mebrek</span>
+                            </div>
+                            <div class="schedule-spots">14 places</div>
+                        </div>
+
+                        <!-- Vendredi -->
+                        <div class="schedule-card" data-activity="step">
+                            <div class="schedule-time">Vendredi 12h15</div>
+                            <div class="schedule-activity">
+                                <span class="activity-badge step">Step</span>
+                                <span class="schedule-instructor">avec Cristina Bovo</span>
+                            </div>
+                            <div class="schedule-spots">15 places</div>
+                        </div>
+                        <div class="schedule-card" data-activity="relaxation">
+                            <div class="schedule-time">Vendredi 18h00</div>
+                            <div class="schedule-activity">
+                                <span class="activity-badge relaxation">Relaxation</span>
+                                <span class="schedule-instructor">avec Cristina Bovo</span>
+                            </div>
+                            <div class="schedule-spots">12 places</div>
+                        </div>
+
+                        <!-- Samedi -->
+                        <div class="schedule-card" data-activity="beachvolley">
+                            <div class="schedule-time">Samedi 10h00</div>
+                            <div class="schedule-activity">
+                                <span class="activity-badge beachvolley">Beach Volley</span>
+                                <span class="schedule-instructor">avec Olivier Salucci</span>
+                            </div>
+                            <div class="schedule-spots">20 places</div>
+                        </div>
+                        <div class="schedule-card" data-activity="marche">
+                            <div class="schedule-time">Samedi 14h00</div>
+                            <div class="schedule-activity">
+                                <span class="activity-badge marche">Marche Nordique</span>
+                                <span class="schedule-instructor">Sortie groupe</span>
+                            </div>
+                            <div class="schedule-spots">25 places</div>
+                        </div>
+                    </div>
+                </div>
+                <button class="carousel-nav-btn carousel-nav-next" id="carouselNext" aria-label="Activité suivante">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polyline points="9 18 15 12 9 6"></polyline>
+                    </svg>
+                </button>
+            </div>
+        </section>
+
+        <!-- Container pour Actualités et Discussion -->
+        <div class="content-columns">
+            <!-- Mur d'actualités -->
+            <section class="news-wall">
+                <h2 class="section-title">Actualités</h2>
+                <div class="news-feed">
+                    <article class="news-card">
+                        <div class="news-header">
+                            <span class="news-badge important">Important</span>
+                            <span class="news-date">Il y a 2 heures</span>
+                        </div>
+                        <h3>Fermeture exceptionnelle</h3>
+                        <p>L'association sera fermée du 31 décembre au 2 janvier. Reprise des cours le 3 janvier. Bonnes
+                            fêtes à tous ! 🎉</p>
+                        <div class="news-footer">
+                            <button class="news-action">❤️ 24</button>
+                            <button class="news-action">💬 5</button>
+                        </div>
+                    </article>
+
+                    <article class="news-card">
+                        <div class="news-header">
+                            <span class="news-badge event">Événement</span>
+                            <span class="news-date">Hier</span>
+                        </div>
+                        <h3>Nouveau cours de Pilates</h3>
+                        <p>À partir de janvier, nouveau créneau de Pilates le samedi matin à 10h. Inscriptions ouvertes
+                            dès maintenant !</p>
+                        <div class="news-footer">
+                            <button class="news-action">❤️ 42</button>
+                            <button class="news-action">💬 12</button>
+                        </div>
+                    </article>
+
+                    <article class="news-card">
+                        <div class="news-header">
+                            <span class="news-badge info">Info</span>
+                            <span class="news-date">Il y a 3 jours</span>
+                        </div>
+                        <h3>Nouveaux appareils disponibles</h3>
+                        <p>Découvrez nos nouveaux vélos elliptiques et tapis de course dans la salle de fitness. Venez
+                            les tester ! 🏋️‍♀️</p>
+                        <div class="news-footer">
+                            <button class="news-action">❤️ 38</button>
+                            <button class="news-action">💬 8</button>
+                        </div>
+                    </article>
+                </div>
+            </section>
+
+            <!-- Mur de discussion -->
+            <section class="discussion-wall">
+                <h2 class="section-title">Discussions</h2>
+                <div class="discussion-input">
+                    <textarea placeholder="Laissez un petit mot à la communauté..." rows="3"></textarea>
+                    <button class="btn-post">Publier</button>
+                </div>
+                <div class="discussion-feed">
+                    <div class="discussion-message">
+                        <div class="message-avatar">
+                            <div class="avatar-circle">M</div>
+                        </div>
+                        <div class="message-content">
+                            <div class="message-header">
+                                <span class="message-author">Marie L.</span>
+                                <span class="message-time">Il y a 1h</span>
+                            </div>
+                            <p>Super cours de yoga ce matin ! Merci Sophie 🙏</p>
+                        </div>
+                    </div>
+
+                    <div class="discussion-message">
+                        <div class="message-avatar">
+                            <div class="avatar-circle">T</div>
+                        </div>
+                        <div class="message-content">
+                            <div class="message-header">
+                                <span class="message-author">Thomas D.</span>
+                                <span class="message-time">Il y a 3h</span>
+                            </div>
+                            <p>Quelqu'un pour un footing demain matin ? 🏃‍♂️</p>
+                        </div>
+                    </div>
+
+                    <div class="discussion-message">
+                        <div class="message-avatar">
+                            <div class="avatar-circle">S</div>
+                        </div>
+                        <div class="message-content">
+                            <div class="message-header">
+                                <span class="message-author">Sophie M.</span>
+                                <span class="message-time">Il y a 5h</span>
+                            </div>
+                            <p>Hâte de découvrir les nouveaux appareils ! 💪</p>
+                        </div>
+                    </div>
+
+                    <div class="discussion-message">
+                        <div class="message-avatar">
+                            <div class="avatar-circle">L</div>
+                        </div>
+                        <div class="message-content">
+                            <div class="message-header">
+                                <span class="message-author">Laura P.</span>
+                                <span class="message-time">Hier</span>
+                            </div>
+                            <p>Merci à tous pour cette belle année sportive ! 🎊</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>À propos</h4>
+                <p>Association Sportive La Boursidière</p>
+                <p>Votre bien-être, notre passion</p>
+            </div>
+            <div class="footer-section">
+                <h4>Contact</h4>
+                <p>📧 contact@aslb.fr</p>
+                <p>📞 01 23 45 67 89</p>
+            </div>
+            <div class="footer-section">
+                <h4>Horaires</h4>
+                <p>Lun - Ven: 7h - 21h</p>
+                <p>Sam: 9h - 18h</p>
+            </div>
+            <div class="footer-section">
+                <h4>Suivez-nous</h4>
+                <div class="social-links">
+                    <a href="#" class="social-icon">📘</a>
+                    <a href="#" class="social-icon">📷</a>
+                    <a href="#" class="social-icon">🐦</a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 ASLB - Tous droits réservés</p>
+        </div>
+    </footer>
+
+    <!-- Modal de connexion -->
+    <div class="login-modal" id="loginModal">
+        <div class="modal-content">
+            <button class="modal-close" aria-label="Fermer">&times;</button>
+            <h2>Connexion</h2>
+            <form id="loginForm">
+                <div class="form-group">
+                    <label for="loginEmail">Email</label>
+                    <input type="email" id="loginEmail" required placeholder="votre.email@example.com">
+                </div>
+                <div class="form-group">
+                    <label for="loginPassword">Mot de passe</label>
+                    <input type="password" id="loginPassword" required placeholder="••••••••">
+                </div>
+                <div id="loginError" class="error-message" style="display: none;"></div>
+                <button type="submit" class="btn-login">Se connecter</button>
+            </form>
+            <p class="modal-footer">
+                Pas encore de compte ? <a href="#inscription">S'inscrire</a>
+            </p>
+        </div>
+    </div>
+
+    <!-- Modal description d'activité -->
+    <div class="activity-modal" id="activityModal">
+        <div class="activity-modal-content">
+            <button class="activity-modal-close" id="activityModalClose" aria-label="Fermer">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <line x1="18" y1="6" x2="6" y2="18"></line>
+                    <line x1="6" y1="6" x2="18" y2="18"></line>
+                </svg>
+            </button>
+            <div class="activity-modal-header">
+                <div class="activity-modal-icon" id="modalIcon"></div>
+                <h2 id="modalTitle">Activité</h2>
+            </div>
+            <div class="activity-modal-body">
+                <p id="modalDescription"></p>
+                <div class="activity-modal-info">
+                    <div class="modal-info-item">
+                        <strong>Animateur :</strong>
+                        <span id="modalInstructor"></span>
+                    </div>
+                    <div class="modal-info-item">
+                        <strong>Durée :</strong>
+                        <span id="modalDuration"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="auth.js"></script>
+    <script src="activity-modal.js"></script>
+    <script src="script.js"></script>
+</body>
+
+</html>
